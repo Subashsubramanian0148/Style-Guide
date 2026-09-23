@@ -165,7 +165,7 @@ export function AttachmentAnatomy() {
           onRemove={() => {}}
         />
 
-        {headerIconGap && <GapCallout x={headerIconGap.x} width={headerIconGap.width} value={6} />}
+        {headerIconGap && <GapCallout x={headerIconGap.x} width={headerIconGap.width} value={8} />}
         {headerAuto && <AutoBand x={headerAuto.x} y={headerAuto.y} width={headerAuto.width} height={headerAuto.height} />}
         {badgeRegion && <RegionPadding x={badgeRegion.x} y={badgeRegion.y} width={badgeRegion.width} height={badgeRegion.height} size={4} edges={["top", "bottom"]} />}
         {badgeRegion && <RegionPadding x={badgeRegion.x} y={badgeRegion.y} width={badgeRegion.width} height={badgeRegion.height} size={8} edges={["left", "right"]} />}

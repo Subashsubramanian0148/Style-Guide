@@ -9,6 +9,13 @@ function fill(color: string) {
   return `${color}33`;
 }
 
+// A thin band (e.g. the 8-12px gap between two rows) reads as barely more
+// than a line at the default translucency, so gap callouts use a stronger
+// fill to stay visible at that height.
+function fillStrong(color: string) {
+  return `${color}4D`;
+}
+
 /** Wraps a measured anatomy diagram. */
 export function AnatomyFrame({ children }: { children: React.ReactNode }) {
   return (
@@ -196,7 +203,7 @@ export function HGapCallout({
 
   return (
     <>
-      <div style={{ position: "absolute", left: 0, top: y, width, height, background: fill(color), pointerEvents: "none", zIndex: 1 }} />
+      <div style={{ position: "absolute", left: 0, top: y, width, height, background: fillStrong(color), pointerEvents: "none", zIndex: 1 }} />
 
       {side === "right" ? (
         <>
