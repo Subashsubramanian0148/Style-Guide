@@ -154,6 +154,39 @@ export function VGapMark({
   );
 }
 
+/** The horizontal counterpart to `VGapMark` — a thin horizontal tick +
+ *  fill band with its badge floating to the left, for marking a padding
+ *  edge that reads top-to-bottom (e.g. a badge's top/bottom padding). */
+export function HTickMark({
+  x,
+  y,
+  width,
+  value,
+  color = PADDING_COLOR,
+  extendTo,
+}: {
+  x: number;
+  y: number;
+  width: number;
+  value: number;
+  color?: string;
+  /** Pass an x to the left of `x` to float the badge clear of nearby
+   *  clutter, the same way `VGapMark`'s `extendTo` does vertically. */
+  extendTo?: number;
+}) {
+  const left = extendTo !== undefined ? Math.min(extendTo, x) : x;
+  const bandHeight = 8;
+  return (
+    <>
+      <div style={{ position: "absolute", left, top: y - bandHeight / 2, width: x + width - left, height: bandHeight, background: fillStrong(color), zIndex: 1, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", left, top: y, width: x + width - left, height: 1, background: color, zIndex: 2, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", left: left - 9, top: y, transform: "translateY(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
+        {value}
+      </div>
+    </>
+  );
+}
+
 /** A solid-color band + numbered badge marking the gap between two elements,
  *  positioned at pixel coordinates measured from the live DOM. */
 export function GapBand({ x, y, width, height, color = GAP_COLOR }: { x: number; y: number; width: number; height: number; color?: string }) {

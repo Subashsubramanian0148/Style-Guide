@@ -6,6 +6,8 @@ import { Card, Badge, BadgeTone, BadgeSize } from "../../../../packages/core/src
 import { Table, DataTable, TableScrollWrap, Avatar, AvatarGroup, Progress } from "../../../../packages/core/src/components/DataDisplay";
 import { AVATAR_JORDAN, AVATAR_SAM, AVATAR_SAMPLES } from "../avatarSamples";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
+import { AnatomySection } from "../AnatomySection";
+import { BadgeAnatomy } from "../BadgeAnatomy";
 const rows = [
   { id: 1, date: "Sep 01, 2026", type: "Contribution", amount: "$412.50", status: "success" as const },
   { id: 2, date: "Aug 15, 2026", type: "Dividend", amount: "$18.20", status: "success" as const },
@@ -238,7 +240,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
       id: "02",
       anchorId: "badge",
       title: "Badge",
-      content: <BadgeMatrixDemo />,
+      content: <AnatomySection demo={<BadgeMatrixDemo />} anatomy={<BadgeAnatomy />} />,
     },
     {
       id: "03",
