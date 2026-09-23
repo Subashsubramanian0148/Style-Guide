@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ChevronIcon } from "./Primitives";
 export { Collapsible, type CollapsibleProps, type CollapsibleVariant } from "./Primitives";
 
@@ -22,6 +22,7 @@ export function Accordion({
   variant?: AccordionVariant;
 }) {
   const [open, setOpen] = useState<Set<string>>(new Set(defaultOpenIds));
+  const triggerRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const toggle = (id: string, disabled?: boolean) => {
     if (disabled) return;
     setOpen((prev) => {
@@ -30,14 +31,51 @@ export function Accordion({
       return next;
     });
   };
+  // WAI-ARIA Accordion pattern (https://www.w3.org/WAI/ARIA/apg/patterns/accordion/):
+  // Down/Up move focus to the next/previous header, Home/End jump to the
+  // first/last. Disabled headers are skipped, matching how Tab already
+  // behaves (disabled buttons aren't part of the tab order).
+  const focusTrigger = (index: number) => {
+    const count = items.length;
+    const wrapped = ((index % count) + count) % count;
+    for (let i = 0; i < count; i++) {
+      const candidate = (wrapped + i) % count;
+      const el = triggerRefs.current[candidate];
+      if (el && !items[candidate].disabled) {
+        el.focus();
+        return;
+      }
+    }
+  };
+  const onTriggerKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        focusTrigger(index + 1);
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        focusTrigger(index - 1);
+        break;
+      case "Home":
+        e.preventDefault();
+        focusTrigger(0);
+        break;
+      case "End":
+        e.preventDefault();
+        focusTrigger(items.length - 1);
+        break;
+    }
+  };
   return (
     <div className={`cds-accordion cds-accordion--${variant}`}>
-      {items.map((item) => {
+      {items.map((item, index) => {
         const isOpen = open.has(item.id) && !item.disabled;
         return (
           <div className={`cds-accordion-item ${isOpen ? "cds-accordion-item--open" : ""}`} key={item.id}>
             <h3 style={{ margin: 0 }}>
               <button
+                ref={(el) => { triggerRefs.current[index] = el; }}
                 className="cds-accordion-trigger"
                 aria-expanded={isOpen}
                 aria-controls={`panel-${item.id}`}
@@ -45,6 +83,7 @@ export function Accordion({
                 disabled={item.disabled}
                 id={`trigger-${item.id}`}
                 onClick={() => toggle(item.id, item.disabled)}
+                onKeyDown={(e) => onTriggerKeyDown(e, index)}
               >
                 {item.title}
                 <ChevronIcon className="cds-accordion-chevron" />

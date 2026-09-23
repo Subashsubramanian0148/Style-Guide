@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { componentLinks } from "../navConfig";
+import { flatComponentLinks } from "../navConfig";
 
 const sections = [
   {
@@ -41,7 +41,12 @@ const sections = [
                 fontWeight: 700,
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
-                color: "var(--core-color-brand-600)",
+                // Was --core-color-brand-600, a raw (non-mode-aware) scale
+                // step that stayed the same dark blue in dark mode and read
+                // at ~1.7:1 against the dark card — the same mode-aware
+                // token used by the CTA link below resolves correctly in
+                // both modes.
+                color: "var(--theme-brand-text-primary-default)",
               }}
             >
               {item.label}
@@ -136,7 +141,7 @@ const sections = [
           gap: 8,
         }}
       >
-        {componentLinks.map((link) => (
+        {flatComponentLinks.map((link) => (
           <Link
             key={link.to}
             to={link.to}

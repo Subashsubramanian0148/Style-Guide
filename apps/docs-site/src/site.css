@@ -65,7 +65,27 @@ body {
 a { color: inherit; }
 ::selection { background: var(--site-accent-soft); }
 
-.site-shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+.site-skip-link {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 1000;
+  padding: var(--core-space-2) var(--core-space-4);
+  border-radius: var(--core-radius-sm);
+  background: var(--site-bg-elevated);
+  color: var(--site-text);
+  border: 2px solid var(--site-accent);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--core-elevation-3);
+}
+
+.site-skip-link:focus {
+  top: 12px;
+  outline: none;
+}
+
+.site-shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; position: relative; }
 @media (max-width: 900px) { .site-shell { grid-template-columns: 1fr; } .site-sidebar { display: none; } }
 
 .site-sidebar {
@@ -86,7 +106,14 @@ a { color: inherit; }
 .site-nav-link:hover { background: var(--site-bg-hover); color: var(--site-text); }
 .site-nav-link.active {
   background: var(--brand-background-primary-light);
-  color: var(--theme-primitive-color-primary-500);
+  /* Was the raw --theme-primitive-color-primary-500 primitive, which is
+     the same hardcoded hex in both modes. The background above IS
+     mode-aware (a pale tint in light, a near-black navy in dark), so in
+     dark mode that fixed medium-blue text sat on an almost-black bg at
+     ~2:1 contrast — illegible (WCAG 1.4.3 needs 4.5:1). The semantic
+     --brand-text-primary-default token resolves to a much lighter blue
+     in dark mode specifically for this reason. */
+  color: var(--brand-text-primary-default);
   border-color: var(--brand-border-primary-default);
   font-weight: 600;
 }
@@ -117,6 +144,15 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   gap: 80px;
+}
+
+/* Unified /components page only — see DocsSectionList's `flat` prop.
+   Collapses this wrapper's own box so its .docs-section children become
+   direct flex items of the outer page container, where each section's own
+   `order` (flatOrderForAnchor) can interleave it across category boundaries
+   into one global A-Z sequence instead of staying grouped by category. */
+.docs-section-list--flat {
+  display: contents;
 }
 
 .docs-section {
@@ -219,6 +255,9 @@ a { color: inherit; }
    that lives inside a flush panel. Corner-rounding for flush content (tables, code blocks)
    is each child's own responsibility (e.g. .cds-table-wrap has its own border-radius). */
 .site-panel--flush { padding: 0; }
+/* Component demo cards (Buttons, Inputs, etc.) render borderless — the
+   background/elevation of the card is enough separation from the page. */
+.site-panel--demo { border-color: transparent; }
 
 .preview-surface {
   border-radius: 12px;

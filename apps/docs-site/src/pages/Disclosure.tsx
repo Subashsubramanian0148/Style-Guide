@@ -42,11 +42,11 @@ function AccordionVariantsDemo() {
           display: "flex",
           alignItems: "center",
           gap: 12,
-          background: "var(--site-bg-elevated, #FFFFFF)",
+          background: "var(--site-bg-elevated)",
           border: "1px solid var(--site-border)",
           borderRadius: 12,
           padding: "12px 18px",
-          boxShadow: "0 1px 4px rgba(0,0,0,0.03)",
+          boxShadow: "var(--core-elevation-1)",
         }}
       >
         <span
@@ -55,7 +55,7 @@ function AccordionVariantsDemo() {
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.08em",
-            color: "var(--site-text-dim, #787887)",
+            color: "var(--site-text-dim)",
           }}
         >
           Style:
@@ -63,7 +63,7 @@ function AccordionVariantsDemo() {
         <div
           style={{
             display: "inline-flex",
-            background: "var(--site-bg, rgba(128,128,128,0.08))",
+            background: "var(--site-bg)",
             borderRadius: 8,
             padding: 3,
             border: "1px solid var(--site-border)",
@@ -96,18 +96,8 @@ function AccordionVariantsDemo() {
       </div>
 
       {/* Preview Surface */}
-      <div className="site-panel site-panel--flush">
-        <div
-          className="preview-surface"
-          data-theme="core"
-          data-mode="light"
-          style={{
-            background: "var(--core-color-bg-page)",
-            flexDirection: "column",
-            alignItems: "stretch",
-            padding: "24px 28px",
-          }}
-        >
+      <div className="site-panel site-panel--flush site-panel--demo">
+        <Preview showModeToggle>
           <div style={{ maxWidth: 640, margin: "0 auto", width: "100%" }}>
             <Accordion
               variant={variant}
@@ -115,7 +105,7 @@ function AccordionVariantsDemo() {
               items={faqItems}
             />
           </div>
-        </div>
+        </Preview>
       </div>
     </div>
   );
@@ -137,28 +127,19 @@ export default function DisclosurePage({ embedded = false }: { embedded?: boolea
       title: "Separator",
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <div className="site-panel site-panel--flush">
-            <div
-              className="preview-surface"
-              data-theme="core"
-              data-mode="light"
-              style={{
-                background: "var(--core-color-bg-page)",
-                flexDirection: "column",
-                alignItems: "stretch",
-                gap: 16,
-                padding: "24px 28px",
-              }}
-            >
+          <div className="site-panel site-panel--flush site-panel--demo">
+            <Preview showModeToggle>
               <div
                 style={{
-                  background: "var(--core-color-surface-raised, #FFFFFF)",
+                  background: "var(--core-color-surface-raised)",
                   border: "1px solid var(--core-color-border-default)",
                   borderRadius: 8,
                   padding: "18px 20px",
                   display: "flex",
                   flexDirection: "column",
                   gap: 12,
+                  width: "100%",
+                  maxWidth: 480,
                 }}
               >
                 <div>
@@ -179,7 +160,7 @@ export default function DisclosurePage({ embedded = false }: { embedded?: boolea
                   </div>
                 </div>
               </div>
-            </div>
+            </Preview>
           </div>
         </div>
       ),
@@ -190,11 +171,11 @@ export default function DisclosurePage({ embedded = false }: { embedded?: boolea
       title: "Skeleton",
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <div className="site-panel site-panel--flush">
-            <Preview>
+          <div className="site-panel site-panel--flush site-panel--demo">
+            <Preview showModeToggle>
               <div
                 style={{
-                  background: "var(--core-color-surface-raised, #FFFFFF)",
+                  background: "var(--core-color-surface-raised)",
                   border: "1px solid var(--core-color-border-default)",
                   borderRadius: 8,
                   padding: 24,
@@ -202,7 +183,7 @@ export default function DisclosurePage({ embedded = false }: { embedded?: boolea
                   display: "flex",
                   flexDirection: "column",
                   gap: 16,
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+                  boxShadow: "var(--core-elevation-1)",
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
@@ -227,7 +208,7 @@ export default function DisclosurePage({ embedded = false }: { embedded?: boolea
   ];
 
   const sectionList = (
-    <DocsSectionList>
+    <DocsSectionList flat={embedded}>
       {sections.map((s) => (
         <DocsSection key={s.anchorId} anchorId={s.anchorId} title={s.title}>
           {s.content}

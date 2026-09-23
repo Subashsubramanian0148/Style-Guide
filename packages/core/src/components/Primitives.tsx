@@ -175,6 +175,50 @@ export function ChevronIcon({
   );
 }
 
+export type SortDirection = "ascending" | "descending" | "none";
+
+/**
+ * A dedicated table-sort glyph — two stacked triangles (up + down), with
+ * whichever direction is active rendered solid and the other dimmed —
+ * rather than a single ChevronIcon that just rotates. A rotating chevron
+ * only shows "this column is sorted, in one of two directions"; it can't
+ * show "sortable but not yet sorted" as a visually distinct third state
+ * the way a two-triangle glyph can (both dim = sortable, one solid = the
+ * active direction). Matches the sort affordance used by AG Grid, Ant
+ * Design Table, and MUI DataGrid.
+ */
+export function SortIcon({
+  direction = "none",
+  size = 12,
+  className = "",
+}: {
+  direction?: SortDirection;
+  size?: number;
+  className?: string;
+}) {
+  return (
+    <svg
+      className={className}
+      width={size}
+      height={size}
+      viewBox="0 0 10 12"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M5 0L9 4.5H1L5 0Z"
+        fill="currentColor"
+        opacity={direction === "ascending" ? 1 : 0.35}
+      />
+      <path
+        d="M5 12L1 7.5H9L5 12Z"
+        fill="currentColor"
+        opacity={direction === "descending" ? 1 : 0.35}
+      />
+    </svg>
+  );
+}
+
 /** Standard stroke calendar icon used on date picker inputs. */
 export function CalendarIcon({
   size = 16,

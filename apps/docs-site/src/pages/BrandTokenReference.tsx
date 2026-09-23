@@ -36,7 +36,7 @@ function CopyBtn({
       style={{
         border: "1px solid var(--theme-neutral-border-primary-default)",
         background: "var(--theme-colors-neutral-100)",
-        borderRadius: 6,
+        borderRadius: "var(--core-radius-sm)",
         padding: "4px 8px",
         fontSize: "var(--typography-font-size-xs)",
         fontWeight: 600,

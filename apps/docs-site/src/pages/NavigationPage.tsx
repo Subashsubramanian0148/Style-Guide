@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Preview } from "../Preview";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
-import { Tabs, Breadcrumb, Pagination, AppSidebar, Stepper, type SidebarItem, type StepState } from "../../../../packages/core/src/components/Navigation";
+import { Tabs, Pagination, AppSidebar, Stepper, defaultStepStatus, type SidebarItem, type StepState, type StepDef } from "../../../../packages/core/src/components/Navigation";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 
 type SidebarRailState = "DEFAULT" | "HOVER" | "SELECTED" | "FOCUS" | "DISABLED";
@@ -52,16 +52,14 @@ function StepperStatePreview({
           <span className="cds-step-label">
             <span className="cds-step-title">{title}</span>
             <span className="cds-step-desc">{description}</span>
-            {(state === "in-progress" || state === "warning" || state === "error") && status && (
-              <span className="cds-step-status">
-                {state === "in-progress" ? (
-                  <span className="cds-step-status-spinner" role="status" aria-hidden="true" />
-                ) : (
-                  <span className="cds-step-status-dot" aria-hidden="true" />
-                )}
-                {status}
-              </span>
-            )}
+            <span className="cds-step-status">
+              {state === "in-progress" ? (
+                <span className="cds-step-status-spinner" role="status" aria-hidden="true" />
+              ) : (
+                <span className="cds-step-status-dot" aria-hidden="true" />
+              )}
+              {status ?? defaultStepStatus(state)}
+            </span>
           </span>
         </li>
       </ol>
@@ -71,65 +69,105 @@ function StepperStatePreview({
 
 function StepperStatesDemo() {
   return (
-    <div className="site-panel site-panel--flush">
-      <div
-        className="preview-surface"
-        data-theme="core"
-        data-mode="light"
-        style={{
-          background: "var(--theme-colors-neutral-50)",
-          flexDirection: "column",
-          alignItems: "stretch",
-          padding: "var(--core-space-5, 20px)",
-          gap: "var(--core-space-4, 16px)",
-        }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
-            gap: "var(--core-space-4, 16px)",
-          }}
-        >
-          <StepperStatePreview
-            eyebrow="DEFAULT"
-            state="default"
-            title="Fees"
-            description="Review fees."
-            stepNumber={3}
-          />
-          <StepperStatePreview
-            eyebrow="IN PROGRESS"
-            state="in-progress"
-            title="Allocation"
-            description="Pick sources."
-            status="In progress"
-            stepNumber={2}
-          />
-          <StepperStatePreview
-            eyebrow="COMPLETED"
-            state="completed"
-            title="Withdrawal"
-            description="Set amount."
-          />
-          <StepperStatePreview
-            eyebrow="WARNING"
-            state="warning"
-            title="Fees"
-            description="Review fees."
-            status="Review needed"
-            stepNumber={3}
-          />
-          <StepperStatePreview
-            eyebrow="ERROR"
-            state="error"
-            title="Documents"
-            description="Attach forms."
-            status="Required"
-            stepNumber={4}
-          />
-        </div>
-      </div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
+        gap: "var(--core-space-4, 16px)",
+      }}
+    >
+      <StepperStatePreview
+        eyebrow="DEFAULT"
+        state="default"
+        title="Fees"
+        description="Review fees."
+        stepNumber={3}
+      />
+      <StepperStatePreview
+        eyebrow="IN PROGRESS"
+        state="in-progress"
+        title="Allocation"
+        description="Pick sources."
+        status="In progress"
+        stepNumber={2}
+      />
+      <StepperStatePreview
+        eyebrow="COMPLETED"
+        state="completed"
+        title="Withdrawal"
+        description="Set amount."
+      />
+      <StepperStatePreview
+        eyebrow="WARNING"
+        state="warning"
+        title="Fees"
+        description="Review fees."
+        status="Review needed"
+        stepNumber={3}
+      />
+      <StepperStatePreview
+        eyebrow="ERROR"
+        state="error"
+        title="Documents"
+        description="Attach forms."
+        status="Required"
+        stepNumber={4}
+      />
+    </div>
+  );
+}
+
+const variantLabelStyle: React.CSSProperties = {
+  fontSize: "var(--typography-label-size)",
+  lineHeight: "var(--typography-label-line-height)",
+  fontWeight: "var(--typography-label-weight)",
+  letterSpacing: "var(--typography-label-letter-spacing)",
+  color: "var(--theme-neutral-text-primary-default)",
+  marginBottom: 2,
+};
+
+/** Mobile stepper — a compact segmented progress bar for the whole flow
+ *  plus a focused card for just the current step, at realistic phone
+ *  width. Shown once per state so every state's marker/border/status
+ *  treatment is visible, matching the desktop states demo above it. */
+function MobileStepperStatesDemo() {
+  const flowSteps = [
+    { label: "Withdrawal", description: "Set amount." },
+    { label: "Allocation", description: "Pick sources." },
+    { label: "Fees", description: "Review fees." },
+    { label: "Documents", description: "Attach forms." },
+    { label: "Review", description: "Confirm and submit." },
+  ] as const;
+
+  const cases: Array<{
+    eyebrow: string;
+    state: StepState;
+    status?: string;
+    currentIndex: number;
+  }> = [
+    { eyebrow: "STEP 1", state: "default", currentIndex: 0 },
+    { eyebrow: "STEP 2", state: "in-progress", status: "In progress", currentIndex: 1 },
+    { eyebrow: "STEP 3", state: "warning", status: "Review needed", currentIndex: 2 },
+    { eyebrow: "STEP 4", state: "error", status: "Required", currentIndex: 3 },
+    { eyebrow: "STEP 5", state: "in-progress", status: "In progress", currentIndex: 4 },
+  ];
+
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--core-space-5, 20px)" }}>
+      {cases.map((c) => {
+        const steps: StepDef[] = flowSteps.map((step, i) => {
+          if (i === c.currentIndex) {
+            return { label: step.label, description: step.description, status: c.status, state: c.state };
+          }
+          return { label: step.label, description: step.description, state: i < c.currentIndex ? "completed" : "default" };
+        });
+        return (
+          <div key={c.eyebrow} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3, 12px)", width: 280 }}>
+            <StateLabel>{c.eyebrow}</StateLabel>
+            <Stepper orientation="mobile" currentIndex={c.currentIndex} steps={steps} />
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -144,30 +182,8 @@ function SidebarRailStatesDemo() {
   ] as const;
 
   return (
-    <div className="site-panel site-panel--flush">
-      <div
-        className="preview-surface"
-        data-theme="core"
-        data-mode="light"
-        style={{
-          background: "var(--theme-colors-neutral-50)",
-          flexDirection: "column",
-          alignItems: "stretch",
-          padding: "var(--core-space-5, 20px)",
-          gap: "var(--core-space-4, 16px)",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--typography-font-family-sans)",
-            fontSize: "var(--typography-label-size)",
-            lineHeight: "var(--typography-label-line-height)",
-            fontWeight: "var(--typography-label-weight)",
-            color: "var(--theme-neutral-text-primary-default)",
-          }}
-        >
-          Sidebar · <code style={{ fontWeight: 400, color: "var(--theme-neutral-text-subtle)" }}>variant=&quot;rail&quot;</code>
-        </div>
+    <div className="site-panel site-panel--flush site-panel--demo">
+      <Preview showModeToggle>
         <div
           style={{
             display: "grid",
@@ -190,7 +206,7 @@ function SidebarRailStatesDemo() {
             </div>
           ))}
         </div>
-      </div>
+      </Preview>
     </div>
   );
 }
@@ -199,25 +215,81 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
   const [page, setPage] = useState(3);
 
   const sections = (
-    <DocsSectionList>
+    <DocsSectionList flat={embedded}>
+      <DocsSection anchorId="pagination" title="Pagination">
+        <div className="site-panel site-panel--flush site-panel--demo">
+          <Preview showModeToggle>
+            <Pagination page={page} pageCount={8} onChange={setPage} />
+          </Preview>
+        </div>
+      </DocsSection>
+
       <DocsSection anchorId="sidebar" title="Sidebar">
         <SidebarRailStatesDemo />
       </DocsSection>
 
-      <DocsSection anchorId="tabs" title="Tabs">
-        <div className="site-panel site-panel--flush">
-          <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", flexDirection: "column", alignItems: "stretch" }}>
-            <Tabs
-              items={[
-                { id: "overview", label: "Overview", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Account overview content.</p> },
-                { id: "transactions", label: "Transactions", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Transaction history content.</p> },
-                { id: "documents", label: "Documents", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Statements & tax forms content.</p> },
-              ]}
-            />
-          </div>
+      <DocsSection anchorId="stepper" title="Stepper">
+        <div className="site-panel site-panel--flush site-panel--demo">
+          <Preview showModeToggle>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-8, 32px)", width: "100%" }}>
+              <div>
+                <div style={{ ...variantLabelStyle, marginBottom: 12 }}>States</div>
+                <StepperStatesDemo />
+              </div>
+
+              <div>
+                <div style={{ ...variantLabelStyle, marginBottom: 12 }}>Horizontal Stepper</div>
+                <Stepper
+                  currentIndex={1}
+                  steps={[
+                    { label: "Personal" },
+                    { label: "Investments" },
+                    { label: "Beneficiaries" },
+                    { label: "Review" },
+                  ]}
+                />
+              </div>
+
+              <div>
+                <div style={{ ...variantLabelStyle, marginBottom: 12 }}>Vertical Stepper</div>
+                <Stepper
+                  orientation="vertical"
+                  currentIndex={1}
+                  steps={[
+                    { label: "Withdrawal", description: "Set type and amount." },
+                    { label: "Allocation", description: "Pick sources.", status: "In progress" },
+                    { label: "Fees", description: "Review fees." },
+                    { label: "Documents", description: "Attach forms." },
+                    { label: "Summary", description: "Review and submit." },
+                  ]}
+                />
+              </div>
+
+              <div>
+                <div style={{ ...variantLabelStyle, marginBottom: 12 }}>Mobile Stepper</div>
+                <MobileStepperStatesDemo />
+              </div>
+            </div>
+          </Preview>
         </div>
-        <div className="site-panel site-panel--flush">
-          <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+      </DocsSection>
+
+      <DocsSection anchorId="tabs" title="Tabs">
+        <div className="site-panel site-panel--flush site-panel--demo">
+          <Preview showModeToggle>
+            <div style={{ width: "100%" }}>
+              <Tabs
+                items={[
+                  { id: "overview", label: "Overview", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Account overview content.</p> },
+                  { id: "transactions", label: "Transactions", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Transaction history content.</p> },
+                  { id: "documents", label: "Documents", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Statements & tax forms content.</p> },
+                ]}
+              />
+            </div>
+          </Preview>
+        </div>
+        <div className="site-panel site-panel--flush site-panel--demo">
+          <Preview showModeToggle>
             <Tabs
               orientation="vertical"
               items={[
@@ -227,80 +299,14 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
                 { id: "beneficiary", label: "Beneficiary Details", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)", margin: 0 }}>Beneficiary details content.</p> },
               ]}
             />
-          </div>
-        </div>
-      </DocsSection>
-
-      <DocsSection anchorId="breadcrumb" title="Breadcrumb">
-        <div className="site-panel site-panel--flush">
-          <Preview>
-            <Breadcrumb items={[{ label: "Home", href: "#" }, { label: "Accounts", href: "#" }, { label: "Transactions" }]} />
-          </Preview>
-        </div>
-        <div className="site-panel site-panel--flush">
-          <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", flexDirection: "column", alignItems: "stretch", gap: 10 }}>
-            {(["slash", "line", "dot", "none"] as const).map((sep) => (
-              <Breadcrumb key={sep} separator={sep} items={[{ label: "Home", href: "#" }, { label: "Accounts", href: "#" }, { label: "Transactions" }]} />
-            ))}
-          </div>
-        </div>
-      </DocsSection>
-
-      <DocsSection anchorId="stepper" title="Stepper">
-        <StepperStatesDemo />
-        <div className="site-panel site-panel--flush">
-          <div
-            className="preview-surface"
-            data-theme="core"
-            data-mode="light"
-            style={{ background: "var(--theme-colors-neutral-50)", padding: "var(--core-space-5, 20px)" }}
-          >
-            <Stepper
-              currentIndex={1}
-              steps={[
-                { label: "Personal" },
-                { label: "Investments" },
-                { label: "Beneficiaries" },
-                { label: "Review" },
-              ]}
-            />
-          </div>
-        </div>
-        <div className="site-panel site-panel--flush">
-          <div
-            className="preview-surface"
-            data-theme="core"
-            data-mode="light"
-            style={{ background: "var(--theme-colors-neutral-50)", padding: "var(--core-space-5, 20px)" }}
-          >
-            <Stepper
-              orientation="vertical"
-              currentIndex={1}
-              steps={[
-                { label: "Withdrawal", description: "Set type and amount." },
-                { label: "Allocation", description: "Pick sources.", status: "In progress" },
-                { label: "Fees", description: "Review fees." },
-                { label: "Documents", description: "Attach forms." },
-                { label: "Summary", description: "Review and submit." },
-              ]}
-            />
-          </div>
-        </div>
-      </DocsSection>
-
-      <DocsSection anchorId="pagination" title="Pagination">
-        <div className="site-panel site-panel--flush">
-          <Preview>
-            <Pagination page={page} pageCount={8} onChange={setPage} />
           </Preview>
         </div>
       </DocsSection>
 
       <style>{`
         .sidebar-state-hover .cds-app-sidebar--rail .cds-app-sidebar-link:nth-child(3):not([aria-current="page"]) {
-          color: var(--theme-primitive-color-primary-500) !important;
+          color: var(--brand-text-primary-default) !important;
           background: var(--theme-brand-background-primary-subtle) !important;
-          box-shadow: inset 3px 0 0 0 var(--theme-primitive-color-primary-500) !important;
         }
         .sidebar-state-focus .cds-app-sidebar--rail .cds-app-sidebar-link:nth-child(3):not([aria-current="page"]) {
           outline: var(--core-focusRing-width, 2px) solid var(--theme-primitive-color-primary-400) !important;
@@ -314,7 +320,7 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
 
   return (
     <div>
-      <h1 className="site-h1">Tabs, Breadcrumb &amp; Pagination</h1>
+      <h1 className="site-h1">Tabs &amp; Pagination</h1>
       <p className="site-lede">Wayfinding components — where you are, how you got here, how to move through a list.</p>
       {sections}
     </div>

@@ -30,11 +30,10 @@
   "card.border": "{color.border.subtle}",
   "card.radius": "{radius.sm}",
   "card.shadow": "{elevation.1}",
-  "badge.radius": "{radius.sm}",
+  "badge.radius": "{radius.full}",
   "focusRing.color": "{color.focus.ring}",
   "focusRing.width": "{border.width.focus}",
   "focusRing.offset": "2px",
-
   "sidebar.radius": "{radius.sm}",
   "sidebar.item.radius": "{radius.sm}",
   "sidebar.item.text": "{color.text.secondary}",
@@ -45,14 +44,11 @@
   "sidebar.icon.bg": "{color.surface.sunken}",
   "sidebar.icon.text": "{color.text.secondary}",
   "sidebar.icon.activeBg": "{color.action.primary.bg}",
-  "sidebar.icon.activeText": "{color.action.primary.text}",
-
+  "sidebar.icon.activeText": "{brand.text.primary-oncolor}",
   "sidebar.rail.bg": "{color.surface.default}",
   "sidebar.rail.accentBar": "{color.action.primary.bg}",
-
   "iconButton.ghost.radius": "{radius.sm}",
   "iconButton.ghost.hoverBg": "{color.surface.sunken}",
-
   "stepper.marker.size": "28px",
   "stepper.marker.radius": "{radius.sm}",
   "stepper.marker.upcomingBg": "{color.surface.sunken}",
@@ -63,11 +59,11 @@
   "stepper.marker.completeText": "{color.status.success.textOnStrong}",
   "stepper.connector.color": "{color.border.default}",
   "stepper.connector.completeColor": "{color.status.success.bgStrong}",
-  "stepper.title.currentColor": "{color.action.primary.bg}",
+  "stepper.title.currentColor": "{color.action.primary.tintText}",
   "stepper.title.completeColor": "{color.text.primary}",
   "stepper.status.text": "{color.text.tertiary}",
-
   "promoCard.bg": "{gradient.brand.subtle}",
   "promoCard.text": "{color.neutral.0}",
-  "promoCard.radius": "{radius.sm}"
+  "promoCard.radius": "{radius.sm}",
+  "overlay.scrim": "{color.overlay.scrim}"
 }

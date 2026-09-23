@@ -386,7 +386,7 @@ function RampRow({
               gridColumn: `1 / -1`,
               display: "flex",
               height: 56,
-              borderRadius: 6,
+              borderRadius: "var(--core-radius-sm)",
               overflow: "hidden",
               border: "1px solid var(--site-border)",
             }}

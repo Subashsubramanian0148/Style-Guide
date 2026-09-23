@@ -5,17 +5,17 @@ import { Button, IconButton } from "../../../../packages/core/src/components/But
 import { Modal, Drawer, Tooltip } from "../../../../packages/core/src/components/Overlays";
 import { Field, Input } from "../../../../packages/core/src/components/Field";
 import { Select } from "../../../../packages/core/src/components/FormControls";
-import { DescriptionList, Icon } from "../../../../packages/core/src/components/Primitives";
+import { Icon } from "../../../../packages/core/src/components/Primitives";
 
 export default function OverlaysPage({ embedded = false }: { embedded?: boolean }) {
   const [modal, setModal] = useState(false);
   const [slideover, setSlideover] = useState(false);
 
   const sections = (
-    <DocsSectionList>
+    <DocsSectionList flat={embedded}>
       <DocsSection anchorId="modal" title="Modal">
-        <div className="site-panel site-panel--flush">
-          <Preview>
+        <div className="site-panel site-panel--flush site-panel--demo">
+          <Preview showModeToggle>
             <Button onClick={() => setModal(true)}>Open modal</Button>
           </Preview>
         </div>
@@ -25,8 +25,8 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
       </DocsSection>
 
       <DocsSection anchorId="slideover" title="Slideover (form panel)">
-        <div className="site-panel site-panel--flush">
-          <Preview>
+        <div className="site-panel site-panel--flush site-panel--demo">
+          <Preview showModeToggle>
             <Button onClick={() => setSlideover(true)}>Open "Add Allocation"</Button>
           </Preview>
         </div>
@@ -39,18 +39,6 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
             <Button variant="secondary" size="sm" onClick={() => setSlideover(false)}>Cancel</Button>
             <Button size="sm" onClick={() => setSlideover(false)}>Save</Button>
           </>}
-          aside={
-            <DescriptionList
-              orientation="inline"
-              items={[
-                { term: "Requested amount", value: "$0.00" },
-                { term: "Tax deduction", value: "$0.00" },
-                { term: "Withdrawal fee", value: "0%" },
-                { term: "Federal tax", value: "20%" },
-                { term: "Gross amount", value: "$0.00" },
-              ]}
-            />
-          }
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <Field label="Recipient name">{(p) => <Input {...p} placeholder="e.g. Taylor Hale" />}</Field>
@@ -61,15 +49,8 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
       </DocsSection>
 
       <DocsSection anchorId="tooltip" title="Tooltip">
-        <div className="site-panel site-panel--flush">
-          <Preview>
-            <Tooltip label="Your vested balance after employer match">
-              <Button variant="secondary" size="sm">Vested balance ⓘ</Button>
-            </Tooltip>
-          </Preview>
-        </div>
-        <div className="site-panel site-panel--flush">
-          <Preview>
+        <div className="site-panel site-panel--flush site-panel--demo">
+          <Preview showModeToggle>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14 }}>
               Vested balance
               <Tooltip label="The portion of employer contributions you keep if you leave today.">

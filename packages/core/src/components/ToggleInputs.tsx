@@ -107,7 +107,17 @@ function clampValue(value: number, min?: number, max?: number) {
   return next;
 }
 
-/** Stepper-style numeric control with minus / value / plus segments. */
+/**
+ * Stepper-style numeric control with minus / value / plus segments.
+ *
+ * The value cell is a real, focusable `<input>` carrying `role="spinbutton"`
+ * (WAI-ARIA APG spinbutton pattern: https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/).
+ * Previously it was a plain, non-focusable `<div role="spinbutton">` — an
+ * invalid combination (spinbutton must be a focusable widget) that also left
+ * no way to reach a specific value except clicking +/- one step at a time,
+ * unlike every reference numeric stepper (Chakra NumberInput, MUI Base
+ * NumberInput, Ant InputNumber), which all let you type the value directly.
+ */
 export function IncrementalSelector({
   value: controlledValue,
   defaultValue = 0,
@@ -122,6 +132,7 @@ export function IncrementalSelector({
   "aria-label": ariaLabel = "Quantity",
 }: IncrementalSelectorProps) {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
+  const [draft, setDraft] = useState<string | null>(null);
   const isControlled = controlledValue !== undefined;
   const value = isControlled ? controlledValue : uncontrolledValue;
 
@@ -133,6 +144,21 @@ export function IncrementalSelector({
 
   const decreaseDisabled = disabled || (min !== undefined && value <= min);
   const increaseDisabled = disabled || (max !== undefined && value >= max);
+
+  const onValueKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowUp") { e.preventDefault(); setValue(value + step); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); setValue(value - step); }
+    else if (e.key === "Home" && min !== undefined) { e.preventDefault(); setValue(min); }
+    else if (e.key === "End" && max !== undefined) { e.preventDefault(); setValue(max); }
+    else if (e.key === "Enter") { e.preventDefault(); (e.target as HTMLInputElement).blur(); }
+  };
+
+  const commitDraft = () => {
+    if (draft === null) return;
+    const parsed = Number(draft);
+    setValue(Number.isFinite(parsed) && draft.trim() !== "" ? parsed : value);
+    setDraft(null);
+  };
 
   return (
     <div
@@ -150,18 +176,22 @@ export function IncrementalSelector({
       >
         <span aria-hidden="true">−</span>
       </button>
-      <div
+      <input
         id={id}
+        type="text"
+        inputMode="numeric"
         className="cds-incremental-selector__value"
-        aria-live="polite"
-        aria-atomic="true"
         aria-valuenow={value}
         aria-valuemin={min}
         aria-valuemax={max}
+        aria-label={ariaLabel}
         role="spinbutton"
-      >
-        {value}
-      </div>
+        disabled={disabled}
+        value={draft ?? String(value)}
+        onChange={(e) => setDraft(e.target.value)}
+        onKeyDown={onValueKeyDown}
+        onBlur={commitDraft}
+      />
       <button
         type="button"
         className="cds-incremental-selector__btn cds-incremental-selector__btn--increase"

@@ -104,7 +104,15 @@ function buildThemeAliasBlock(sourceNames) {
 
   lines.push('  --brand-text-primaryhover: var(--brand-text-primary-hover);');
 
-  return [
+  // Each alias is just `var(--source)` indirection, so it picks up whatever
+  // mode-specific value --source already resolves to — but only on elements
+  // where the alias itself is (re)declared. Previously this block only ever
+  // rendered under the light-mode selector, so in dark mode every
+  // --theme-neutral-*/--theme-brand-*/etc. alias fell through via
+  // inheritance to its light-mode value instead of tracking --source's dark
+  // value. Emitting the identical alias list again under the dark selector
+  // fixes that without needing separate dark values.
+  const lightBlock = [
     ":root,",
     'html[data-site-mode="light"],',
     '[data-mode="light"] {',
@@ -112,6 +120,16 @@ function buildThemeAliasBlock(sourceNames) {
     ...lines,
     "}",
   ].join("\n");
+
+  const darkBlock = [
+    'html[data-site-mode="dark"],',
+    '[data-mode="dark"] {',
+    "  /* Theme-prefixed aliases (auto-generated — do not edit by hand) */",
+    ...lines,
+    "}",
+  ].join("\n");
+
+  return `${lightBlock}\n\n${darkBlock}`;
 }
 
 const themeAliases = buildThemeAliasBlock(extractCustomProperties(compiledSemantics));

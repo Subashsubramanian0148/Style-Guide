@@ -14,10 +14,10 @@ const contributionGrowth = [
 
 export default function Charts({ embedded = false }: { embedded?: boolean }) {
   const sections = (
-    <DocsSectionList>
+    <DocsSectionList flat={embedded}>
       <DocsSection anchorId="line-chart" title="Line chart">
-        <div className="site-panel site-panel--flush">
-          <Preview>
+        <div className="site-panel site-panel--flush site-panel--demo">
+          <Preview showModeToggle>
             <div style={{ width: "100%", padding: 20 }}>
               <LineChartCard
                 title="Balance vs. contributions, last 6 months"

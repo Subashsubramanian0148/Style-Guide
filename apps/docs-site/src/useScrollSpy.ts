@@ -10,17 +10,25 @@ function normalizeHash(hash: string) {
   return hash.startsWith("#") ? hash : `#${hash}`;
 }
 
-/** Order section ids by their position in the document (not sidebar config order). */
+/**
+ * Order section ids by where they actually render top-to-bottom on screen —
+ * NOT by raw DOM node order. The flat "All Components" page interleaves
+ * sections A-Z across category boundaries purely via CSS flex `order`
+ * (see DocsSection.tsx's `flatOrderForAnchor` + `display: contents`); the
+ * underlying DOM order is whatever each page component happens to render
+ * in, which is a different sequence entirely. Sorting by
+ * `compareDocumentPosition` (raw DOM order) instead of rendered position
+ * was a real bug: it made the scroll-spy walk sections in the wrong
+ * sequence, so it could report an entirely different section as "active"
+ * than the one actually on screen (reproduced: scrolled to "Buttons",
+ * sidebar highlighted "Attachment"). Bounding-rect top reflects the final
+ * layout after `order` is applied, so it's always the true visual sequence.
+ */
 function sortIdsByDocumentOrder(ids: string[]): string[] {
   return ids
     .map((id) => ({ id, el: document.getElementById(id) }))
     .filter((entry): entry is { id: string; el: HTMLElement } => entry.el !== null)
-    .sort((a, b) => {
-      const pos = a.el.compareDocumentPosition(b.el);
-      if (pos & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
-      if (pos & Node.DOCUMENT_POSITION_PRECEDING) return 1;
-      return 0;
-    })
+    .sort((a, b) => a.el.getBoundingClientRect().top - b.el.getBoundingClientRect().top)
     .map((entry) => entry.id);
 }
 

@@ -1,25 +1,70 @@
-import React, { useState } from "react";
+import React, { useId, useRef, useState } from "react";
 
 export interface TabItem { id: string; label: string; content?: React.ReactNode; }
+
+/**
+ * WAI-ARIA APG tabs pattern (https://www.w3.org/WAI/ARIA/apg/patterns/tabs/):
+ * roving tabindex (only the active tab is a Tab stop), Arrow keys move
+ * between tabs (Left/Right for horizontal, Up/Down for vertical, matching
+ * the writing-mode each orientation is used in), Home/End jump to the
+ * first/last tab, and each tab/panel pair is linked via aria-controls /
+ * aria-labelledby. Previously none of this existed — every tab button was
+ * its own Tab stop with no Arrow-key handling at all (a real keyboard user
+ * had to Tab through each one individually), and the shared tabpanel had no
+ * aria-labelledby, so a screen reader couldn't say which tab a panel's
+ * content belonged to.
+ */
 export function Tabs({ items, defaultId, orientation = "horizontal" }: { items: TabItem[]; defaultId?: string; orientation?: "horizontal" | "vertical" }) {
   const [active, setActive] = useState(defaultId ?? items[0]?.id);
   const vertical = orientation === "vertical";
+  const baseId = useId();
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  const activeIndex = Math.max(0, items.findIndex((t) => t.id === active));
+
+  const focusTab = (index: number) => {
+    const next = items[index];
+    if (!next) return;
+    setActive(next.id);
+    tabRefs.current[index]?.focus();
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    const nextKey = vertical ? "ArrowDown" : "ArrowRight";
+    const prevKey = vertical ? "ArrowUp" : "ArrowLeft";
+    if (e.key === nextKey) { e.preventDefault(); focusTab((activeIndex + 1) % items.length); }
+    else if (e.key === prevKey) { e.preventDefault(); focusTab((activeIndex - 1 + items.length) % items.length); }
+    else if (e.key === "Home") { e.preventDefault(); focusTab(0); }
+    else if (e.key === "End") { e.preventDefault(); focusTab(items.length - 1); }
+  };
+
   return (
     <div className={vertical ? "cds-tabs-layout--vertical" : undefined}>
       <div className={`cds-tabs ${vertical ? "cds-tabs--vertical" : ""}`} role="tablist" aria-orientation={orientation}>
-        {items.map((t) => (
+        {items.map((t, i) => (
           <button
             key={t.id}
+            ref={(el) => { tabRefs.current[i] = el; }}
+            id={`${baseId}-tab-${t.id}`}
             role="tab"
             aria-selected={active === t.id}
+            aria-controls={`${baseId}-panel-${t.id}`}
+            tabIndex={active === t.id ? 0 : -1}
             className={`cds-tab ${vertical ? "cds-tab--vertical" : ""}`}
             onClick={() => setActive(t.id)}
+            onKeyDown={onKeyDown}
           >
             {t.label}
           </button>
         ))}
       </div>
-      <div role="tabpanel" style={vertical ? { flex: 1, minWidth: 0 } : { paddingTop: 16 }}>
+      <div
+        role="tabpanel"
+        id={`${baseId}-panel-${active}`}
+        aria-labelledby={`${baseId}-tab-${active}`}
+        tabIndex={0}
+        style={vertical ? { flex: 1, minWidth: 0 } : { paddingTop: 16 }}
+      >
         {items.find((t) => t.id === active)?.content}
       </div>
     </div>
@@ -108,7 +153,9 @@ export interface StepDef {
   description?: string;
   /** Override the visual state for this step (docs / edge cases). */
   state?: StepState;
-  /** Optional status line under the description — shown for in-progress, warning, and error steps. */
+  /** Status line shown under every step, in every state — override the
+   *  default per-state wording ("Not started", "In progress", "Completed",
+   *  "Needs review", "Action required") with something specific to this step. */
   status?: string;
 }
 
@@ -126,8 +173,80 @@ function stepMarkerContent(state: StepState, index: number) {
   return index + 1;
 }
 
-export function Stepper({ steps, currentIndex, orientation = "horizontal" }: { steps: StepDef[]; currentIndex: number; orientation?: "horizontal" | "vertical" }) {
+/** Every step always shows a plain-language status — not just the ones
+ *  with something to flag — so a step being "done" or "not started yet"
+ *  reads as clearly as one that needs attention, instead of the absence
+ *  of a message being the only signal for those two states. */
+export function defaultStepStatus(state: StepState): string {
+  switch (state) {
+    case "completed":
+      return "Completed";
+    case "in-progress":
+      return "In progress";
+    case "warning":
+      return "Needs review";
+    case "error":
+      return "Action required";
+    case "default":
+    default:
+      return "Not started";
+  }
+}
+
+export function Stepper({ steps, currentIndex, orientation = "horizontal" }: { steps: StepDef[]; currentIndex: number; orientation?: "horizontal" | "vertical" | "mobile" }) {
   const vertical = orientation === "vertical";
+
+  if (orientation === "mobile") {
+    const resolvedStates = steps.map((step, i) => resolveStepState(step, i, currentIndex));
+    const current = steps[currentIndex];
+    const currentState = resolvedStates[currentIndex] ?? "default";
+
+    return (
+      <div className="cds-stepper cds-stepper--mobile" aria-label="Progress">
+        <div className="cds-stepper-mobile-track" role="list">
+          {resolvedStates.map((state, i) => (
+            <div
+              key={`${steps[i].label}-${i}`}
+              role="listitem"
+              className="cds-stepper-mobile-step"
+              aria-current={i === currentIndex ? "step" : undefined}
+              aria-label={`Step ${i + 1}, ${steps[i].label}: ${state.replace("-", " ")}`}
+            >
+              <span className={`cds-stepper-mobile-segment cds-stepper-mobile-segment--${state}`} aria-hidden="true" />
+              <span className="cds-stepper-mobile-step-label" aria-hidden="true">
+                {i + 1}
+              </span>
+            </div>
+          ))}
+        </div>
+        {current && (
+          <div className="cds-stepper-mobile-count">
+            Step {currentIndex + 1} of {steps.length}
+          </div>
+        )}
+        {current && (
+          <div className={`cds-step cds-step--mobile cds-step--${currentState}`} aria-current="step">
+            <span className="cds-step-marker" aria-hidden="true">
+              {stepMarkerContent(currentState, currentIndex)}
+            </span>
+            <span className="cds-step-label">
+              <span className="cds-step-title">{current.label}</span>
+              {current.description && <span className="cds-step-desc">{current.description}</span>}
+              <span className="cds-step-status">
+                {currentState === "in-progress" ? (
+                  <span className="cds-step-status-spinner" aria-hidden="true" />
+                ) : (
+                  <span className="cds-step-status-dot" aria-hidden="true" />
+                )}
+                {current.status ?? defaultStepStatus(currentState)}
+              </span>
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <ol className={`cds-stepper ${vertical ? "cds-stepper--vertical" : ""}`} aria-label="Progress" aria-orientation={orientation}>
       {steps.map((step, i) => {
@@ -144,16 +263,14 @@ export function Stepper({ steps, currentIndex, orientation = "horizontal" }: { s
             <span className="cds-step-label">
               <span className="cds-step-title">{step.label}</span>
               {step.description && <span className="cds-step-desc">{step.description}</span>}
-              {(state === "in-progress" || state === "warning" || state === "error") && step.status && (
-                <span className="cds-step-status">
-                  {state === "in-progress" ? (
-                    <span className="cds-step-status-spinner" role="status" aria-hidden="true" />
-                  ) : (
-                    <span className="cds-step-status-dot" aria-hidden="true" />
-                  )}
-                  {step.status}
-                </span>
-              )}
+              <span className="cds-step-status">
+                {state === "in-progress" ? (
+                  <span className="cds-step-status-spinner" aria-hidden="true" />
+                ) : (
+                  <span className="cds-step-status-dot" aria-hidden="true" />
+                )}
+                {step.status ?? defaultStepStatus(state)}
+              </span>
             </span>
             {i < steps.length - 1 && <span className="cds-step-connector" aria-hidden="true" />}
           </li>

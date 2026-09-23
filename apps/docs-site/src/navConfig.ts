@@ -11,43 +11,23 @@ export const componentSections: NavSection[] = [
     links: [
       componentLink("button", "Buttons"),
       componentLink("icon-button", "Icon Button"),
-      componentLink("link", "Link"),
-    ],
-  },
-  {
-    title: "Forms",
-    links: [
-      componentLink("input", "Input"),
-      componentLink("textarea", "Textarea"),
-      componentLink("select", "Select"),
-      componentLink("checkbox-radio", "Checkbox / Radio"),
-      componentLink("switch", "Switch"),
-      componentLink("toggle", "Toggle / Toggle Group"),
-      componentLink("input-group", "Input Group"),
-      componentLink("slider", "Slider"),
-      componentLink("combobox", "Combobox"),
-      componentLink("date-picker", "Date Picker"),
-      componentLink("calendar", "Calendar"),
-      componentLink("attachment", "Attachment"),
-      componentLink("input-icon", "Input (with icon)"),
-      componentLink("payment-bank-fields", "Payment & Bank Fields"),
-    ],
-  },
-  {
-    title: "Data Display",
-    links: [
-      componentLink("quick-links", "Quick links"),
-      componentLink("badge", "Badge"),
-      componentLink("data-table", "Data Table"),
-      componentLink("table", "Table"),
-      componentLink("avatar", "Avatar"),
-      componentLink("progress", "Progress"),
     ],
   },
   {
     title: "Charts",
     links: [
       componentLink("line-chart", "Line Chart"),
+    ],
+  },
+  {
+    title: "Data Display",
+    links: [
+      componentLink("avatar", "Avatar"),
+      componentLink("badge", "Badge"),
+      componentLink("data-table", "Data Table"),
+      componentLink("progress", "Progress"),
+      componentLink("quick-links", "Quick links"),
+      componentLink("table", "Table"),
     ],
   },
   {
@@ -59,23 +39,39 @@ export const componentSections: NavSection[] = [
     ],
   },
   {
-    title: "Navigation",
-    links: [
-      componentLink("sidebar", "Sidebar"),
-      componentLink("tabs", "Tabs"),
-      componentLink("breadcrumb", "Breadcrumb"),
-      componentLink("stepper", "Stepper"),
-      componentLink("pagination", "Pagination"),
-    ],
-  },
-  {
     title: "Feedback",
     links: [
       componentLink("alert", "Alert"),
-      componentLink("toast", "Toast"),
-      componentLink("toast-manager", "Toast Manager"),
       componentLink("empty", "Empty"),
       componentLink("spinner", "Spinner"),
+      componentLink("toast", "Toast"),
+    ],
+  },
+  {
+    title: "Forms",
+    links: [
+      componentLink("attachment", "Attachment"),
+      componentLink("calendar", "Calendar"),
+      componentLink("checkbox-radio", "Checkbox / Radio"),
+      componentLink("combobox", "Combobox"),
+      componentLink("date-picker", "Date Picker"),
+      componentLink("input", "Input"),
+      componentLink("input-icon", "Input (with icon)"),
+      componentLink("input-group", "Input Group"),
+      componentLink("payment-bank-fields", "Payment & Bank Fields"),
+      componentLink("select", "Select"),
+      componentLink("slider", "Slider"),
+      componentLink("switch", "Switch"),
+      componentLink("textarea", "Textarea"),
+    ],
+  },
+  {
+    title: "Navigation",
+    links: [
+      componentLink("pagination", "Pagination"),
+      componentLink("sidebar", "Sidebar"),
+      componentLink("stepper", "Stepper"),
+      componentLink("tabs", "Tabs"),
     ],
   },
   {
@@ -92,10 +88,32 @@ export const componentLinks = componentSections.flatMap((section) => section.lin
 
 export const totalComponentCount = componentLinks.length;
 
-const componentAnchorSectionIds = new Map<string, string>();
-componentLinks.forEach((link, index) => {
+/** All components as one flat A-Z list, ignoring category — used to make the
+ *  unified /components page and the sidebar read as a single alphabetical
+ *  list instead of "alphabetical within each category, categories in their
+ *  own order" (which looks unsorted once you stop thinking in categories). */
+export const flatComponentLinks = [...componentLinks].sort((a, b) =>
+  a.label.localeCompare(b.label, undefined, { sensitivity: "base" })
+);
+
+const flatAnchorOrder = new Map<string, number>();
+flatComponentLinks.forEach((link, index) => {
   const anchor = link.to.split("#")[1];
-  if (anchor) {
+  if (anchor && !flatAnchorOrder.has(anchor)) {
+    flatAnchorOrder.set(anchor, index);
+  }
+});
+
+/** CSS `order` for a component anchor in the flat A-Z arrangement. Safe to
+ *  apply unconditionally — `order` is a no-op outside a flex/grid parent. */
+export function flatOrderForAnchor(anchorId: string): number {
+  return flatAnchorOrder.get(anchorId) ?? 999;
+}
+
+const componentAnchorSectionIds = new Map<string, string>();
+flatComponentLinks.forEach((link, index) => {
+  const anchor = link.to.split("#")[1];
+  if (anchor && !componentAnchorSectionIds.has(anchor)) {
     componentAnchorSectionIds.set(anchor, String(index + 1).padStart(2, "0"));
   }
 });

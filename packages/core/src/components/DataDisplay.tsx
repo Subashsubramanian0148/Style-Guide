@@ -1,8 +1,56 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Select } from "./FormControls";
-import { ChevronIcon } from "./Primitives";
+import { ChevronIcon, SortIcon } from "./Primitives";
 
-export interface Column<T> { key: string; header: string; render?: (row: T) => React.ReactNode; }
+/** Applies `cds-table-wrap--scrollable` when content is wider than the viewport
+ *  so horizontal scrollbars stay visible (not overlay-hidden on macOS). */
+export function TableScrollWrap({
+  className,
+  style,
+  children,
+}: {
+  className: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [scrollable, setScrollable] = useState(false);
+
+  const measure = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    setScrollable(el.scrollWidth > el.clientWidth + 1);
+  }, []);
+
+  useLayoutEffect(() => {
+    measure();
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    for (const child of el.children) {
+      if (child instanceof Element) ro.observe(child);
+    }
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [measure, children]);
+
+  return (
+    <div
+      ref={ref}
+      className={`${className}${scrollable ? " cds-table-wrap--scrollable" : ""}`}
+      style={style}
+      data-scrollable={scrollable ? "true" : undefined}
+    >
+      {children}
+    </div>
+  );
+}
+
+export interface Column<T> { key: string; header: string; render?: (row: T) => React.ReactNode; align?: "left" | "right"; }
 export interface TableProps<T extends { id: string | number }> {
   columns: Column<T>[];
   rows: T[];
@@ -32,7 +80,7 @@ export function Table<T extends { id: string | number }>({
   ].filter(Boolean).join(" ");
 
   return (
-    <div className={wrapClasses} style={style}>
+    <TableScrollWrap className={wrapClasses} style={style}>
       <table
         className={`cds-table ${disabled ? "cds-table--disabled" : ""} ${viewMode ? "cds-table--view-mode" : ""}`.trim()}
         data-density={density}
@@ -41,17 +89,17 @@ export function Table<T extends { id: string | number }>({
         aria-readonly={viewMode ? "true" : undefined}
       >
         <thead>
-          <tr>{columns.map((c) => <th key={c.key} scope="col">{c.header}</th>)}</tr>
+          <tr>{columns.map((c) => <th key={c.key} scope="col" style={c.align === "right" ? { textAlign: "right" } : undefined}>{c.header}</th>)}</tr>
         </thead>
         <tbody>
           {rows.map((row) => (
             <tr key={row.id}>
-              {columns.map((c) => <td key={c.key}>{c.render ? c.render(row) : (row as any)[c.key]}</td>)}
+              {columns.map((c) => <td key={c.key} style={c.align === "right" ? { textAlign: "right" } : undefined}>{c.render ? c.render(row) : (row as any)[c.key]}</td>)}
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </TableScrollWrap>
   );
 }
 
@@ -171,7 +219,7 @@ export function DataTable<T extends { id: string | number }>({
           )}
         </div>
       )}
-      <div className={wrapClasses}>
+      <TableScrollWrap className={wrapClasses}>
         <table
           className={`cds-table ${disabled ? "cds-table--disabled" : ""} ${viewMode ? "cds-table--view-mode" : ""}`.trim()}
           data-density={density}
@@ -181,17 +229,15 @@ export function DataTable<T extends { id: string | number }>({
         >
           <thead>
             <tr>
-              {columns.map((c) => (
-                <th key={c.key} scope="col" aria-sort={!disabled && !viewMode && sort?.key === c.key ? (sort.dir === 1 ? "ascending" : "descending") : "none"}>
+              {columns.map((c) => {
+                const isSorted = !disabled && !viewMode && sort?.key === c.key;
+                const sortDirection = isSorted ? (sort!.dir === 1 ? "ascending" as const : "descending" as const) : "none" as const;
+                return (
+                <th key={c.key} scope="col" style={c.align === "right" ? { textAlign: "right" } : undefined} aria-sort={sortDirection}>
                   {c.sortable && !disabled && !viewMode ? (
-                    <button className="cds-th-sortable" onClick={() => toggleSort(c.key)}>
+                    <button className={`cds-th-sortable ${c.align === "right" ? "cds-th-sortable--right" : ""}`} onClick={() => toggleSort(c.key)}>
                       {c.header}
-                      <ChevronIcon
-                        className="cds-sort-icon"
-                        data-active={sort?.key === c.key}
-                        direction={sort?.key === c.key && sort.dir === -1 ? "down" : "up"}
-                        size={12}
-                      />
+                      <SortIcon className={`cds-sort-icon ${isSorted ? "cds-sort-icon--active" : ""}`} direction={sortDirection} size={12} />
                     </button>
                   ) : (
                     <span className={c.sortable ? "cds-th-sortable cds-th-sortable--disabled" : ""}>
@@ -199,7 +245,8 @@ export function DataTable<T extends { id: string | number }>({
                     </span>
                   )}
                 </th>
-              ))}
+                );
+              })}
             </tr>
           </thead>
           <tbody>
@@ -208,7 +255,7 @@ export function DataTable<T extends { id: string | number }>({
             ) : pageRows.map((row) => (
               <tr key={row.id}>
                 {columns.map((c) => (
-                  <td key={c.key}>
+                  <td key={c.key} style={c.align === "right" ? { textAlign: "right" } : undefined}>
                     {c.render ? c.render(row) : (row as any)[c.key]}
                   </td>
                 ))}
@@ -216,7 +263,7 @@ export function DataTable<T extends { id: string | number }>({
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScrollWrap>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12, fontFamily: "var(--typography-font-family-sans)", fontSize: "var(--typography-body-xs-size)", lineHeight: "var(--typography-body-xs-line-height)", color: disabled ? "var(--theme-neutral-text-subtleleast)" : "var(--theme-neutral-text-subtle)" }}>
         <span>Page {page_} of {pageCount} — {sorted.length} rows</span>
         <div className="cds-pagination">
@@ -232,10 +279,16 @@ export type AvatarSize = "sm" | "md" | "lg";
 export type AvatarStatus = "online" | "away" | "offline";
 export function Avatar({ name, src, size = "md", status }: { name: string; src?: string; size?: AvatarSize; status?: AvatarStatus }) {
   const initials = name.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase();
+  // Radix/Chakra/shadcn's Avatar all fall back to initials when the image
+  // fails to load (a stale photo URL, an offline network, a 404 — the
+  // ordinary case, not an edge case). Without this, a broken `src` fell
+  // through to the browser's own broken-image glyph instead.
+  const [imgFailed, setImgFailed] = useState(false);
+  const showImage = !!src && !imgFailed;
   return (
     <span className="cds-avatar-wrap">
       <span className={`cds-avatar cds-avatar--${size}`} role="img" aria-label={name}>
-        {src ? <img src={src} alt="" /> : initials}
+        {showImage ? <img src={src} alt="" onError={() => setImgFailed(true)} /> : initials}
       </span>
       {status && <span className={`cds-avatar-status cds-avatar-status--${status}`} aria-label={`Status: ${status}`} />}
     </span>
@@ -261,8 +314,8 @@ export function AvatarGroup({
         </span>
       ))}
       {overflow > 0 && (
-        <span className="cds-avatar-group-item">
-          <span className={`cds-avatar cds-avatar--${size}`} aria-label={`${overflow} more`}>
+        <span className="cds-avatar-group-item" title={avatars.slice(max).map((a) => a.name).join(", ")}>
+          <span className={`cds-avatar cds-avatar--${size}`} role="img" aria-label={`${overflow} more: ${avatars.slice(max).map((a) => a.name).join(", ")}`}>
             +{overflow}
           </span>
         </span>

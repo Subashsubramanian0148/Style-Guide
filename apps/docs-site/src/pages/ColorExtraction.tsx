@@ -470,7 +470,7 @@ export default function ColorExtractionPage() {
                   onClick={handleReset}
                   style={{
                     padding: "7px 14px",
-                    borderRadius: 6,
+                    borderRadius: "var(--core-radius-sm)",
                     border: "1px solid var(--site-border)",
                     background: "var(--core-color-surface-default)",
                     color: "var(--core-color-text-secondary)",
@@ -485,7 +485,7 @@ export default function ColorExtractionPage() {
                   onClick={copyThemeJson}
                   style={{
                     padding: "7px 14px",
-                    borderRadius: 6,
+                    borderRadius: "var(--core-radius-sm)",
                     border: "none",
                     background: "var(--core-color-action-primary-bg)",
                     color: "var(--core-color-action-primary-text)",
@@ -550,7 +550,7 @@ export default function ColorExtractionPage() {
                 <button
                   style={{
                     padding: "9px 18px",
-                    borderRadius: 6,
+                    borderRadius: "var(--core-radius-sm)",
                     border: "none",
                     background: "var(--core-color-action-primary-bg)",
                     color: "var(--core-color-action-primary-text)",
@@ -564,7 +564,7 @@ export default function ColorExtractionPage() {
                 <button
                   style={{
                     padding: "9px 18px",
-                    borderRadius: 6,
+                    borderRadius: "var(--core-radius-sm)",
                     border: "none",
                     background: "var(--core-color-action-primary-tintBg)",
                     color: "var(--core-color-action-primary-tintText)",
@@ -584,7 +584,7 @@ export default function ColorExtractionPage() {
                   style={{
                     flex: 1,
                     padding: "8px 12px",
-                    borderRadius: 6,
+                    borderRadius: "var(--core-radius-sm)",
                     border: "2px solid var(--core-color-border-focus)",
                     outline: "none",
                     fontSize: "var(--typography-body-md-size)",

@@ -241,7 +241,7 @@ function ElevationCard({ elevationKey, shadowVal }: { elevationKey: string; shad
             color: "var(--theme-primitive-color-primary-600)",
             background: "var(--core-color-surface-hover)",
             padding: "8px 10px",
-            borderRadius: 6,
+            borderRadius: "var(--core-radius-sm)",
             display: "block",
             wordBreak: "break-word",
             lineHeight: 1.4,

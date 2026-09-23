@@ -1,9 +1,20 @@
 import React from "react";
 import { Preview } from "../Preview";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
-import { Button, IconButton, Link } from "../../../../packages/core/src/components/Button";
+import { Button, IconButton } from "../../../../packages/core/src/components/Button";
 import { ButtonMatrix } from "../ButtonMatrix";
+import { ComponentStateMatrix, DEFAULT_MATRIX_STATES } from "../ComponentStateMatrix";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
+
+const EditIcon = ({ size }: { size: "sm" | "md" | "lg" }) => {
+  const px = size === "sm" ? 16 : size === "lg" ? 24 : 20;
+  return (
+    <svg width={px} height={px} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+    </svg>
+  );
+};
 
 export default function Actions({ embedded = false }: { embedded?: boolean }) {
   const sections = [
@@ -16,259 +27,48 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
       anchorId: "icon-button",
       title: "Icon Button",
       content: (
-        <div className="site-panel site-panel--flush">
-          <Preview>
-            <div style={{ display: "flex", gap: 32, alignItems: "flex-end", flexWrap: "wrap" }}>
-              {/* DEFAULT */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
-                <StateLabel variant="site">DEFAULT</StateLabel>
-                <button
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "var(--core-radius-sm)",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    backgroundColor: "transparent",
-                    color: "var(--theme-brand-text-primary-default)",
-                    border: "1px solid var(--theme-brand-border-primary-default)",
-                  }}
-                  aria-label="Edit"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
-                </button>
-              </div>
-
-              {/* HOVER */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
-                <StateLabel variant="site">HOVER</StateLabel>
-                <button
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "var(--core-radius-sm)",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    backgroundColor: "var(--theme-brand-background-primary-hover)",
-                    color: "var(--theme-brand-text-primary-oncolor)",
-                    border: "1px solid var(--theme-brand-border-primary-hover)",
-                  }}
-                  aria-label="Edit Hover"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
-                </button>
-              </div>
-
-              {/* ACTIVE */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
-                <StateLabel variant="site">ACTIVE</StateLabel>
-                <button
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "var(--core-radius-sm)",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    backgroundColor: "var(--theme-brand-background-primary-active)",
-                    color: "var(--theme-brand-text-primary-oncolor)",
-                    border: "1px solid var(--theme-brand-background-primary-active)",
-                    transform: "translateY(1px)",
-                  }}
-                  aria-label="Edit Active"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
-                </button>
-              </div>
-
-              {/* FOCUS */}
-              <div className="force-focus" style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
-                <StateLabel variant="site">FOCUSED</StateLabel>
-                <button
-                  type="button"
-                  className="icon-button-state-demo"
-                  aria-label="Edit Focus"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
-                </button>
-              </div>
-
-              {/* DISABLED */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
-                <StateLabel variant="site">DISABLED</StateLabel>
-                <button
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "var(--core-radius-sm)",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "not-allowed",
-                    backgroundColor: "transparent",
-                    color: "var(--theme-brand-text-primary-disabled)",
-                    border: "1px solid var(--theme-brand-border-primary-disabled)",
-                  }}
-                  disabled
-                  aria-label="Edit Disabled"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
-                </button>
-              </div>
-            </div>
-          </Preview>
-          <style>{`
-            .icon-button-state-demo {
-              width: 40px;
-              height: 40px;
-              border-radius: var(--core-radius-sm);
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              cursor: pointer;
-              background-color: transparent;
-              color: var(--theme-brand-text-primary-default);
-              border: 1px solid var(--theme-brand-border-primary-default);
-            }
-            .force-focus .icon-button-state-demo {
-              outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
-              outline-offset: 2px;
-            }
-          `}</style>
-        </div>
-      ),
-    },
-
-    {
-      anchorId: "link",
-      title: "Link",
-      content: (
-        <div className="site-panel site-panel--flush">
-            <Preview>
-              <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 24 }}>
-                  {/* DEFAULT */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    <StateLabel variant="site">DEFAULT</StateLabel>
-                    <span style={{ fontSize: 14, color: "var(--core-color-text-primary)", lineHeight: 1.6 }}>
-                      Read our{" "}
-                      <Link
-                        href="#"
-                        onClick={(e) => e.preventDefault()}
-                        style={{
-                          color: "var(--theme-brand-text-primary-default)",
-                          textDecoration: "underline",
-                          textUnderlineOffset: "3px",
-                          textDecorationThickness: "1px"
-                        }}
-                      >
-                        documents
-                      </Link>{" "}
-                      before enrolling.
-                    </span>
-                  </div>
-
-                  {/* HOVER */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    <StateLabel variant="site">HOVER</StateLabel>
-                    <span style={{ fontSize: 14, color: "var(--core-color-text-primary)", lineHeight: 1.6 }}>
-                      Read our{" "}
-                      <a
-                        href="#"
-                        onClick={(e) => e.preventDefault()}
-                        className="cds-link"
-                        style={{
-                          color: "var(--theme-brand-text-primary-hover)",
-                          textDecoration: "underline",
-                          textDecorationThickness: "1px",
-                          textUnderlineOffset: "3px",
-                        }}
-                      >
-                        documents
-                      </a>{" "}
-                      before enrolling.
-                    </span>
-                  </div>
-
-                  {/* ACTIVE */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    <StateLabel variant="site">ACTIVE</StateLabel>
-                    <span style={{ fontSize: 14, color: "var(--core-color-text-primary)", lineHeight: 1.6 }}>
-                      Read our{" "}
-                      <a
-                        href="#"
-                        onClick={(e) => e.preventDefault()}
-                        className="cds-link"
-                        style={{
-                          color: "var(--theme-brand-text-primary-active)",
-                          textDecoration: "underline",
-                          textDecorationThickness: "1px",
-                          textUnderlineOffset: "3px",
-                        }}
-                      >
-                        documents
-                      </a>{" "}
-                      before enrolling.
-                    </span>
-                  </div>
-
-                  {/* FOCUSED */}
-                  <div className="force-focus" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    <StateLabel variant="site">FOCUSED</StateLabel>
-                    <span style={{ fontSize: 14, color: "var(--core-color-text-primary)", lineHeight: 1.6 }}>
-                      Read our{" "}
-                      <Link
-                        href="#"
-                        onClick={(e) => e.preventDefault()}
-                        style={{
-                          color: "var(--theme-brand-text-primary-default)",
-                          textDecoration: "underline",
-                          textUnderlineOffset: "3px",
-                          textDecorationThickness: "1px",
-                        }}
-                      >
-                        documents
-                      </Link>{" "}
-                      before enrolling.
-                    </span>
-                  </div>
-
-                  {/* DISABLED */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    <StateLabel variant="site">DISABLED</StateLabel>
-                    <span style={{ fontSize: 14, color: "var(--core-color-text-primary)", lineHeight: 1.6 }}>
-                      Read our{" "}
-                      <Link
-                        href="#"
-                        disabled
-                        onClick={(e) => e.preventDefault()}
-                        style={{
-                          color: "var(--theme-brand-text-primary-default)",
-                          textDecoration: "underline",
-                          textDecorationColor: "var(--theme-brand-border-primary-disabled)",
-                          cursor: "not-allowed",
-                        }}
-                      >
-                        documents
-                      </Link>{" "}
-                      before enrolling.
-                    </span>
-                  </div>
+        <div className="site-panel site-panel--flush site-panel--demo">
+          <ComponentStateMatrix
+            columns={[
+              { id: "secondary", label: "Secondary" },
+              { id: "tertiary", label: "Tertiary" },
+            ]}
+            states={DEFAULT_MATRIX_STATES}
+            sizes={[
+              { id: "sm", label: "Small" },
+              { id: "md", label: "Medium" },
+              { id: "lg", label: "Large" },
+            ]}
+            defaultSize="md"
+            columnMinWidth={140}
+            orientation="rows"
+            renderCell={({ columnId, stateKey, size }) => {
+              const variant = columnId as "secondary" | "tertiary";
+              const wrapperClass = stateKey === "hover" ? "force-hover" : stateKey === "active" ? "force-active" : stateKey === "focused" ? "force-focus" : undefined;
+              return (
+                <div className={wrapperClass} style={{ display: "inline-flex" }}>
+                  <IconButton
+                    variant={variant}
+                    size={size as "sm" | "md" | "lg"}
+                    disabled={stateKey === "disabled"}
+                    aria-label={`Edit (${stateKey})`}
+                  >
+                    <EditIcon size={size as "sm" | "md" | "lg"} />
+                  </IconButton>
                 </div>
-              </div>
-            </Preview>
-            <style>{`
-              .force-focus .cds-link {
-                outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400) !important;
-                outline-offset: 2px !important;
-                border-radius: 2px !important;
-              }
-            `}</style>
+              );
+            }}
+          />
+          <style>{`
+            /* Mirrors the real .cds-icon-btn--secondary/--tertiary hover/active CSS
+               (components.css) so this "forced state" demo never drifts from what
+               actually renders on real hover/active. */
+            .force-hover .cds-icon-btn--secondary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 12%, transparent); color: var(--theme-brand-text-primary-hover); border-color: var(--theme-brand-border-primary-hover); }
+            .force-hover .cds-icon-btn--tertiary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 8%, transparent); color: var(--theme-brand-text-primary-hover); }
+            .force-active .cds-icon-btn--secondary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 24%, transparent); color: var(--theme-brand-text-primary-active); border-color: var(--theme-brand-border-primary-hover); transform: translateY(1px); }
+            .force-active .cds-icon-btn--tertiary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 16%, transparent); color: var(--theme-brand-text-primary-active); transform: translateY(1px); }
+            .force-focus .cds-icon-btn { outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400); outline-offset: 2px; }
+          `}</style>
         </div>
       ),
     },
@@ -276,7 +76,7 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
   ];
 
   const sectionList = (
-    <DocsSectionList>
+    <DocsSectionList flat={embedded}>
       {sections.map((s) => (
         <DocsSection key={s.anchorId} anchorId={s.anchorId} title={s.title}>
           {s.content}

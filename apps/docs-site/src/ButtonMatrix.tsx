@@ -1,202 +1,152 @@
 import React, { useState } from "react";
 import { Button, ButtonVariant } from "../../../packages/core/src/components/Button";
+import { usePreviewMode } from "./PreviewModeContext";
 
 export type MatrixSize = "sm" | "md" | "lg";
 export type VariantCategory = "all" | "brand" | "semantics" | "neutral";
+
+interface StateStyle {
+  bg: string;
+  text: string;
+  border?: string;
+  extraStyles?: React.CSSProperties;
+}
 
 interface VariantConfig {
   id: ButtonVariant;
   name: string;
   category: "brand" | "semantics" | "neutral";
-  stateTokens: Record<
-    "default" | "hover" | "active" | "focused" | "disabled",
-    {
-      bgVar: string;
-      bgFallback: string;
-      textVar: string;
-      textFallback: string;
-      borderVar?: string;
-      borderFallback?: string;
-      extraStyles?: React.CSSProperties;
-    }
-  >;
+  stateTokens: Record<"default" | "hover" | "active" | "focused" | "disabled", StateStyle>;
 }
 
+/* Every value below is a mode-aware semantic token, so light/dark is resolved
+   by CSS. Earlier this map held raw primitives plus hex fallbacks and the
+   component patched dark mode in JS — which is why Tertiary's text stayed
+   primary-500 (2.3:1) on the dark canvas. */
+const FOCUS_RING: React.CSSProperties = {
+  outline: "var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400)",
+  outlineOffset: "var(--core-focusRing-offset)",
+};
+
 const VARIANTS: VariantConfig[] = [
-  // 1. BRAND PRIMARY (SOLID)
   {
     id: "primary",
     name: "Primary CTA",
     category: "brand",
     stateTokens: {
       default: {
-        bgVar: "--theme-brand-background-primary-strong",
-        bgFallback: "#1F4F8D",
-        textVar: "--theme-brand-text-primary-oncolor",
-        textFallback: "#FFFFFF",
-        borderVar: "--theme-brand-border-primary-default",
-        borderFallback: "#3275CD",
-        extraStyles: { boxShadow: "0 1px 2px rgba(17,16,23,0.08)" },
+        bg: "var(--brand-background-primary-strong)",
+        text: "var(--brand-text-primary-oncolor)",
+        border: "var(--brand-border-primary-default)",
       },
       hover: {
-        bgVar: "--theme-brand-background-primary-hover",
-        bgFallback: "#1B4479",
-        textVar: "--theme-brand-text-primary-oncolor",
-        textFallback: "#FFFFFF",
-        borderVar: "--theme-brand-border-primary-hover",
-        borderFallback: "#1B4479",
-        extraStyles: { boxShadow: "0 2px 6px rgba(31,79,141,0.25)" },
+        bg: "var(--brand-background-primary-hover)",
+        text: "var(--brand-text-primary-oncolor)",
+        border: "var(--brand-border-primary-hover)",
       },
       active: {
-        bgVar: "--theme-brand-background-primary-active",
-        bgFallback: "#17365E",
-        textVar: "--theme-brand-text-primary-oncolor",
-        textFallback: "#FFFFFF",
-        borderVar: "--theme-brand-background-primary-active",
-        borderFallback: "#17365E",
+        bg: "var(--brand-background-primary-active)",
+        text: "var(--brand-text-primary-oncolor)",
+        border: "var(--brand-background-primary-active)",
         extraStyles: { transform: "translateY(1px)" },
       },
       focused: {
-        bgVar: "--theme-brand-background-primary-strong",
-        bgFallback: "#1F4F8D",
-        textVar: "--theme-brand-text-primary-oncolor",
-        textFallback: "#FFFFFF",
-        borderVar: "--theme-brand-border-primary-default",
-        borderFallback: "#3275CD",
-        extraStyles: {
-          outline: "2px solid var(--theme-brand-border-primary-default)",
-          outlineOffset: "2px",
-          boxShadow: "0 0 0 3px rgba(50,117,205,0.3)",
-        },
+        bg: "var(--brand-background-primary-strong)",
+        text: "var(--brand-text-primary-oncolor)",
+        border: "var(--brand-border-primary-default)",
+        extraStyles: FOCUS_RING,
       },
       disabled: {
-        bgVar: "--theme-brand-background-primary-disabled",
-        bgFallback: "#BACEE9",
-        textVar: "--theme-brand-text-primary-disabled",
-        textFallback: "#1B4479",
-        borderVar: "--theme-brand-border-primary-disabled",
-        borderFallback: "#1F4F8D",
-        extraStyles: { boxShadow: "0 1px 2px rgba(17,16,23,0.06)" },
+        bg: "var(--brand-background-primary-disabled)",
+        text: "var(--brand-text-primary-disabled)",
+        border: "var(--brand-border-primary-disabled)",
       },
     },
   },
-
-  // 2. BRAND SECONDARY (OUTLINE)
   {
     id: "secondary",
     name: "Secondary CTA",
     category: "brand",
     stateTokens: {
+      // text-primary-on-surface: brand-colored in light, white in dark — a
+      // brand hue at any step read under 4.5:1 (WCAG 1.4.3) against the
+      // near-black dark canvas since there's no fill behind it to boost
+      // contrast against.
       default: {
-        bgVar: "transparent",
-        bgFallback: "transparent",
-        textVar: "--theme-primitive-color-primary-500",
-        textFallback: "#1F4F8D",
-        borderVar: "--theme-brand-border-primary-default",
-        borderFallback: "#3275CD",
+        bg: "transparent",
+        text: "var(--brand-text-primary-on-surface)",
+        border: "var(--brand-border-primary-default)",
       },
+      // Outline convention (shadcn `outline` / Chakra `outline`): hover/active
+      // stay a translucent wash of the brand color, never Primary's opaque
+      // fill — color-mix against `transparent` composites over the canvas
+      // directly, so one pair of percentages reads correctly in both light
+      // and dark. Active is a deeper wash than hover so the two states are
+      // never visually equal to each other or to Primary.
       hover: {
-        bgVar: "--theme-brand-background-primary-hover",
-        bgFallback: "#1B4479",
-        textVar: "--theme-primitive-color-primary-100",
-        textFallback: "#E2E9F3",
-        borderVar: "--theme-brand-border-primary-hover",
-        borderFallback: "#1B4479",
+        bg: "color-mix(in srgb, var(--brand-background-primary-strong) 12%, transparent)",
+        text: "var(--brand-text-primary-hover)",
+        border: "var(--brand-border-primary-hover)",
       },
       active: {
-        bgVar: "--theme-brand-background-primary-active",
-        bgFallback: "#17365E",
-        textVar: "--theme-primitive-color-primary-100",
-        textFallback: "#E2E9F3",
-        borderVar: "--theme-brand-background-primary-active",
-        borderFallback: "#17365E",
+        bg: "color-mix(in srgb, var(--brand-background-primary-strong) 24%, transparent)",
+        text: "var(--brand-text-primary-active)",
+        // Not background-primary-active — that step is tuned to contrast
+        // against an opaque canvas, but this border sits against the
+        // translucent active wash instead; in dark mode the two converge
+        // toward the same hue (1.48:1, failing WCAG 1.4.11's 3:1). -hover
+        // is a lighter step chosen to clear 3:1 against the wash.
+        border: "var(--brand-border-primary-hover)",
         extraStyles: { transform: "translateY(1px)" },
       },
       focused: {
-        bgVar: "transparent",
-        bgFallback: "transparent",
-        textVar: "--theme-primitive-color-primary-500",
-        textFallback: "#1F4F8D",
-        borderVar: "--theme-brand-border-primary-default",
-        borderFallback: "#3275CD",
-        extraStyles: {
-          outline: "2px solid var(--theme-brand-border-primary-default)",
-          outlineOffset: "2px",
-        },
+        bg: "transparent",
+        text: "var(--brand-text-primary-on-surface)",
+        border: "var(--brand-border-primary-default)",
+        extraStyles: FOCUS_RING,
       },
+      // Outline/ghost styles have no fill to mute, so a same-hue disabled step
+      // reads as identical to default — neutral is the only legible signal.
       disabled: {
-        bgVar: "transparent",
-        bgFallback: "transparent",
-        textVar: "--theme-brand-text-primary-disabled",
-        textFallback: "#1B4479",
-        borderVar: "--theme-brand-border-primary-disabled",
-        borderFallback: "#1F4F8D",
-        extraStyles: {},
+        bg: "transparent",
+        text: "var(--theme-semantics-disabled-text)",
+        border: "var(--theme-semantics-disabled-border)",
       },
     },
   },
-
-  // 3. BRAND TERTIARY (GHOST)
   {
     id: "tertiary",
     name: "Tertiary CTA",
     category: "brand",
     stateTokens: {
-      default: {
-        bgVar: "transparent",
-        bgFallback: "transparent",
-        textVar: "--theme-primitive-color-primary-500",
-        textFallback: "#1F4F8D",
-        borderVar: "transparent",
-        borderFallback: "transparent",
-        extraStyles: {},
-      },
+      default: { bg: "transparent", text: "var(--brand-text-primary-on-surface)" },
+      // Ghost/text convention (shadcn `ghost`+`link` / Chakra `ghost` / MUI
+      // `text`): never a border, never an opaque fill — only a faint wash
+      // that deepens on press, lighter than Secondary's so the two variants
+      // stay visually distinct at every state, plus the underline that
+      // marks this as a "text" action rather than a boxed one.
       hover: {
-        bgVar: "transparent",
-        bgFallback: "transparent",
-        textVar: "--theme-brand-text-primary-hover",
-        textFallback: "#1B4479",
-        borderVar: "transparent",
-        borderFallback: "transparent",
-        extraStyles: {},
+        bg: "color-mix(in srgb, var(--brand-background-primary-strong) 8%, transparent)",
+        text: "var(--brand-text-primary-hover)",
       },
       active: {
-        bgVar: "transparent",
-        bgFallback: "transparent",
-        textVar: "--theme-brand-text-primary-active",
-        textFallback: "#17365E",
-        borderVar: "transparent",
-        borderFallback: "transparent",
+        bg: "color-mix(in srgb, var(--brand-background-primary-strong) 16%, transparent)",
+        text: "var(--brand-text-primary-active)",
         extraStyles: { transform: "translateY(1px)" },
       },
       focused: {
-        bgVar: "transparent",
-        bgFallback: "transparent",
-        textVar: "--theme-primitive-color-primary-500",
-        textFallback: "#1F4F8D",
-        borderVar: "transparent",
-        borderFallback: "transparent",
-        extraStyles: {
-          outline: "2px solid var(--theme-brand-border-primary-default)",
-          outlineOffset: "2px",
-        },
+        bg: "transparent",
+        text: "var(--brand-text-primary-on-surface)",
+        extraStyles: FOCUS_RING,
       },
-      disabled: {
-        bgVar: "transparent",
-        bgFallback: "transparent",
-        textVar: "--theme-brand-text-primary-disabled",
-        textFallback: "#1B4479",
-        borderVar: "transparent",
-        borderFallback: "transparent",
-        extraStyles: {},
-      },
+      disabled: { bg: "transparent", text: "var(--theme-semantics-disabled-text)" },
     },
   },
 ];
 
 export function ButtonMatrix() {
   const [size, setSize] = useState<MatrixSize>("md");
-  const [canvasBg, setCanvasBg] = useState<"light" | "dark">("light");
+  const { mode: canvasBg } = usePreviewMode();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   const sizeLabels: Record<MatrixSize, string> = {
@@ -217,22 +167,25 @@ export function ButtonMatrix() {
 
   const sizeStyles = {
     sm: {
-      padding: "0.375rem 0.625rem",
+      padding: "var(--core-space-2) var(--core-space-3)",
+      minHeight: "var(--core-size-control-sm)",
       fontSize: "var(--core-typography-text12SemiBold-size, 12px)",
       lineHeight: "var(--core-typography-text12SemiBold-lineHeight, 1.5)",
-      radius: "0.375rem",
+      radius: "var(--core-radius-sm)",
     },
     md: {
-      padding: "0.5rem 0.75rem",
+      padding: "var(--core-space-2) var(--core-space-3)",
+      minHeight: "var(--core-size-control-md)",
       fontSize: "var(--core-typography-text14SemiBold-size, 14px)",
       lineHeight: "var(--core-typography-text14SemiBold-lineHeight, 1.5)",
-      radius: "0.375rem",
+      radius: "var(--core-radius-sm)",
     },
     lg: {
-      padding: "0.625rem 1rem",
+      padding: "var(--core-space-3) var(--core-space-4)",
+      minHeight: "var(--core-size-control-lg)",
       fontSize: "var(--core-typography-text16SemiBold-size, 16px)",
       lineHeight: "var(--core-typography-text16SemiBold-lineHeight, 1.5)",
-      radius: "0.375rem",
+      radius: "var(--core-radius-sm)",
     },
   }[size];
 
@@ -244,53 +197,36 @@ export function ButtonMatrix() {
     { key: "disabled", label: "Disabled" },
   ];
 
-  const getButtonStyles = (variant: VariantConfig, stateKey: "default" | "hover" | "active" | "focused" | "disabled"): React.CSSProperties => {
+  const getButtonStyles = (
+    variant: VariantConfig,
+    stateKey: "default" | "hover" | "active" | "focused" | "disabled"
+  ): React.CSSProperties => {
     const tok = variant.stateTokens[stateKey];
-    const bgVal = tok.bgVar.startsWith("--") ? `var(${tok.bgVar}, ${tok.bgFallback})` : tok.bgFallback;
-    const useDarkPrimary50Text =
-      canvasBg === "dark" &&
-      stateKey !== "disabled" &&
-      (tok.textVar === "--theme-brand-text-primary-oncolor" ||
-        (variant.id === "secondary" && (stateKey === "default" || stateKey === "focused")));
-
-    const tertiaryDarkText =
-      canvasBg === "dark" && variant.id === "tertiary" && stateKey !== "disabled"
-        ? { textVar: "--theme-primitive-color-primary-50", textFallback: "#F5F7FA" }
-        : undefined;
-
-    const textVar =
-      tertiaryDarkText?.textVar ??
-      (useDarkPrimary50Text ? "--theme-primitive-color-primary-50" : tok.textVar);
-    const textFallback =
-      tertiaryDarkText?.textFallback ??
-      (useDarkPrimary50Text ? "#F5F7FA" : tok.textFallback);
-    const textVal = textVar.startsWith("--") ? `var(${textVar}, ${textFallback})` : textFallback;
-    const borderVal = tok.borderVar && tok.borderVar !== "transparent" ? `var(${tok.borderVar}, ${tok.borderFallback || "transparent"})` : "transparent";
-
-    const isTertiaryLinkState =
-      variant.id === "tertiary" && (stateKey === "hover" || stateKey === "active");
+    const isTertiaryLinkState = variant.id === "tertiary" && (stateKey === "hover" || stateKey === "active");
 
     return {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
       minWidth: size === "sm" ? 110 : size === "md" ? 130 : 150,
+      boxSizing: "border-box",
       padding: sizeStyles.padding,
+      minHeight: sizeStyles.minHeight,
       fontSize: sizeStyles.fontSize,
       lineHeight: sizeStyles.lineHeight,
       fontWeight: 600,
       borderRadius: sizeStyles.radius,
-      fontFamily: "var(--typography-font-family-sans, inherit)",
+      fontFamily: "var(--typography-font-family-sans)",
       cursor: stateKey === "disabled" ? "not-allowed" : "pointer",
-      border: `1px solid ${borderVal}`,
-      background: bgVal,
-      color: textVal,
+      border: `1px solid ${tok.border ?? "transparent"}`,
+      background: tok.bg,
+      color: tok.text,
       boxSizing: "border-box",
       transition: "all 140ms ease",
       userSelect: "none",
       textDecoration: isTertiaryLinkState ? "underline" : "none",
       textUnderlineOffset: isTertiaryLinkState ? "4px" : undefined,
-      textDecorationThickness: isTertiaryLinkState ? "1px" : undefined,
+      textDecorationThickness: isTertiaryLinkState ? "2px" : undefined,
       textDecorationColor: isTertiaryLinkState ? "currentColor" : undefined,
       whiteSpace: "nowrap",
       ...tok.extraStyles,
@@ -299,85 +235,46 @@ export function ButtonMatrix() {
 
   return (
     <div style={{ marginTop: 12, marginBottom: 32 }}>
-      {/* Interactive Control Toolbar */}
+      {/* Interactive Control Toolbar — size only; light/dark now comes from
+          the single site-wide toggle in the sidebar (PreviewModeContext). */}
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
-          justifyContent: "space-between",
-          gap: 16,
-          background: "var(--site-bg-elevated, #FFFFFF)",
+          gap: 14,
+          background: "var(--site-bg-elevated)",
           border: "1px solid var(--site-border)",
           borderRadius: 14,
           padding: "14px 20px",
           marginBottom: 18,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+          boxShadow: "var(--core-elevation-2)",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-          {/* Size Controls */}
-          <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--theme-neutral-text-subtle)" }}>
-            Size:
-          </span>
-          <div style={{ display: "inline-flex", background: "var(--site-bg)", borderRadius: 8, padding: 3, border: "1px solid var(--site-border)" }}>
-            {(["sm", "md", "lg"] as const).map((s) => (
-              <button
-                key={s}
-                type="button"
-                onClick={() => setSize(s)}
-                style={{
-                  border: "none",
-                  background: size === s ? "var(--theme-brand-background-primary-strong)" : "transparent",
-                  color: size === s ? "var(--brand-text-primary-oncolor)" : "var(--site-text)",
-                  borderRadius: "var(--core-radius-sm)",
-                  padding: "4px 12px",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "all 120ms ease",
-                }}
-              >
-                {sizeLabels[s]}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Canvas Theme Toggle Switch (Right Side) */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: canvasBg === "light" ? "var(--site-text)" : "var(--theme-neutral-text-subtle)", transition: "color 0.3s ease" }}>
-            Light
-          </span>
-          <div
-            onClick={() => setCanvasBg((prev) => (prev === "light" ? "dark" : "light"))}
-            style={{
-              width: 44,
-              height: 24,
-              background: canvasBg === "dark" ? "var(--theme-brand-background-primary-strong)" : "var(--theme-neutral-border-strong)",
-              borderRadius: 12,
-              position: "relative",
-              cursor: "pointer",
-              transition: "background 0.3s ease",
-            }}
-          >
-            <div
+        <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--theme-neutral-text-subtle)" }}>
+          Size:
+        </span>
+        <div style={{ display: "inline-flex", background: "var(--site-bg)", borderRadius: "var(--core-radius-sm)", padding: 3, border: "1px solid var(--site-border)" }}>
+          {(["sm", "md", "lg"] as const).map((s) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => setSize(s)}
               style={{
-                width: 20,
-                height: 20,
-                background: "var(--theme-colors-neutral-0)",
-                borderRadius: "50%",
-                position: "absolute",
-                top: 2,
-                left: canvasBg === "dark" ? 22 : 2,
-                transition: "left 0.3s ease",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+                border: "none",
+                background: size === s ? "var(--theme-brand-background-primary-strong)" : "transparent",
+                color: size === s ? "var(--brand-text-primary-oncolor)" : "var(--site-text)",
+                borderRadius: "var(--core-radius-sm)",
+                padding: "4px 12px",
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "all 120ms ease",
               }}
-            />
-          </div>
-          <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: canvasBg === "dark" ? "var(--site-text)" : "var(--theme-neutral-text-subtle)", transition: "color 0.3s ease" }}>
-            Dark
-          </span>
+            >
+              {sizeLabels[s]}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -389,12 +286,12 @@ export function ButtonMatrix() {
             bottom: 24,
             right: 24,
             background: "var(--theme-semantics-success-strong-background)",
-            color: "#FFFFFF",
+            color: "var(--theme-neutral-text-on-color)",
             padding: "10px 20px",
-            borderRadius: 8,
+            borderRadius: "var(--core-radius-sm)",
             fontSize: 12,
             fontWeight: 600,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+            boxShadow: "var(--core-elevation-4)",
             zIndex: 9999,
           }}
         >
@@ -407,11 +304,11 @@ export function ButtonMatrix() {
         data-theme="core"
         data-mode={canvasBg}
         style={{
-          background: canvasBg === "light" ? "#FFFFFF" : "#111017",
-          color: canvasBg === "light" ? "#1D1C24" : "#F4F4F6",
+          background: "var(--core-color-bg-page)",
+          color: "var(--core-color-text-primary)",
           borderRadius: 16,
           padding: "36px 32px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
+          boxShadow: "var(--core-elevation-3)",
           border: "1px solid var(--site-border)",
           overflowX: "auto",
           transition: "background 150ms ease",
@@ -464,7 +361,7 @@ export function ButtonMatrix() {
                     >
                       <span
                         style={{
-                          color: "var(--site-text-dim, #787887)",
+                          color: "var(--site-text-dim)",
                           fontSize: "var(--typography-font-size-xs)",
                           fontWeight: 700,
                           textTransform: "uppercase",

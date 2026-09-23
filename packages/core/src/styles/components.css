@@ -83,11 +83,13 @@
 }
 
 .cds-btn {
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 0.5rem 0.75rem;
+  gap: var(--core-space-2);
+  padding: var(--core-space-2) var(--core-space-3);
+  min-height: var(--core-size-control-md);
   font-weight: var(--typography-text14-semibold-weight);
   font-size: var(--typography-text14-semibold-size);
   line-height: var(--typography-text14-semibold-line-height);
@@ -114,19 +116,22 @@
 }
 
 .cds-btn--sm {
-  padding: 0.375rem 0.625rem;
+  min-height: var(--core-size-control-sm);
+  padding: var(--core-space-2) var(--core-space-3);
   font-size: var(--typography-text12-semibold-size);
   line-height: var(--typography-text12-semibold-line-height);
   border-radius: var(--core-radius-sm);
 }
 
 .cds-btn--md {
+  min-height: var(--core-size-control-md);
   font-size: var(--typography-text14-semibold-size);
   line-height: var(--typography-text14-semibold-line-height);
 }
 
 .cds-btn--lg {
-  padding: 0.625rem 1rem;
+  min-height: var(--core-size-control-lg);
+  padding: var(--core-space-3) var(--core-space-4);
   font-size: var(--typography-text16-semibold-size);
   line-height: var(--typography-text16-semibold-line-height);
   border-radius: var(--core-radius-sm);
@@ -135,7 +140,7 @@
 /* Button Variants consuming the design system color palette SCSS tokens */
 .cds-btn--primary {
   background: var(--brand-background-primary-strong);
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
   border-color: var(--brand-border-primary-default);
 }
 
@@ -159,53 +164,52 @@
 
 .cds-btn--secondary {
   background: transparent;
-  color: var(--theme-primitive-color-primary-500);
+  /* Brand-colored in light, white in dark — a brand hue at any step falls
+     short of 4.5:1 (WCAG 1.4.3) against the near-black dark canvas since
+     there's no fill behind this outline button to boost contrast against. */
+  color: var(--brand-text-primary-on-surface);
   border-color: var(--brand-border-primary-default);
 }
 
+/* Outline convention (shadcn `outline` / Chakra `outline`): hover/active
+   stay a translucent wash of the brand color, never Primary's opaque
+   fill — color-mix against `transparent` composites over the canvas
+   directly, so the same two percentages read correctly in both light and
+   dark without a separate discrete token per mode. Active is a deeper wash
+   than hover so the two states are never visually equal. */
 .cds-btn--secondary:hover:not(:disabled) {
-  background: var(--brand-background-primary-hover);
-  color: var(--theme-primitive-color-primary-100);
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 12%, transparent);
+  color: var(--brand-text-primary-hover);
   border-color: var(--brand-border-primary-hover);
 }
 
 .cds-btn--secondary:active:not(:disabled) {
-  background: var(--brand-background-primary-active);
-  color: var(--theme-primitive-color-primary-100);
-  border-color: var(--brand-background-primary-active);
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 24%, transparent);
+  color: var(--brand-text-primary-active);
+  /* Not background-primary-active — that step is tuned to contrast against
+     an opaque canvas, but this border now sits against the translucent
+     active wash instead. In dark mode the two converge toward the same
+     hue (1.48:1, failing WCAG 1.4.11's 3:1 non-text minimum). -hover is a
+     lighter step chosen to clear 3:1 against the wash in both modes. */
+  border-color: var(--brand-border-primary-hover);
 }
 
 .cds-btn--secondary:disabled,
 .cds-btn--secondary[aria-disabled="true"] {
   background: transparent;
-  color: var(--brand-text-primary-disabled);
-  border-color: var(--brand-border-primary-disabled);
+  color: var(--theme-semantics-disabled-text);
+  border-color: var(--theme-semantics-disabled-border);
   opacity: 1;
-}
-
-[data-mode="dark"] .cds-btn--secondary:not(:hover):not(:active):not(:disabled):not([aria-disabled="true"]),
-[data-mode="dark"] .cds-btn--secondary:focus-visible:not(:disabled):not([aria-disabled="true"]) {
-  color: var(--theme-primitive-color-primary-50);
 }
 
 [data-mode="dark"] .cds-btn--primary:not(:disabled):not([aria-disabled="true"]),
 [data-mode="dark"] .cds-btn--outline-primary:active:not(:disabled) {
-  color: var(--theme-primitive-color-primary-50);
-}
-
-[data-mode="dark"] .cds-btn--tertiary:not(:disabled):not([aria-disabled="true"]) {
-  color: var(--theme-primitive-color-primary-50);
-}
-
-[data-mode="dark"] .cds-btn--tertiary:hover:not(:disabled):not([aria-disabled="true"]),
-[data-mode="dark"] .cds-btn--tertiary:active:not(:disabled):not([aria-disabled="true"]) {
-  background: transparent;
-  border-color: transparent;
+  color: var(--brand-text-primary-oncolor);
 }
 
 .cds-btn--tertiary {
   background: transparent;
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-on-surface);
   border-color: transparent;
   text-decoration: none;
 }
@@ -222,15 +226,20 @@
   text-decoration-color: currentColor;
 }
 
+/* Ghost/text convention (shadcn `ghost`+`link` / Chakra `ghost` / MUI
+   `text`): never a border, never an opaque fill — only a faint wash that
+   deepens on press, plus the underline that marks this as a "text" action
+   rather than a boxed one. Lighter wash percentages than Secondary's
+   outline keeps the two variants visually distinct at every state. */
 .cds-btn--tertiary:hover:not(:disabled) {
-  background: var(--brand-background-primary-disabled-light);
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 8%, transparent);
   color: var(--brand-text-primary-hover);
   border-color: transparent;
 }
 
 .cds-btn--tertiary:active:not(:disabled) {
-  background: var(--brand-background-primary-active);
-  color: var(--theme-primitive-color-primary-50);
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 16%, transparent);
+  color: var(--brand-text-primary-active);
   border-color: transparent;
 }
 
@@ -238,13 +247,13 @@
   outline: none;
   border-color: var(--brand-border-primary-default);
   background: transparent;
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-on-surface);
 }
 
 .cds-btn--tertiary:disabled,
 .cds-btn--tertiary[aria-disabled="true"] {
   background: transparent;
-  color: var(--brand-text-primary-disabled);
+  color: var(--theme-semantics-disabled-text);
   border-color: transparent;
 }
 
@@ -371,7 +380,7 @@
 
 .cds-btn--outline-primary {
   background: var(--brand-background-primary-light);
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
   border-color: var(--brand-border-primary-default);
 }
 
@@ -382,7 +391,7 @@
 
 .cds-btn--outline-primary:active:not(:disabled) {
   background: var(--brand-background-primary-hover);
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
 }
 
 .cds-btn--outline-primary:disabled,
@@ -395,6 +404,7 @@
 
 /* ---------- Icon Button ---------- */
 .cds-icon-btn {
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -403,6 +413,36 @@
   cursor: pointer;
   transition: background-color 120ms ease, border-color 120ms ease;
   flex-shrink: 0;
+}
+
+/* Fixed inset from the control edge — space-1 (4px) on sm, space-2 (8px) on
+   md/lg. Without this, off-scale icon glyphs (e.g. 18px or 20px in a 32px
+   control) center with ~6px gaps, which is not on our spacing scale. */
+.cds-icon-btn > svg,
+.cds-icon-btn .cds-icon {
+  flex-shrink: 0;
+  display: block;
+}
+
+.cds-icon-btn--sm > svg,
+.cds-icon-btn--sm .cds-icon {
+  width: var(--core-size-icon-sm);
+  height: var(--core-size-icon-sm);
+  font-size: var(--core-size-icon-sm);
+}
+
+.cds-icon-btn--md > svg,
+.cds-icon-btn--md .cds-icon {
+  width: var(--core-size-icon-md);
+  height: var(--core-size-icon-md);
+  font-size: var(--core-size-icon-md);
+}
+
+.cds-icon-btn--lg > svg,
+.cds-icon-btn--lg .cds-icon {
+  width: var(--core-size-icon-lg);
+  height: var(--core-size-icon-lg);
+  font-size: var(--core-size-icon-lg);
 }
 
 .cds-icon-btn:focus-visible {
@@ -419,16 +459,19 @@
 .cds-icon-btn--sm {
   width: var(--core-size-control-sm);
   height: var(--core-size-control-sm);
+  padding: var(--core-space-1);
 }
 
 .cds-icon-btn--md {
   width: var(--core-size-control-md);
   height: var(--core-size-control-md);
+  padding: var(--core-space-2);
 }
 
 .cds-icon-btn--lg {
   width: var(--core-size-control-lg);
   height: var(--core-size-control-lg);
+  padding: var(--core-space-2);
 }
 
 /* Circle shape — the header/toolbar ghost-icon treatment (ⓘ Help, ☾ theme
@@ -443,7 +486,7 @@
 
 .cds-icon-btn--primary {
   background: var(--brand-background-primary-strong);
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
   border-color: var(--brand-border-primary-default);
 }
 
@@ -461,46 +504,71 @@
 
 .cds-icon-btn--secondary {
   background: transparent;
-  color: var(--theme-primitive-color-primary-500);
+  /* Brand-colored in light, white in dark — a brand hue at any step falls
+     short of 4.5:1 (WCAG 1.4.3) against the near-black dark canvas since
+     there's no fill behind this outline button to boost contrast against. */
+  color: var(--brand-text-primary-on-surface);
   border-color: var(--brand-border-primary-default);
 }
 
+/* Outline convention (shadcn `outline` / Chakra `outline`) — matches
+   Button's Secondary: hover/active are a translucent wash of the brand
+   color, never an opaque fill, so this never reads as a Primary button.
+   Active is a deeper wash than hover so the two states stay distinct. */
 .cds-icon-btn--secondary:hover:not(:disabled) {
-  background: var(--brand-background-primary-hover);
-  color: var(--theme-primitive-color-primary-100);
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 12%, transparent);
+  color: var(--brand-text-primary-hover);
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-icon-btn--secondary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 24%, transparent);
+  color: var(--brand-text-primary-active);
+  /* See Button's Secondary :active — -active's border step is tuned for an
+     opaque canvas, not this translucent wash; in dark mode the two converge
+     (1.48:1, failing 1.4.11's 3:1). -hover clears 3:1 against the wash. */
   border-color: var(--brand-border-primary-hover);
 }
 
 .cds-icon-btn--secondary:disabled,
 .cds-icon-btn--secondary[aria-disabled="true"] {
+  /* Outline styles have no fill to mute, so a same-hue disabled step (as
+     Button's filled disabled uses) reads as nearly identical to default —
+     neutral gray is the only way this variant communicates "disabled". */
   background: transparent;
-  color: var(--brand-text-primary-disabled);
-  border-color: var(--brand-border-primary-disabled);
-}
-
-[data-mode="dark"] .cds-icon-btn--secondary:not(:hover):not(:active):not(:disabled):not([aria-disabled="true"]),
-[data-mode="dark"] .cds-icon-btn--secondary:focus-visible:not(:disabled):not([aria-disabled="true"]) {
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--theme-semantics-disabled-text);
+  border-color: var(--theme-semantics-disabled-border);
 }
 
 [data-mode="dark"] .cds-icon-btn--primary:not(:disabled):not([aria-disabled="true"]) {
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
 }
 
 .cds-icon-btn--tertiary {
   background: transparent;
-  color: var(--theme-primitive-color-primary-300);
+  /* Was a hardcoded primitive (--theme-primitive-color-primary-300) — wrong
+     in light mode (a dark-mode-tuned step, too pale against a light canvas)
+     and not mode-aware at all. on-surface matches Button's Tertiary. */
+  color: var(--brand-text-primary-on-surface);
 }
 
+/* Ghost/text convention (shadcn `ghost`+`link` / Chakra `ghost` / MUI
+   `text`) — matches Button's Tertiary: a faint wash, lighter than
+   Secondary's, that deepens on press. */
 .cds-icon-btn--tertiary:hover:not(:disabled) {
-  background: var(--brand-background-primary-disabled-light);
-  color: var(--theme-primitive-color-primary-500);
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 8%, transparent);
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-icon-btn--tertiary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 16%, transparent);
+  color: var(--brand-text-primary-active);
 }
 
 .cds-icon-btn--tertiary:disabled,
 .cds-icon-btn--tertiary[aria-disabled="true"] {
   background: transparent;
-  color: var(--brand-text-primary-disabled);
+  color: var(--theme-semantics-disabled-text);
 }
 
 .cds-icon-btn--destructive {
@@ -514,8 +582,9 @@
 
 /* ---------- Link ---------- */
 .cds-link {
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
   text-decoration: underline;
+  text-decoration-color: var(--brand-text-primary-default);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   cursor: pointer;
@@ -524,24 +593,31 @@
 
 .cds-link:hover {
   color: var(--brand-text-primary-hover);
+  text-decoration-color: var(--brand-text-primary-hover);
+  text-decoration-thickness: 2px;
 }
 
 .cds-link:active {
   color: var(--brand-text-primary-active);
+  text-decoration-color: var(--brand-text-primary-active);
+  text-decoration-thickness: 2px;
 }
 
 .cds-link:focus-visible {
   outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
   outline-offset: 2px;
   border-radius: var(--core-radius-sm);
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
+  text-decoration-color: var(--brand-text-primary-default);
 }
 
 .cds-link:disabled,
 .cds-link[aria-disabled="true"],
 .cds-link--disabled {
-  color: var(--brand-text-primary-disabled);
-  text-decoration-color: var(--brand-border-primary-disabled);
+  /* A disabled link sits on the page, not on a fill, so a brand-blue shade
+     would read as just another link. Neutral is the only clear signal. */
+  color: var(--theme-semantics-disabled-text);
+  text-decoration-color: var(--theme-semantics-disabled-text);
   cursor: not-allowed;
   opacity: 1;
   pointer-events: none;
@@ -603,19 +679,21 @@
   flex-shrink: 0;
   border: none;
   color: var(--theme-neutral-text-subtle-least);
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-raised);
+  border: 1px solid var(--theme-neutral-border-primary-default);
   z-index: 1;
   transition: background 150ms ease, color 150ms ease;
 }
 
 .cds-step--default .cds-step-marker {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-raised);
   color: var(--theme-neutral-text-subtle-least);
+  border: 1px solid var(--theme-neutral-border-primary-default);
 }
 
 .cds-step--in-progress .cds-step-marker {
   background: var(--brand-background-primary-strong);
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
 }
 
 .cds-step--completed .cds-step-marker {
@@ -634,7 +712,7 @@
 }
 
 .cds-step-label {
-  margin-left: 10px;
+  margin-left: var(--core-space-3);
   display: flex;
   flex-direction: column;
 }
@@ -649,7 +727,7 @@
 }
 
 .cds-step--in-progress .cds-step-title {
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
   font-weight: var(--typography-font-weight-bold);
 }
 
@@ -680,19 +758,27 @@
   color: var(--theme-neutral-text-subtle);
 }
 
+/* Rendered for every step in every state — not just the ones with
+   something to flag — so "not started yet" and "done" read as clearly as
+   "needs review". Each state recolors it via the rules below. */
 .cds-step-status {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--core-space-1);
   font-family: var(--typography-font-family-sans);
   font-size: var(--typography-body-xs-size);
   line-height: var(--typography-body-xs-line-height);
   font-weight: var(--typography-font-weight-semibold);
-  margin-top: 2px;
+  margin-top: var(--core-space-1);
+  color: var(--theme-neutral-text-subtle-least);
 }
 
 .cds-step--in-progress .cds-step-status {
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
+}
+
+.cds-step--completed .cds-step-status {
+  color: var(--theme-semantics-success-text, var(--theme-semantics-success-strong-background));
 }
 
 .cds-step--warning .cds-step-status {
@@ -715,8 +801,10 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid color-mix(in srgb, var(--theme-primitive-color-primary-500) 25%, transparent);
-  border-top-color: var(--theme-primitive-color-primary-500);
+  --cds-spinner-track: color-mix(in srgb, var(--core-color-text-primary) 32%, transparent);
+  --cds-spinner-active: var(--brand-text-primary-default, var(--theme-primitive-color-primary-500));
+  border: 2px solid var(--cds-spinner-track);
+  border-top-color: var(--cds-spinner-active);
   animation: cds-spin 700ms linear infinite;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -732,7 +820,7 @@
   flex: 1;
   height: 2px;
   background: var(--theme-neutral-border-primary-default);
-  margin: 0 10px;
+  margin: var(--core-space-0) var(--core-space-3);
 }
 
 .cds-step--completed .cds-step-connector {
@@ -759,7 +847,7 @@
 .cds-step--vertical {
   align-items: flex-start;
   flex: 0 0 auto;
-  padding-bottom: 28px;
+  padding-bottom: var(--core-space-4);
 }
 
 .cds-step--vertical:last-child {
@@ -777,10 +865,107 @@
   margin: 0;
 }
 
+/* Stepper: mobile orientation — a compact segmented progress bar standing
+   in for every step (so the whole flow is still visible at a glance on a
+   narrow screen) plus a single focused card for just the current step.
+   Not a shrunk horizontal stepper (no room for N inline labels on a phone)
+   and not the full vertical list (that's a lot of scrolling to reach step
+   6 of 8) — the pattern most mobile OS/app wizards actually use. */
+.cds-stepper--mobile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-3);
+  width: 100%;
+}
+
+.cds-stepper-mobile-track {
+  display: flex;
+  gap: var(--core-space-2);
+}
+
+.cds-stepper-mobile-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--core-space-1);
+  min-width: 0;
+}
+
+.cds-stepper-mobile-segment {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--core-color-text-primary) 20%, transparent);
+}
+
+.cds-stepper-mobile-step-label {
+  font-size: var(--typography-font-size-xs);
+  font-weight: 600;
+  color: var(--theme-neutral-text-subtle);
+  line-height: 1;
+}
+
+.cds-stepper-mobile-segment--completed {
+  background: var(--theme-semantics-success-strong-background);
+}
+
+.cds-stepper-mobile-segment--in-progress {
+  background: var(--brand-text-primary-default, var(--brand-background-primary-strong));
+}
+
+.cds-stepper-mobile-segment--warning {
+  background: var(--theme-colors-warning-700);
+}
+
+.cds-stepper-mobile-segment--error {
+  background: var(--theme-semantics-critical-strong-background);
+}
+
+.cds-stepper-mobile-count {
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  font-weight: var(--typography-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-step--mobile {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--core-space-3);
+  padding: var(--core-space-4);
+  border-radius: var(--core-radius-md, 12px);
+  background: var(--core-color-surface-raised);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+.cds-step--mobile.cds-step--in-progress {
+  border-color: var(--brand-border-primary-default);
+}
+
+.cds-step--mobile.cds-step--completed {
+  border-color: var(--theme-semantics-success-border, var(--theme-semantics-success-strong-background));
+}
+
+.cds-step--mobile.cds-step--warning {
+  border-color: var(--theme-colors-warning-700);
+}
+
+.cds-step--mobile.cds-step--error {
+  border-color: var(--theme-semantics-critical-border);
+}
+
+.cds-step--mobile .cds-step-label {
+  margin-left: 0;
+}
+
 .cds-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--core-space-2);
 }
 
 .cds-label {
@@ -788,7 +973,9 @@
   line-height: var(--typography-label-line-height);
   font-weight: var(--typography-label-weight);
   letter-spacing: var(--typography-label-letter-spacing);
-  color: var(--theme-neutral-text-primary-default);
+  /* Muted label — primary (900) read too heavy above inputs; subtle keeps
+     hierarchy above hint text (subtle-least) and input value (primary). */
+  color: var(--theme-neutral-text-subtle);
 }
 
 .cds-hint {
@@ -796,7 +983,7 @@
   line-height: var(--typography-body-xs-line-height);
   font-weight: var(--typography-body-xs-weight);
   letter-spacing: var(--typography-body-xs-letter-spacing);
-  color: var(--theme-neutral-text-subtle);
+  color: var(--theme-neutral-text-subtle-least);
 }
 
 .cds-error-text {
@@ -807,11 +994,11 @@
 .cds-input {
   box-sizing: border-box;
   width: 100%;
-  padding: 8px 12px;
+  padding: var(--core-space-2) var(--core-space-3);
   min-height: 40px;
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   color: var(--theme-neutral-text-primary-default);
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
@@ -820,21 +1007,21 @@
 }
 
 .cds-input--sm {
-  padding: 6px 10px;
+  padding: var(--core-space-2) var(--core-space-3);
   min-height: 34px;
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
 }
 
 .cds-input--md {
-  padding: 8px 12px;
+  padding: var(--core-space-2) var(--core-space-3);
   min-height: 40px;
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
 }
 
 .cds-input--lg {
-  padding: 10px 16px;
+  padding: var(--core-space-3) var(--core-space-4);
   min-height: 46px;
   font-size: var(--typography-text16-regular-size);
   line-height: var(--typography-text16-regular-line-height);
@@ -844,8 +1031,20 @@
   color: var(--theme-neutral-text-subtle);
 }
 
-.cds-input:hover:not(:disabled):not([aria-disabled="true"]) {
+/* Hover must read as "pressed/sunken" — darker than the default surface —
+   in both modes. --core-color-surface-sunken can't do that reliably (it's
+   a fixed step that happened to land almost exactly on the surrounding
+   dark-mode panel's own background, #111017 vs #111219, so it looked like
+   no change at all); mixing in the input's own border token isn't right
+   either, since that border is a *light* color in dark mode and would
+   brighten the field instead of darkening it. Mixing in flat black always
+   darkens the current surface by the same relative amount regardless of
+   mode, so it never depends on (and can never coincidentally match) the
+   surrounding page's background. */
+.cds-input:hover:not(:disabled):not([aria-disabled="true"]),
+.force-hover .cds-input {
   border-color: var(--theme-neutral-border-strong);
+  background: color-mix(in srgb, black 8%, var(--core-color-surface-default));
 }
 
 .cds-input:focus-visible,
@@ -860,9 +1059,9 @@
 }
 
 .cds-input:disabled {
-  background: var(--theme-colors-neutral-100);
+  background: var(--theme-semantics-disabled-background);
   color: var(--theme-semantics-disabled-text);
-  border-color: var(--theme-neutral-border-primary-default);
+  border-color: var(--theme-semantics-disabled-border);
   opacity: 1;
   cursor: not-allowed;
 }
@@ -875,11 +1074,11 @@
   display: block;
   text-align: left;
   width: 100%;
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-card-radius);
   box-shadow: var(--core-card-shadow);
-  padding: var(--core-space-6);
+  padding: var(--core-space-4);
   color: inherit;
   cursor: default;
   transition: box-shadow 150ms ease, border-color 150ms ease, background-color 150ms ease, transform 100ms ease;
@@ -897,7 +1096,7 @@
 .cds-card--interactive:hover:not(:disabled) {
   box-shadow: var(--core-elevation-2);
   border-color: var(--theme-neutral-border-strong);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
 }
 
 .cds-card--interactive:active:not(:disabled) {
@@ -925,19 +1124,28 @@
   pointer-events: none;
 }
 
-.cds-card:has(.cds-card__quick-link) {
-  padding: var(--core-space-3, 12px);
-  font-family: var(--typography-font-family-sans);
-  color: var(--theme-neutral-text-primary-default);
-}
-
-.cds-card__quick-link {
-  display: flex;
+/*
+ * Quick Links: a bordered horizontal "quick action" card — distinct from
+ * .cds-sidenav-item (a borderless vertical list row for a settings sub-nav).
+ * No transform on hover (a translateY lift here previously caused a visible
+ * jump — elevation/border-color changes alone are enough feedback without
+ * shifting the card's position).
+ */
+.cds-quicklink {
+  display: inline-flex;
   align-items: center;
-  gap: var(--core-space-3, 12px);
+  gap: var(--core-space-3);
+  padding: var(--core-space-4) var(--core-space-4);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-lg);
+  background: var(--core-color-surface-default);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--typography-font-family-sans);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
 }
 
-.cds-card__quick-link-icon {
+.cds-quicklink-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -946,48 +1154,63 @@
   height: 40px;
   border-radius: var(--core-radius-sm);
   background: var(--brand-background-primary-light);
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
   transition: background-color 150ms ease, color 150ms ease;
 }
 
-.cds-card__quick-link-icon .cds-icon {
-  color: inherit;
-}
-
-.cds-card__quick-link-label {
-  font-family: var(--typography-font-family-sans);
+.cds-quicklink-label {
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
-  font-weight: var(--typography-body-md-weight);
-  letter-spacing: var(--typography-body-md-letter-spacing);
+  font-weight: var(--typography-font-weight-semibold);
   color: var(--theme-neutral-text-primary-default);
+  white-space: nowrap;
 }
 
-.cds-card--interactive:hover:not(:disabled) .cds-card__quick-link-icon {
-  background: var(--brand-background-primary-subtle);
-  color: var(--brand-text-primary-hover);
+.cds-quicklink:hover:not(:disabled) {
+  border-color: var(--theme-neutral-border-strong);
+  box-shadow: var(--core-elevation-1);
 }
 
-.cds-card--interactive:active:not(:disabled) .cds-card__quick-link-icon {
-  background: var(--brand-background-primary-light);
-  color: var(--brand-text-primary-active);
+.cds-quicklink:focus-visible {
+  outline: none;
+  border-color: var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
 }
 
-.cds-card--disabled .cds-card__quick-link-label,
-.cds-card--interactive:disabled .cds-card__quick-link-label {
+.cds-quicklink[data-selected="true"] {
+  border-color: var(--brand-border-primary-default);
+  background: var(--theme-brand-background-primary-subtle);
+}
+
+.cds-quicklink[data-selected="true"] .cds-quicklink-icon {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+}
+
+.cds-quicklink[data-selected="true"] .cds-quicklink-label {
+  color: var(--brand-text-primary-default);
+}
+
+.cds-quicklink:disabled {
+  cursor: not-allowed;
+  background: var(--theme-semantics-disabled-background);
+  border-color: var(--theme-semantics-disabled-border);
+  box-shadow: none;
+}
+
+.cds-quicklink:disabled .cds-quicklink-icon {
+  background: var(--theme-semantics-disabled-background);
   color: var(--theme-semantics-disabled-text);
 }
 
-.cds-card--disabled .cds-card__quick-link-icon,
-.cds-card--interactive:disabled .cds-card__quick-link-icon {
-  background: var(--theme-colors-neutral-100);
+.cds-quicklink:disabled .cds-quicklink-label {
   color: var(--theme-semantics-disabled-text);
 }
 
 .cds-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--core-space-2);
   border-radius: var(--core-badge-radius);
   font-family: var(--typography-font-family-sans);
   font-weight: var(--typography-font-weight-medium);
@@ -996,34 +1219,42 @@
 }
 
 .cds-badge-size--md {
-  padding: 4px 12px;
+  padding: var(--core-space-1) var(--core-space-3);
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
   letter-spacing: var(--typography-body-md-letter-spacing);
 }
 
 .cds-badge-size--sm {
-  padding: 2px 8px;
+  padding: var(--core-space-1) var(--core-space-2);
   font-size: var(--typography-body-xs-size);
   line-height: var(--typography-body-xs-line-height);
   letter-spacing: var(--typography-body-xs-letter-spacing);
 }
 
+/* Soft variant borders reuse each tone's *-text token, not *-border — the
+   dedicated border step is tuned for controls sitting on the plain page
+   canvas, but a soft badge's border sits against its own light tinted fill
+   instead, where it fell short of 3:1 (WCAG 1.4.11): danger 2.89:1 (fail),
+   success 3.00:1 (razor's edge). The text token is already proven >=4.5:1
+   against this same fill, so reusing it guarantees the border reads at
+   least as well. Outline/solid variants are unaffected — their border sits
+   against the plain page canvas (outline) or is transparent (solid). */
 .cds-badge-style--soft.cds-badge--primary {
   background: var(--brand-background-primary-light);
-  color: var(--theme-primitive-color-primary-500);
-  border-color: var(--brand-border-primary-default);
+  color: var(--brand-text-primary-default);
+  border-color: var(--brand-text-primary-default);
 }
 
 .cds-badge-style--outline.cds-badge--primary {
   background: transparent;
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
   border-color: var(--brand-border-primary-default);
 }
 
 .cds-badge-style--solid.cds-badge--primary {
   background: var(--brand-background-primary-strong);
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
   border-color: transparent;
 }
 
@@ -1031,7 +1262,7 @@
 .cds-badge-style--soft.cds-badge--success {
   background: var(--theme-semantics-success-light-background);
   color: var(--theme-semantics-success-text);
-  border-color: var(--theme-semantics-success-border);
+  border-color: var(--theme-semantics-success-text);
 }
 
 .cds-badge-style--outline.cds-badge--success {
@@ -1049,7 +1280,7 @@
 .cds-badge-style--soft.cds-badge--warning {
   background: var(--theme-semantics-warning-light-background);
   color: var(--theme-semantics-warning-text);
-  border-color: var(--theme-semantics-warning-border);
+  border-color: var(--theme-semantics-warning-text);
 }
 
 .cds-badge-style--outline.cds-badge--warning {
@@ -1067,7 +1298,7 @@
 .cds-badge-style--soft.cds-badge--danger {
   background: var(--theme-semantics-critical-light-background);
   color: var(--theme-semantics-critical-text);
-  border-color: var(--theme-semantics-critical-border);
+  border-color: var(--theme-semantics-critical-text);
 }
 
 .cds-badge-style--outline.cds-badge--danger {
@@ -1085,7 +1316,7 @@
 .cds-badge-style--soft.cds-badge--info {
   background: var(--theme-semantics-highlight-light-background);
   color: var(--theme-semantics-highlight-text);
-  border-color: var(--theme-semantics-highlight-border);
+  border-color: var(--theme-semantics-highlight-text);
 }
 
 .cds-badge-style--outline.cds-badge--info {
@@ -1101,8 +1332,8 @@
 }
 
 .cds-badge-style--soft.cds-badge--neutral {
-  background: var(--theme-colors-neutral-100);
-  color: var(--theme-colors-neutral-800);
+  background: var(--core-color-surface-sunken);
+  color: var(--theme-neutral-text-primary-default);
   border-color: var(--theme-neutral-border-primary-default);
 }
 
@@ -1130,22 +1361,27 @@
 .cds-badge-state--hover.cds-badge--primary,
 .force-hover .cds-badge--primary {
   background: var(--brand-background-primary-subtle) !important;
-  color: var(--theme-primitive-color-primary-500) !important;
+  color: var(--brand-text-primary-default) !important;
   border-color: var(--brand-border-primary-hover) !important;
 }
 
+/* Not surface-raised — in light mode that token is #FFFFFF, identical to
+   the page background, so hover looked like the badge vanishing instead of
+   a hover state. color-mix darkens the badge's own default fill (sunken)
+   by blending in some of the border gray, giving a visible, genuinely
+   darker shade of the default in both modes without a separate token. */
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--neutral,
 .cds-badge-state--hover.cds-badge--neutral,
 .force-hover .cds-badge--neutral {
-  background: var(--theme-colors-neutral-200) !important;
-  color: var(--theme-colors-neutral-800) !important;
+  background: color-mix(in srgb, var(--theme-neutral-border-primary-default) 22%, var(--core-color-surface-sunken)) !important;
+  color: var(--theme-neutral-text-primary-default) !important;
   border-color: var(--theme-neutral-border-strong) !important;
 }
 
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--success,
 .cds-badge-state--hover.cds-badge--success,
 .force-hover .cds-badge--success {
-  background: var(--theme-colors-success-100) !important;
+  background: color-mix(in srgb, var(--theme-semantics-success-strong-background) 14%, var(--core-color-surface-default)) !important;
   color: var(--theme-semantics-success-text) !important;
   border-color: var(--theme-semantics-success-strong-background) !important;
 }
@@ -1153,7 +1389,7 @@
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--warning,
 .cds-badge-state--hover.cds-badge--warning,
 .force-hover .cds-badge--warning {
-  background: var(--theme-primitive-color-tertiary-100) !important;
+  background: color-mix(in srgb, var(--theme-semantics-warning-strong-background) 14%, var(--core-color-surface-default)) !important;
   color: var(--theme-semantics-warning-text) !important;
   border-color: var(--theme-primitive-color-tertiary-600) !important;
 }
@@ -1161,7 +1397,7 @@
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--danger,
 .cds-badge-state--hover.cds-badge--danger,
 .force-hover .cds-badge--danger {
-  background: var(--theme-colors-red-100) !important;
+  background: color-mix(in srgb, var(--theme-semantics-critical-strong-background) 14%, var(--core-color-surface-default)) !important;
   color: var(--theme-semantics-critical-text) !important;
   border-color: var(--theme-colors-red-600) !important;
 }
@@ -1169,7 +1405,7 @@
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--info,
 .cds-badge-state--hover.cds-badge--info,
 .force-hover .cds-badge--info {
-  background: var(--theme-colors-info-100) !important;
+  background: color-mix(in srgb, var(--theme-semantics-highlight-strong-background) 14%, var(--core-color-surface-default)) !important;
   color: var(--theme-semantics-highlight-text) !important;
   border-color: var(--theme-colors-info-600) !important;
 }
@@ -1178,8 +1414,54 @@
 .cds-badge-state--active.cds-badge-style--soft.cds-badge--primary,
 .force-active .cds-badge-style--soft.cds-badge--primary {
   background: var(--brand-background-primary-strong) !important;
-  color: var(--theme-primitive-color-primary-50) !important;
+  color: var(--brand-text-primary-oncolor) !important;
   border-color: var(--brand-border-primary-default) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--neutral,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--neutral,
+.force-active .cds-badge-style--soft.cds-badge--neutral {
+  background: var(--theme-colors-neutral-800) !important;
+  color: var(--theme-colors-neutral-0) !important;
+  border-color: var(--theme-colors-neutral-800) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--success,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--success,
+.force-active .cds-badge-style--soft.cds-badge--success {
+  background: var(--theme-semantics-success-strong-background) !important;
+  color: var(--theme-colors-neutral-0) !important;
+  border-color: var(--theme-semantics-success-strong-background) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--warning,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--warning,
+.force-active .cds-badge-style--soft.cds-badge--warning {
+  background: var(--theme-semantics-warning-strong-background) !important;
+  color: var(--theme-neutral-text-on-color) !important;
+  border-color: var(--theme-semantics-warning-strong-background) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--danger,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--danger,
+.force-active .cds-badge-style--soft.cds-badge--danger {
+  background: var(--theme-semantics-critical-strong-background) !important;
+  color: var(--theme-colors-neutral-0) !important;
+  border-color: var(--theme-semantics-critical-strong-background) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--info,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--info,
+.force-active .cds-badge-style--soft.cds-badge--info {
+  background: var(--theme-semantics-highlight-strong-background) !important;
+  color: var(--theme-neutral-text-on-color) !important;
+  border-color: var(--theme-semantics-highlight-strong-background) !important;
+}
+
+.cds-badge--interactive:focus-visible:not(.cds-badge--disabled),
+.force-focus .cds-badge--interactive {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400) !important;
+  outline-offset: 2px !important;
 }
 
 /* Base Disabled State */
@@ -1192,52 +1474,21 @@
   user-select: none !important;
 }
 
-/* Tone-specific disabled — faded mix of each tone's default soft colors */
-.cds-badge-style--soft.cds-badge--disabled.cds-badge--primary,
-.force-disabled .cds-badge-style--soft.cds-badge--primary {
-  background: var(--brand-background-primary-light) !important;
-  color: var(--brand-text-primary-disabled) !important;
-  border-color: var(--brand-border-primary-disabled) !important;
-  opacity: 1 !important;
-}
-
-.cds-badge-style--soft.cds-badge--disabled.cds-badge--neutral,
-.force-disabled .cds-badge-style--soft.cds-badge--neutral {
+/* Disabled — one neutral gray treatment for every tone, not a per-tone
+   "-disabled" step of that tone's own hue. The per-tone disabled tokens
+   this replaced resolved to the *same* background and near-identical text
+   color as the tone's own default/enabled state in dark mode (e.g. primary
+   disabled and primary default were pixel-identical: bg rgb(16,33,55),
+   text rgb(134,173,223) — only the border differed), so "disabled" was
+   indistinguishable from enabled. A same-hue disabled step reads as
+   identical to default whenever it's still close in lightness to that
+   hue's own default — neutral gray is the only reliably distinguishable
+   signal, matching Button/Icon Button's disabled convention. */
+.cds-badge-style--soft.cds-badge--disabled,
+.force-disabled .cds-badge-style--soft {
   background: var(--theme-semantics-disabled-background) !important;
   color: var(--theme-semantics-disabled-text) !important;
   border-color: var(--theme-semantics-disabled-border) !important;
-  opacity: 1 !important;
-}
-
-.cds-badge-style--soft.cds-badge--disabled.cds-badge--success,
-.force-disabled .cds-badge-style--soft.cds-badge--success {
-  background: var(--theme-semantics-success-disabled-background) !important;
-  color: var(--theme-semantics-success-disabled-text) !important;
-  border-color: var(--theme-semantics-success-disabled-border) !important;
-  opacity: 1 !important;
-}
-
-.cds-badge-style--soft.cds-badge--disabled.cds-badge--warning,
-.force-disabled .cds-badge-style--soft.cds-badge--warning {
-  background: var(--theme-semantics-warning-disabled-background) !important;
-  color: var(--theme-semantics-warning-disabled-text) !important;
-  border-color: var(--theme-semantics-warning-disabled-border) !important;
-  opacity: 1 !important;
-}
-
-.cds-badge-style--soft.cds-badge--disabled.cds-badge--danger,
-.force-disabled .cds-badge-style--soft.cds-badge--danger {
-  background: var(--theme-semantics-critical-disabled-background) !important;
-  color: var(--theme-semantics-critical-disabled-text) !important;
-  border-color: var(--theme-semantics-critical-disabled-border) !important;
-  opacity: 1 !important;
-}
-
-.cds-badge-style--soft.cds-badge--disabled.cds-badge--info,
-.force-disabled .cds-badge-style--soft.cds-badge--info {
-  background: var(--theme-semantics-highlight-disabled-background) !important;
-  color: var(--theme-semantics-highlight-disabled-text) !important;
-  border-color: var(--theme-semantics-highlight-disabled-border) !important;
   opacity: 1 !important;
 }
 
@@ -1250,63 +1501,116 @@
 }
 
 .cds-badge-remove {
+  /* 24x24 CSS-pixel minimum target (WCAG 2.5.8) — was font-size + 0/2px
+     padding alone, well under the minimum. Full-opacity icon by default —
+     the 0.65 opacity this replaced dropped contrast noticeably (same
+     pattern already fixed on Alert's and Attachment's dismiss buttons);
+     hover/focus use a background wash instead of an opacity change. */
+  width: 24px;
+  height: 24px;
   background: none;
   border: none;
   color: inherit;
   cursor: pointer;
-  padding: 0 2px;
-  margin-left: 4px;
+  margin-left: var(--core-space-1);
   font-size: var(--typography-font-size-xs);
   line-height: 1;
-  opacity: 0.65;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   border-radius: 50%;
   transition: opacity 0.15s ease, background-color 0.15s ease;
 }
 
 .cds-badge-remove:hover {
-  opacity: 1;
+  background: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.cds-badge-remove:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 1px;
 }
 
 .cds-alert {
   display: flex;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: var(--core-space-3);
+  padding: var(--core-space-4) var(--core-space-4);
   border-radius: var(--core-radius-sm);
   border: 1px solid;
   font-size: var(--typography-body-md-size);
 }
 
+.cds-alert__icon {
+  flex-shrink: 0;
+  margin-top: var(--core-space-0);
+}
+
+/* Border uses each tone's *-text token, not *-border — the dedicated
+   border step is tuned for controls sitting on the page canvas, but here it
+   sits against the alert's own light tinted fill and fell short of 3:1
+   (WCAG 1.4.11) for danger in light mode (2.89:1). The text token is
+   already proven >=4.5:1 against this same fill, so reusing it guarantees
+   the border reads at least as strongly. */
 .cds-alert--success {
   background: var(--theme-semantics-success-light-background);
   color: var(--theme-semantics-success-text);
-  border-color: var(--theme-semantics-success-border);
+  border-color: var(--theme-semantics-success-text);
 }
 
 .cds-alert--warning {
   background: var(--theme-semantics-warning-light-background);
   color: var(--theme-semantics-warning-text);
-  border-color: var(--theme-semantics-warning-border);
+  border-color: var(--theme-semantics-warning-text);
 }
 
 .cds-alert--danger {
   background: var(--theme-semantics-critical-light-background);
   color: var(--theme-semantics-critical-text);
-  border-color: var(--theme-semantics-critical-border);
+  border-color: var(--theme-semantics-critical-text);
 }
 
 .cds-alert--info {
   background: var(--theme-semantics-highlight-light-background);
   color: var(--theme-semantics-highlight-text);
-  border-color: var(--theme-semantics-highlight-border);
+  border-color: var(--theme-semantics-highlight-text);
+}
+
+/* Dismiss button — full-opacity icon by default (the 0.6 opacity fade this
+   replaced dropped as low as 2.50:1 in light mode, failing WCAG 1.4.11's
+   3:1 for a UI control); hover/focus get a background wash instead of an
+   opacity change, matching the wash convention used elsewhere (Button,
+   Icon Button). Sized to the 24x24 CSS-pixel minimum target (WCAG 2.5.8). */
+.cds-alert__dismiss {
+  position: absolute;
+  top: var(--core-space-2);
+  right: var(--core-space-2);
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  border-radius: var(--core-radius-sm);
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 120ms ease;
+}
+
+.cds-alert__dismiss:hover {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.cds-alert__dismiss:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 1px;
 }
 
 .cds-switch {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--core-space-3);
   cursor: pointer;
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
@@ -1322,11 +1626,44 @@
   height: 1px;
 }
 
+/*
+ * Off-track fill uses the mode-independent --theme-colors-neutral-500
+ * primitive rather than the semantic --theme-neutral-border-strong token:
+ * that semantic token is *designed* to get lighter in dark mode (so thin
+ * borders stay visible against a dark surface), which is exactly wrong for
+ * a large fill area sitting behind an always-white thumb — it measured only
+ * 2.64:1 against the thumb in dark mode (needs ≥3:1), a real WCAG 1.4.11
+ * failure, while passing fine in light mode purely by coincidence. The
+ * primitive stays a constant mid-grey in both modes (4.34:1 against white
+ * either way) so this can't silently break again when the palette is retuned.
+ * No border — the border token (--theme-neutral-text-subtle) it previously
+ * borrowed was the wrong category (a text color reused as a border) and
+ * measured only ~1.5:1 against the new fill anyway, i.e. invisible; the pill
+ * shape plus fill-vs-page contrast is sufficient, matching Radix/Chakra/MUI
+ * switches, none of which put a border on the track.
+ */
+/*
+ * Fixed geometry, not layout-derived: track is a hardcoded 32×18 box (no
+ * padding), and the thumb is absolutely positioned inside it with explicit
+ * `left`/`right` values — OFF sets `left: 2px`, ON sets `right: 2px`
+ * (switching which edge is anchored, not translating from a computed
+ * travel distance). Nothing here depends on flex alignment, gap, or padding
+ * to place the thumb; the track's own 32×18 box is the only container.
+ * Vertical centering uses `top: 50%` + `translateY(-50%)`, which stays
+ * exact regardless of track height, rather than assuming inset math
+ * happens to center it. No border on the track or default box-shadow on
+ * the thumb — either would add real layout box size (a border) or a visual
+ * halo that reads as size even though it technically isn't (a shadow), so
+ * both are pushed to :focus-visible / --disabled variants only, via
+ * box-shadow (which never affects layout or the 32×18 bounding box).
+ */
 .cds-switch-track {
-  width: 36px;
-  height: 20px;
-  border-radius: var(--core-radius-full);
-  background: var(--theme-neutral-border-strong);
+  width: 32px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--theme-colors-neutral-500);
+  border: none;
+  box-sizing: border-box;
   transition: background-color 180ms cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   flex-shrink: 0;
@@ -1335,40 +1672,69 @@
 .cds-switch-track::after {
   content: "";
   position: absolute;
-  top: 2px;
+  top: 50%;
   left: 2px;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--theme-colors-neutral-0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
-  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--core-elevation-1);
+  transform: translateY(-50%);
+  transition: left 180ms cubic-bezier(0.4, 0, 0.2, 1), right 180ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cds-switch:hover input:not(:disabled):not(:checked) + .cds-switch-track {
-  background: var(--theme-colors-neutral-400);
+  /* Darkens on hover (n500 → n600), matching every other hover treatment in
+     this library. The previous n400 was actually *lighter* than the n500
+     default — backwards — and additionally failed contrast against the
+     white thumb (2.64:1, needs ≥3:1). */
+  background: var(--theme-colors-neutral-600);
 }
 
+/*
+ * Checked-track hover/active previously darkened further (-hover/-active
+ * tokens), which is backwards for a brand-blue fill sitting on a dark page:
+ * in dark mode those tokens measured only 2.31:1 / 1.94:1 against the page
+ * background — well under the 3:1 floor, meaning a hovered/pressed "on"
+ * switch nearly disappeared into the canvas. Lightening the strong fill
+ * instead (toward white) keeps the same "hover intensifies, press
+ * intensifies more" feel while staying compliant in both modes — 5.09:1 /
+ * 5.99:1 against the dark page, 5.65:1 / 4.38:1 against the light page.
+ */
 .cds-switch:hover input:not(:disabled):checked + .cds-switch-track {
-  background: var(--brand-background-primary-hover);
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 88%, white);
 }
 
 .cds-switch:active input:not(:disabled):checked + .cds-switch-track {
-  background: var(--brand-background-primary-active);
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 78%, white);
 }
 
 .cds-switch input:checked + .cds-switch-track {
   background: var(--brand-background-primary-strong);
 }
 
+/*
+ * ON is expressed as its own literal `right: 2px` (not a translateX computed
+ * from track/thumb/inset math) — per spec, switching which physical edge is
+ * anchored rather than sliding a transform. One consequence: `left`/`right`
+ * can't cross-animate through `auto`, so the thumb now jumps between the two
+ * anchored positions instead of sliding — an explicit trade-off for using
+ * literal edge offsets instead of a computed transform.
+ */
 .cds-switch input:checked + .cds-switch-track::after {
-  transform: translateX(16px);
+  left: auto;
+  right: 2px;
 }
 
 .cds-switch input:focus-visible + .cds-switch-track {
   outline: none;
+  /* The gap ring was hardcoded to --theme-colors-neutral-0 (literal white)
+     regardless of mode, so on a dark canvas it would render as a bright
+     white halo instead of blending with the surface behind it. Switched to
+     --core-color-surface-default — the same mode-aware "gap" token already
+     used for this exact purpose on Checkbox/Radio's focus ring. */
   box-shadow:
-    0 0 0 2px var(--theme-colors-neutral-0),
+    0 0 0 2px var(--core-color-surface-default),
     0 0 0 calc(2px + var(--core-focusRing-width)) var(--theme-primitive-color-primary-400);
 }
 
@@ -1378,8 +1744,33 @@
   color: var(--theme-semantics-disabled-text);
 }
 
+/*
+ * Disabled changes ONLY color — same treatment style as hover (background
+ * swap, nothing else). No border, no box-shadow ring: the track and thumb
+ * keep the exact same borderless, shadow-free construction as every other
+ * state, so size, padding, and thumb position stay identical throughout.
+ *
+ * Fill is --theme-colors-neutral-400 for BOTH OFF and ON — a deliberate
+ * three-way tradeoff:
+ *   - the pale --theme-semantics-disabled-background used elsewhere in this
+ *     library only works because those controls pair it with a real
+ *     border-color; used alone on a borderless track it measured 1.16:1
+ *     against the thumb (invisible);
+ *   - --theme-colors-neutral-500 (the enabled default track's own color)
+ *     is fully compliant at 4.34:1, but then disabled and enabled tracks
+ *     are pixel-identical, which reads as "not actually disabled";
+ *   - --theme-colors-neutral-300 is visibly lighter/muted but drops to
+ *     1.73:1 against the thumb and 1.62:1 against the light-mode page —
+ *     back to nearly invisible.
+ * neutral-400 (2.64:1 against the thumb) is the middle ground: visibly
+ * lighter than the enabled default so "disabled" reads at a glance, without
+ * collapsing into the page the way neutral-300 does. It doesn't clear the
+ * 3:1 AA floor on its own — disabled controls are WCAG-exempt from contrast
+ * requirements, and the thumb's position is the actual state indicator here,
+ * not the track's exact shade.
+ */
 .cds-switch--disabled .cds-switch-track {
-  background: var(--theme-colors-neutral-500);
+  background: var(--theme-colors-neutral-400);
   border: none;
   box-shadow: none;
 }
@@ -1389,25 +1780,23 @@
   box-shadow: none;
 }
 
-.cds-switch--disabled input:checked + .cds-switch-track {
-  background: var(--theme-colors-neutral-500);
-}
-
 /* ---------- Textarea / Select ---------- */
 .cds-textarea {
   min-height: 88px;
-  padding: 10px 12px;
+  padding: var(--core-space-3) var(--core-space-3);
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   color: var(--theme-neutral-text-primary-default);
   font-size: var(--typography-text14-regular-size);
   width: 100%;
   resize: vertical;
 }
 
-.cds-textarea:hover:not(:disabled) {
+.cds-textarea:hover:not(:disabled),
+.force-hover .cds-textarea {
   border-color: var(--theme-neutral-border-strong);
+  background: color-mix(in srgb, black 8%, var(--core-color-surface-default));
 }
 
 .cds-textarea:focus-visible,
@@ -1422,11 +1811,12 @@
 }
 
 .cds-textarea:disabled {
-  background: var(--theme-colors-neutral-100);
+  background: var(--theme-semantics-disabled-background);
   color: var(--theme-semantics-disabled-text);
-  border-color: var(--theme-neutral-border-primary-default);
+  border-color: var(--theme-semantics-disabled-border);
   opacity: 1;
   cursor: not-allowed;
+  resize: none;
 }
 
 .cds-select-wrap {
@@ -1437,11 +1827,11 @@
 
 .cds-select {
   height: var(--core-size-control-md);
-  padding: 0 36px 0 12px;
+  padding: var(--core-space-0) var(--core-space-4);
   width: 100%;
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   color: var(--theme-neutral-text-primary-default);
   font-size: var(--typography-text14-regular-size);
   cursor: pointer;
@@ -1452,17 +1842,19 @@
 .cds-select--sm {
   height: var(--core-size-control-sm);
   font-size: var(--typography-body-md-size);
-  padding: 0 32px 0 10px;
+  padding: var(--core-space-0) var(--core-space-4);
 }
 
 .cds-select--lg {
   height: var(--core-size-control-lg);
   font-size: var(--typography-font-size-lg);
-  padding: 0 40px 0 14px;
+  padding: var(--core-space-0) var(--core-space-4);
 }
 
-.cds-select:hover:not(:disabled):not([aria-disabled="true"]) {
+.cds-select:hover:not(:disabled):not([aria-disabled="true"]),
+.force-hover .cds-select {
   border-color: var(--theme-neutral-border-strong);
+  background: color-mix(in srgb, black 8%, var(--core-color-surface-default));
 }
 
 .cds-select:focus-visible {
@@ -1473,9 +1865,9 @@
 
 .cds-select[aria-disabled="true"],
 .cds-select:disabled {
-  background: var(--theme-colors-neutral-100);
+  background: var(--theme-semantics-disabled-background);
   color: var(--theme-semantics-disabled-text);
-  border-color: var(--theme-neutral-border-primary-default);
+  border-color: var(--theme-semantics-disabled-border);
   opacity: 1;
   cursor: not-allowed;
 }
@@ -1503,27 +1895,39 @@
   max-height: 260px;
   overflow-y: auto;
   margin: 0;
-  padding: 4px;
+  padding: var(--core-space-1);
   list-style: none;
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-overlay);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
-  box-shadow: var(--core-elevation-3, 0 8px 16px rgba(0, 0, 0, 0.12));
+  box-shadow: var(--core-elevation-3);
 }
 
 .cds-select-option {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 10px;
+  gap: var(--core-space-2);
+  padding: var(--core-space-2) var(--core-space-3);
   border-radius: var(--core-radius-sm);
   font-size: var(--typography-body-lg-size);
   color: var(--theme-neutral-text-primary-default);
   cursor: pointer;
 }
 
+/*
+ * Highlight is a brand-blue tint (not the neutral grey wash used before) —
+ * mixed from --brand-text-primary-default *into* --core-color-surface-overlay
+ * rather than using the static --theme-brand-background-primary-subtle token:
+ * that static token happened to have almost the same luminance as the
+ * listbox's own overlay background in dark mode (#132A49 vs #2E2D38 — only
+ * 1.06:1, functionally invisible) purely by coincidence of the two palettes,
+ * the same class of bug fixed for Calendar/Combobox/Incremental Selector
+ * earlier. Mixing relative to the actual overlay color guarantees a visible
+ * step in both modes no matter how the underlying tokens are tuned.
+ */
+.cds-select-option:hover:not(.cds-select-option--disabled),
 .cds-select-option--active {
-  background: var(--theme-colors-neutral-100);
+  background: color-mix(in srgb, var(--brand-text-primary-default) 18%, var(--core-color-surface-overlay));
 }
 
 .cds-select-option[aria-selected="true"] {
@@ -1539,8 +1943,28 @@
 
 .cds-select-check {
   width: 14px;
-  color: var(--core-color-action-primary-bg);
+  color: var(--brand-text-primary-default);
   flex-shrink: 0;
+}
+
+.cds-select-option-checkbox {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+  color: var(--theme-colors-neutral-0);
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.cds-select-option-checkbox--checked {
+  background: var(--brand-background-primary-strong);
+  border-color: var(--brand-background-primary-strong);
 }
 
 /* ---------- Checkbox / Radio ---------- */
@@ -1548,7 +1972,7 @@
 .cds-radio {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--core-space-2);
   cursor: pointer;
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
@@ -1570,7 +1994,7 @@
   width: 18px;
   height: 18px;
   border: 1.5px solid var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1579,7 +2003,10 @@
 }
 
 .cds-checkbox-box {
-  border-radius: var(--core-radius-sm);
+  /* -sm (8px) on an 18px box reads as nearly circular, indistinguishable
+     from Radio at a glance. -xs (4px) keeps visibly square corners so the
+     two controls stay distinct. */
+  border-radius: var(--core-radius-xs);
 }
 
 .cds-radio-box {
@@ -1604,10 +2031,18 @@
   background: var(--brand-background-primary-subtle);
 }
 
+/* Uses -strong (the same fill as the plain checked state), not -active —
+   -active is a deeper press-down step whose own boundary against the dark
+   canvas measured only 1.94:1 (checked with -hover fares no better, 2.31:1;
+   only -strong, at 4.11:1, actually clears WCAG 1.4.11's 3:1 for a filled
+   control's edge against the page). A checked box staying visually
+   unchanged through a brief press is preferable to a state that goes out
+   of compliance in dark mode. Border matches the fill, same convention
+   Primary Button already uses for its own solid states. */
 .cds-checkbox:active input:not(:disabled):checked + .cds-checkbox-box,
 .cds-radio:active input:not(:disabled):checked + .cds-radio-box {
-  background: var(--brand-background-primary-active);
-  border-color: var(--brand-background-primary-active);
+  background: var(--brand-background-primary-strong);
+  border-color: var(--brand-background-primary-strong);
 }
 
 .cds-checkbox input:checked + .cds-checkbox-box,
@@ -1646,7 +2081,7 @@
 .cds-checkbox input:focus-visible:not(:checked) + .cds-checkbox-box,
 .cds-radio input:focus-visible:not(:checked) + .cds-radio-box {
   border-color: var(--theme-primitive-color-primary-400);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
 }
 
 .cds-checkbox input:focus-visible + .cds-checkbox-box,
@@ -1657,7 +2092,7 @@
 
 .cds-checkbox input:disabled + .cds-checkbox-box,
 .cds-radio input:disabled + .cds-radio-box {
-  background: var(--theme-colors-neutral-100);
+  background: var(--theme-semantics-disabled-background);
   border-color: var(--theme-neutral-border-primary-default);
   opacity: 1;
   cursor: not-allowed;
@@ -1734,18 +2169,20 @@
 
 /* Required-field mark */
 .cds-required-mark {
-  color: var(--theme-semantics-critical-strong-background);
+  /* This is text, so it needs the text token — the strong-background token is
+     tuned as a fill and only reached 3.1:1 on the dark canvas. */
+  color: var(--theme-semantics-critical-text);
 }
 
 /* Field visual style: default / solid / flush (Input, Select, Textarea) */
 .cds-field-style--solid {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
   border-color: transparent;
 }
 
 .cds-field-style--solid:focus,
 .cds-field-style--solid:focus-visible {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
 }
 
 .cds-field-style--flush {
@@ -1778,20 +2215,25 @@
   vertical-align: middle;
 }
 
-/* Toast: header structure */
+/* Toast: content structure */
+.cds-toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
 .cds-toast-header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--core-space-2);
 }
 
 .cds-toast-title {
   flex: 1;
   font-family: var(--typography-font-family-sans);
-  font-size: var(--typography-label-size);
-  line-height: var(--typography-label-line-height);
-  letter-spacing: var(--typography-label-letter-spacing);
-  font-weight: var(--typography-label-weight);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+  font-weight: 700;
   color: var(--theme-neutral-text-primary-default);
 }
 
@@ -1802,14 +2244,11 @@
 }
 
 .cds-toast-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background: none;
   border: none;
-  color: var(--theme-neutral-text-subtle-least);
+  color: var(--theme-neutral-text-subtleleast);
   cursor: pointer;
-  padding: 4px;
+  padding: var(--core-space-1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1819,11 +2258,11 @@
 
 .cds-toast-close:hover {
   color: var(--theme-neutral-text-primary-default);
-  background: var(--theme-neutral-background-subtle);
+  background: var(--core-color-surface-sunken);
 }
 
 .cds-toast-body {
-  margin-top: 4px;
+  margin-top: var(--core-space-1);
   font-family: var(--typography-font-family-sans);
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
@@ -1835,8 +2274,8 @@
 /* ---------- Table ---------- */
 .cds-table-toolbar {
   display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: var(--core-space-3);
+  margin-bottom: var(--core-space-3);
   flex-wrap: wrap;
 }
 
@@ -1863,15 +2302,83 @@
    that needs sizing here. */
 .cds-table-empty {
   text-align: center;
-  padding: 32px 16px;
+  padding: var(--core-space-4);
   color: var(--theme-neutral-text-subtleleast);
   font-size: var(--typography-body-md-size);
 }
 
 .cds-table-wrap {
+  /* --theme-neutral-border-subtle resolves to the exact same value as
+     --theme-neutral-border-primary-default (both alias neutral-500) in
+     this theme, so swapping the token name alone didn't make table
+     borders any lighter. A faint mix of the surface's own text color
+     into its own background always reads as subtle, in either mode,
+     without depending on a semantic border step that may or may not
+     actually be lighter. */
+  --cds-table-border-color: color-mix(in srgb, var(--core-color-text-primary) 12%, var(--core-color-surface-default));
+  --cds-table-scrollbar-track: color-mix(in srgb, var(--core-color-text-primary) 14%, var(--core-color-surface-default));
+  --cds-table-scrollbar-thumb: color-mix(in srgb, var(--core-color-text-primary) 45%, transparent);
   overflow-x: auto;
-  border: 1px solid var(--theme-neutral-border-primary-default);
+  border: 1px solid var(--cds-table-border-color);
   border-radius: var(--core-radius-sm);
+  /* Without this, a wide table forces its flex/grid ancestors to grow to
+     fit it (a flex/grid item's default min-width is its content size, not
+     0), so the table burst out past the rounded demo panel instead of
+     scrolling inside this wrap's own overflow-x. min-width: 0 lets this
+     wrap actually shrink to the available space and take over scrolling. */
+  min-width: 0;
+  max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cds-table-scrollbar-thumb) var(--cds-table-scrollbar-track);
+}
+
+/* When content overflows, force a persistent horizontal scrollbar (not overlay-only). */
+.cds-table-wrap--scrollable {
+  overflow-x: scroll;
+  scrollbar-width: auto;
+  -ms-overflow-style: scrollbar;
+  padding-bottom: var(--core-space-1);
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar {
+  height: 12px;
+  -webkit-appearance: none;
+  background: var(--cds-table-scrollbar-track);
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar-track {
+  background: var(--cds-table-scrollbar-track);
+  border-radius: var(--core-radius-full);
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar-thumb {
+  background: var(--cds-table-scrollbar-thumb);
+  border-radius: var(--core-radius-full);
+  border: 2px solid var(--cds-table-scrollbar-track);
+  min-width: 48px;
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--core-color-text-primary) 58%, transparent);
+}
+
+.cds-table-wrap::-webkit-scrollbar {
+  height: 10px;
+}
+
+.cds-table-wrap::-webkit-scrollbar-track {
+  background: var(--cds-table-scrollbar-track);
+  border-radius: var(--core-radius-full);
+}
+
+.cds-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--cds-table-scrollbar-thumb);
+  border-radius: var(--core-radius-full);
+  border: 2px solid var(--cds-table-scrollbar-track);
+}
+
+.cds-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--core-color-text-primary) 58%, transparent);
 }
 
 .cds-table {
@@ -1885,24 +2392,30 @@
 
 .cds-table thead th {
   text-align: left;
-  padding: 10px 16px;
-  background: var(--theme-colors-neutral-100);
+  padding: var(--core-space-3) var(--core-space-4);
+  background: var(--core-color-surface-sunken);
   color: var(--theme-neutral-text-subtle);
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
   font-weight: var(--typography-font-weight-semibold);
   letter-spacing: var(--typography-body-md-letter-spacing);
-  border-bottom: 1px solid var(--theme-neutral-border-primary-default);
+  border-bottom: 1px solid var(--cds-table-border-color, var(--theme-neutral-border-subtle));
   white-space: nowrap;
 }
 
 .cds-table tbody td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--theme-neutral-border-subtle);
+  padding: var(--core-space-3) var(--core-space-4);
+  border-bottom: 1px solid var(--cds-table-border-color, var(--theme-neutral-border-subtle));
   color: var(--theme-neutral-text-primary-default);
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
   letter-spacing: var(--typography-body-md-letter-spacing);
+  /* Cells were wrapping long values onto a second line, making rows
+     uneven and hard to scan. table-layout stays auto (the default), so a
+     column with long content simply grows to fit it instead of wrapping —
+     the table already scrolls horizontally via .cds-table-wrap if the
+     total width outgrows the panel. */
+  white-space: nowrap;
 }
 
 .cds-table tbody tr:last-child td {
@@ -1911,24 +2424,24 @@
 
 .cds-table[data-density="compact"] td,
 .cds-table[data-density="compact"] th {
-  padding: 6px 12px;
+  padding: var(--core-space-2) var(--core-space-3);
 }
 
 .cds-table[data-zebra="true"] tbody tr:nth-child(even) {
-  background: var(--theme-colors-neutral-50);
+  background: var(--core-color-surface-sunken);
 }
 
 /* Table Disabled State (Neutral Grey Palette) */
 .cds-table-wrap--disabled,
 .cds-table--disabled {
-  border-color: var(--theme-colors-neutral-200) !important;
+  border-color: var(--theme-semantics-disabled-border) !important;
   background: var(--theme-semantics-disabled-background) !important;
   cursor: not-allowed !important;
 }
 
 .cds-data-table--disabled .cds-input,
 .cds-data-table--disabled .cds-select {
-  border-color: var(--theme-colors-neutral-200) !important;
+  border-color: var(--theme-semantics-disabled-border) !important;
   background-color: var(--theme-semantics-disabled-background) !important;
   color: var(--theme-colors-neutral-400) !important;
   cursor: not-allowed !important;
@@ -2020,7 +2533,7 @@
 .cds-th-sortable--disabled {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--core-space-2);
   color: var(--theme-semantics-disabled-text);
   cursor: not-allowed;
 }
@@ -2029,14 +2542,14 @@
 .cds-table-wrap--view-mode,
 .cds-data-table--view-mode .cds-table-wrap {
   border-color: var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   border-top: none;
   border-radius: 0 0 var(--core-radius-sm) var(--core-radius-sm);
 }
 
 .cds-table-wrap--view-mode .cds-table thead th,
 .cds-table--view-mode thead th {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
   color: var(--theme-neutral-text-subtle);
   font-size: var(--typography-label-size);
   line-height: var(--typography-label-line-height);
@@ -2048,25 +2561,25 @@
 .cds-table-wrap--view-mode .cds-table tbody td,
 .cds-table--view-mode tbody td {
   color: var(--theme-neutral-text-subtle);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   border-bottom-color: var(--theme-neutral-border-subtle);
 }
 
 .cds-table-wrap--view-mode .cds-table[data-zebra="true"] tbody tr:nth-child(even),
 .cds-table--view-mode[data-zebra="true"] tbody tr:nth-child(even) {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-sunken);
 }
 
 .cds-data-table--view-mode .cds-table-toolbar {
-  background: var(--theme-colors-neutral-50);
+  background: var(--core-color-surface-sunken);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm) var(--core-radius-sm) 0 0;
-  padding: var(--core-space-3, 12px);
+  padding: var(--core-space-3);
   margin-bottom: 0;
 }
 
 .cds-data-table--view-mode .cds-table-search {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   border-color: var(--theme-neutral-border-primary-default);
   color: var(--theme-neutral-text-subtle);
 }
@@ -2074,16 +2587,16 @@
 .cds-table-view-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--core-space-2);
   font-family: var(--typography-font-family-sans);
   font-size: var(--typography-body-xs-size);
   line-height: var(--typography-body-xs-line-height);
   font-weight: var(--typography-font-weight-semibold);
   letter-spacing: var(--typography-body-xs-letter-spacing);
   color: var(--theme-neutral-text-subtle);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   border: 1px solid var(--theme-neutral-border-primary-default);
-  padding: 3px 10px;
+  padding: var(--core-space-1) var(--core-space-3);
   border-radius: var(--core-radius-sm);
 }
 
@@ -2172,7 +2685,7 @@
 }
 
 .cds-avatar-group-item {
-  margin-left: -8px;
+  margin-left: calc(-1 * var(--core-space-2));
   border: 2px solid var(--core-color-surface-default);
   border-radius: 50%;
   display: inline-flex;
@@ -2185,21 +2698,21 @@
 }
 
 .cds-avatar-group--sm .cds-avatar-group-item {
-  margin-left: -6px;
+  margin-left: calc(-1 * var(--core-space-2));
 }
 .cds-avatar-group--sm .cds-avatar-group-item:first-child {
   margin-left: 0;
 }
 
 .cds-avatar-group--md .cds-avatar-group-item {
-  margin-left: -10px;
+  margin-left: calc(-1 * var(--core-space-3));
 }
 .cds-avatar-group--md .cds-avatar-group-item:first-child {
   margin-left: 0;
 }
 
 .cds-avatar-group--lg .cds-avatar-group-item {
-  margin-left: -14px;
+  margin-left: calc(-1 * var(--core-space-4));
 }
 .cds-avatar-group--lg .cds-avatar-group-item:first-child {
   margin-left: 0;
@@ -2208,7 +2721,9 @@
 .cds-progress {
   height: 8px;
   border-radius: var(--core-radius-sm);
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
+  border: 1px solid var(--theme-neutral-border-strong);
+  box-sizing: border-box;
   overflow: hidden;
 }
 
@@ -2243,20 +2758,25 @@
 /* ---------- Tabs ---------- */
 .cds-tabs {
   display: flex;
-  gap: 4px;
+  gap: var(--core-space-1);
   border-bottom: 1px solid var(--theme-neutral-border-primary-default);
 }
 
 .cds-tab {
-  padding: 10px 4px;
-  margin-right: 20px;
+  padding: var(--core-space-3) var(--core-space-3);
+  margin-right: var(--core-space-4);
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   font-size: var(--typography-body-lg-size);
   font-weight: 500;
   color: var(--theme-neutral-text-subtle);
   cursor: pointer;
+  /* The tablist's own separator is 1px; the active-tab indicator is a
+     thicker 3px so it reads clearly as a selection marker rather than a
+     border. Since it's thicker than the separator it sits on top of, the
+     tab is nudged down by the separator's own width (1px) so the indicator
+     starts flush with the separator line, then extends past it. */
   transform: translateY(1px);
 }
 
@@ -2265,8 +2785,16 @@
 }
 
 .cds-tab[aria-selected="true"] {
-  color: var(--core-color-action-primary-bg);
-  border-bottom-color: var(--core-color-action-primary-bg);
+  /*
+   * --core-color-action-primary-bg is a static token that resolves to the
+   * exact same #1F4F8D in both light and dark mode (not mode-aware) — in
+   * dark mode that measured only 2.31:1 against the page, well under the
+   * 3:1 non-text floor. --brand-background-primary-strong is the same
+   * mode-aware "-strong" token already used across this library wherever a
+   * brand accent needs to be visible on either a light or dark canvas.
+   */
+  color: var(--brand-text-primary-default);
+  border-bottom-color: var(--brand-background-primary-strong);
   font-weight: 600;
 }
 
@@ -2275,10 +2803,16 @@
   outline-offset: 2px;
 }
 
+[role="tabpanel"]:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+  border-radius: var(--core-radius-sm);
+}
+
 /* Tabs: vertical orientation */
 .cds-tabs-layout--vertical {
   display: flex;
-  gap: 24px;
+  gap: var(--core-space-4);
   align-items: flex-start;
 }
 
@@ -2286,7 +2820,7 @@
   flex-direction: column;
   border-bottom: none;
   border-right: 1px solid var(--theme-neutral-border-primary-default);
-  gap: 2px;
+  gap: var(--core-space-1);
   min-width: 180px;
   flex-shrink: 0;
 }
@@ -2294,41 +2828,42 @@
 .cds-tab--vertical {
   margin-right: 0;
   margin-bottom: 0;
-  padding: 9px 14px 9px 10px;
+  padding: var(--core-space-2) var(--core-space-4);
   text-align: left;
   border-bottom: none;
-  border-right: 2px solid transparent;
+  border-right: 3px solid transparent;
   border-radius: var(--core-radius-sm) 0 0 var(--core-radius-sm);
   transform: none;
 }
 
 .cds-tab--vertical:hover {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
 }
 
 .cds-tab--vertical[aria-selected="true"] {
-  border-right-color: var(--core-color-action-primary-bg);
-  background: var(--theme-colors-neutral-100);
+  border-right-color: var(--brand-background-primary-strong);
+  background: var(--brand-background-primary-subtle);
+  color: var(--brand-text-primary-default);
 }
 
 /* ---------- Description List ---------- */
 .cds-description-list {
   display: grid;
-  gap: 16px 32px;
+  gap: var(--core-space-4);
   margin: 0;
 }
 
 .cds-description-list--stacked .cds-description-item {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--core-space-1);
 }
 
 .cds-description-list--inline .cds-description-item {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  padding: 8px 0;
+  gap: var(--core-space-3);
+  padding: var(--core-space-2) var(--core-space-0);
   border-bottom: 1px solid var(--core-color-border-subtle);
 }
 
@@ -2359,7 +2894,7 @@
 .cds-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--core-space-2);
   font-size: var(--typography-body-md-size);
   color: var(--theme-neutral-text-subtleleast);
 }
@@ -2382,7 +2917,7 @@
 .cds-pagination {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--core-space-1);
   font-family: var(--typography-font-family-sans);
   font-synthesis: weight style;
 }
@@ -2390,7 +2925,7 @@
 .cds-page-btn {
   min-width: 32px;
   height: 32px;
-  padding: 0 8px;
+  padding: var(--core-space-0) var(--core-space-2);
   border-radius: var(--core-radius-sm);
   border: 1px solid transparent;
   background: transparent;
@@ -2404,12 +2939,12 @@
 }
 
 .cds-page-btn:hover {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-raised);
 }
 
 .cds-page-btn[aria-current="page"] {
   background: var(--brand-background-primary-strong);
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
   font-weight: var(--typography-font-weight-semibold);
 }
 
@@ -2430,7 +2965,7 @@
   background: var(--theme-neutral-text-primary-default);
   color: var(--core-color-surface-default);
   font-size: var(--typography-font-size-xs);
-  padding: 5px 9px;
+  padding: var(--core-space-1) var(--core-space-2);
   border-radius: var(--core-radius-sm);
   white-space: nowrap;
   pointer-events: none;
@@ -2450,47 +2985,68 @@
 }
 
 .cds-popover {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-overlay);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
-  box-shadow: var(--core-elevation-3, 0 8px 16px rgba(0, 0, 0, 0.12));
-  padding: 16px;
+  box-shadow: var(--core-elevation-3);
+  padding: var(--core-space-4);
   min-width: 220px;
 }
 
 /* ---------- Toast ---------- */
 .cds-toast {
-  /* column, not row: cds-toast-header (title/timestamp/close) and
-     cds-toast-body (the description) are its two direct children and must
-     stack — a bare `display: flex` here was putting them side by side
-     instead, cramming the description into the same line as the timestamp
-     and close button. */
+  /*
+   * Row layout: icon badge, content column (title/timestamp/body), close
+   * button — replaces the old column layout that put a colored 3px stripe
+   * on the left edge to carry the tone. Severity now reads from the icon
+   * badge (a shape + a tinted circle) instead of a thin color-only stripe,
+   * and the card itself is a neutral surface with a uniform border on all
+   * sides, matching the plain "notification pill" pattern (icon + bold
+   * single-line message) rather than the alert-banner look.
+   */
   position: relative;
   display: flex;
-  flex-direction: column;
-  background: var(--theme-colors-neutral-0);
+  align-items: center;
+  gap: var(--core-space-3);
+  background: var(--core-color-surface-default);
   border: 1px solid var(--theme-neutral-border-primary-default);
-  border-left: 3px solid var(--theme-semantics-highlight-strong-background);
-  border-radius: var(--core-radius-sm);
-  padding: 12px 36px 12px 14px;
+  border-radius: var(--core-radius-xl);
+  padding: var(--core-space-4);
   box-shadow: var(--core-card-shadow);
   min-width: 280px;
 }
 
-.cds-toast--success {
-  border-left-color: var(--theme-semantics-success-strong-background);
+.cds-toast__icon-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
 }
 
-.cds-toast--danger {
-  border-left-color: var(--theme-semantics-critical-strong-background);
+/* Icon badge fill/color reuse Alert's already-audited tone tokens (light
+   background + matching text color, ≥4.5:1 in both light and dark mode) so
+   a "success" toast and a "success" alert share the same visual language. */
+.cds-toast--success .cds-toast__icon-badge {
+  background: var(--theme-semantics-success-light-background);
+  color: var(--theme-semantics-success-text);
 }
 
-.cds-toast--warning {
-  border-left-color: var(--theme-semantics-warning-strong-background);
+.cds-toast--danger .cds-toast__icon-badge {
+  background: var(--theme-semantics-critical-light-background);
+  color: var(--theme-semantics-critical-text);
 }
 
-.cds-toast--info {
-  border-left-color: var(--theme-semantics-highlight-strong-background);
+.cds-toast--warning .cds-toast__icon-badge {
+  background: var(--theme-semantics-warning-light-background);
+  color: var(--theme-semantics-warning-text);
+}
+
+.cds-toast--info .cds-toast__icon-badge {
+  background: var(--theme-semantics-highlight-light-background);
+  color: var(--theme-semantics-highlight-text);
 }
 
 /* ---------- Spinner ---------- */
@@ -2498,8 +3054,10 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 2px solid var(--theme-neutral-border-primary-default);
-  border-top-color: var(--core-color-action-primary-bg);
+  --cds-spinner-track: color-mix(in srgb, var(--core-color-text-primary) 32%, transparent);
+  --cds-spinner-active: var(--brand-text-primary-default, var(--core-color-action-primary-bg));
+  border: 2px solid var(--cds-spinner-track);
+  border-top-color: var(--cds-spinner-active);
   animation: cds-spin 700ms linear infinite;
 }
 
@@ -2519,7 +3077,7 @@
 .cds-overlay-scrim {
   position: fixed;
   inset: 0;
-  background: rgba(17, 16, 23, 0.5);
+  background: var(--core-overlay-scrim);
   z-index: 40;
   padding: var(--core-space-4);
   box-sizing: border-box;
@@ -2535,40 +3093,40 @@
 }
 
 .cds-modal {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-overlay);
   border-radius: var(--core-radius-sm);
-  box-shadow: var(--core-elevation-4, 0 16px 32px rgba(0, 0, 0, 0.18));
+  box-shadow: var(--core-elevation-4);
   max-width: 480px;
   width: 100%;
-  padding: 24px;
+  padding: var(--core-space-4);
   color: var(--theme-neutral-text-primary-default);
 }
 
 .cds-modal-title {
   font-size: var(--core-font-size-xl);
   font-weight: 700;
-  margin: 0 0 8px;
+  margin: var(--core-space-0) var(--core-space-0) var(--core-space-2);
 }
 
 .cds-modal-body {
   font-size: var(--typography-body-lg-size);
   color: var(--theme-neutral-text-subtle);
-  margin: 0 0 20px;
+  margin: var(--core-space-0) var(--core-space-0) var(--core-space-4);
 }
 
 .cds-modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--core-space-2);
 }
 
 .cds-drawer {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-overlay);
   height: 100%;
   min-height: 100dvh;
   width: 360px;
   max-width: min(90vw, 100%);
-  box-shadow: var(--core-elevation-4, 0 16px 32px rgba(0, 0, 0, 0.18));
+  box-shadow: var(--core-elevation-4);
   color: var(--theme-neutral-text-primary-default);
   display: flex;
   flex-direction: column;
@@ -2605,8 +3163,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 20px 24px;
+  gap: var(--core-space-4);
+  padding: var(--core-space-4);
   border-bottom: 1px solid var(--theme-neutral-border-primary-default);
   flex-shrink: 0;
 }
@@ -2614,7 +3172,7 @@
 .cds-drawer-header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--core-space-2);
   flex-shrink: 0;
 }
 
@@ -2632,19 +3190,19 @@
 }
 
 .cds-drawer-close:hover {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-raised);
   color: var(--theme-neutral-text-primary-default);
 }
 
 .cds-drawer-body {
-  padding: 24px;
+  padding: var(--core-space-4);
   overflow-y: auto;
   flex: 1;
 }
 
 .cds-drawer-body--split {
   display: flex;
-  gap: 24px;
+  gap: var(--core-space-4);
 }
 
 .cds-drawer-main {
@@ -2655,9 +3213,9 @@
 .cds-drawer-aside {
   width: 220px;
   flex-shrink: 0;
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
   border-radius: var(--core-radius-sm);
-  padding: 16px;
+  padding: var(--core-space-4);
   align-self: flex-start;
 }
 
@@ -2676,15 +3234,15 @@
 
 /* ---------- Accordion / Collapsible ---------- */
 .cds-accordion {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--core-elevation-1);
 }
 
 .cds-accordion-item {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   transition: background-color var(--core-motion-duration-base, 150ms) ease;
 }
 
@@ -2697,10 +3255,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--core-space-3);
   background: transparent;
   border: none;
-  padding: 16px 20px;
+  padding: var(--core-space-4);
   text-align: left;
   font-size: var(--typography-body-md-size);
   font-weight: 600;
@@ -2710,7 +3268,7 @@
 }
 
 .cds-accordion-trigger:hover:not(:disabled) {
-  background: var(--theme-colors-neutral-100, rgba(0, 0, 0, 0.03));
+  background: var(--core-color-surface-sunken);
 }
 
 .cds-accordion-trigger:focus-visible {
@@ -2725,7 +3283,7 @@
 }
 
 .cds-accordion-trigger[aria-expanded="true"] {
-  color: var(--brand-text-primary-hover);
+  color: var(--brand-text-primary-default);
 }
 
 .cds-accordion-trigger[aria-expanded="true"] .cds-accordion-chevron {
@@ -2734,15 +3292,15 @@
 }
 
 .cds-accordion-panel {
-  padding: 8px 20px 24px 20px;
+  padding: var(--core-space-4);
   font-size: var(--typography-body-md-size);
   line-height: 1.65;
   color: var(--theme-neutral-text-subtle);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
 }
 
 .cds-accordion-panel p {
-  margin: 0 0 12px 0;
+  margin: var(--core-space-0) var(--core-space-0) var(--core-space-3) var(--core-space-0);
 }
 
 .cds-accordion-panel p:last-child {
@@ -2770,14 +3328,14 @@
   box-shadow: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--core-space-3);
 }
 
 .cds-accordion--separated .cds-accordion-item {
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--core-elevation-1);
 }
 
 .cds-accordion--separated .cds-accordion-item+.cds-accordion-item {
@@ -2800,12 +3358,12 @@
 }
 
 .cds-accordion--flush .cds-accordion-panel {
-  padding-bottom: 24px;
+  padding-bottom: var(--core-space-4);
 }
 
 /* Accordion nested inside a table cell (expandable row-detail pattern) */
 .cds-table-accordion-row td {
-  padding: 0 16px !important;
+  padding: var(--core-space-0) var(--core-space-4) !important;
 }
 
 /* ---------- Collapsible ---------- */
@@ -2814,11 +3372,11 @@
 }
 
 .cds-collapsible--card {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--core-elevation-1);
   transition: border-color var(--core-motion-duration-base, 150ms) ease;
 }
 
@@ -2838,10 +3396,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--core-space-3);
   background: transparent;
   border: none;
-  padding: 14px 18px;
+  padding: var(--core-space-4);
   text-align: left;
   font-size: var(--typography-body-md-size);
   font-weight: 600;
@@ -2851,7 +3409,7 @@
 }
 
 .cds-collapsible-trigger:hover {
-  background: var(--theme-colors-neutral-100, rgba(0, 0, 0, 0.03));
+  background: var(--core-color-surface-sunken);
 }
 
 .cds-collapsible--open .cds-collapsible-trigger {
@@ -2870,12 +3428,12 @@
 }
 
 .cds-collapsible-content {
-  padding: 16px 20px 24px 20px;
+  padding: var(--core-space-4);
   font-size: var(--typography-body-md-size);
   line-height: 1.65;
   color: var(--theme-neutral-text-subtle);
   border-top: 1px solid var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
 }
 
 /* Button variant */
@@ -2884,29 +3442,29 @@
   display: inline-flex;
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-0);
-  padding: 8px 16px;
+  background: var(--core-color-surface-default);
+  padding: var(--core-space-2) var(--core-space-4);
   font-size: var(--typography-body-md-size);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--core-elevation-1);
 }
 
 .cds-collapsible--button .cds-collapsible-trigger:hover {
-  background: var(--theme-colors-neutral-100, rgba(0, 0, 0, 0.03));
+  background: var(--core-color-surface-sunken);
   border-color: var(--brand-border-primary-hover);
 }
 
 .cds-collapsible--button .cds-collapsible-content {
-  margin-top: 10px;
+  margin-top: var(--core-space-3);
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
 }
 
 /* Ghost / Inline variant */
 .cds-collapsible--ghost .cds-collapsible-trigger {
   width: auto;
   display: inline-flex;
-  padding: 6px 0;
+  padding: var(--core-space-2) var(--core-space-0);
   color: var(--brand-text-primary-hover);
 }
 
@@ -2916,7 +3474,7 @@
 }
 
 .cds-collapsible--ghost .cds-collapsible-content {
-  padding: 8px 0 12px;
+  padding: var(--core-space-3) var(--core-space-0);
   border-top: none;
   background: transparent;
 }
@@ -2929,13 +3487,13 @@
 .cds-separator--h {
   height: 1px;
   width: 100%;
-  margin: 16px 0;
+  margin: var(--core-space-4) var(--core-space-0);
 }
 
 .cds-separator--v {
   width: 1px;
   align-self: stretch;
-  margin: 0 12px;
+  margin: var(--core-space-0) var(--core-space-3);
 }
 
 /* ---------- Skeleton ---------- */
@@ -2994,8 +3552,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 0.5rem 0.75rem;
+  gap: var(--core-space-2);
+  padding: var(--core-space-2) var(--core-space-3);
   font-size: var(--typography-button-md-size);
   line-height: var(--typography-button-md-line-height);
   font-weight: var(--typography-button-md-weight);
@@ -3003,14 +3561,14 @@
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--brand-border-primary-default);
   background: transparent;
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
   cursor: pointer;
   white-space: nowrap;
   transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease, color 120ms ease;
 }
 
 .cds-toggle--sm {
-  padding: 0.375rem 0.625rem;
+  padding: var(--core-space-2) var(--core-space-3);
   font-size: var(--typography-button-sm-size);
   line-height: var(--typography-button-sm-line-height);
   font-weight: var(--typography-button-sm-weight);
@@ -3026,7 +3584,7 @@
 }
 
 .cds-toggle--lg {
-  padding: 0.625rem 1rem;
+  padding: var(--core-space-3) var(--core-space-4);
   font-size: var(--typography-button-lg-size);
   line-height: var(--typography-button-lg-line-height);
   font-weight: var(--typography-button-lg-weight);
@@ -3049,7 +3607,7 @@
 .cds-toggle[aria-pressed="true"] {
   background: var(--brand-background-primary-subtle);
   border-color: var(--brand-border-primary-default);
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
 }
 
 .cds-toggle[aria-pressed="true"]:hover:not(:disabled) {
@@ -3074,26 +3632,26 @@
 
 .cds-toggle:disabled[aria-pressed="true"],
 .cds-toggle[disabled][aria-pressed="true"] {
-  background: var(--theme-colors-neutral-300);
+  background: var(--theme-semantics-disabled-border);
   color: var(--theme-neutral-text-subtleleast);
   border-color: var(--theme-neutral-border-primary-default);
 }
 
 [data-mode="dark"] .cds-toggle:not(:hover):not(:active):not(:disabled):not([aria-pressed="true"]),
 [data-mode="dark"] .cds-toggle:focus-visible:not(:disabled):not([aria-pressed="true"]) {
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
 }
 
 [data-mode="dark"] .cds-toggle[aria-pressed="true"]:not(:hover):not(:active):not(:disabled) {
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
 }
 
 .cds-toggle-group {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px;
-  background: var(--theme-colors-neutral-100);
+  gap: var(--core-space-1);
+  padding: var(--core-space-1);
+  background: var(--core-color-surface-sunken);
   border-radius: var(--core-radius-sm);
   max-width: 100%;
   box-sizing: border-box;
@@ -3102,8 +3660,8 @@
 .cds-toggle-group__item {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
+  gap: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-4);
   border: none;
   border-radius: var(--core-radius-sm);
   background: transparent;
@@ -3118,8 +3676,8 @@
 }
 
 .cds-toggle-group__item--sm {
-  gap: 8px;
-  padding: 8px 12px;
+  gap: var(--core-space-2);
+  padding: var(--core-space-2) var(--core-space-3);
   font-size: var(--typography-button-sm-size);
   line-height: var(--typography-button-sm-line-height);
   font-weight: var(--typography-button-sm-weight);
@@ -3127,8 +3685,8 @@
 }
 
 .cds-toggle-group__item--lg {
-  gap: 12px;
-  padding: 12px 20px;
+  gap: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-4);
   font-size: var(--typography-button-lg-size);
   line-height: var(--typography-button-lg-line-height);
   font-weight: var(--typography-button-lg-weight);
@@ -3136,12 +3694,12 @@
 }
 
 .cds-toggle-group__item:hover:not(:disabled):not([aria-pressed="true"]) {
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
 }
 
 .cds-toggle-group__item[aria-pressed="true"] {
   background: var(--brand-background-primary-subtle);
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-active);
 }
 
 .cds-toggle-group__icon {
@@ -3169,7 +3727,7 @@
 
 .cds-toggle-group__icon--selected {
   background: var(--brand-background-primary-strong);
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
 }
 
 .cds-toggle-group__item:focus-visible {
@@ -3180,7 +3738,7 @@
 
 .cds-toggle-group__item[aria-pressed="true"]:focus-visible {
   background: var(--brand-background-primary-subtle);
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-active);
 }
 
 /* Disabled — unselected: grey, no fill */
@@ -3224,8 +3782,8 @@
 .cds-input-group-addon {
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  background: var(--theme-colors-neutral-100);
+  padding: var(--core-space-0) var(--core-space-3);
+  background: var(--core-color-surface-sunken);
   border: 1px solid var(--theme-neutral-border-primary-default);
   color: var(--theme-neutral-text-subtle);
   font-size: var(--typography-text14-regular-size);
@@ -3283,12 +3841,26 @@
   cursor: not-allowed;
 }
 
-/* ---------- Incremental selector ---------- */
+/* ---------- Incremental selector ----------
+ * Reworked as a single unified control (one outer border/radius, internal
+ * 1px dividers between segments) instead of three independently-bordered
+ * segments whose grouping relied on a background-color difference between
+ * the buttons and the value cell — that background-only distinction broke
+ * down whenever a hover/focus token happened to coincide with its neighbor
+ * (e.g. surface-raised === surface-default in light mode). An explicit
+ * border-based divider can't disappear that way, matching how reference
+ * quantity steppers (Shopify Polaris, Ant InputNumber) build this control.
+ */
 .cds-incremental-selector {
   display: inline-flex;
   align-items: stretch;
   width: 100%;
   max-width: 160px;
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-input-radius);
+  background: var(--core-color-surface-default);
+  overflow: hidden;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
 }
 
 .cds-incremental-selector__btn {
@@ -3299,14 +3871,14 @@
   width: 40px;
   min-height: 40px;
   padding: 0;
-  border: 1px solid var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-100);
+  border: none;
+  background: transparent;
   color: var(--theme-neutral-text-subtle);
   font-size: var(--typography-text16-regular-size);
   line-height: 1;
   font-weight: 500;
   cursor: pointer;
-  transition: border-color 120ms ease, background 120ms ease, color 120ms ease, box-shadow 120ms ease;
+  transition: background 120ms ease, color 120ms ease;
 }
 
 .cds-incremental-selector--sm .cds-incremental-selector__btn {
@@ -3322,32 +3894,37 @@
 }
 
 .cds-incremental-selector__btn--decrease {
-  border-right: none;
-  border-radius: var(--core-input-radius) 0 0 var(--core-input-radius);
+  border-right: 1px solid var(--theme-neutral-border-primary-default);
 }
 
 .cds-incremental-selector__btn--increase {
-  border-left: none;
-  border-radius: 0 var(--core-input-radius) var(--core-input-radius) 0;
+  border-left: 1px solid var(--theme-neutral-border-primary-default);
 }
 
 .cds-incremental-selector__value {
   box-sizing: border-box;
   flex: 1;
   min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  width: 100%;
+  text-align: center;
+  appearance: none;
+  outline: none;
   min-height: 40px;
-  padding: 0 8px;
-  border-top: 1px solid var(--theme-neutral-border-primary-default);
-  border-bottom: 1px solid var(--theme-neutral-border-primary-default);
-  background: var(--theme-colors-neutral-0);
+  padding: var(--core-space-0) var(--core-space-2);
+  border: none;
+  border-radius: 0;
+  background: transparent;
   color: var(--theme-neutral-text-primary-default);
+  font-family: inherit;
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
   font-weight: var(--typography-text14-regular-weight);
-  transition: border-color 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+.cds-incremental-selector__value:disabled {
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 .cds-incremental-selector--sm .cds-incremental-selector__value {
@@ -3360,64 +3937,64 @@
   line-height: var(--typography-text16-regular-line-height);
 }
 
-.cds-incremental-selector__btn:hover:not(:disabled) {
+.cds-incremental-selector:hover:not(:has(.cds-incremental-selector__btn:disabled)) {
   border-color: var(--theme-neutral-border-strong);
-  background: var(--theme-colors-neutral-200);
+}
+
+/* Wash covers the whole button — visible against any surface in either
+   mode since it's mixed from the icon's own currentColor, not a fixed token. */
+.cds-incremental-selector__btn:hover:not(:disabled) {
+  background: color-mix(in srgb, currentColor 16%, transparent);
   color: var(--theme-neutral-text-primary-default);
 }
 
-.cds-incremental-selector:has(.cds-incremental-selector__btn:hover:not(:disabled)) .cds-incremental-selector__value {
-  border-color: var(--theme-neutral-border-strong);
-  background: var(--theme-colors-neutral-0);
+.cds-incremental-selector__btn:active:not(:disabled) {
+  background: color-mix(in srgb, currentColor 24%, transparent);
 }
 
 .cds-incremental-selector:focus-within {
-  border-radius: var(--core-input-radius);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
-}
-
-.cds-incremental-selector:focus-within .cds-incremental-selector__btn,
-.cds-incremental-selector:focus-within .cds-incremental-selector__value {
   border-color: var(--theme-primitive-color-primary-400);
-}
-
-/* Focus ring on the wrapper only — same split as input-group (gray steppers, white value). */
-.cds-incremental-selector:focus-within .cds-incremental-selector__btn:not(:disabled) {
-  background: var(--theme-colors-neutral-100);
-  box-shadow: none;
-}
-
-.cds-incremental-selector:focus-within .cds-incremental-selector__btn:not(:disabled):focus-visible {
-  color: var(--theme-neutral-text-primary-default);
-}
-
-.cds-incremental-selector:focus-within .cds-incremental-selector__value {
-  background: var(--theme-colors-neutral-0);
-  box-shadow: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
 }
 
 .cds-incremental-selector__btn:focus-visible {
   outline: none;
 }
 
+.cds-incremental-selector__value:focus-visible {
+  outline: none;
+}
+
+.cds-incremental-selector--disabled,
+.cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) {
+  background: var(--theme-semantics-disabled-background);
+  border-color: var(--theme-semantics-disabled-border);
+}
+
+.cds-incremental-selector--disabled .cds-incremental-selector__btn--decrease,
+.cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) .cds-incremental-selector__btn--decrease {
+  border-right-color: var(--theme-semantics-disabled-border);
+}
+
+.cds-incremental-selector--disabled .cds-incremental-selector__btn--increase,
+.cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) .cds-incremental-selector__btn--increase {
+  border-left-color: var(--theme-semantics-disabled-border);
+}
+
 .cds-incremental-selector__btn:disabled {
-  background: var(--brand-background-primary-disabled-light);
   color: var(--theme-semantics-disabled-text);
-  border-color: var(--theme-neutral-border-primary-default);
   cursor: not-allowed;
 }
 
 .cds-incremental-selector--disabled .cds-incremental-selector__value,
 .cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) .cds-incremental-selector__value {
-  background: var(--brand-background-primary-disabled-light);
   color: var(--theme-semantics-disabled-text);
-  border-color: var(--theme-neutral-border-primary-default);
   cursor: not-allowed;
 }
 
 .cds-otp {
   display: flex;
-  gap: 8px;
+  gap: var(--core-space-2);
   align-items: center;
 }
 
@@ -3429,7 +4006,7 @@
   font-weight: 600;
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-input-radius);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-default);
   color: var(--theme-neutral-text-primary-default);
   transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
@@ -3471,20 +4048,20 @@
 
 /* ---------- Dropdown Menu ---------- */
 .cds-menu {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-overlay);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
-  box-shadow: var(--core-elevation-3, 0 8px 16px rgba(0, 0, 0, 0.12));
-  padding: 6px;
+  box-shadow: var(--core-elevation-3);
+  padding: var(--core-space-2);
   min-width: 200px;
 }
 
 .cds-menu-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--core-space-2);
   width: 100%;
-  padding: 8px 10px;
+  padding: var(--core-space-2) var(--core-space-3);
   border-radius: var(--core-radius-sm);
   background: none;
   border: none;
@@ -3496,7 +4073,7 @@
 
 .cds-menu-item:hover,
 .cds-menu-item:focus-visible {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-raised);
   outline: none;
 }
 
@@ -3507,21 +4084,21 @@
 .cds-menu-separator {
   height: 1px;
   background: var(--core-color-border-subtle);
-  margin: 6px 4px;
+  margin: var(--core-space-2) var(--core-space-1);
   border: none;
 }
 
 /* ---------- Slider ---------- */
 .cds-slider {
   position: relative;
-  min-height: 24px;
+  min-height: 32px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  --cds-slider-track-height: 4px;
+  gap: var(--core-space-3);
+  --cds-slider-track-height: 6px;
   --cds-slider-track-fill: var(--brand-background-primary-strong);
   --cds-slider-track-bg: var(--theme-colors-neutral-100);
-  --cds-slider-thumb-size: 16px;
+  --cds-slider-thumb-size: 18px;
   --cds-slider-thumb-bg: var(--brand-background-primary-strong);
   --cds-slider-thumb-border: var(--theme-colors-neutral-0);
   --cds-slider-thumb-ring: var(--brand-background-primary-strong);
@@ -3529,7 +4106,7 @@
 
 .cds-slider input[type="range"] {
   width: 100%;
-  height: 24px;
+  height: 32px;
   margin: 0;
   appearance: none;
   background: transparent;
@@ -3625,7 +4202,7 @@
 
 .cds-btn-group .cds-btn {
   border-radius: 0;
-  margin-left: -1px;
+  margin-left: var(--core-space-0);
 }
 
 .cds-btn-group .cds-btn:first-child {
@@ -3652,8 +4229,8 @@
   justify-content: center;
   text-align: center;
   width: 100%;
-  padding: 48px 24px;
-  gap: 6px;
+  padding: var(--core-space-4);
+  gap: var(--core-space-2);
   color: var(--theme-neutral-text-subtle);
 }
 
@@ -3661,11 +4238,11 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: var(--core-space-3);
   color: var(--theme-neutral-text-subtleleast);
 }
 
@@ -3681,15 +4258,15 @@
 }
 
 .cds-empty-action {
-  margin-top: 12px;
+  margin-top: var(--core-space-3);
 }
 
 /* ---------- Item (generic row primitive) ---------- */
 .cds-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 4px;
+  gap: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-3);
   border-bottom: 1px solid var(--core-color-border-subtle);
 }
 
@@ -3719,11 +4296,11 @@
 
 /* ---------- Hover Card ---------- */
 .cds-hovercard {
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-overlay);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
   box-shadow: var(--core-elevation-3);
-  padding: 14px 16px;
+  padding: var(--core-space-4) var(--core-space-4);
   min-width: 240px;
   font-size: var(--typography-body-md-size);
   color: var(--theme-neutral-text-subtle);
@@ -3733,7 +4310,7 @@
   font-size: var(--typography-body-lg-size);
   font-weight: 600;
   color: var(--theme-neutral-text-primary-default);
-  margin-bottom: 4px;
+  margin-bottom: var(--core-space-1);
 }
 
 /* ---------- Combobox ---------- */
@@ -3749,15 +4326,15 @@
   z-index: 20;
   max-height: 220px;
   overflow-y: auto;
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-overlay);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
   box-shadow: var(--core-elevation-3);
-  padding: 4px;
+  padding: var(--core-space-1);
 }
 
 .cds-combobox-option {
-  padding: 8px 10px;
+  padding: var(--core-space-2) var(--core-space-3);
   border-radius: var(--core-radius-sm);
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
@@ -3769,15 +4346,26 @@
 
 .cds-combobox-option[aria-selected="true"] {
   background: var(--brand-background-primary-subtle);
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
 }
 
-.cds-combobox-option:hover {
-  background: var(--theme-colors-neutral-100);
+/*
+ * Highlight uses a brand-blue wash rather than --core-color-surface-raised:
+ * the list sits on --core-color-surface-overlay, and raised === overlay in
+ * both light (#FFFFFF/#FFFFFF) and dark (#2E2D38/#2E2D38) mode, so hover was
+ * rendering pixel-identical to the resting option — completely invisible in
+ * either mode. Mixing brand-text-primary-default into the overlay (same
+ * technique and same blue tone as Select's option highlight, rather than a
+ * neutral grey) keeps the two dropdown patterns visually consistent while
+ * guaranteeing a visible step in both modes.
+ */
+.cds-combobox-option:hover:not([aria-selected="true"]),
+.cds-combobox-option--active:not([aria-selected="true"]) {
+  background: color-mix(in srgb, var(--brand-text-primary-default) 18%, var(--core-color-surface-overlay));
 }
 
 .cds-combobox-empty {
-  padding: 10px;
+  padding: var(--core-space-3);
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
   font-weight: var(--typography-text14-regular-weight);
@@ -3813,7 +4401,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 4px 10px;
+  padding: var(--core-space-3) var(--core-space-1);
 }
 
 .cds-calendar-title {
@@ -3833,13 +4421,13 @@
 }
 
 .cds-calendar-nav:hover {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-raised);
 }
 
 .cds-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+  gap: var(--core-space-1);
 }
 
 .cds-calendar-weekday {
@@ -3847,7 +4435,7 @@
   font-weight: 600;
   text-align: center;
   color: var(--theme-neutral-text-subtle);
-  padding: 4px 0;
+  padding: var(--core-space-1) var(--core-space-0);
 }
 
 .cds-calendar-day {
@@ -3860,13 +4448,13 @@
   cursor: pointer;
 }
 
-.cds-calendar-day:hover {
-  background: var(--theme-colors-neutral-100);
+.cds-calendar-day:hover:not(:disabled):not([aria-pressed="true"]) {
+  background: color-mix(in srgb, currentColor 12%, transparent);
 }
 
-.cds-calendar-day[aria-selected="true"] {
+.cds-calendar-day[aria-pressed="true"] {
   background: var(--brand-background-primary-strong);
-  color: var(--theme-primitive-color-primary-50);
+  color: var(--brand-text-primary-oncolor);
   font-weight: 600;
 }
 
@@ -3891,16 +4479,25 @@
   color: var(--theme-semantics-disabled-text);
 }
 
-.cds-calendar--disabled .cds-calendar-day[aria-selected="true"] {
+.cds-calendar--disabled .cds-calendar-day[aria-pressed="true"] {
   background: var(--brand-background-primary-disabled);
   color: var(--brand-text-primary-disabled);
+}
+
+.cds-calendar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-1);
+  border-top: 1px solid var(--theme-neutral-border-primary-default);
 }
 
 /* ---------- Data Table (sortable) ---------- */
 .cds-th-sortable {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--core-space-1);
   cursor: pointer;
   user-select: none;
   background: none;
@@ -3914,31 +4511,162 @@
   color: var(--theme-neutral-text-primary-default);
 }
 
-.cds-sort-icon {
-  opacity: 0.5;
-  flex-shrink: 0;
+/* Right-aligned numeric/currency headers: the header sits flush right like
+   its column's cells; the sort icon still trails the label on its right. */
+.cds-th-sortable--right {
+  justify-content: flex-end;
+  width: 100%;
 }
 
-.cds-sort-icon[data-active="true"] {
-  opacity: 1;
-  color: var(--core-color-action-primary-bg);
+.cds-sort-icon {
+  flex-shrink: 0;
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-sort-icon--active {
+  color: var(--brand-text-primary-default);
+}
+
+.cds-table-truncate {
+  display: inline-block;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+/* ---------- Table: column content-type utilities ----------
+ * Composable classes for the content patterns a table cell commonly needs
+ * (linked value, secondary/subtext line, positive/negative financial
+ * delta, empty/N-A placeholder) — applied via a column's `render`, since
+ * the Table/DataTable column API deliberately stays data-shape-agnostic
+ * rather than growing a `type: "currency" | "link" | ...` enum per cell.
+ */
+.cds-table-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: var(--brand-text-primary-default);
+  font-weight: var(--typography-font-weight-semibold);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 2px;
+}
+
+.cds-table-link:hover {
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-table-link:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+  border-radius: var(--core-radius-xs);
+}
+
+.cds-table-secondary {
+  display: block;
+  margin-top: var(--core-space-1);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  color: var(--theme-neutral-text-subtle);
+  font-weight: 400;
+  white-space: normal;
+}
+
+.cds-table-numeric {
+  font-variant-numeric: tabular-nums;
+}
+
+.cds-table-positive {
+  color: var(--theme-semantics-success-text);
+  font-weight: var(--typography-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.cds-table-negative {
+  color: var(--theme-semantics-critical-text);
+  font-weight: var(--typography-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.cds-table-empty-value {
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+/* Grouped/multi-level headers and benchmark rows — hand-built with raw
+   table markup + these classes rather than through the Table/DataTable
+   component, which only renders a single flat header row and has no
+   concept of a paired "comparison" row; adding full colspan-header and
+   row-pairing support to the shared component would be a much larger
+   change than this one table needs. */
+.cds-table thead th[scope="colgroup"] {
+  text-align: center;
+  border-bottom: 1px solid var(--cds-table-border-color, var(--theme-neutral-border-subtle));
+}
+
+/* Vertical rules between every column — for dense, multi-level-header
+   tables (e.g. Benchmark/Comparison) where columns are otherwise hard to
+   tell apart at a glance. */
+.cds-table--divided th,
+.cds-table--divided td {
+  border-right: 1px solid var(--cds-table-border-color, var(--theme-neutral-border-subtle));
+}
+
+/* Only tbody rows reliably have one cell per real column — a rowSpan
+   header (e.g. a column spanning two header rows) means the second header
+   row's last <th> isn't actually the table's last column, so excluding
+   :last-child there would drop the divider before that rowSpan column
+   instead of after the table's true last column. */
+.cds-table--divided tbody td:last-child {
+  border-right: none;
+}
+
+.cds-table-row--benchmark td {
+  background: var(--core-color-surface-sunken);
+  color: var(--theme-neutral-text-subtle);
+  font-style: italic;
 }
 
 /* ---------- Attachment ---------- */
 .cds-dropzone {
   border: 1.5px dashed var(--theme-neutral-border-strong);
   border-radius: var(--core-radius-sm);
-  padding: 24px;
+  padding: var(--core-space-4);
   text-align: center;
   color: var(--theme-neutral-text-subtle);
   font-size: var(--typography-body-md-size);
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
   transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
-.cds-dropzone strong {
-  color: var(--theme-primitive-color-primary-500);
+.cds-dropzone-trigger {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--brand-text-primary-default);
   cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  border-radius: var(--core-radius-xs);
+}
+
+.cds-dropzone-trigger:hover:not(:disabled) {
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-dropzone-trigger:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+}
+
+.cds-dropzone-trigger:disabled {
+  cursor: not-allowed;
 }
 
 .cds-dropzone-icon {
@@ -3948,41 +4676,43 @@
   justify-content: center;
 }
 
-/* Dropzone States */
+/* Dropzone States. Border reuses each tone's *-text token, not *-border —
+   the dedicated border step is tuned for controls on the page canvas, but
+   here it sits against the dropzone's own light tinted fill and fell short
+   of 3:1 (WCAG 1.4.11) for error in light mode (2.89:1), with success right
+   at the 3.00:1 edge. The text token is already proven >=4.5:1 against this
+   same fill, so reusing it guarantees the border reads at least as well. */
 .cds-dropzone--success {
-  border-color: var(--theme-semantics-success-border) !important;
+  border-color: var(--theme-semantics-success-text) !important;
   background: var(--theme-semantics-success-light-background) !important;
   color: var(--theme-semantics-success-text) !important;
 }
-.cds-dropzone--success strong {
+.cds-dropzone--success .cds-dropzone-trigger {
   color: var(--theme-semantics-success-text) !important;
-  text-decoration: underline;
 }
 .cds-dropzone--success .cds-dropzone-hint {
   color: var(--theme-semantics-success-text) !important;
 }
 
 .cds-dropzone--error {
-  border-color: var(--theme-semantics-critical-border) !important;
+  border-color: var(--theme-semantics-critical-text) !important;
   background: var(--theme-semantics-critical-light-background) !important;
   color: var(--theme-semantics-critical-text) !important;
 }
-.cds-dropzone--error strong {
+.cds-dropzone--error .cds-dropzone-trigger {
   color: var(--theme-semantics-critical-text) !important;
-  text-decoration: underline;
 }
 .cds-dropzone--error .cds-dropzone-hint {
   color: var(--theme-semantics-critical-text) !important;
 }
 
 .cds-dropzone--warning {
-  border-color: var(--theme-semantics-warning-border) !important;
+  border-color: var(--theme-semantics-warning-text) !important;
   background: var(--theme-semantics-warning-light-background) !important;
   color: var(--theme-semantics-warning-text) !important;
 }
-.cds-dropzone--warning strong {
+.cds-dropzone--warning .cds-dropzone-trigger {
   color: var(--theme-semantics-warning-text) !important;
-  text-decoration: underline;
 }
 .cds-dropzone--warning .cds-dropzone-hint {
   color: var(--theme-semantics-warning-text) !important;
@@ -3995,7 +4725,7 @@
   cursor: not-allowed !important;
   opacity: 1 !important;
 }
-.cds-dropzone--disabled strong {
+.cds-dropzone--disabled .cds-dropzone-trigger {
   color: var(--theme-semantics-disabled-text) !important;
   cursor: not-allowed !important;
   pointer-events: none;
@@ -4007,15 +4737,15 @@
 .cds-attachment-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 12px;
+  gap: var(--core-space-2);
+  margin-top: var(--core-space-3);
 }
 
 .cds-attachment {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-3);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
   font-size: var(--typography-body-md-size);
@@ -4027,7 +4757,7 @@
   width: 32px;
   height: 32px;
   border-radius: var(--core-radius-sm);
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4051,7 +4781,7 @@
   font-size: var(--typography-font-size-xs);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--core-space-1);
 }
 
 .cds-attachment-meta-sep {
@@ -4060,20 +4790,33 @@
 }
 
 .cds-attachment-remove {
+  flex-shrink: 0;
   margin-left: auto;
+  /* 24x24 CSS-pixel minimum target (WCAG 2.5.8) — was ~17x20 from font-size
+     + tight padding alone, under the minimum. */
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   color: var(--theme-neutral-text-subtleleast);
   cursor: pointer;
   font-size: var(--typography-body-lg-size);
   line-height: 1;
-  padding: 2px 4px;
+  padding: 0;
   border-radius: var(--core-radius-sm);
 }
 
 .cds-attachment-remove:hover {
   color: var(--theme-semantics-critical-strong-background);
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-raised);
+}
+
+.cds-attachment-remove:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 1px;
 }
 
 /* Attachment Item States */
@@ -4082,7 +4825,7 @@
   background: var(--theme-semantics-success-light-background);
 }
 .cds-attachment--success .cds-attachment-icon {
-  background: var(--theme-semantics-success-border);
+  background: var(--theme-semantics-success-strong-background);
   color: var(--theme-neutral-text-on-color);
 }
 .cds-attachment--success .cds-attachment-status {
@@ -4095,7 +4838,7 @@
   background: var(--theme-semantics-critical-light-background);
 }
 .cds-attachment--error .cds-attachment-icon {
-  background: var(--theme-semantics-critical-border);
+  background: var(--theme-semantics-critical-strong-background);
   color: var(--theme-neutral-text-on-color);
 }
 .cds-attachment--error .cds-attachment-status {
@@ -4108,7 +4851,7 @@
   background: var(--theme-semantics-warning-light-background);
 }
 .cds-attachment--warning .cds-attachment-icon {
-  background: var(--theme-semantics-warning-border);
+  background: var(--theme-semantics-warning-strong-background);
   color: var(--theme-neutral-text-on-color);
 }
 .cds-attachment--warning .cds-attachment-status {
@@ -4137,53 +4880,20 @@
   display: none;
 }
 
-/* Attachment Badge */
 .cds-attachment-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 8px;
-  border-radius: var(--core-radius-sm);
-  font-size: var(--typography-font-size-xs);
-  font-weight: 600;
-  line-height: 1.4;
   margin-left: auto;
   flex-shrink: 0;
-}
-
-.cds-attachment-badge--success {
-  background: var(--theme-semantics-success-light-background);
-  color: var(--theme-semantics-success-text);
-  border: 1px solid var(--theme-semantics-success-border);
-}
-
-.cds-attachment-badge--error {
-  background: var(--theme-semantics-critical-light-background);
-  color: var(--theme-semantics-critical-text);
-  border: 1px solid var(--theme-semantics-critical-border);
-}
-
-.cds-attachment-badge--warning {
-  background: var(--theme-semantics-warning-light-background);
-  color: var(--theme-semantics-warning-text);
-  border: 1px solid var(--theme-semantics-warning-border);
-}
-
-.cds-attachment-badge--disabled {
-  background: var(--theme-semantics-disabled-background);
-  color: var(--theme-semantics-disabled-text);
-  border: 1px solid var(--theme-semantics-disabled-border);
 }
 
 /* ---------- Navigation Menu / Sidebar (app shell) ---------- */
 .cds-navmenu {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--core-space-1);
 }
 
 .cds-navmenu-link {
-  padding: 8px 12px;
+  padding: var(--core-space-2) var(--core-space-3);
   border-radius: var(--core-radius-sm);
   font-size: var(--typography-body-lg-size);
   font-weight: 500;
@@ -4195,23 +4905,23 @@
 }
 
 .cds-navmenu-link:hover {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-raised);
   color: var(--theme-neutral-text-primary-default);
 }
 
 .cds-navmenu-link[aria-current="page"] {
-  color: var(--core-color-action-primary-bg);
-  background: var(--theme-colors-neutral-100);
+  color: var(--brand-text-primary-default);
+  background: var(--brand-background-primary-subtle);
 }
 
 .cds-app-sidebar {
   width: var(--core-layout-sidebar-width);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-raised);
   border-right: 1px solid var(--theme-neutral-border-primary-default);
-  padding: 16px 10px;
+  padding: var(--core-space-4) var(--core-space-3);
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--core-space-1);
 }
 
 /* Tablet range (sm–md, 576–767px): the full labeled shell sidebar collapses
@@ -4266,7 +4976,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2px;
+    gap: var(--core-space-1);
     padding: var(--core-space-1);
     font-size: var(--typography-font-size-xs);
     text-align: center;
@@ -4292,10 +5002,10 @@
    width, no background/border of its own, sized to its container instead. */
 .cds-app-sidebar--panel {
   width: auto;
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-raised);
   border-right: none;
   padding: 0;
-  gap: 4px;
+  gap: var(--core-space-1);
 }
 
 /* Rail variant — a compact icon-over-label rail: centered stacked items, a
@@ -4305,7 +5015,7 @@
    fixed-dark chrome. */
 .cds-app-sidebar--rail {
   width: var(--core-space-24);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-raised);
   border-right: 1px solid var(--theme-neutral-border-primary-default);
   padding: var(--core-space-4) 0;
   gap: var(--core-space-2);
@@ -4331,14 +5041,14 @@
 }
 
 .cds-app-sidebar--rail .cds-app-sidebar-link:hover:not(:disabled):not([aria-disabled="true"]) {
-  color: var(--theme-primitive-color-primary-500);
+  color: var(--brand-text-primary-default);
   background: var(--brand-background-primary-subtle);
-  box-shadow: inset 3px 0 0 0 var(--theme-primitive-color-primary-500);
+  box-shadow: inset 3px 0 0 0 transparent;
 }
 
 .cds-app-sidebar--rail .cds-app-sidebar-link[aria-current="page"] {
-  background: var(--theme-colors-neutral-0);
-  color: var(--theme-primitive-color-primary-500);
+  background: var(--brand-background-primary-subtle);
+  color: var(--brand-text-primary-default);
   box-shadow: inset 3px 0 0 0 var(--brand-background-primary-strong);
   font-weight: var(--typography-font-weight-bold);
 }
@@ -4354,7 +5064,7 @@
 
 .cds-app-sidebar--rail .cds-app-sidebar-link:disabled .cds-sidenav-icon-plain,
 .cds-app-sidebar--rail .cds-app-sidebar-link[aria-disabled="true"] .cds-sidenav-icon-plain {
-  color: var(--theme-primitive-color-primary-300);
+  color: var(--theme-semantics-disabled-text);
 }
 
 .cds-app-sidebar--rail .cds-app-sidebar-link:focus-visible {
@@ -4371,8 +5081,8 @@
 .cds-sidenav-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
+  gap: var(--core-space-3);
+  padding: var(--core-space-2) var(--core-space-3);
   border-radius: var(--core-sidebar-item-radius);
   font-size: var(--typography-body-lg-size);
   font-weight: 500;
@@ -4418,6 +5128,29 @@
 .cds-sidenav-item[data-active="true"] .cds-sidenav-icon {
   background: var(--core-sidebar-icon-activeBg);
   color: var(--core-sidebar-icon-activeText);
+}
+
+/*
+ * The shell/panel sidenav item never had a disabled treatment at all —
+ * only the rail variant did (.cds-app-sidebar--rail .cds-app-sidebar-link:disabled,
+ * further down). Reusing the same semantics-disabled-* tokens every other
+ * disabled control in this library uses.
+ */
+.cds-sidenav-item:disabled {
+  cursor: not-allowed;
+  color: var(--theme-semantics-disabled-text);
+  background: none;
+}
+
+.cds-sidenav-item:disabled .cds-sidenav-icon {
+  background: var(--theme-semantics-disabled-background);
+  color: var(--theme-semantics-disabled-text);
+}
+
+.cds-app-sidebar-link:focus-visible,
+.cds-sidenav-item:focus-visible {
+  outline: var(--core-focusRing-width, 2px) solid var(--theme-primitive-color-primary-400);
+  outline-offset: -2px;
 }
 
 .cds-sidenav-label {
@@ -4476,7 +5209,7 @@
 }
 
 .cds-icon--interactive:hover {
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-raised);
 }
 
 .cds-icon--interactive:focus-visible {
@@ -4491,11 +5224,11 @@
   justify-content: center;
   min-width: 20px;
   height: 20px;
-  padding: 0 5px;
+  padding: var(--core-space-0) var(--core-space-1);
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-strong);
   border-bottom-width: 2px;
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
   color: var(--theme-neutral-text-subtle);
   font-family: var(--typography-font-family-sans);
   font-size: var(--typography-font-size-xs);
@@ -4559,12 +5292,16 @@
   right: 12px;
 }
 
+/* Documented exception to the 16px spacing cap: this isn't decorative
+   spacing, it's the icon's functional clearance (icon inset 12px + 16px
+   icon + 4px gap = 32px) — capping it to 16px made input text run under
+   the icon. Flagged and confirmed with the design system owner. */
 .cds-input-affix-wrap .cds-input[data-has-leading="true"] {
-  padding-left: 34px;
+  padding-left: var(--core-space-8);
 }
 
 .cds-input-affix-wrap .cds-input[data-has-trailing="true"] {
-  padding-right: 34px;
+  padding-right: var(--core-space-8);
 }
 
 /* ---------- Toast manager (stacked, positioned) ---------- */
@@ -4575,7 +5312,7 @@
   z-index: 60;
   display: flex;
   flex-direction: column-reverse;
-  gap: 10px;
+  gap: var(--core-space-3);
   pointer-events: none;
   max-width: 360px;
 }
@@ -4626,7 +5363,7 @@
   position: absolute;
   left: 100%;
   top: -6px;
-  margin-left: 4px;
+  margin-left: var(--core-space-1);
 }
 
 /* ---- Layout: App Shell + Grid (token-driven, no hardcoded px) ---- */
@@ -4646,8 +5383,8 @@
   justify-content: space-between;
   gap: var(--core-space-4);
   min-height: var(--core-layout-header-height);
-  padding: 0 var(--core-space-8);
-  background: var(--theme-colors-neutral-0);
+  padding: 0 var(--core-space-4);
+  background: var(--core-color-surface-raised);
   border-bottom: 1px solid var(--core-color-border-subtle);
   box-sizing: border-box;
 }
@@ -4687,14 +5424,14 @@
 .cds-app-main {
   flex: 1;
   min-width: 0;
-  padding: var(--core-space-8);
+  padding: var(--core-space-4);
 }
 
 /* Room for the fixed bottom tab bar the shell sidebar becomes on phones,
    so the last bit of page content isn't hidden underneath it. */
 @media (max-width: 575px) {
   .cds-app-body:has(> .cds-app-shell-sidebar > .cds-app-sidebar:not(.cds-app-sidebar--panel)) .cds-app-main {
-    padding-bottom: calc(var(--core-space-6) + 64px + env(safe-area-inset-bottom));
+    padding-bottom: calc(var(--core-space-4) + var(--core-space-16) + env(safe-area-inset-bottom));
   }
 }
 
@@ -4702,11 +5439,11 @@
   display: flex;
   align-items: center;
   min-height: var(--core-layout-footer-minHeight);
-  padding: var(--core-space-3) var(--core-space-8);
+  padding: var(--core-space-3) var(--core-space-4);
   border-top: 1px solid var(--core-color-border-subtle);
   font-size: var(--typography-font-size-xs);
   color: var(--theme-neutral-text-subtle);
-  background: var(--theme-colors-neutral-0);
+  background: var(--core-color-surface-raised);
   box-sizing: border-box;
   width: 100%;
 }
@@ -4802,11 +5539,11 @@
 }
 
 .cds-grid--gap-6 {
-  gap: var(--core-space-6);
+  gap: var(--core-space-4);
 }
 
 .cds-grid--gap-8 {
-  gap: var(--core-space-8);
+  gap: var(--core-space-4);
 }
 
 .cds-grid-col {
@@ -4826,7 +5563,7 @@
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
+  margin: var(--core-space-0);
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { componentPageOrder, totalComponentCount } from "../navConfig";
 import Actions from "./Actions";
 import Forms from "./Forms";
@@ -21,13 +21,6 @@ const categoryPages: Record<string, React.ComponentType<{ embedded?: boolean }>>
 };
 
 export default function Components() {
-  useEffect(() => {
-    document.documentElement.setAttribute("data-site-mode", "light");
-    try {
-      localStorage.setItem("core-site-mode", "light");
-    } catch {}
-  }, []);
-
   return (
     <div style={{ maxWidth: 1024, margin: "0 auto", padding: "20px" }}>
       <div style={{ textAlign: "center", marginBottom: 60, marginTop: 40 }}>

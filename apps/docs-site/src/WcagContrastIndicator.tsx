@@ -163,7 +163,7 @@ export function ContrastAgainstControl({
           alignItems: "center",
           gap: 4,
           padding: 3,
-          borderRadius: 6,
+          borderRadius: "var(--core-radius-sm)",
           border: "1px solid var(--site-border)",
           background: "var(--site-bg)",
         }}
