@@ -7,6 +7,7 @@ import { ComponentStateMatrix, DEFAULT_MATRIX_STATES } from "../ComponentStateMa
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { AnatomySection } from "../AnatomySection";
 import { ButtonAnatomy } from "../ButtonAnatomy";
+import { IconButtonAnatomy } from "../IconButtonAnatomy";
 
 const EditIcon = ({ size }: { size: "sm" | "md" | "lg" }) => {
   const px = size === "sm" ? 16 : size === "lg" ? 24 : 20;
@@ -29,6 +30,9 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
       anchorId: "icon-button",
       title: "Icon Button",
       content: (
+        <AnatomySection
+          anatomy={<IconButtonAnatomy />}
+          demo={
         <div className="site-panel site-panel--flush site-panel--demo">
           <ComponentStateMatrix
             columns={[
@@ -72,6 +76,8 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
             .force-focus .cds-icon-btn { outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400); outline-offset: 2px; }
           `}</style>
         </div>
+          }
+        />
       ),
     },
 
