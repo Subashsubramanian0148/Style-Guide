@@ -2641,20 +2641,20 @@
 }
 
 .cds-avatar--sm {
-  width: 24px;
-  height: 24px;
+  width: var(--core-space-6);
+  height: var(--core-space-6);
   font-size: var(--typography-font-size-xs);
 }
 
 .cds-avatar--md {
-  width: 36px;
-  height: 36px;
+  width: var(--core-space-8);
+  height: var(--core-space-8);
   font-size: var(--typography-body-md-size);
 }
 
 .cds-avatar--lg {
-  width: 48px;
-  height: 48px;
+  width: var(--core-space-12);
+  height: var(--core-space-12);
   font-size: var(--typography-body-lg-size);
 }
 

@@ -180,7 +180,7 @@ function AvatarSizeDemo() {
               <tr>
                 <th scope="col" style={{ width: 140, fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)" }}>Component</th>
                 <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)" }}>Small (sm) — 24px</th>
-                <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)" }}>Medium (md) — 36px</th>
+                <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)" }}>Medium (md) — 32px</th>
                 <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)" }}>Large (lg) — 48px</th>
               </tr>
             </thead>
