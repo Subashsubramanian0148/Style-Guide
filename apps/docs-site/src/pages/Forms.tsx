@@ -5,6 +5,7 @@ import { Preview } from "../Preview";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
 import { AnatomySection } from "../AnatomySection";
 import { AttachmentAnatomy } from "../AttachmentAnatomy";
+import { CheckboxRadioAnatomy } from "../CheckboxRadioAnatomy";
 import { Field, Input, InputWithIcon } from "../../../../packages/core/src/components/Field";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 import { Switch } from "../../../../packages/core/src/components/Misc";
@@ -214,6 +215,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       title: "Checkbox & Radio",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<CheckboxRadioAnatomy />}
+            demo={
           <Preview showModeToggle>
             <div style={{ display: "flex", flexDirection: "column", gap: 32, width: "100%" }}>
               <div>
@@ -269,6 +273,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               </div>
             </div>
           </Preview>
+            }
+          />
         </div>
       )
     },
