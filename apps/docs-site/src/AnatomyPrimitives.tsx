@@ -129,6 +129,7 @@ export function VGapMark({
   value,
   color = PADDING_COLOR,
   extendTo,
+  bandInset = "center",
 }: {
   x: number;
   y: number;
@@ -140,12 +141,18 @@ export function VGapMark({
    *  the line stretches up to meet it and the badge floats there instead,
    *  clear of the clutter. */
   extendTo?: number;
+  /** Where the fill band sits relative to `x`: "center" straddles it (for a
+   *  gap between two elements), "start"/"end" keep the whole band on one
+   *  side (for a hard edge, like a badge's own left/right padding, where a
+   *  centered band would spill outside the box). */
+  bandInset?: "start" | "end" | "center";
 }) {
   const top = extendTo !== undefined ? Math.min(extendTo, y) : y;
   const bandWidth = 8;
+  const bandLeft = bandInset === "start" ? x : bandInset === "end" ? x - bandWidth : x - bandWidth / 2;
   return (
     <>
-      <div style={{ position: "absolute", left: x - bandWidth / 2, top: y, width: bandWidth, height, background: fillStrong(color), zIndex: 1, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", left: bandLeft, top: y, width: bandWidth, height, background: fillStrong(color), zIndex: 1, pointerEvents: "none" }} />
       <div style={{ position: "absolute", left: x, top, width: 1, height: y + height - top, background: color, zIndex: 2, pointerEvents: "none" }} />
       <div style={{ position: "absolute", left: x, top: top - 9, transform: "translateX(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
         {value}
@@ -164,6 +171,7 @@ export function HTickMark({
   value,
   color = PADDING_COLOR,
   extendTo,
+  bandInset = "center",
 }: {
   x: number;
   y: number;
@@ -173,12 +181,18 @@ export function HTickMark({
   /** Pass an x to the left of `x` to float the badge clear of nearby
    *  clutter, the same way `VGapMark`'s `extendTo` does vertically. */
   extendTo?: number;
+  /** Where the fill band sits relative to `y`: "center" straddles it (for a
+   *  gap between two elements), "start"/"end" keep the whole band on one
+   *  side (for a hard edge, like a badge's own top/bottom padding, where a
+   *  centered band would spill outside the box). */
+  bandInset?: "start" | "end" | "center";
 }) {
   const left = extendTo !== undefined ? Math.min(extendTo, x) : x;
   const bandHeight = 8;
+  const bandTop = bandInset === "start" ? y : bandInset === "end" ? y - bandHeight : y - bandHeight / 2;
   return (
     <>
-      <div style={{ position: "absolute", left, top: y - bandHeight / 2, width: x + width - left, height: bandHeight, background: fillStrong(color), zIndex: 1, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", left, top: bandTop, width: x + width - left, height: bandHeight, background: fillStrong(color), zIndex: 1, pointerEvents: "none" }} />
       <div style={{ position: "absolute", left, top: y, width: x + width - left, height: 1, background: color, zIndex: 2, pointerEvents: "none" }} />
       <div style={{ position: "absolute", left: left - 9, top: y, transform: "translateY(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
         {value}

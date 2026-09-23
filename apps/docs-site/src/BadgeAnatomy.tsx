@@ -38,10 +38,10 @@ export function BadgeAnatomy() {
     <AnatomyFrame>
       <div ref={boxRef} style={{ position: "relative", marginTop: 40, marginLeft: 60 }}>
         <Badge tone="primary" variant="soft" size="md">primary</Badge>
-        {badge && <VGapMark x={badge.x} y={badge.y} height={badge.height} value={12} color={GREEN} extendTo={badge.y - 30} />}
-        {badge && <VGapMark x={badge.x + badge.width} y={badge.y} height={badge.height} value={12} color={GREEN} extendTo={badge.y - 30} />}
-        {badge && <HTickMark x={badge.x} y={badge.y} width={badge.width} value={4} color={GREEN} extendTo={badge.x - 40} />}
-        {badge && <HTickMark x={badge.x} y={badge.y + badge.height} width={badge.width} value={4} color={GREEN} extendTo={badge.x - 40} />}
+        {badge && <VGapMark x={badge.x} y={badge.y} height={badge.height} value={12} color={GREEN} extendTo={badge.y - 30} bandInset="start" />}
+        {badge && <VGapMark x={badge.x + badge.width} y={badge.y} height={badge.height} value={12} color={GREEN} extendTo={badge.y - 30} bandInset="end" />}
+        {badge && <HTickMark x={badge.x} y={badge.y} width={badge.width} value={4} color={GREEN} extendTo={badge.x - 40} bandInset="start" />}
+        {badge && <HTickMark x={badge.x} y={badge.y + badge.height} width={badge.width} value={4} color={GREEN} extendTo={badge.x - 40} bandInset="end" />}
       </div>
     </AnatomyFrame>
   );
