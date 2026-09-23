@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
-import { ComponentStateMatrix, DEFAULT_MATRIX_STATES } from "../ComponentStateMatrix";
 import { Preview } from "../Preview";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
 import { AnatomySection } from "../AnatomySection";
@@ -19,7 +18,6 @@ import { Combobox } from "../../../../packages/core/src/components/Combobox";
 import { Calendar, DatePicker } from "../../../../packages/core/src/components/Calendar";
 import { Dropzone, AttachmentList, AttachmentFile } from "../../../../packages/core/src/components/Attachment";
 import { Badge } from "../../../../packages/core/src/components/Misc";
-import { Button } from "../../../../packages/core/src/components/Button";
 
 const employers = [
   { value: "acme", label: "Acme Corporation" },
@@ -383,44 +381,6 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
               </div>
             </Preview>
-          </div>
-
-          <div className="site-panel site-panel--flush site-panel--demo">
-            <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 4 }}>
-              Calendar actions (Tertiary CTA)
-            </div>
-            <ComponentStateMatrix
-              columns={[
-                { id: "clear", label: "Clear" },
-                { id: "today", label: "Today" },
-              ]}
-              states={DEFAULT_MATRIX_STATES}
-              sizes={[{ id: "sm", label: "Small (calendar)" }]}
-              defaultSize="sm"
-              columnMinWidth={140}
-              renderCell={({ columnId, stateKey, size }) => {
-                const wrapperClass =
-                  stateKey === "hover"
-                    ? "force-hover"
-                    : stateKey === "active"
-                    ? "force-active"
-                    : stateKey === "focused"
-                    ? "force-focus"
-                    : undefined;
-                return (
-                  <div className={wrapperClass} style={{ display: "inline-flex" }}>
-                    <Button
-                      type="button"
-                      variant="tertiary"
-                      size={size as "sm"}
-                      disabled={stateKey === "disabled" || (columnId === "clear" && stateKey === "disabled")}
-                    >
-                      {columnId === "clear" ? "Clear" : "Today"}
-                    </Button>
-                  </div>
-                );
-              }}
-            />
           </div>
         </div>
           }
