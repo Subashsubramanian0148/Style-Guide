@@ -29,17 +29,29 @@ const GREEN = "#118D57";
 
 /** One row of the spec table. `token` is the design-system variable the
  *  property resolves through; `value` is what it computes to in the live
- *  component; `swatch` renders a color chip when the value is a color. */
-function SpecRow({ label, token, value, swatch }: { label: string; token: string; value: string; swatch?: string }) {
+ *  component; `swatch` renders a color chip when the value is a color;
+ *  `standard` is whether the value meets the design/industry standard
+ *  ("pass") or warrants a caution ("warn", with a short `note`). */
+function SpecRow({ label, token, value, swatch, standard, note }: { label: string; token: string; value: string; swatch?: string; standard: "pass" | "warn"; note?: string }) {
   return (
     <tr>
       <td style={{ padding: "6px 16px 6px 0", fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap" }}>{label}</td>
       <td style={{ padding: "6px 16px 6px 0", fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap" }}>{token}</td>
-      <td style={{ padding: "6px 0", color: "var(--core-color-text-secondary)", whiteSpace: "nowrap" }}>
+      <td style={{ padding: "6px 16px 6px 0", color: "var(--core-color-text-secondary)", whiteSpace: "nowrap" }}>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
           {swatch && <span style={{ width: 14, height: 14, borderRadius: 3, background: swatch, border: "1px solid var(--core-color-border-subtle)", display: "inline-block" }} />}
           {value}
         </span>
+      </td>
+      <td style={{ padding: "6px 0", whiteSpace: "nowrap" }}>
+        {standard === "pass" ? (
+          <span style={{ color: "var(--core-color-status-success-text)", fontWeight: 700 }} title="Meets design/industry standard">✓</span>
+        ) : (
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--core-color-status-warning-text)" }}>
+            <span style={{ fontWeight: 700 }} title="Caution">⚠</span>
+            {note && <span style={{ fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "normal" }}>{note}</span>}
+          </span>
+        )}
       </td>
     </tr>
   );
@@ -112,18 +124,26 @@ export function ButtonAnatomy() {
 
       {spec && (
         <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)" }}>
+          <thead>
+            <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.04em" }}>
+              <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>Property</th>
+              <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>Token</th>
+              <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>Value</th>
+              <th style={{ padding: "0 0 8px 0", fontWeight: 700 }}>Standards</th>
+            </tr>
+          </thead>
           <tbody>
-            <SpecRow label="Size" token="core-size-control-md" value={`Medium · min-height ${spec.minHeight}`} />
-            <SpecRow label="Padding" token="core-space-2 / core-space-3" value={`${spec.paddingY} ${spec.paddingX}`} />
-            <SpecRow label="Icon gap" token="core-space-2" value={spec.gap} />
-            <SpecRow label="Font family" token="typography-font-family-sans" value={spec.fontFamily} />
-            <SpecRow label="Font size" token="typography-text14-semibold-size" value={spec.fontSize} />
-            <SpecRow label="Font weight" token="typography-text14-semibold-weight" value={spec.fontWeight} />
-            <SpecRow label="Line height" token="typography-text14-semibold-line-height" value={spec.lineHeight} />
-            <SpecRow label="Text color" token="brand-text-primary-oncolor" value={spec.color} swatch={spec.color} />
-            <SpecRow label="Background" token="brand-background-primary-strong" value={spec.background} swatch={spec.background} />
-            <SpecRow label="Border" token="brand-border-primary-default" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} />
-            <SpecRow label="Border radius" token="core-radius-sm" value={spec.borderRadius} />
+            <SpecRow label="Size" token="core-size-control-md" value={`Medium · min-height ${spec.minHeight}`} standard="warn" note="40px < 44px touch-target guideline (fine for desktop)" />
+            <SpecRow label="Padding" token="core-space-2 / core-space-3" value={`${spec.paddingY} ${spec.paddingX}`} standard="pass" />
+            <SpecRow label="Icon gap" token="core-space-2" value={spec.gap} standard="pass" />
+            <SpecRow label="Font family" token="typography-font-family-sans" value={spec.fontFamily} standard="pass" />
+            <SpecRow label="Font size" token="typography-text14-semibold-size" value={spec.fontSize} standard="pass" />
+            <SpecRow label="Font weight" token="typography-text14-semibold-weight" value={spec.fontWeight} standard="warn" note="700 is Bold; “semibold” usually means 600" />
+            <SpecRow label="Line height" token="typography-text14-semibold-line-height" value={spec.lineHeight} standard="pass" />
+            <SpecRow label="Text color" token="brand-text-primary-oncolor" value={spec.color} swatch={spec.color} standard="pass" />
+            <SpecRow label="Background" token="brand-background-primary-strong" value={spec.background} swatch={spec.background} standard="pass" />
+            <SpecRow label="Border" token="brand-border-primary-default" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
+            <SpecRow label="Border radius" token="core-radius-sm" value={spec.borderRadius} standard="pass" />
           </tbody>
         </table>
       )}
