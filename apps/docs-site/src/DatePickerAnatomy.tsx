@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Field } from "../../../packages/core/src/components/Field";
 import { DatePicker } from "../../../packages/core/src/components/Calendar";
-import { AnatomyFrame, VGapMark, HGapCallout } from "./AnatomyPrimitives";
+import { AnatomyFrame, VGapMark, HTickMark, HGapCallout } from "./AnatomyPrimitives";
 
 interface Region {
   x: number;
@@ -17,9 +17,10 @@ const ORANGE = "#C2410C";
  * Spacing anatomy for DatePicker, measured from the live Field/DatePicker
  * components:
  *   .cds-field gap: core-space-2 (8px), between label and input
- *   .cds-input[data-has-trailing] padding-right: core-space-8 (32px) —
- *   the calendar icon's functional clearance (documented exception to the
- *   16px spacing cap).
+ *   .cds-input padding: core-space-2 core-space-3 (8px / 12px) on every
+ *   edge except the trailing one, which is widened to core-space-8 (32px)
+ *   for the calendar icon's functional clearance (documented exception to
+ *   the 16px spacing cap).
  */
 export function DatePickerAnatomy() {
   const boxRef = useRef<HTMLDivElement>(null);
@@ -56,7 +57,10 @@ export function DatePickerAnatomy() {
           {() => <DatePicker placeholder="Select date" />}
         </Field>
         {labelGap && <HGapCallout y={labelGap.y} width={labelGap.width} height={labelGap.height} value={8} color={ORANGE} side="left" />}
+        {input && <VGapMark x={input.x} y={input.y} height={input.height} value={12} color={GREEN} extendTo={input.y - 30} bandInset="start" />}
         {input && <VGapMark x={input.x + input.width} y={input.y} height={input.height} value={32} color={GREEN} extendTo={input.y - 30} bandInset="end" />}
+        {input && <HTickMark x={input.x} y={input.y} width={input.width} value={8} color={GREEN} extendTo={input.x - 40} bandInset="start" />}
+        {input && <HTickMark x={input.x} y={input.y + input.height} width={input.width} value={8} color={GREEN} extendTo={input.x - 40} bandInset="end" />}
       </div>
     </AnatomyFrame>
   );
