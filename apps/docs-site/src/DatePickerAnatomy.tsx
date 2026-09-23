@@ -56,7 +56,7 @@ export function DatePickerAnatomy() {
         <Field label="Default">
           {() => <DatePicker placeholder="Select date" />}
         </Field>
-        {labelGap && <HGapCallout y={labelGap.y} width={labelGap.width} height={labelGap.height} value={8} color={ORANGE} side="left" />}
+        {labelGap && <HGapCallout y={labelGap.y} width={labelGap.width} height={labelGap.height} value={8} color={ORANGE} side="right" />}
         {input && <VGapMark x={input.x} y={input.y} height={input.height} value={12} color={GREEN} extendTo={input.y - 30} bandInset="start" />}
         {input && <VGapMark x={input.x + input.width} y={input.y} height={input.height} value={32} color={GREEN} extendTo={input.y - 30} bandInset="end" />}
         {input && <HTickMark x={input.x} y={input.y} width={input.width} value={8} color={GREEN} extendTo={input.x - 40} bandInset="start" />}
