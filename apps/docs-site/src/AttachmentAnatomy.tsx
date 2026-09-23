@@ -36,6 +36,7 @@ export function AttachmentAnatomy() {
   const [dropzoneToListGap, setDropzoneToListGap] = useState<RowGap | null>(null);
   const [rowGap, setRowGap] = useState<RowGap | null>(null);
   const [firstRowRegion, setFirstRowRegion] = useState<Region | null>(null);
+  const [rowCornerMarks, setRowCornerMarks] = useState<{ x: number; y: number; height: number }[] | null>(null);
   const [rowInternalGaps, setRowInternalGaps] = useState<{ x: number; y: number; height: number }[] | null>(null);
 
   useLayoutEffect(() => {
@@ -124,12 +125,14 @@ export function AttachmentAnatomy() {
       const rowBadgeRect = rowBadge.getBoundingClientRect();
       const gapY = Math.round(row1Rect.top - boxRect.top);
       const gapHeight = Math.round(row1Rect.height);
-      // Left edge, each internal gap, and the right edge all land badges at
-      // the same row-top height — crowded together, so every mark's line
-      // extends up above the row (clear of the gap band above it) instead
-      // of sitting right at the row's own top edge.
-      const gaps = [
+      // Left/right edges mark the row's own padding (green, like every
+      // other padding badge); the gaps between icon/text/badge/remove mark
+      // internal flex gaps (orange, like every other gap callout).
+      setRowCornerMarks([
         { x: Math.round(row1Rect.left - boxRect.left), y: gapY, height: gapHeight },
+        { x: Math.round(row1Rect.right - boxRect.left), y: gapY, height: gapHeight },
+      ]);
+      const gaps = [
         { x: Math.round(rowIconRect.right - boxRect.left) + Math.round((rowBodyRect.left - rowIconRect.right) / 2), y: gapY, height: gapHeight },
         { x: Math.round(rowBodyRect.right - boxRect.left) + Math.round((rowBadgeRect.left - rowBodyRect.right) / 2), y: gapY, height: gapHeight },
       ];
@@ -137,7 +140,6 @@ export function AttachmentAnatomy() {
         const rowRemoveRect = rowRemove.getBoundingClientRect();
         gaps.push({ x: Math.round(rowBadgeRect.right - boxRect.left) + Math.round((rowRemoveRect.left - rowBadgeRect.right) / 2), y: gapY, height: gapHeight });
       }
-      gaps.push({ x: Math.round(row1Rect.right - boxRect.left), y: gapY, height: gapHeight });
       setRowInternalGaps(gaps);
     }
   }, []);
@@ -184,7 +186,8 @@ export function AttachmentAnatomy() {
         {dropzoneToListGap && <HGapCallout y={dropzoneToListGap.y} width={dropzoneToListGap.width} height={dropzoneToListGap.height} value={12} color={CALLOUT_ORANGE} side="left" />}
 
         {firstRowRegion && <RegionPadding x={firstRowRegion.x} y={firstRowRegion.y} width={firstRowRegion.width} height={firstRowRegion.height} size={12} edges={["bottom"]} />}
-        {rowInternalGaps?.map((g, i) => <VGapMark key={i} x={g.x} y={g.y} height={g.height} value={12} extendTo={-34} />)}
+        {firstRowRegion && rowCornerMarks?.map((g, i) => <VGapMark key={i} x={g.x} y={g.y} height={g.height} value={12} extendTo={firstRowRegion.y - 28} />)}
+        {firstRowRegion && rowInternalGaps?.map((g, i) => <VGapMark key={i} x={g.x} y={g.y} height={g.height} value={12} color={CALLOUT_ORANGE} extendTo={firstRowRegion.y - 28} />)}
         {rowGap && <HGapCallout y={rowGap.y} width={rowGap.width} height={rowGap.height} value={8} color={CALLOUT_ORANGE} side="left" />}
       </div>
     </AnatomyFrame>
