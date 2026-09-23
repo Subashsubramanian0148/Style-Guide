@@ -1,0 +1,131 @@
+/**
+ * AUTO-GENERATED from public/typography.json — run: npm run typography:tokens
+ * Do not edit manually.
+ */
+:root {
+  --typography-font-family-sans: "Inclusive Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --typography-font-family-mono: "Inclusive Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --core-font-family-base: var(--typography-font-family-sans);
+  --core-font-family-mono: var(--typography-font-family-mono);
+  --typography-font-weight-regular: 400;
+  --typography-font-weight-medium: 500;
+  --typography-font-weight-semibold: 600;
+  --typography-font-weight-bold: 700;
+  --typography-font-weight-extrabold: 700;
+  --typography-font-size-xs: 0.75rem;
+  --typography-font-size-xs-px: 12px;
+  --typography-font-size-sm: 0.875rem;
+  --typography-font-size-sm-px: 14px;
+  --typography-font-size-md: 1rem;
+  --typography-font-size-md-px: 16px;
+  --typography-font-size-lg: 1.25rem;
+  --typography-font-size-lg-px: 20px;
+  --typography-font-size-xl: 1.5rem;
+  --typography-font-size-xl-px: 24px;
+  --typography-font-size-2xl: 1.75rem;
+  --typography-font-size-2xl-px: 28px;
+  --typography-font-size-3xl: 2rem;
+  --typography-font-size-3xl-px: 32px;
+  --typography-heading-h1-size: 2rem;
+  --typography-heading-h1-line-height: 2.5rem;
+  --typography-heading-h1-letter-spacing: 0;
+  --typography-heading-h1-weight: 700;
+  --typography-heading-h2-size: 1.75rem;
+  --typography-heading-h2-line-height: 2.25rem;
+  --typography-heading-h2-letter-spacing: 0;
+  --typography-heading-h2-weight: 700;
+  --typography-heading-h3-size: 1.5rem;
+  --typography-heading-h3-line-height: 2rem;
+  --typography-heading-h3-letter-spacing: 0;
+  --typography-heading-h3-weight: 700;
+  --typography-heading-h4-size: 1.25rem;
+  --typography-heading-h4-line-height: 1.75rem;
+  --typography-heading-h4-letter-spacing: 0;
+  --typography-heading-h4-weight: 700;
+  --typography-heading-h5-size: 1rem;
+  --typography-heading-h5-line-height: 1.5rem;
+  --typography-heading-h5-letter-spacing: 0;
+  --typography-heading-h5-weight: 700;
+  --typography-heading-h6-size: 0.875rem;
+  --typography-heading-h6-line-height: 1.3125rem;
+  --typography-heading-h6-letter-spacing: 0;
+  --typography-heading-h6-weight: 700;
+  --typography-body-lg-size: 1rem;
+  --typography-body-lg-line-height: 1.5rem;
+  --typography-body-lg-letter-spacing: 0;
+  --typography-body-lg-weight: 400;
+  --typography-body-md-size: 0.875rem;
+  --typography-body-md-line-height: 1.3125rem;
+  --typography-body-md-letter-spacing: 0;
+  --typography-body-md-weight: 400;
+  --typography-body-sm-size: 0.875rem;
+  --typography-body-sm-line-height: 1.3125rem;
+  --typography-body-sm-letter-spacing: 0;
+  --typography-body-sm-weight: 400;
+  --typography-body-xs-size: 0.75rem;
+  --typography-body-xs-line-height: 1.125rem;
+  --typography-body-xs-letter-spacing: 0;
+  --typography-body-xs-weight: 400;
+  --typography-label-size: 0.875rem;
+  --typography-label-line-height: 1.3125rem;
+  --typography-label-letter-spacing: 0;
+  --typography-label-weight: 700;
+  --typography-caption-size: 0.75rem;
+  --typography-caption-line-height: 1.125rem;
+  --typography-caption-letter-spacing: 0;
+  --typography-caption-weight: 500;
+  --typography-helper-size: 0.75rem;
+  --typography-helper-line-height: 1.125rem;
+  --typography-helper-letter-spacing: 0;
+  --typography-helper-weight: 400;
+  --typography-eyebrow-size: 0.75rem;
+  --typography-eyebrow-line-height: 1.125rem;
+  --typography-eyebrow-letter-spacing: 0;
+  --typography-eyebrow-weight: 700;
+  --typography-link-size: 0.875rem;
+  --typography-link-line-height: 1.3125rem;
+  --typography-link-letter-spacing: 0;
+  --typography-link-weight: 700;
+  --typography-placeholder-size: 0.875rem;
+  --typography-placeholder-line-height: 1.3125rem;
+  --typography-placeholder-letter-spacing: 0;
+  --typography-placeholder-weight: 400;
+  --typography-button-lg-size: 1rem;
+  --typography-button-lg-line-height: 1.5rem;
+  --typography-button-lg-letter-spacing: 0;
+  --typography-button-lg-weight: 700;
+  --typography-button-md-size: 0.875rem;
+  --typography-button-md-line-height: 1.3125rem;
+  --typography-button-md-letter-spacing: 0;
+  --typography-button-md-weight: 700;
+  --typography-button-sm-size: 0.875rem;
+  --typography-button-sm-line-height: 1.3125rem;
+  --typography-button-sm-letter-spacing: 0;
+  --typography-button-sm-weight: 700;
+  --typography-text14-regular-size: 0.875rem;
+  --typography-text14-regular-line-height: 1.3125rem;
+  --typography-text14-regular-weight: 400;
+  --typography-text14-semibold-size: 0.875rem;
+  --typography-text14-semibold-line-height: 1.3125rem;
+  --typography-text14-semibold-weight: 700;
+  --typography-text16-regular-size: 1rem;
+  --typography-text16-regular-line-height: 1.5rem;
+  --typography-text16-regular-weight: 400;
+  --typography-text16-semibold-size: 1rem;
+  --typography-text16-semibold-line-height: 1.5rem;
+  --typography-text16-semibold-weight: 700;
+  --typography-text12-semibold-size: 0.75rem;
+  --typography-text12-semibold-line-height: 1.125rem;
+  --typography-text12-semibold-weight: 600;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+optgroup {
+  font-family: var(--typography-font-family-sans);
+  font-synthesis: weight style;
+}

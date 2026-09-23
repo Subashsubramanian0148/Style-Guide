@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "core-docs",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173,
+      "autoPort": true
+    },
+    {
+      "name": "core-docs-prod",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview", "--workspace=@core-ds/docs-site"],
+      "port": 4173
+    }
+  ]
+}

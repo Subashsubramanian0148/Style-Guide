@@ -1,0 +1,42 @@
+---
+description: Locked color palette and typography files — require user confirmation before any edit
+alwaysApply: true
+---
+
+# Locked: Color Palette & Typography
+
+These files are **locked** by the project owner. Do **not** edit them unless the user has explicitly asked for a change in the current message.
+
+## Before editing any locked file
+
+1. **Stop** — do not modify the file yet.
+2. **Summarize** the exact changes you intend to make (files, tokens/values, rationale).
+3. **Ask the user to confirm** — wait for explicit approval (e.g. "yes", "go ahead", "approved") before proceeding.
+4. If the user's request is ambiguous or would touch locked files indirectly, **double-check with the user first**.
+
+This applies even when the user asks for a broader task that would incidentally change palette or typography values.
+
+## Locked color palette files
+
+- `apps/docs-site/public/Core-Color-Palette.scss`
+- `apps/docs-site/public/Color pallete.scss`
+- `apps/docs-site/src/theme-palette.css`
+- `packages/tokens/src/semantic.json` (color / brand token mappings)
+- `apps/docs-site/src/pages/Color.tsx` (palette values, ramps, base-color token data)
+- `apps/docs-site/src/pages/brandTokenData.ts`
+
+## Locked typography files
+
+- `apps/docs-site/src/pages/Typography.tsx`
+- `apps/docs-site/src/pages/typographyScale.ts`
+- `apps/docs-site/src/pages/buildTypographyExport.ts`
+- `apps/docs-site/src/pages/typography-export.ts`
+- `packages/tokens/src/typography.json`
+
+## Examples
+
+**User:** "Fix the nav spacing" → edit `Layout.tsx` freely; no locked files involved.
+
+**User:** "Change disabled text to white" → **stop**, list affected locked files and values, ask for confirmation before editing.
+
+**User:** "Update brand 500 to #224488" → **stop**, confirm scope (palette SCSS, semantic.json, Color.tsx, etc.) and get approval first.

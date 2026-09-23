@@ -1,0 +1,6 @@
+{
+  "id": "core",
+  "label": "CORE",
+  "meta": { "logoText": "CORE", "density": "comfortable", "radiusScale": "default" },
+  "overrides": {}
+}

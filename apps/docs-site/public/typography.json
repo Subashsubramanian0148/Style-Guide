@@ -1,0 +1,361 @@
+{
+  "$schema": "Typography tokens -- design-system branch",
+  "fontFamily": {
+    "sans": "Inclusive Sans",
+    "mono": "Inclusive Sans"
+  },
+  "fontWeight": {
+    "regular": 400,
+    "medium": 500,
+    "semibold": 600,
+    "bold": 700,
+    "extrabold": 700
+  },
+  "fontSize": {
+    "xs": {
+      "rem": "0.75rem",
+      "px": 12
+    },
+    "sm": {
+      "rem": "0.875rem",
+      "px": 14
+    },
+    "md": {
+      "rem": "1rem",
+      "px": 16
+    },
+    "lg": {
+      "rem": "1.25rem",
+      "px": 20
+    },
+    "xl": {
+      "rem": "1.5rem",
+      "px": 24
+    },
+    "2xl": {
+      "rem": "1.75rem",
+      "px": 28
+    },
+    "3xl": {
+      "rem": "2rem",
+      "px": 32
+    }
+  },
+  "letterSpacing": {
+    "tightest": {
+      "rem": "0",
+      "px": 0
+    },
+    "tighter": {
+      "rem": "0",
+      "px": 0
+    },
+    "tight": {
+      "rem": "0",
+      "px": 0
+    },
+    "normal": {
+      "rem": "0",
+      "px": 0
+    },
+    "wide": {
+      "rem": "0",
+      "px": 0
+    },
+    "wider": {
+      "rem": "0",
+      "px": 0
+    }
+  },
+  "headings": {
+    "h1": {
+      "fontSize": {
+        "px": 32,
+        "rem": "2rem"
+      },
+      "lineHeight": {
+        "px": 40,
+        "rem": "2.5rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 700
+    },
+    "h2": {
+      "fontSize": {
+        "px": 28,
+        "rem": "1.75rem"
+      },
+      "lineHeight": {
+        "px": 36,
+        "rem": "2.25rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 700
+    },
+    "h3": {
+      "fontSize": {
+        "px": 24,
+        "rem": "1.5rem"
+      },
+      "lineHeight": {
+        "px": 32,
+        "rem": "2rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 700
+    },
+    "h4": {
+      "fontSize": {
+        "px": 20,
+        "rem": "1.25rem"
+      },
+      "lineHeight": {
+        "px": 28,
+        "rem": "1.75rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 700
+    },
+    "h5": {
+      "fontSize": {
+        "px": 16,
+        "rem": "1rem"
+      },
+      "lineHeight": {
+        "px": 24,
+        "rem": "1.5rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 700
+    },
+    "h6": {
+      "fontSize": {
+        "px": 14,
+        "rem": "0.875rem"
+      },
+      "lineHeight": {
+        "px": 21,
+        "rem": "1.3125rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 700
+    }
+  },
+  "body": {
+    "lg": {
+      "fontSize": {
+        "px": 16,
+        "rem": "1rem"
+      },
+      "lineHeight": {
+        "px": 24,
+        "rem": "1.5rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 400
+    },
+    "md": {
+      "fontSize": {
+        "px": 14,
+        "rem": "0.875rem"
+      },
+      "lineHeight": {
+        "px": 21,
+        "rem": "1.3125rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 400
+    },
+    "sm": {
+      "fontSize": {
+        "px": 14,
+        "rem": "0.875rem"
+      },
+      "lineHeight": {
+        "px": 21,
+        "rem": "1.3125rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 400
+    },
+    "xs": {
+      "fontSize": {
+        "px": 12,
+        "rem": "0.75rem"
+      },
+      "lineHeight": {
+        "px": 18,
+        "rem": "1.125rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 400
+    }
+  },
+  "label": {
+    "fontSize": {
+      "px": 14,
+      "rem": "0.875rem"
+    },
+    "lineHeight": {
+      "px": 21,
+      "rem": "1.3125rem"
+    },
+    "letterSpacing": {
+      "rem": "0",
+      "px": 0
+    },
+    "fontWeight": 700
+  },
+  "caption": {
+    "fontSize": {
+      "px": 12,
+      "rem": "0.75rem"
+    },
+    "lineHeight": {
+      "px": 18,
+      "rem": "1.125rem"
+    },
+    "letterSpacing": {
+      "rem": "0",
+      "px": 0
+    },
+    "fontWeight": 500
+  },
+  "helper": {
+    "fontSize": {
+      "px": 12,
+      "rem": "0.75rem"
+    },
+    "lineHeight": {
+      "px": 18,
+      "rem": "1.125rem"
+    },
+    "letterSpacing": {
+      "rem": "0",
+      "px": 0
+    },
+    "fontWeight": 400
+  },
+  "eyebrow": {
+    "fontSize": {
+      "px": 12,
+      "rem": "0.75rem"
+    },
+    "lineHeight": {
+      "px": 18,
+      "rem": "1.125rem"
+    },
+    "letterSpacing": {
+      "rem": "0",
+      "px": 0
+    },
+    "fontWeight": 700
+  },
+  "button": {
+    "lg": {
+      "fontSize": {
+        "px": 16,
+        "rem": "1rem"
+      },
+      "lineHeight": {
+        "px": 24,
+        "rem": "1.5rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 700
+    },
+    "md": {
+      "fontSize": {
+        "px": 14,
+        "rem": "0.875rem"
+      },
+      "lineHeight": {
+        "px": 21,
+        "rem": "1.3125rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 700
+    },
+    "sm": {
+      "fontSize": {
+        "px": 14,
+        "rem": "0.875rem"
+      },
+      "lineHeight": {
+        "px": 21,
+        "rem": "1.3125rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 700
+    }
+  },
+  "link": {
+    "fontSize": {
+      "px": 14,
+      "rem": "0.875rem"
+    },
+    "lineHeight": {
+      "px": 21,
+      "rem": "1.3125rem"
+    },
+    "letterSpacing": {
+      "rem": "0",
+      "px": 0
+    },
+    "fontWeight": 700
+  },
+  "placeholder": {
+    "fontSize": {
+      "px": 14,
+      "rem": "0.875rem"
+    },
+    "lineHeight": {
+      "px": 21,
+      "rem": "1.3125rem"
+    },
+    "letterSpacing": {
+      "rem": "0",
+      "px": 0
+    },
+    "fontWeight": 400
+  }
+}

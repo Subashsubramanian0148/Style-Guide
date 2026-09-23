@@ -1,0 +1,578 @@
+{
+  "h1": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "32px",
+      "weight": "700",
+      "lineHeight": "1.25",
+      "letterSpacing": "-0.4px"
+    },
+    "mobile": {
+      "size": "28px",
+      "weight": "700",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.3px"
+    },
+    "usage": "Page title"
+  },
+  "h2": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "28px",
+      "weight": "700",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.35px"
+    },
+    "mobile": {
+      "size": "24px",
+      "weight": "700",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "usage": "Section heading"
+  },
+  "h3": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "24px",
+      "weight": "700",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "mobile": {
+      "size": "20px",
+      "weight": "700",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "usage": "Card heading"
+  },
+  "h4": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "20px",
+      "weight": "700",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "mobile": {
+      "size": "18px",
+      "weight": "700",
+      "lineHeight": "1.4",
+      "letterSpacing": "0"
+    },
+    "usage": "Widget title"
+  },
+  "h5": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "16px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0"
+    },
+    "mobile": {
+      "size": "16px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0"
+    },
+    "usage": "List title"
+  },
+  "h6": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "14px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0"
+    },
+    "mobile": {
+      "size": "14px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0"
+    },
+    "usage": "Group label"
+  },
+  "text32Regular": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "32px",
+      "weight": "400",
+      "lineHeight": "1.25",
+      "letterSpacing": "-0.4px"
+    },
+    "mobile": {
+      "size": "28px",
+      "weight": "400",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.35px"
+    },
+    "usage": "32px text (Regular)"
+  },
+  "text32Medium": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "32px",
+      "weight": "500",
+      "lineHeight": "1.25",
+      "letterSpacing": "-0.4px"
+    },
+    "mobile": {
+      "size": "28px",
+      "weight": "500",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.35px"
+    },
+    "usage": "32px text (Medium)"
+  },
+  "text32SemiBold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "32px",
+      "weight": "600",
+      "lineHeight": "1.25",
+      "letterSpacing": "-0.4px"
+    },
+    "mobile": {
+      "size": "28px",
+      "weight": "600",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.35px"
+    },
+    "usage": "32px text (SemiBold)"
+  },
+  "text32Bold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "32px",
+      "weight": "700",
+      "lineHeight": "1.25",
+      "letterSpacing": "-0.4px"
+    },
+    "mobile": {
+      "size": "28px",
+      "weight": "700",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.35px"
+    },
+    "usage": "32px text (Bold)"
+  },
+  "text28Regular": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "28px",
+      "weight": "400",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.35px"
+    },
+    "mobile": {
+      "size": "24px",
+      "weight": "400",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "usage": "28px text (Regular)"
+  },
+  "text28Medium": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "28px",
+      "weight": "500",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.35px"
+    },
+    "mobile": {
+      "size": "24px",
+      "weight": "500",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "usage": "28px text (Medium)"
+  },
+  "text28SemiBold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "28px",
+      "weight": "600",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.35px"
+    },
+    "mobile": {
+      "size": "24px",
+      "weight": "600",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "usage": "28px text (SemiBold)"
+  },
+  "text28Bold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "28px",
+      "weight": "700",
+      "lineHeight": "1.3",
+      "letterSpacing": "-0.35px"
+    },
+    "mobile": {
+      "size": "24px",
+      "weight": "700",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "usage": "28px text (Bold)"
+  },
+  "text24Regular": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "24px",
+      "weight": "400",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "mobile": {
+      "size": "20px",
+      "weight": "400",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "usage": "24px text (Regular)"
+  },
+  "text24Medium": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "24px",
+      "weight": "500",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "mobile": {
+      "size": "20px",
+      "weight": "500",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "usage": "24px text (Medium)"
+  },
+  "text24SemiBold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "24px",
+      "weight": "600",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "mobile": {
+      "size": "20px",
+      "weight": "600",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "usage": "24px text (SemiBold)"
+  },
+  "text24Bold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "24px",
+      "weight": "700",
+      "lineHeight": "1.33",
+      "letterSpacing": "-0.3px"
+    },
+    "mobile": {
+      "size": "20px",
+      "weight": "700",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "usage": "24px text (Bold)"
+  },
+  "text20Regular": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "20px",
+      "weight": "400",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "mobile": {
+      "size": "18px",
+      "weight": "400",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "20px text (Regular)"
+  },
+  "text20Medium": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "20px",
+      "weight": "500",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "mobile": {
+      "size": "18px",
+      "weight": "500",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "20px text (Medium)"
+  },
+  "text20SemiBold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "20px",
+      "weight": "600",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "mobile": {
+      "size": "18px",
+      "weight": "600",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "20px text (SemiBold)"
+  },
+  "text20Bold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "20px",
+      "weight": "700",
+      "lineHeight": "1.4",
+      "letterSpacing": "-0.2px"
+    },
+    "mobile": {
+      "size": "18px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "20px text (Bold)"
+  },
+  "text16Regular": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "16px",
+      "weight": "400",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "16px",
+      "weight": "400",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "16px text (Regular)"
+  },
+  "text16Medium": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "16px",
+      "weight": "500",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "16px",
+      "weight": "500",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "16px text (Medium)"
+  },
+  "text16SemiBold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "16px",
+      "weight": "600",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "16px",
+      "weight": "600",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "16px text (SemiBold)"
+  },
+  "text16Bold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "16px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "16px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "16px text (Bold)"
+  },
+  "text14Regular": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "14px",
+      "weight": "400",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "14px",
+      "weight": "400",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "14px text (Regular)"
+  },
+  "text14Medium": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "14px",
+      "weight": "500",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "14px",
+      "weight": "500",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "14px text (Medium)"
+  },
+  "text14SemiBold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "14px",
+      "weight": "600",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "14px",
+      "weight": "600",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "14px text (SemiBold)"
+  },
+  "text14Bold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "14px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "14px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "14px text (Bold)"
+  },
+  "text12Regular": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "12px",
+      "weight": "400",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "12px",
+      "weight": "400",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "12px text (Regular)"
+  },
+  "text12Medium": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "12px",
+      "weight": "500",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "12px",
+      "weight": "500",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "12px text (Medium)"
+  },
+  "text12SemiBold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "12px",
+      "weight": "600",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "12px",
+      "weight": "600",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "12px text (SemiBold)"
+  },
+  "text12Bold": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "12px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "mobile": {
+      "size": "12px",
+      "weight": "700",
+      "lineHeight": "1.5",
+      "letterSpacing": "0px"
+    },
+    "usage": "12px text (Bold)"
+  },
+  "eyebrow": {
+    "family": "{font.family.base}",
+    "desktop": {
+      "size": "12px",
+      "weight": "800",
+      "lineHeight": "1.5",
+      "letterSpacing": "0.8px"
+    },
+    "mobile": {
+      "size": "12px",
+      "weight": "800",
+      "lineHeight": "1.5",
+      "letterSpacing": "0.8px"
+    },
+    "usage": "Plan type, extra bold label"
+  },
+  "numericData": {
+    "family": "{font.family.mono}",
+    "desktop": {
+      "size": "14px",
+      "weight": "600",
+      "lineHeight": "1.5",
+      "letterSpacing": "0"
+    },
+    "mobile": {
+      "size": "14px",
+      "weight": "600",
+      "lineHeight": "1.5",
+      "letterSpacing": "0"
+    },
+    "usage": "Balances, currency, account numbers — tabular figures for alignment."
+  }
+}

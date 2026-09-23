@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "apps/docs-site/dist",
+  "installCommand": "npm install",
+  "framework": null
+}

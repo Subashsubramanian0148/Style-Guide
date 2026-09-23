@@ -1,0 +1,23 @@
+{
+  "name": "core-design-system",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "tokens:build": "npm run build --workspace=@core-ds/tokens",
+    "typography:tokens": "npm run typography:tokens --workspace=@core-ds/docs-site",
+    "dev": "npm run dev --workspace=@core-ds/docs-site",
+    "build": "npm run tokens:build && npm run build --workspace=@core-ds/core && npm run build --workspace=@core-ds/docs-site",
+    "lint": "eslint . --ext .ts,.tsx",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

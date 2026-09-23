@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "apps/docs-site/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# The docs site uses HashRouter (routes look like /#/components/actions), so
+# every path is really just "/" as far as the static host is concerned —
+# no SPA rewrite rule is needed for client-side routes to work.

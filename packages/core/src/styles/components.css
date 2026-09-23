@@ -1,0 +1,5648 @@
+/* CORE component primitives — colors from Color pallete.scss (--theme-* / --brand-*)
+   Typography from public/typography.json (--typography-* via typography-tokens.css)
+   Corner radius: 8px (--core-radius-sm) on all rectangular component surfaces.
+   Semantic tones: edit apps/docs-site/public/Format to follow naming.scss only. */
+
+/* ── Semantic tone utilities (token-driven) ──
+   Edit apps/docs-site/public/Format to follow naming.scss → npm run palette:tokens */
+.cds-sem-success-soft {
+  background: var(--theme-semantics-success-light-background);
+  color: var(--theme-semantics-success-text);
+  border-color: var(--theme-semantics-success-border);
+}
+
+.cds-sem-success-solid {
+  background: var(--theme-semantics-success-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: var(--theme-semantics-success-border);
+}
+
+.cds-sem-warning-soft {
+  background: var(--theme-semantics-warning-light-background);
+  color: var(--theme-semantics-warning-text);
+  border-color: var(--theme-semantics-warning-border);
+}
+
+.cds-sem-warning-solid {
+  background: var(--theme-semantics-warning-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: var(--theme-semantics-warning-border);
+}
+
+.cds-sem-critical-soft {
+  background: var(--theme-semantics-critical-light-background);
+  color: var(--theme-semantics-critical-text);
+  border-color: var(--theme-semantics-critical-border);
+}
+
+.cds-sem-critical-solid {
+  background: var(--theme-semantics-critical-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: var(--theme-semantics-critical-border);
+}
+
+.cds-sem-info-soft {
+  background: var(--theme-semantics-highlight-light-background);
+  color: var(--theme-semantics-highlight-text);
+  border-color: var(--theme-semantics-highlight-border);
+}
+
+.cds-sem-info-solid {
+  background: var(--theme-semantics-highlight-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: var(--theme-semantics-highlight-border);
+}
+
+.cds-sem-disabled {
+  background: var(--theme-semantics-disabled-background);
+  color: var(--theme-semantics-disabled-text);
+  border-color: var(--theme-semantics-disabled-border);
+}
+
+[data-theme] {
+  font-family: var(--typography-font-family-sans);
+  font-synthesis: weight style;
+}
+
+.cds-btn,
+.cds-input,
+.cds-textarea,
+.cds-select,
+.cds-card,
+.cds-badge,
+.cds-table,
+.cds-tabs,
+.cds-breadcrumb,
+.cds-pagination,
+.cds-page-btn,
+.cds-alert,
+.cds-toast,
+.cds-empty,
+.cds-field {
+  font-family: var(--typography-font-family-sans);
+}
+
+.cds-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--core-space-2);
+  padding: var(--core-space-2) var(--core-space-3);
+  min-height: var(--core-size-control-md);
+  font-weight: var(--typography-text14-semibold-weight);
+  font-size: var(--typography-text14-semibold-size);
+  line-height: var(--typography-text14-semibold-line-height);
+  border-radius: var(--core-radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease, transform 80ms ease;
+  white-space: nowrap;
+}
+
+.cds-btn:active {
+  transform: translateY(1px);
+}
+
+.cds-btn:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: var(--core-focusRing-offset);
+}
+
+.cds-btn:disabled,
+.cds-btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.cds-btn--sm {
+  min-height: var(--core-size-control-sm);
+  padding: var(--core-space-2) var(--core-space-3);
+  font-size: var(--typography-text12-semibold-size);
+  line-height: var(--typography-text12-semibold-line-height);
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-btn--md {
+  min-height: var(--core-size-control-md);
+  font-size: var(--typography-text14-semibold-size);
+  line-height: var(--typography-text14-semibold-line-height);
+}
+
+.cds-btn--lg {
+  min-height: var(--core-size-control-lg);
+  padding: var(--core-space-3) var(--core-space-4);
+  font-size: var(--typography-text16-semibold-size);
+  line-height: var(--typography-text16-semibold-line-height);
+  border-radius: var(--core-radius-sm);
+}
+
+/* Button Variants consuming the design system color palette SCSS tokens */
+.cds-btn--primary {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+  border-color: var(--brand-border-primary-default);
+}
+
+.cds-btn--primary:hover:not(:disabled) {
+  background: var(--brand-background-primary-hover);
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-btn--primary:active:not(:disabled) {
+  background: var(--brand-background-primary-active);
+  border-color: var(--brand-background-primary-active);
+}
+
+.cds-btn--primary:disabled,
+.cds-btn--primary[aria-disabled="true"] {
+  background: var(--brand-background-primary-disabled);
+  color: var(--brand-text-primary-disabled);
+  border-color: var(--brand-border-primary-disabled);
+  opacity: 1;
+}
+
+.cds-btn--secondary {
+  background: transparent;
+  /* Brand-colored in light, white in dark — a brand hue at any step falls
+     short of 4.5:1 (WCAG 1.4.3) against the near-black dark canvas since
+     there's no fill behind this outline button to boost contrast against. */
+  color: var(--brand-text-primary-on-surface);
+  border-color: var(--brand-border-primary-default);
+}
+
+/* Outline convention (shadcn `outline` / Chakra `outline`): hover/active
+   stay a translucent wash of the brand color, never Primary's opaque
+   fill — color-mix against `transparent` composites over the canvas
+   directly, so the same two percentages read correctly in both light and
+   dark without a separate discrete token per mode. Active is a deeper wash
+   than hover so the two states are never visually equal. */
+.cds-btn--secondary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 12%, transparent);
+  color: var(--brand-text-primary-hover);
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-btn--secondary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 24%, transparent);
+  color: var(--brand-text-primary-active);
+  /* Not background-primary-active — that step is tuned to contrast against
+     an opaque canvas, but this border now sits against the translucent
+     active wash instead. In dark mode the two converge toward the same
+     hue (1.48:1, failing WCAG 1.4.11's 3:1 non-text minimum). -hover is a
+     lighter step chosen to clear 3:1 against the wash in both modes. */
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-btn--secondary:disabled,
+.cds-btn--secondary[aria-disabled="true"] {
+  background: transparent;
+  color: var(--theme-semantics-disabled-text);
+  border-color: var(--theme-semantics-disabled-border);
+  opacity: 1;
+}
+
+[data-mode="dark"] .cds-btn--primary:not(:disabled):not([aria-disabled="true"]),
+[data-mode="dark"] .cds-btn--outline-primary:active:not(:disabled) {
+  color: var(--brand-text-primary-oncolor);
+}
+
+.cds-btn--tertiary {
+  background: transparent;
+  color: var(--brand-text-primary-on-surface);
+  border-color: transparent;
+  text-decoration: none;
+}
+
+.cds-btn--tertiary .cds-btn__text {
+  text-decoration-line: none;
+}
+
+.cds-btn--tertiary:hover:not(:disabled) .cds-btn__text,
+.cds-btn--tertiary:active:not(:disabled) .cds-btn__text {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: currentColor;
+}
+
+/* Ghost/text convention (shadcn `ghost`+`link` / Chakra `ghost` / MUI
+   `text`): never a border, never an opaque fill — only a faint wash that
+   deepens on press, plus the underline that marks this as a "text" action
+   rather than a boxed one. Lighter wash percentages than Secondary's
+   outline keeps the two variants visually distinct at every state. */
+.cds-btn--tertiary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 8%, transparent);
+  color: var(--brand-text-primary-hover);
+  border-color: transparent;
+}
+
+.cds-btn--tertiary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 16%, transparent);
+  color: var(--brand-text-primary-active);
+  border-color: transparent;
+}
+
+.cds-btn--tertiary:focus-visible {
+  outline: none;
+  border-color: var(--brand-border-primary-default);
+  background: transparent;
+  color: var(--brand-text-primary-on-surface);
+}
+
+.cds-btn--tertiary:disabled,
+.cds-btn--tertiary[aria-disabled="true"] {
+  background: transparent;
+  color: var(--theme-semantics-disabled-text);
+  border-color: transparent;
+}
+
+.cds-btn--tertiary:disabled .cds-btn__text,
+.cds-btn--tertiary[aria-disabled="true"] .cds-btn__text {
+  text-decoration-line: none;
+}
+
+.cds-btn--destructive {
+  background: var(--theme-semantics-critical-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: var(--theme-semantics-critical-border);
+}
+
+.cds-btn--destructive:hover:not(:disabled) {
+  background: var(--theme-semantics-critical-text);
+  border-color: var(--theme-semantics-critical-text);
+}
+
+.cds-btn--destructive:active:not(:disabled) {
+  background: var(--theme-colors-red-800);
+  border-color: var(--theme-colors-red-800);
+}
+
+.cds-btn--destructive:disabled,
+.cds-btn--destructive[aria-disabled="true"] {
+  background: var(--theme-semantics-critical-disabled-strong-background);
+  color: var(--theme-semantics-critical-disabled-strong-text);
+  border-color: var(--theme-semantics-critical-disabled-border);
+  opacity: 1;
+}
+
+.cds-btn--success {
+  background: var(--theme-semantics-success-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: var(--theme-semantics-success-border);
+}
+
+.cds-btn--success:hover:not(:disabled) {
+  background: var(--theme-semantics-success-text);
+  border-color: var(--theme-semantics-success-text);
+}
+
+.cds-btn--success:active:not(:disabled) {
+  background: var(--theme-colors-success-800);
+}
+
+.cds-btn--success:disabled,
+.cds-btn--success[aria-disabled="true"] {
+  background: var(--theme-semantics-success-disabled-strong-background);
+  color: var(--theme-semantics-success-disabled-strong-text);
+  border-color: var(--theme-semantics-success-disabled-border);
+  opacity: 1;
+}
+
+.cds-btn--warning {
+  background: var(--theme-semantics-warning-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: var(--theme-semantics-warning-border);
+}
+
+.cds-btn--warning:hover:not(:disabled) {
+  background: var(--theme-semantics-warning-text);
+  border-color: var(--theme-semantics-warning-text);
+}
+
+.cds-btn--warning:active:not(:disabled) {
+  background: var(--theme-primitive-color-tertiary-800);
+}
+
+.cds-btn--warning:disabled,
+.cds-btn--warning[aria-disabled="true"] {
+  background: var(--theme-semantics-warning-disabled-strong-background);
+  color: var(--theme-semantics-warning-disabled-strong-text);
+  border-color: var(--theme-semantics-warning-disabled-border);
+  opacity: 1;
+}
+
+.cds-btn--info {
+  background: var(--theme-semantics-highlight-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: var(--theme-semantics-highlight-border);
+}
+
+.cds-btn--info:hover:not(:disabled) {
+  background: var(--theme-semantics-highlight-text);
+  border-color: var(--theme-semantics-highlight-text);
+}
+
+.cds-btn--info:active:not(:disabled) {
+  background: var(--theme-colors-info-800);
+}
+
+.cds-btn--info:disabled,
+.cds-btn--info[aria-disabled="true"] {
+  background: var(--theme-semantics-highlight-disabled-strong-background);
+  color: var(--theme-semantics-highlight-disabled-strong-text);
+  border-color: var(--theme-semantics-highlight-disabled-border);
+  opacity: 1;
+}
+
+.cds-btn--neutral {
+  background: transparent;
+  color: var(--theme-neutral-text-primary-default);
+  border-color: var(--theme-neutral-border-primary-default);
+}
+
+.cds-btn--neutral:hover:not(:disabled) {
+  background: var(--theme-neutral-border-subtle);
+  border-color: var(--theme-neutral-border-strong);
+}
+
+.cds-btn--neutral:active:not(:disabled) {
+  background: var(--theme-neutral-border-primary-default);
+}
+
+.cds-btn--neutral:disabled,
+.cds-btn--neutral[aria-disabled="true"] {
+  background: transparent;
+  color: var(--theme-semantics-disabled-text);
+  border-color: var(--theme-semantics-disabled-border);
+  opacity: 1;
+}
+
+.cds-btn--outline-primary {
+  background: var(--brand-background-primary-light);
+  color: var(--brand-text-primary-default);
+  border-color: var(--brand-border-primary-default);
+}
+
+.cds-btn--outline-primary:hover:not(:disabled) {
+  background: var(--brand-background-primary-subtle);
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-btn--outline-primary:active:not(:disabled) {
+  background: var(--brand-background-primary-hover);
+  color: var(--brand-text-primary-oncolor);
+}
+
+.cds-btn--outline-primary:disabled,
+.cds-btn--outline-primary[aria-disabled="true"] {
+  background: var(--brand-background-primary-light);
+  color: var(--brand-text-primary-disabled);
+  border-color: var(--brand-border-primary-disabled);
+  opacity: 1;
+}
+
+/* ---------- Icon Button ---------- */
+.cds-icon-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--core-button-radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+  flex-shrink: 0;
+}
+
+/* Fixed inset from the control edge — space-1 (4px) on sm, space-2 (8px) on
+   md/lg. Without this, off-scale icon glyphs (e.g. 18px or 20px in a 32px
+   control) center with ~6px gaps, which is not on our spacing scale. */
+.cds-icon-btn > svg,
+.cds-icon-btn .cds-icon {
+  flex-shrink: 0;
+  display: block;
+}
+
+.cds-icon-btn--sm > svg,
+.cds-icon-btn--sm .cds-icon {
+  width: var(--core-size-icon-sm);
+  height: var(--core-size-icon-sm);
+  font-size: var(--core-size-icon-sm);
+}
+
+.cds-icon-btn--md > svg,
+.cds-icon-btn--md .cds-icon {
+  width: var(--core-size-icon-md);
+  height: var(--core-size-icon-md);
+  font-size: var(--core-size-icon-md);
+}
+
+.cds-icon-btn--lg > svg,
+.cds-icon-btn--lg .cds-icon {
+  width: var(--core-size-icon-lg);
+  height: var(--core-size-icon-lg);
+  font-size: var(--core-size-icon-lg);
+}
+
+.cds-icon-btn:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+}
+
+.cds-icon-btn:disabled,
+.cds-icon-btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.cds-icon-btn--sm {
+  width: var(--core-size-control-sm);
+  height: var(--core-size-control-sm);
+  padding: var(--core-space-1);
+}
+
+.cds-icon-btn--md {
+  width: var(--core-size-control-md);
+  height: var(--core-size-control-md);
+  padding: var(--core-space-2);
+}
+
+.cds-icon-btn--lg {
+  width: var(--core-size-control-lg);
+  height: var(--core-size-control-lg);
+  padding: var(--core-space-2);
+}
+
+/* Circle shape — the header/toolbar ghost-icon treatment (ⓘ Help, ☾ theme
+   toggle, avatar-adjacent actions): fully round instead of button.radius. */
+.cds-icon-btn--circle {
+  border-radius: var(--core-iconButton-ghost-radius);
+}
+
+.cds-icon-btn--circle.cds-icon-btn--tertiary:hover:not(:disabled) {
+  background: var(--core-iconButton-ghost-hoverBg);
+}
+
+.cds-icon-btn--primary {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+  border-color: var(--brand-border-primary-default);
+}
+
+.cds-icon-btn--primary:hover:not(:disabled) {
+  background: var(--brand-background-primary-hover);
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-icon-btn--primary:disabled,
+.cds-icon-btn--primary[aria-disabled="true"] {
+  background: var(--brand-background-primary-disabled);
+  color: var(--brand-text-primary-disabled);
+  border-color: var(--brand-border-primary-disabled);
+}
+
+.cds-icon-btn--secondary {
+  background: transparent;
+  /* Brand-colored in light, white in dark — a brand hue at any step falls
+     short of 4.5:1 (WCAG 1.4.3) against the near-black dark canvas since
+     there's no fill behind this outline button to boost contrast against. */
+  color: var(--brand-text-primary-on-surface);
+  border-color: var(--brand-border-primary-default);
+}
+
+/* Outline convention (shadcn `outline` / Chakra `outline`) — matches
+   Button's Secondary: hover/active are a translucent wash of the brand
+   color, never an opaque fill, so this never reads as a Primary button.
+   Active is a deeper wash than hover so the two states stay distinct. */
+.cds-icon-btn--secondary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 12%, transparent);
+  color: var(--brand-text-primary-hover);
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-icon-btn--secondary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 24%, transparent);
+  color: var(--brand-text-primary-active);
+  /* See Button's Secondary :active — -active's border step is tuned for an
+     opaque canvas, not this translucent wash; in dark mode the two converge
+     (1.48:1, failing 1.4.11's 3:1). -hover clears 3:1 against the wash. */
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-icon-btn--secondary:disabled,
+.cds-icon-btn--secondary[aria-disabled="true"] {
+  /* Outline styles have no fill to mute, so a same-hue disabled step (as
+     Button's filled disabled uses) reads as nearly identical to default —
+     neutral gray is the only way this variant communicates "disabled". */
+  background: transparent;
+  color: var(--theme-semantics-disabled-text);
+  border-color: var(--theme-semantics-disabled-border);
+}
+
+[data-mode="dark"] .cds-icon-btn--primary:not(:disabled):not([aria-disabled="true"]) {
+  color: var(--brand-text-primary-oncolor);
+}
+
+.cds-icon-btn--tertiary {
+  background: transparent;
+  /* Was a hardcoded primitive (--theme-primitive-color-primary-300) — wrong
+     in light mode (a dark-mode-tuned step, too pale against a light canvas)
+     and not mode-aware at all. on-surface matches Button's Tertiary. */
+  color: var(--brand-text-primary-on-surface);
+}
+
+/* Ghost/text convention (shadcn `ghost`+`link` / Chakra `ghost` / MUI
+   `text`) — matches Button's Tertiary: a faint wash, lighter than
+   Secondary's, that deepens on press. */
+.cds-icon-btn--tertiary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 8%, transparent);
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-icon-btn--tertiary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 16%, transparent);
+  color: var(--brand-text-primary-active);
+}
+
+.cds-icon-btn--tertiary:disabled,
+.cds-icon-btn--tertiary[aria-disabled="true"] {
+  background: transparent;
+  color: var(--theme-semantics-disabled-text);
+}
+
+.cds-icon-btn--destructive {
+  background: transparent;
+  color: var(--theme-semantics-critical-strong-background);
+}
+
+.cds-icon-btn--destructive:hover:not(:disabled) {
+  background: var(--theme-semantics-critical-light-background);
+}
+
+/* ---------- Link ---------- */
+.cds-link {
+  color: var(--brand-text-primary-default);
+  text-decoration: underline;
+  text-decoration-color: var(--brand-text-primary-default);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 120ms ease, text-decoration-color 120ms ease;
+}
+
+.cds-link:hover {
+  color: var(--brand-text-primary-hover);
+  text-decoration-color: var(--brand-text-primary-hover);
+  text-decoration-thickness: 2px;
+}
+
+.cds-link:active {
+  color: var(--brand-text-primary-active);
+  text-decoration-color: var(--brand-text-primary-active);
+  text-decoration-thickness: 2px;
+}
+
+.cds-link:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+  border-radius: var(--core-radius-sm);
+  color: var(--brand-text-primary-default);
+  text-decoration-color: var(--brand-text-primary-default);
+}
+
+.cds-link:disabled,
+.cds-link[aria-disabled="true"],
+.cds-link--disabled {
+  /* A disabled link sits on the page, not on a fill, so a brand-blue shade
+     would read as just another link. Neutral is the only clear signal. */
+  color: var(--theme-semantics-disabled-text);
+  text-decoration-color: var(--theme-semantics-disabled-text);
+  cursor: not-allowed;
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* ---------- Stepper ----------
+   Four step states: default, in-progress, completed, and error — each with
+   distinct marker, label, connector, and optional status-line treatment. */
+.cds-stepper {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.cds-step {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.cds-step:last-child {
+  flex: 0 0 auto;
+}
+
+/* Below breakpoint.sm (576px), a horizontal stepper's steps no longer have
+   room to keep their labels beside a shrinking flex-1 track — scroll instead
+   of squeezing labels into wrapped, overlapping text. Vertical steppers are
+   unaffected; they were already narrow-width-safe. */
+@media (max-width: 575px) {
+  .cds-stepper:not(.cds-stepper--vertical) {
+    overflow-x: auto;
+    padding-bottom: var(--core-space-2);
+  }
+
+  .cds-stepper:not(.cds-stepper--vertical) .cds-step {
+    flex: 0 0 auto;
+    min-width: 96px;
+  }
+
+  .cds-stepper:not(.cds-stepper--vertical) .cds-step-connector {
+    min-width: 24px;
+  }
+}
+
+.cds-step-marker {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--core-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  font-weight: var(--typography-font-weight-bold);
+  flex-shrink: 0;
+  border: none;
+  color: var(--theme-neutral-text-subtle-least);
+  background: var(--core-color-surface-raised);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  z-index: 1;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.cds-step--default .cds-step-marker {
+  background: var(--core-color-surface-raised);
+  color: var(--theme-neutral-text-subtle-least);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+.cds-step--in-progress .cds-step-marker {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+}
+
+.cds-step--completed .cds-step-marker {
+  background: var(--theme-semantics-success-strong-background);
+  color: var(--theme-neutral-text-on-color);
+}
+
+.cds-step--warning .cds-step-marker {
+  background: var(--theme-colors-warning-700);
+  color: var(--theme-colors-neutral-0);
+}
+
+.cds-step--error .cds-step-marker {
+  background: var(--theme-semantics-critical-strong-background);
+  color: var(--theme-colors-neutral-0);
+}
+
+.cds-step-label {
+  margin-left: var(--core-space-3);
+  display: flex;
+  flex-direction: column;
+}
+
+.cds-step-title {
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+  font-weight: var(--typography-font-weight-semibold);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-step--in-progress .cds-step-title {
+  color: var(--brand-text-primary-default);
+  font-weight: var(--typography-font-weight-bold);
+}
+
+.cds-step--completed .cds-step-title {
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-step--default .cds-step-title {
+  color: var(--theme-neutral-text-subtle-least);
+  font-weight: var(--typography-font-weight-medium);
+}
+
+.cds-step--warning .cds-step-title {
+  color: var(--theme-semantics-warning-text);
+  font-weight: var(--typography-font-weight-bold);
+}
+
+.cds-step--error .cds-step-title {
+  color: var(--theme-semantics-critical-text);
+  font-weight: var(--typography-font-weight-bold);
+}
+
+.cds-step-desc {
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  letter-spacing: var(--typography-body-xs-letter-spacing);
+  color: var(--theme-neutral-text-subtle);
+}
+
+/* Rendered for every step in every state — not just the ones with
+   something to flag — so "not started yet" and "done" read as clearly as
+   "needs review". Each state recolors it via the rules below. */
+.cds-step-status {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-1);
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  font-weight: var(--typography-font-weight-semibold);
+  margin-top: var(--core-space-1);
+  color: var(--theme-neutral-text-subtle-least);
+}
+
+.cds-step--in-progress .cds-step-status {
+  color: var(--brand-text-primary-default);
+}
+
+.cds-step--completed .cds-step-status {
+  color: var(--theme-semantics-success-text, var(--theme-semantics-success-strong-background));
+}
+
+.cds-step--warning .cds-step-status {
+  color: var(--theme-semantics-warning-text);
+}
+
+.cds-step--error .cds-step-status {
+  color: var(--theme-semantics-critical-text);
+}
+
+.cds-step-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.cds-step-status-spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  --cds-spinner-track: color-mix(in srgb, var(--core-color-text-primary) 32%, transparent);
+  --cds-spinner-active: var(--brand-text-primary-default, var(--theme-primitive-color-primary-500));
+  border: 2px solid var(--cds-spinner-track);
+  border-top-color: var(--cds-spinner-active);
+  animation: cds-spin 700ms linear infinite;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cds-step-status-spinner {
+    animation-duration: 1400ms;
+  }
+}
+
+.cds-step-connector {
+  flex: 1;
+  height: 2px;
+  background: var(--theme-neutral-border-primary-default);
+  margin: var(--core-space-0) var(--core-space-3);
+}
+
+.cds-step--completed .cds-step-connector {
+  background: var(--theme-semantics-success-strong-background);
+}
+
+.cds-step--warning .cds-step-connector {
+  background: var(--theme-colors-warning-700);
+}
+
+.cds-step--error .cds-step-connector {
+  background: var(--theme-semantics-critical-border);
+}
+
+/* Stepper: vertical orientation — e.g. a multi-step request flow's left-side nav.
+   Steps stack top-to-bottom; within each step, the marker stays beside its label. */
+.cds-stepper--vertical {
+  flex-direction: column;
+  width: auto;
+  min-width: 220px;
+  align-items: stretch;
+}
+
+.cds-step--vertical {
+  align-items: flex-start;
+  flex: 0 0 auto;
+  padding-bottom: var(--core-space-4);
+}
+
+.cds-step--vertical:last-child {
+  padding-bottom: 0;
+}
+
+.cds-step--vertical .cds-step-connector {
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  height: auto;
+  flex: none;
+  margin: 0;
+}
+
+/* Stepper: mobile orientation — a compact segmented progress bar standing
+   in for every step (so the whole flow is still visible at a glance on a
+   narrow screen) plus a single focused card for just the current step.
+   Not a shrunk horizontal stepper (no room for N inline labels on a phone)
+   and not the full vertical list (that's a lot of scrolling to reach step
+   6 of 8) — the pattern most mobile OS/app wizards actually use. */
+.cds-stepper--mobile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-3);
+  width: 100%;
+}
+
+.cds-stepper-mobile-track {
+  display: flex;
+  gap: var(--core-space-2);
+}
+
+.cds-stepper-mobile-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--core-space-1);
+  min-width: 0;
+}
+
+.cds-stepper-mobile-segment {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--core-color-text-primary) 20%, transparent);
+}
+
+.cds-stepper-mobile-step-label {
+  font-size: var(--typography-font-size-xs);
+  font-weight: 600;
+  color: var(--theme-neutral-text-subtle);
+  line-height: 1;
+}
+
+.cds-stepper-mobile-segment--completed {
+  background: var(--theme-semantics-success-strong-background);
+}
+
+.cds-stepper-mobile-segment--in-progress {
+  background: var(--brand-text-primary-default, var(--brand-background-primary-strong));
+}
+
+.cds-stepper-mobile-segment--warning {
+  background: var(--theme-colors-warning-700);
+}
+
+.cds-stepper-mobile-segment--error {
+  background: var(--theme-semantics-critical-strong-background);
+}
+
+.cds-stepper-mobile-count {
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  font-weight: var(--typography-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-step--mobile {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--core-space-3);
+  padding: var(--core-space-4);
+  border-radius: var(--core-radius-md, 12px);
+  background: var(--core-color-surface-raised);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+.cds-step--mobile.cds-step--in-progress {
+  border-color: var(--brand-border-primary-default);
+}
+
+.cds-step--mobile.cds-step--completed {
+  border-color: var(--theme-semantics-success-border, var(--theme-semantics-success-strong-background));
+}
+
+.cds-step--mobile.cds-step--warning {
+  border-color: var(--theme-colors-warning-700);
+}
+
+.cds-step--mobile.cds-step--error {
+  border-color: var(--theme-semantics-critical-border);
+}
+
+.cds-step--mobile .cds-step-label {
+  margin-left: 0;
+}
+
+.cds-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-2);
+}
+
+.cds-label {
+  font-size: var(--typography-label-size);
+  line-height: var(--typography-label-line-height);
+  font-weight: var(--typography-label-weight);
+  letter-spacing: var(--typography-label-letter-spacing);
+  /* Muted label — primary (900) read too heavy above inputs; subtle keeps
+     hierarchy above hint text (subtle-least) and input value (primary). */
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-hint {
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  font-weight: var(--typography-body-xs-weight);
+  letter-spacing: var(--typography-body-xs-letter-spacing);
+  color: var(--theme-neutral-text-subtle-least);
+}
+
+.cds-error-text {
+  font-size: var(--typography-font-size-xs);
+  color: var(--theme-semantics-critical-text);
+}
+
+.cds-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--core-space-2) var(--core-space-3);
+  min-height: 40px;
+  border-radius: var(--core-radius-sm);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+  color: var(--theme-neutral-text-primary-default);
+  font-size: var(--typography-text14-regular-size);
+  line-height: var(--typography-text14-regular-line-height);
+  letter-spacing: 0;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.cds-input--sm {
+  padding: var(--core-space-2) var(--core-space-3);
+  min-height: 34px;
+  font-size: var(--typography-text14-regular-size);
+  line-height: var(--typography-text14-regular-line-height);
+}
+
+.cds-input--md {
+  padding: var(--core-space-2) var(--core-space-3);
+  min-height: 40px;
+  font-size: var(--typography-text14-regular-size);
+  line-height: var(--typography-text14-regular-line-height);
+}
+
+.cds-input--lg {
+  padding: var(--core-space-3) var(--core-space-4);
+  min-height: 46px;
+  font-size: var(--typography-text16-regular-size);
+  line-height: var(--typography-text16-regular-line-height);
+}
+
+.cds-input::placeholder {
+  color: var(--theme-neutral-text-subtle);
+}
+
+/* Hover must read as "pressed/sunken" — darker than the default surface —
+   in both modes. --core-color-surface-sunken can't do that reliably (it's
+   a fixed step that happened to land almost exactly on the surrounding
+   dark-mode panel's own background, #111017 vs #111219, so it looked like
+   no change at all); mixing in the input's own border token isn't right
+   either, since that border is a *light* color in dark mode and would
+   brighten the field instead of darkening it. Mixing in flat black always
+   darkens the current surface by the same relative amount regardless of
+   mode, so it never depends on (and can never coincidentally match) the
+   surrounding page's background. */
+.cds-input:hover:not(:disabled):not([aria-disabled="true"]),
+.force-hover .cds-input {
+  border-color: var(--theme-neutral-border-strong);
+  background: color-mix(in srgb, black 8%, var(--core-color-surface-default));
+}
+
+.cds-input:focus-visible,
+.cds-input:focus {
+  outline: none;
+  border-color: var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
+.cds-input[aria-invalid="true"] {
+  border-color: var(--theme-semantics-critical-border);
+}
+
+.cds-input:disabled {
+  background: var(--theme-semantics-disabled-background);
+  color: var(--theme-semantics-disabled-text);
+  border-color: var(--theme-semantics-disabled-border);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.cds-input:disabled::placeholder {
+  color: var(--core-color-control-disabled-placeholder);
+}
+
+.cds-card {
+  display: block;
+  text-align: left;
+  width: 100%;
+  background: var(--core-color-surface-default);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-card-radius);
+  box-shadow: var(--core-card-shadow);
+  padding: var(--core-space-4);
+  color: inherit;
+  cursor: default;
+  transition: box-shadow 150ms ease, border-color 150ms ease, background-color 150ms ease, transform 100ms ease;
+}
+
+.cds-card--outlined {
+  box-shadow: none;
+  border-color: var(--theme-neutral-border-primary-default);
+}
+
+.cds-card--interactive {
+  cursor: pointer;
+}
+
+.cds-card--interactive:hover:not(:disabled) {
+  box-shadow: var(--core-elevation-2);
+  border-color: var(--theme-neutral-border-strong);
+  background: var(--core-color-surface-default);
+}
+
+.cds-card--interactive:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: none;
+  border-color: var(--brand-border-primary-default);
+  background: var(--brand-background-primary-subtle);
+}
+
+.cds-card--interactive:focus-visible {
+  outline: none;
+  border-color: var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
+.cds-card--disabled,
+.cds-card--interactive:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+  background: var(--theme-semantics-disabled-background);
+  color: var(--theme-semantics-disabled-text);
+  box-shadow: none;
+  border-color: var(--theme-semantics-disabled-border);
+  transform: none;
+  pointer-events: none;
+}
+
+/*
+ * Quick Links: a bordered horizontal "quick action" card — distinct from
+ * .cds-sidenav-item (a borderless vertical list row for a settings sub-nav).
+ * No transform on hover (a translateY lift here previously caused a visible
+ * jump — elevation/border-color changes alone are enough feedback without
+ * shifting the card's position).
+ */
+.cds-quicklink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-3);
+  padding: var(--core-space-4) var(--core-space-4);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-lg);
+  background: var(--core-color-surface-default);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--typography-font-family-sans);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.cds-quicklink-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--core-radius-sm);
+  background: var(--brand-background-primary-light);
+  color: var(--brand-text-primary-default);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.cds-quicklink-label {
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  font-weight: var(--typography-font-weight-semibold);
+  color: var(--theme-neutral-text-primary-default);
+  white-space: nowrap;
+}
+
+.cds-quicklink:hover:not(:disabled) {
+  border-color: var(--theme-neutral-border-strong);
+  box-shadow: var(--core-elevation-1);
+}
+
+.cds-quicklink:focus-visible {
+  outline: none;
+  border-color: var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
+.cds-quicklink[data-selected="true"] {
+  border-color: var(--brand-border-primary-default);
+  background: var(--theme-brand-background-primary-subtle);
+}
+
+.cds-quicklink[data-selected="true"] .cds-quicklink-icon {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+}
+
+.cds-quicklink[data-selected="true"] .cds-quicklink-label {
+  color: var(--brand-text-primary-default);
+}
+
+.cds-quicklink:disabled {
+  cursor: not-allowed;
+  background: var(--theme-semantics-disabled-background);
+  border-color: var(--theme-semantics-disabled-border);
+  box-shadow: none;
+}
+
+.cds-quicklink:disabled .cds-quicklink-icon {
+  background: var(--theme-semantics-disabled-background);
+  color: var(--theme-semantics-disabled-text);
+}
+
+.cds-quicklink:disabled .cds-quicklink-label {
+  color: var(--theme-semantics-disabled-text);
+}
+
+.cds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  border-radius: var(--core-badge-radius);
+  font-family: var(--typography-font-family-sans);
+  font-weight: var(--typography-font-weight-medium);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.cds-badge-size--md {
+  padding: var(--core-space-1) var(--core-space-3);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+}
+
+.cds-badge-size--sm {
+  padding: var(--core-space-1) var(--core-space-2);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  letter-spacing: var(--typography-body-xs-letter-spacing);
+}
+
+/* Soft variant borders reuse each tone's *-text token, not *-border — the
+   dedicated border step is tuned for controls sitting on the plain page
+   canvas, but a soft badge's border sits against its own light tinted fill
+   instead, where it fell short of 3:1 (WCAG 1.4.11): danger 2.89:1 (fail),
+   success 3.00:1 (razor's edge). The text token is already proven >=4.5:1
+   against this same fill, so reusing it guarantees the border reads at
+   least as well. Outline/solid variants are unaffected — their border sits
+   against the plain page canvas (outline) or is transparent (solid). */
+.cds-badge-style--soft.cds-badge--primary {
+  background: var(--brand-background-primary-light);
+  color: var(--brand-text-primary-default);
+  border-color: var(--brand-text-primary-default);
+}
+
+.cds-badge-style--outline.cds-badge--primary {
+  background: transparent;
+  color: var(--brand-text-primary-default);
+  border-color: var(--brand-border-primary-default);
+}
+
+.cds-badge-style--solid.cds-badge--primary {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+  border-color: transparent;
+}
+
+
+.cds-badge-style--soft.cds-badge--success {
+  background: var(--theme-semantics-success-light-background);
+  color: var(--theme-semantics-success-text);
+  border-color: var(--theme-semantics-success-text);
+}
+
+.cds-badge-style--outline.cds-badge--success {
+  background: transparent;
+  color: var(--theme-semantics-success-text);
+  border-color: var(--theme-semantics-success-border);
+}
+
+.cds-badge-style--solid.cds-badge--success {
+  background: var(--theme-semantics-success-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: transparent;
+}
+
+.cds-badge-style--soft.cds-badge--warning {
+  background: var(--theme-semantics-warning-light-background);
+  color: var(--theme-semantics-warning-text);
+  border-color: var(--theme-semantics-warning-text);
+}
+
+.cds-badge-style--outline.cds-badge--warning {
+  background: transparent;
+  color: var(--theme-semantics-warning-text);
+  border-color: var(--theme-semantics-warning-border);
+}
+
+.cds-badge-style--solid.cds-badge--warning {
+  background: var(--theme-semantics-warning-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: transparent;
+}
+
+.cds-badge-style--soft.cds-badge--danger {
+  background: var(--theme-semantics-critical-light-background);
+  color: var(--theme-semantics-critical-text);
+  border-color: var(--theme-semantics-critical-text);
+}
+
+.cds-badge-style--outline.cds-badge--danger {
+  background: transparent;
+  color: var(--theme-semantics-critical-text);
+  border-color: var(--theme-semantics-critical-border);
+}
+
+.cds-badge-style--solid.cds-badge--danger {
+  background: var(--theme-semantics-critical-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: transparent;
+}
+
+.cds-badge-style--soft.cds-badge--info {
+  background: var(--theme-semantics-highlight-light-background);
+  color: var(--theme-semantics-highlight-text);
+  border-color: var(--theme-semantics-highlight-text);
+}
+
+.cds-badge-style--outline.cds-badge--info {
+  background: transparent;
+  color: var(--theme-semantics-highlight-text);
+  border-color: var(--theme-semantics-highlight-border);
+}
+
+.cds-badge-style--solid.cds-badge--info {
+  background: var(--theme-semantics-highlight-strong-background);
+  color: var(--theme-neutral-text-on-color);
+  border-color: transparent;
+}
+
+.cds-badge-style--soft.cds-badge--neutral {
+  background: var(--core-color-surface-sunken);
+  color: var(--theme-neutral-text-primary-default);
+  border-color: var(--theme-neutral-border-primary-default);
+}
+
+.cds-badge-style--outline.cds-badge--neutral {
+  background: transparent;
+  color: var(--theme-neutral-text-primary-default);
+  border-color: var(--theme-neutral-border-strong);
+}
+
+.cds-badge-style--solid.cds-badge--neutral {
+  background: var(--theme-neutral-text-primary-default);
+  color: var(--theme-neutral-text-on-color);
+  border-color: transparent;
+}
+
+/* Badge Interactive, Hover, Active, and Disabled States */
+.cds-badge--interactive {
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+}
+
+/* Hover States per tone */
+.cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--primary,
+.cds-badge-state--hover.cds-badge--primary,
+.force-hover .cds-badge--primary {
+  background: var(--brand-background-primary-subtle) !important;
+  color: var(--brand-text-primary-default) !important;
+  border-color: var(--brand-border-primary-hover) !important;
+}
+
+/* Not surface-raised — in light mode that token is #FFFFFF, identical to
+   the page background, so hover looked like the badge vanishing instead of
+   a hover state. color-mix darkens the badge's own default fill (sunken)
+   by blending in some of the border gray, giving a visible, genuinely
+   darker shade of the default in both modes without a separate token. */
+.cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--neutral,
+.cds-badge-state--hover.cds-badge--neutral,
+.force-hover .cds-badge--neutral {
+  background: color-mix(in srgb, var(--theme-neutral-border-primary-default) 22%, var(--core-color-surface-sunken)) !important;
+  color: var(--theme-neutral-text-primary-default) !important;
+  border-color: var(--theme-neutral-border-strong) !important;
+}
+
+.cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--success,
+.cds-badge-state--hover.cds-badge--success,
+.force-hover .cds-badge--success {
+  background: color-mix(in srgb, var(--theme-semantics-success-strong-background) 14%, var(--core-color-surface-default)) !important;
+  color: var(--theme-semantics-success-text) !important;
+  border-color: var(--theme-semantics-success-strong-background) !important;
+}
+
+.cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--warning,
+.cds-badge-state--hover.cds-badge--warning,
+.force-hover .cds-badge--warning {
+  background: color-mix(in srgb, var(--theme-semantics-warning-strong-background) 14%, var(--core-color-surface-default)) !important;
+  color: var(--theme-semantics-warning-text) !important;
+  border-color: var(--theme-primitive-color-tertiary-600) !important;
+}
+
+.cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--danger,
+.cds-badge-state--hover.cds-badge--danger,
+.force-hover .cds-badge--danger {
+  background: color-mix(in srgb, var(--theme-semantics-critical-strong-background) 14%, var(--core-color-surface-default)) !important;
+  color: var(--theme-semantics-critical-text) !important;
+  border-color: var(--theme-colors-red-600) !important;
+}
+
+.cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--info,
+.cds-badge-state--hover.cds-badge--info,
+.force-hover .cds-badge--info {
+  background: color-mix(in srgb, var(--theme-semantics-highlight-strong-background) 14%, var(--core-color-surface-default)) !important;
+  color: var(--theme-semantics-highlight-text) !important;
+  border-color: var(--theme-colors-info-600) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--primary,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--primary,
+.force-active .cds-badge-style--soft.cds-badge--primary {
+  background: var(--brand-background-primary-strong) !important;
+  color: var(--brand-text-primary-oncolor) !important;
+  border-color: var(--brand-border-primary-default) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--neutral,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--neutral,
+.force-active .cds-badge-style--soft.cds-badge--neutral {
+  background: var(--theme-colors-neutral-800) !important;
+  color: var(--theme-colors-neutral-0) !important;
+  border-color: var(--theme-colors-neutral-800) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--success,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--success,
+.force-active .cds-badge-style--soft.cds-badge--success {
+  background: var(--theme-semantics-success-strong-background) !important;
+  color: var(--theme-colors-neutral-0) !important;
+  border-color: var(--theme-semantics-success-strong-background) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--warning,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--warning,
+.force-active .cds-badge-style--soft.cds-badge--warning {
+  background: var(--theme-semantics-warning-strong-background) !important;
+  color: var(--theme-neutral-text-on-color) !important;
+  border-color: var(--theme-semantics-warning-strong-background) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--danger,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--danger,
+.force-active .cds-badge-style--soft.cds-badge--danger {
+  background: var(--theme-semantics-critical-strong-background) !important;
+  color: var(--theme-colors-neutral-0) !important;
+  border-color: var(--theme-semantics-critical-strong-background) !important;
+}
+
+.cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--info,
+.cds-badge-state--active.cds-badge-style--soft.cds-badge--info,
+.force-active .cds-badge-style--soft.cds-badge--info {
+  background: var(--theme-semantics-highlight-strong-background) !important;
+  color: var(--theme-neutral-text-on-color) !important;
+  border-color: var(--theme-semantics-highlight-strong-background) !important;
+}
+
+.cds-badge--interactive:focus-visible:not(.cds-badge--disabled),
+.force-focus .cds-badge--interactive {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400) !important;
+  outline-offset: 2px !important;
+}
+
+/* Base Disabled State */
+.cds-badge--disabled,
+.cds-badge[aria-disabled="true"],
+.cds-badge-state--disabled,
+.force-disabled .cds-badge {
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+/* Disabled — one neutral gray treatment for every tone, not a per-tone
+   "-disabled" step of that tone's own hue. The per-tone disabled tokens
+   this replaced resolved to the *same* background and near-identical text
+   color as the tone's own default/enabled state in dark mode (e.g. primary
+   disabled and primary default were pixel-identical: bg rgb(16,33,55),
+   text rgb(134,173,223) — only the border differed), so "disabled" was
+   indistinguishable from enabled. A same-hue disabled step reads as
+   identical to default whenever it's still close in lightness to that
+   hue's own default — neutral gray is the only reliably distinguishable
+   signal, matching Button/Icon Button's disabled convention. */
+.cds-badge-style--soft.cds-badge--disabled,
+.force-disabled .cds-badge-style--soft {
+  background: var(--theme-semantics-disabled-background) !important;
+  color: var(--theme-semantics-disabled-text) !important;
+  border-color: var(--theme-semantics-disabled-border) !important;
+  opacity: 1 !important;
+}
+
+.cds-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.cds-badge-remove {
+  /* 24x24 CSS-pixel minimum target (WCAG 2.5.8) — was font-size + 0/2px
+     padding alone, well under the minimum. Full-opacity icon by default —
+     the 0.65 opacity this replaced dropped contrast noticeably (same
+     pattern already fixed on Alert's and Attachment's dismiss buttons);
+     hover/focus use a background wash instead of an opacity change. */
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  margin-left: var(--core-space-1);
+  font-size: var(--typography-font-size-xs);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.cds-badge-remove:hover {
+  background: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.cds-badge-remove:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 1px;
+}
+
+.cds-alert {
+  display: flex;
+  gap: var(--core-space-3);
+  padding: var(--core-space-4) var(--core-space-4);
+  border-radius: var(--core-radius-sm);
+  border: 1px solid;
+  font-size: var(--typography-body-md-size);
+}
+
+.cds-alert__icon {
+  flex-shrink: 0;
+  margin-top: var(--core-space-0);
+}
+
+/* Border uses each tone's *-text token, not *-border — the dedicated
+   border step is tuned for controls sitting on the page canvas, but here it
+   sits against the alert's own light tinted fill and fell short of 3:1
+   (WCAG 1.4.11) for danger in light mode (2.89:1). The text token is
+   already proven >=4.5:1 against this same fill, so reusing it guarantees
+   the border reads at least as strongly. */
+.cds-alert--success {
+  background: var(--theme-semantics-success-light-background);
+  color: var(--theme-semantics-success-text);
+  border-color: var(--theme-semantics-success-text);
+}
+
+.cds-alert--warning {
+  background: var(--theme-semantics-warning-light-background);
+  color: var(--theme-semantics-warning-text);
+  border-color: var(--theme-semantics-warning-text);
+}
+
+.cds-alert--danger {
+  background: var(--theme-semantics-critical-light-background);
+  color: var(--theme-semantics-critical-text);
+  border-color: var(--theme-semantics-critical-text);
+}
+
+.cds-alert--info {
+  background: var(--theme-semantics-highlight-light-background);
+  color: var(--theme-semantics-highlight-text);
+  border-color: var(--theme-semantics-highlight-text);
+}
+
+/* Dismiss button — full-opacity icon by default (the 0.6 opacity fade this
+   replaced dropped as low as 2.50:1 in light mode, failing WCAG 1.4.11's
+   3:1 for a UI control); hover/focus get a background wash instead of an
+   opacity change, matching the wash convention used elsewhere (Button,
+   Icon Button). Sized to the 24x24 CSS-pixel minimum target (WCAG 2.5.8). */
+.cds-alert__dismiss {
+  position: absolute;
+  top: var(--core-space-2);
+  right: var(--core-space-2);
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  border-radius: var(--core-radius-sm);
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 120ms ease;
+}
+
+.cds-alert__dismiss:hover {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.cds-alert__dismiss:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 1px;
+}
+
+.cds-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-3);
+  cursor: pointer;
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  font-weight: var(--typography-body-md-weight);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+/*
+ * Off-track fill uses the mode-independent --theme-colors-neutral-500
+ * primitive rather than the semantic --theme-neutral-border-strong token:
+ * that semantic token is *designed* to get lighter in dark mode (so thin
+ * borders stay visible against a dark surface), which is exactly wrong for
+ * a large fill area sitting behind an always-white thumb — it measured only
+ * 2.64:1 against the thumb in dark mode (needs ≥3:1), a real WCAG 1.4.11
+ * failure, while passing fine in light mode purely by coincidence. The
+ * primitive stays a constant mid-grey in both modes (4.34:1 against white
+ * either way) so this can't silently break again when the palette is retuned.
+ * No border — the border token (--theme-neutral-text-subtle) it previously
+ * borrowed was the wrong category (a text color reused as a border) and
+ * measured only ~1.5:1 against the new fill anyway, i.e. invisible; the pill
+ * shape plus fill-vs-page contrast is sufficient, matching Radix/Chakra/MUI
+ * switches, none of which put a border on the track.
+ */
+/*
+ * Fixed geometry, not layout-derived: track is a hardcoded 32×18 box (no
+ * padding), and the thumb is absolutely positioned inside it with explicit
+ * `left`/`right` values — OFF sets `left: 2px`, ON sets `right: 2px`
+ * (switching which edge is anchored, not translating from a computed
+ * travel distance). Nothing here depends on flex alignment, gap, or padding
+ * to place the thumb; the track's own 32×18 box is the only container.
+ * Vertical centering uses `top: 50%` + `translateY(-50%)`, which stays
+ * exact regardless of track height, rather than assuming inset math
+ * happens to center it. No border on the track or default box-shadow on
+ * the thumb — either would add real layout box size (a border) or a visual
+ * halo that reads as size even though it technically isn't (a shadow), so
+ * both are pushed to :focus-visible / --disabled variants only, via
+ * box-shadow (which never affects layout or the 32×18 bounding box).
+ */
+.cds-switch-track {
+  width: 32px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--theme-colors-neutral-500);
+  border: none;
+  box-sizing: border-box;
+  transition: background-color 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.cds-switch-track::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--theme-colors-neutral-0);
+  box-shadow: var(--core-elevation-1);
+  transform: translateY(-50%);
+  transition: left 180ms cubic-bezier(0.4, 0, 0.2, 1), right 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cds-switch:hover input:not(:disabled):not(:checked) + .cds-switch-track {
+  /* Darkens on hover (n500 → n600), matching every other hover treatment in
+     this library. The previous n400 was actually *lighter* than the n500
+     default — backwards — and additionally failed contrast against the
+     white thumb (2.64:1, needs ≥3:1). */
+  background: var(--theme-colors-neutral-600);
+}
+
+/*
+ * Checked-track hover/active previously darkened further (-hover/-active
+ * tokens), which is backwards for a brand-blue fill sitting on a dark page:
+ * in dark mode those tokens measured only 2.31:1 / 1.94:1 against the page
+ * background — well under the 3:1 floor, meaning a hovered/pressed "on"
+ * switch nearly disappeared into the canvas. Lightening the strong fill
+ * instead (toward white) keeps the same "hover intensifies, press
+ * intensifies more" feel while staying compliant in both modes — 5.09:1 /
+ * 5.99:1 against the dark page, 5.65:1 / 4.38:1 against the light page.
+ */
+.cds-switch:hover input:not(:disabled):checked + .cds-switch-track {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 88%, white);
+}
+
+.cds-switch:active input:not(:disabled):checked + .cds-switch-track {
+  background: color-mix(in srgb, var(--brand-background-primary-strong) 78%, white);
+}
+
+.cds-switch input:checked + .cds-switch-track {
+  background: var(--brand-background-primary-strong);
+}
+
+/*
+ * ON is expressed as its own literal `right: 2px` (not a translateX computed
+ * from track/thumb/inset math) — per spec, switching which physical edge is
+ * anchored rather than sliding a transform. One consequence: `left`/`right`
+ * can't cross-animate through `auto`, so the thumb now jumps between the two
+ * anchored positions instead of sliding — an explicit trade-off for using
+ * literal edge offsets instead of a computed transform.
+ */
+.cds-switch input:checked + .cds-switch-track::after {
+  left: auto;
+  right: 2px;
+}
+
+.cds-switch input:focus-visible + .cds-switch-track {
+  outline: none;
+  /* The gap ring was hardcoded to --theme-colors-neutral-0 (literal white)
+     regardless of mode, so on a dark canvas it would render as a bright
+     white halo instead of blending with the surface behind it. Switched to
+     --core-color-surface-default — the same mode-aware "gap" token already
+     used for this exact purpose on Checkbox/Radio's focus ring. */
+  box-shadow:
+    0 0 0 2px var(--core-color-surface-default),
+    0 0 0 calc(2px + var(--core-focusRing-width)) var(--theme-primitive-color-primary-400);
+}
+
+.cds-switch--disabled {
+  cursor: not-allowed;
+  opacity: 1;
+  color: var(--theme-semantics-disabled-text);
+}
+
+/*
+ * Disabled changes ONLY color — same treatment style as hover (background
+ * swap, nothing else). No border, no box-shadow ring: the track and thumb
+ * keep the exact same borderless, shadow-free construction as every other
+ * state, so size, padding, and thumb position stay identical throughout.
+ *
+ * Fill is --theme-colors-neutral-400 for BOTH OFF and ON — a deliberate
+ * three-way tradeoff:
+ *   - the pale --theme-semantics-disabled-background used elsewhere in this
+ *     library only works because those controls pair it with a real
+ *     border-color; used alone on a borderless track it measured 1.16:1
+ *     against the thumb (invisible);
+ *   - --theme-colors-neutral-500 (the enabled default track's own color)
+ *     is fully compliant at 4.34:1, but then disabled and enabled tracks
+ *     are pixel-identical, which reads as "not actually disabled";
+ *   - --theme-colors-neutral-300 is visibly lighter/muted but drops to
+ *     1.73:1 against the thumb and 1.62:1 against the light-mode page —
+ *     back to nearly invisible.
+ * neutral-400 (2.64:1 against the thumb) is the middle ground: visibly
+ * lighter than the enabled default so "disabled" reads at a glance, without
+ * collapsing into the page the way neutral-300 does. It doesn't clear the
+ * 3:1 AA floor on its own — disabled controls are WCAG-exempt from contrast
+ * requirements, and the thumb's position is the actual state indicator here,
+ * not the track's exact shade.
+ */
+.cds-switch--disabled .cds-switch-track {
+  background: var(--theme-colors-neutral-400);
+  border: none;
+  box-shadow: none;
+}
+
+.cds-switch--disabled .cds-switch-track::after {
+  background: var(--theme-colors-neutral-0);
+  box-shadow: none;
+}
+
+/* ---------- Textarea / Select ---------- */
+.cds-textarea {
+  min-height: 88px;
+  padding: var(--core-space-3) var(--core-space-3);
+  border-radius: var(--core-radius-sm);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+  color: var(--theme-neutral-text-primary-default);
+  font-size: var(--typography-text14-regular-size);
+  width: 100%;
+  resize: vertical;
+}
+
+.cds-textarea:hover:not(:disabled),
+.force-hover .cds-textarea {
+  border-color: var(--theme-neutral-border-strong);
+  background: color-mix(in srgb, black 8%, var(--core-color-surface-default));
+}
+
+.cds-textarea:focus-visible,
+.cds-textarea:focus {
+  outline: none;
+  border-color: var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
+.cds-textarea[aria-invalid="true"] {
+  border-color: var(--theme-semantics-critical-border);
+}
+
+.cds-textarea:disabled {
+  background: var(--theme-semantics-disabled-background);
+  color: var(--theme-semantics-disabled-text);
+  border-color: var(--theme-semantics-disabled-border);
+  opacity: 1;
+  cursor: not-allowed;
+  resize: none;
+}
+
+.cds-select-wrap {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.cds-select {
+  height: var(--core-size-control-md);
+  padding: var(--core-space-0) var(--core-space-4);
+  width: 100%;
+  border-radius: var(--core-radius-sm);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+  color: var(--theme-neutral-text-primary-default);
+  font-size: var(--typography-text14-regular-size);
+  cursor: pointer;
+  text-align: left;
+  display: block;
+}
+
+.cds-select--sm {
+  height: var(--core-size-control-sm);
+  font-size: var(--typography-body-md-size);
+  padding: var(--core-space-0) var(--core-space-4);
+}
+
+.cds-select--lg {
+  height: var(--core-size-control-lg);
+  font-size: var(--typography-font-size-lg);
+  padding: var(--core-space-0) var(--core-space-4);
+}
+
+.cds-select:hover:not(:disabled):not([aria-disabled="true"]),
+.force-hover .cds-select {
+  border-color: var(--theme-neutral-border-strong);
+  background: color-mix(in srgb, black 8%, var(--core-color-surface-default));
+}
+
+.cds-select:focus-visible {
+  outline: none;
+  border-color: var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
+.cds-select[aria-disabled="true"],
+.cds-select:disabled {
+  background: var(--theme-semantics-disabled-background);
+  color: var(--theme-semantics-disabled-text);
+  border-color: var(--theme-semantics-disabled-border);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.cds-select-placeholder {
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-select-caret {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--theme-neutral-text-subtle);
+  flex-shrink: 0;
+}
+
+.cds-select-listbox {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  max-height: 260px;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--core-space-1);
+  list-style: none;
+  background: var(--core-color-surface-overlay);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  box-shadow: var(--core-elevation-3);
+}
+
+.cds-select-option {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  padding: var(--core-space-2) var(--core-space-3);
+  border-radius: var(--core-radius-sm);
+  font-size: var(--typography-body-lg-size);
+  color: var(--theme-neutral-text-primary-default);
+  cursor: pointer;
+}
+
+/*
+ * Highlight is a brand-blue tint (not the neutral grey wash used before) —
+ * mixed from --brand-text-primary-default *into* --core-color-surface-overlay
+ * rather than using the static --theme-brand-background-primary-subtle token:
+ * that static token happened to have almost the same luminance as the
+ * listbox's own overlay background in dark mode (#132A49 vs #2E2D38 — only
+ * 1.06:1, functionally invisible) purely by coincidence of the two palettes,
+ * the same class of bug fixed for Calendar/Combobox/Incremental Selector
+ * earlier. Mixing relative to the actual overlay color guarantees a visible
+ * step in both modes no matter how the underlying tokens are tuned.
+ */
+.cds-select-option:hover:not(.cds-select-option--disabled),
+.cds-select-option--active {
+  background: color-mix(in srgb, var(--brand-text-primary-default) 18%, var(--core-color-surface-overlay));
+}
+
+.cds-select-option[aria-selected="true"] {
+  font-weight: 600;
+}
+
+.cds-select-option--disabled {
+  color: var(--theme-semantics-disabled-text);
+  background: transparent;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.cds-select-check {
+  width: 14px;
+  color: var(--brand-text-primary-default);
+  flex-shrink: 0;
+}
+
+.cds-select-option-checkbox {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+  color: var(--theme-colors-neutral-0);
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.cds-select-option-checkbox--checked {
+  background: var(--brand-background-primary-strong);
+  border-color: var(--brand-background-primary-strong);
+}
+
+/* ---------- Checkbox / Radio ---------- */
+.cds-checkbox,
+.cds-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  cursor: pointer;
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  font-weight: var(--typography-body-md-weight);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-checkbox input,
+.cds-radio input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.cds-checkbox-box,
+.cds-radio-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 120ms ease;
+}
+
+.cds-checkbox-box {
+  /* -sm (8px) on an 18px box reads as nearly circular, indistinguishable
+     from Radio at a glance. -xs (4px) keeps visibly square corners so the
+     two controls stay distinct. */
+  border-radius: var(--core-radius-xs);
+}
+
+.cds-radio-box {
+  border-radius: 50%;
+}
+
+.cds-checkbox:hover input:not(:disabled):not(:checked) + .cds-checkbox-box,
+.cds-radio:hover input:not(:disabled):not(:checked) + .cds-radio-box {
+  border-color: var(--theme-primitive-color-primary-400);
+  background: var(--brand-background-primary-subtle);
+}
+
+.cds-checkbox:hover input:not(:disabled):checked + .cds-checkbox-box,
+.cds-radio:hover input:not(:disabled):checked + .cds-radio-box {
+  background: var(--brand-background-primary-hover);
+  border-color: var(--brand-background-primary-hover);
+}
+
+.cds-checkbox:active input:not(:disabled):not(:checked) + .cds-checkbox-box,
+.cds-radio:active input:not(:disabled):not(:checked) + .cds-radio-box {
+  border-color: var(--brand-background-primary-strong);
+  background: var(--brand-background-primary-subtle);
+}
+
+/* Uses -strong (the same fill as the plain checked state), not -active —
+   -active is a deeper press-down step whose own boundary against the dark
+   canvas measured only 1.94:1 (checked with -hover fares no better, 2.31:1;
+   only -strong, at 4.11:1, actually clears WCAG 1.4.11's 3:1 for a filled
+   control's edge against the page). A checked box staying visually
+   unchanged through a brief press is preferable to a state that goes out
+   of compliance in dark mode. Border matches the fill, same convention
+   Primary Button already uses for its own solid states. */
+.cds-checkbox:active input:not(:disabled):checked + .cds-checkbox-box,
+.cds-radio:active input:not(:disabled):checked + .cds-radio-box {
+  background: var(--brand-background-primary-strong);
+  border-color: var(--brand-background-primary-strong);
+}
+
+.cds-checkbox input:checked + .cds-checkbox-box,
+.cds-radio input:checked + .cds-radio-box {
+  background: var(--brand-background-primary-strong);
+  border-color: var(--brand-background-primary-strong);
+}
+
+.cds-checkbox-box svg,
+.cds-radio-box .dot {
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+.cds-checkbox input:checked+.cds-checkbox-box svg,
+.cds-radio input:checked+.cds-radio-box .dot {
+  opacity: 1;
+}
+
+.cds-checkbox-box--indeterminate {
+  background: var(--brand-background-primary-strong);
+  border-color: var(--brand-background-primary-strong);
+}
+
+.cds-checkbox-box--indeterminate svg {
+  opacity: 1;
+}
+
+.cds-radio-box .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--theme-colors-neutral-0);
+}
+
+.cds-checkbox input:focus-visible:not(:checked) + .cds-checkbox-box,
+.cds-radio input:focus-visible:not(:checked) + .cds-radio-box {
+  border-color: var(--theme-primitive-color-primary-400);
+  background: var(--core-color-surface-default);
+}
+
+.cds-checkbox input:focus-visible + .cds-checkbox-box,
+.cds-radio input:focus-visible + .cds-radio-box {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+}
+
+.cds-checkbox input:disabled + .cds-checkbox-box,
+.cds-radio input:disabled + .cds-radio-box {
+  background: var(--theme-semantics-disabled-background);
+  border-color: var(--theme-neutral-border-primary-default);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.cds-checkbox input:disabled:checked + .cds-checkbox-box,
+.cds-radio input:disabled:checked + .cds-radio-box {
+  background: var(--theme-colors-neutral-500);
+  border-color: var(--theme-colors-neutral-500);
+}
+
+.cds-checkbox input:disabled:checked + .cds-checkbox-box svg {
+  stroke: var(--theme-colors-neutral-0);
+}
+
+.cds-radio input:disabled:checked + .cds-radio-box .dot {
+  background: var(--theme-colors-neutral-0);
+  opacity: 1;
+}
+
+.cds-checkbox:has(input:disabled),
+.cds-radio:has(input:disabled) {
+  color: var(--theme-semantics-disabled-text);
+  cursor: not-allowed;
+}
+
+/* Checkbox/Radio: size */
+.cds-checkbox-box--sm,
+.cds-radio-box--sm {
+  width: 14px;
+  height: 14px;
+}
+
+.cds-checkbox-box--md,
+.cds-radio-box--md {
+  width: 18px;
+  height: 18px;
+}
+
+.cds-checkbox-box--lg,
+.cds-radio-box--lg {
+  width: 22px;
+  height: 22px;
+}
+
+.cds-radio-box--sm .dot {
+  width: 5px;
+  height: 5px;
+}
+
+.cds-radio-box--lg .dot {
+  width: 9px;
+  height: 9px;
+}
+
+/* Checkbox: tone (checked-state color only — unchecked stays neutral) */
+.cds-checkbox input:checked+.cds-checkbox-box--success,
+.cds-checkbox-box--success.cds-checkbox-box--indeterminate {
+  background: var(--core-color-status-success-text);
+  border-color: var(--core-color-status-success-text);
+}
+
+.cds-checkbox input:checked+.cds-checkbox-box--danger,
+.cds-checkbox-box--danger.cds-checkbox-box--indeterminate {
+  background: var(--core-color-status-danger-text);
+  border-color: var(--core-color-status-danger-text);
+}
+
+.cds-checkbox input:checked+.cds-checkbox-box--warning,
+.cds-checkbox-box--warning.cds-checkbox-box--indeterminate {
+  background: var(--core-color-status-warning-text);
+  border-color: var(--core-color-status-warning-text);
+}
+
+/* Required-field mark */
+.cds-required-mark {
+  /* This is text, so it needs the text token — the strong-background token is
+     tuned as a fill and only reached 3.1:1 on the dark canvas. */
+  color: var(--theme-semantics-critical-text);
+}
+
+/* Field visual style: default / solid / flush (Input, Select, Textarea) */
+.cds-field-style--solid {
+  background: var(--core-color-surface-sunken);
+  border-color: transparent;
+}
+
+.cds-field-style--solid:focus,
+.cds-field-style--solid:focus-visible {
+  background: var(--core-color-surface-default);
+}
+
+.cds-field-style--flush {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.cds-field-style--flush:focus,
+.cds-field-style--flush:focus-visible {
+  box-shadow: none;
+  border-bottom-color: var(--core-input-borderFocus);
+  border-bottom-width: 2px;
+}
+
+/* Breadcrumb: separator variants */
+.cds-breadcrumb-sep {
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+.cds-breadcrumb--line .cds-breadcrumb-sep {
+  opacity: 0.6;
+}
+
+.cds-breadcrumb--dot .cds-breadcrumb-sep {
+  font-size: var(--typography-font-size-xs);
+  vertical-align: middle;
+}
+
+/* Toast: content structure */
+.cds-toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.cds-toast-header {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-2);
+}
+
+.cds-toast-title {
+  flex: 1;
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+  font-weight: 700;
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-toast-timestamp {
+  font-size: var(--typography-font-size-xs);
+  color: var(--theme-neutral-text-subtleleast);
+  white-space: nowrap;
+}
+
+.cds-toast-close {
+  background: none;
+  border: none;
+  color: var(--theme-neutral-text-subtleleast);
+  cursor: pointer;
+  padding: var(--core-space-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--core-radius-sm);
+  flex-shrink: 0;
+}
+
+.cds-toast-close:hover {
+  color: var(--theme-neutral-text-primary-default);
+  background: var(--core-color-surface-sunken);
+}
+
+.cds-toast-body {
+  margin-top: var(--core-space-1);
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+  font-weight: var(--typography-body-md-weight);
+  color: var(--theme-neutral-text-subtle);
+}
+
+/* ---------- Table ---------- */
+.cds-table-toolbar {
+  display: flex;
+  gap: var(--core-space-3);
+  margin-bottom: var(--core-space-3);
+  flex-wrap: wrap;
+}
+
+.cds-table-search {
+  max-width: 240px;
+}
+
+/* Below breakpoint.sm, stack the toolbar full-width instead of wrapping
+   narrow, unevenly-sized pieces onto their own lines. */
+@media (max-width: 575px) {
+  .cds-table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cds-table-search {
+    max-width: none;
+  }
+}
+
+/* Filter width is set inline via the Select's own `style` prop (DataTable
+   passes { width: "auto", minWidth: 140 }) rather than a class — className
+   on Select lands on its inner trigger button, not the flex-item wrapper
+   that needs sizing here. */
+.cds-table-empty {
+  text-align: center;
+  padding: var(--core-space-4);
+  color: var(--theme-neutral-text-subtleleast);
+  font-size: var(--typography-body-md-size);
+}
+
+.cds-table-wrap {
+  /* --theme-neutral-border-subtle resolves to the exact same value as
+     --theme-neutral-border-primary-default (both alias neutral-500) in
+     this theme, so swapping the token name alone didn't make table
+     borders any lighter. A faint mix of the surface's own text color
+     into its own background always reads as subtle, in either mode,
+     without depending on a semantic border step that may or may not
+     actually be lighter. */
+  --cds-table-border-color: color-mix(in srgb, var(--core-color-text-primary) 12%, var(--core-color-surface-default));
+  --cds-table-scrollbar-track: color-mix(in srgb, var(--core-color-text-primary) 14%, var(--core-color-surface-default));
+  --cds-table-scrollbar-thumb: color-mix(in srgb, var(--core-color-text-primary) 45%, transparent);
+  overflow-x: auto;
+  border: 1px solid var(--cds-table-border-color);
+  border-radius: var(--core-radius-sm);
+  /* Without this, a wide table forces its flex/grid ancestors to grow to
+     fit it (a flex/grid item's default min-width is its content size, not
+     0), so the table burst out past the rounded demo panel instead of
+     scrolling inside this wrap's own overflow-x. min-width: 0 lets this
+     wrap actually shrink to the available space and take over scrolling. */
+  min-width: 0;
+  max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cds-table-scrollbar-thumb) var(--cds-table-scrollbar-track);
+}
+
+/* When content overflows, force a persistent horizontal scrollbar (not overlay-only). */
+.cds-table-wrap--scrollable {
+  overflow-x: scroll;
+  scrollbar-width: auto;
+  -ms-overflow-style: scrollbar;
+  padding-bottom: var(--core-space-1);
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar {
+  height: 12px;
+  -webkit-appearance: none;
+  background: var(--cds-table-scrollbar-track);
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar-track {
+  background: var(--cds-table-scrollbar-track);
+  border-radius: var(--core-radius-full);
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar-thumb {
+  background: var(--cds-table-scrollbar-thumb);
+  border-radius: var(--core-radius-full);
+  border: 2px solid var(--cds-table-scrollbar-track);
+  min-width: 48px;
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--core-color-text-primary) 58%, transparent);
+}
+
+.cds-table-wrap::-webkit-scrollbar {
+  height: 10px;
+}
+
+.cds-table-wrap::-webkit-scrollbar-track {
+  background: var(--cds-table-scrollbar-track);
+  border-radius: var(--core-radius-full);
+}
+
+.cds-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--cds-table-scrollbar-thumb);
+  border-radius: var(--core-radius-full);
+  border: 2px solid var(--cds-table-scrollbar-track);
+}
+
+.cds-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--core-color-text-primary) 58%, transparent);
+}
+
+.cds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+}
+
+.cds-table thead th {
+  text-align: left;
+  padding: var(--core-space-3) var(--core-space-4);
+  background: var(--core-color-surface-sunken);
+  color: var(--theme-neutral-text-subtle);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  font-weight: var(--typography-font-weight-semibold);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+  border-bottom: 1px solid var(--cds-table-border-color, var(--theme-neutral-border-subtle));
+  white-space: nowrap;
+}
+
+.cds-table tbody td {
+  padding: var(--core-space-3) var(--core-space-4);
+  border-bottom: 1px solid var(--cds-table-border-color, var(--theme-neutral-border-subtle));
+  color: var(--theme-neutral-text-primary-default);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+  /* Cells were wrapping long values onto a second line, making rows
+     uneven and hard to scan. table-layout stays auto (the default), so a
+     column with long content simply grows to fit it instead of wrapping —
+     the table already scrolls horizontally via .cds-table-wrap if the
+     total width outgrows the panel. */
+  white-space: nowrap;
+}
+
+.cds-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cds-table[data-density="compact"] td,
+.cds-table[data-density="compact"] th {
+  padding: var(--core-space-2) var(--core-space-3);
+}
+
+.cds-table[data-zebra="true"] tbody tr:nth-child(even) {
+  background: var(--core-color-surface-sunken);
+}
+
+/* Table Disabled State (Neutral Grey Palette) */
+.cds-table-wrap--disabled,
+.cds-table--disabled {
+  border-color: var(--theme-semantics-disabled-border) !important;
+  background: var(--theme-semantics-disabled-background) !important;
+  cursor: not-allowed !important;
+}
+
+.cds-data-table--disabled .cds-input,
+.cds-data-table--disabled .cds-select {
+  border-color: var(--theme-semantics-disabled-border) !important;
+  background-color: var(--theme-semantics-disabled-background) !important;
+  color: var(--theme-colors-neutral-400) !important;
+  cursor: not-allowed !important;
+}
+
+.cds-data-table--disabled .cds-page-btn:disabled {
+  opacity: 1;
+  cursor: not-allowed !important;
+  color: var(--theme-semantics-disabled-text) !important;
+  background: transparent !important;
+}
+
+.cds-table-wrap--disabled .cds-table thead th {
+  background: var(--theme-semantics-disabled-background) !important;
+  color: var(--theme-semantics-disabled-text) !important;
+  border-bottom-color: var(--theme-semantics-disabled-border) !important;
+}
+
+.cds-table-wrap--disabled .cds-table tbody td {
+  color: var(--theme-semantics-disabled-text) !important;
+  border-bottom-color: var(--theme-semantics-disabled-border) !important;
+  cursor: not-allowed !important;
+}
+
+.cds-table-wrap--disabled .cds-th-sortable {
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  color: var(--theme-semantics-disabled-text) !important;
+}
+
+/* Badges inside disabled table preserve their tone with faded color */
+.cds-table-wrap--disabled .cds-badge,
+.cds-table--disabled .cds-badge,
+.cds-data-table--disabled .cds-badge {
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  opacity: 1 !important;
+}
+
+.cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--primary,
+.cds-table--disabled .cds-badge-style--soft.cds-badge--primary,
+.cds-data-table--disabled .cds-badge-style--soft.cds-badge--primary {
+  background: var(--brand-background-primary-light) !important;
+  color: var(--brand-text-primary-disabled) !important;
+  border-color: var(--brand-border-primary-disabled) !important;
+}
+
+.cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--neutral,
+.cds-table--disabled .cds-badge-style--soft.cds-badge--neutral,
+.cds-data-table--disabled .cds-badge-style--soft.cds-badge--neutral {
+  background: var(--theme-semantics-disabled-background) !important;
+  color: var(--theme-semantics-disabled-text) !important;
+  border-color: var(--theme-semantics-disabled-border) !important;
+}
+
+.cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--success,
+.cds-table--disabled .cds-badge-style--soft.cds-badge--success,
+.cds-data-table--disabled .cds-badge-style--soft.cds-badge--success {
+  background: var(--theme-semantics-success-disabled-background) !important;
+  color: var(--theme-semantics-success-disabled-text) !important;
+  border-color: var(--theme-semantics-success-disabled-border) !important;
+}
+
+.cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--warning,
+.cds-table--disabled .cds-badge-style--soft.cds-badge--warning,
+.cds-data-table--disabled .cds-badge-style--soft.cds-badge--warning {
+  background: var(--theme-semantics-warning-disabled-background) !important;
+  color: var(--theme-semantics-warning-disabled-text) !important;
+  border-color: var(--theme-semantics-warning-disabled-border) !important;
+}
+
+.cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--danger,
+.cds-table--disabled .cds-badge-style--soft.cds-badge--danger,
+.cds-data-table--disabled .cds-badge-style--soft.cds-badge--danger {
+  background: var(--theme-semantics-critical-disabled-background) !important;
+  color: var(--theme-semantics-critical-disabled-text) !important;
+  border-color: var(--theme-semantics-critical-disabled-border) !important;
+}
+
+.cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--info,
+.cds-table--disabled .cds-badge-style--soft.cds-badge--info,
+.cds-data-table--disabled .cds-badge-style--soft.cds-badge--info {
+  background: var(--theme-semantics-highlight-disabled-background) !important;
+  color: var(--theme-semantics-highlight-disabled-text) !important;
+  border-color: var(--theme-semantics-highlight-disabled-border) !important;
+}
+
+.cds-th-sortable--disabled {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  color: var(--theme-semantics-disabled-text);
+  cursor: not-allowed;
+}
+
+/* Table View Mode — flat read-only surface, distinct from default zebra table */
+.cds-table-wrap--view-mode,
+.cds-data-table--view-mode .cds-table-wrap {
+  border-color: var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+  border-top: none;
+  border-radius: 0 0 var(--core-radius-sm) var(--core-radius-sm);
+}
+
+.cds-table-wrap--view-mode .cds-table thead th,
+.cds-table--view-mode thead th {
+  background: var(--core-color-surface-sunken);
+  color: var(--theme-neutral-text-subtle);
+  font-size: var(--typography-label-size);
+  line-height: var(--typography-label-line-height);
+  font-weight: var(--typography-label-weight);
+  letter-spacing: var(--typography-label-letter-spacing);
+  border-bottom-color: var(--theme-neutral-border-primary-default);
+}
+
+.cds-table-wrap--view-mode .cds-table tbody td,
+.cds-table--view-mode tbody td {
+  color: var(--theme-neutral-text-subtle);
+  background: var(--core-color-surface-default);
+  border-bottom-color: var(--theme-neutral-border-subtle);
+}
+
+.cds-table-wrap--view-mode .cds-table[data-zebra="true"] tbody tr:nth-child(even),
+.cds-table--view-mode[data-zebra="true"] tbody tr:nth-child(even) {
+  background: var(--core-color-surface-sunken);
+}
+
+.cds-data-table--view-mode .cds-table-toolbar {
+  background: var(--core-color-surface-sunken);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm) var(--core-radius-sm) 0 0;
+  padding: var(--core-space-3);
+  margin-bottom: 0;
+}
+
+.cds-data-table--view-mode .cds-table-search {
+  background: var(--core-color-surface-default);
+  border-color: var(--theme-neutral-border-primary-default);
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-table-view-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  font-weight: var(--typography-font-weight-semibold);
+  letter-spacing: var(--typography-body-xs-letter-spacing);
+  color: var(--theme-neutral-text-subtle);
+  background: var(--core-color-surface-default);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  padding: var(--core-space-1) var(--core-space-3);
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-table-view-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--theme-neutral-text-subtle);
+  flex-shrink: 0;
+}
+
+/* ---------- Avatar / Progress ---------- */
+.cds-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--brand-background-primary-subtle);
+  color: var(--theme-neutral-text-subtle);
+  font-weight: 600;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+.cds-avatar--sm {
+  width: 24px;
+  height: 24px;
+  font-size: var(--typography-font-size-xs);
+}
+
+.cds-avatar--md {
+  width: 36px;
+  height: 36px;
+  font-size: var(--typography-body-md-size);
+}
+
+.cds-avatar--lg {
+  width: 48px;
+  height: 48px;
+  font-size: var(--typography-body-lg-size);
+}
+
+.cds-avatar:has(img) {
+  background: transparent;
+  color: transparent;
+}
+
+.cds-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cds-avatar-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.cds-avatar-status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 2px solid var(--core-color-surface-default);
+}
+
+.cds-avatar-status--online {
+  background: var(--core-color-status-success-text);
+}
+
+.cds-avatar-status--away {
+  background: var(--core-color-status-warning-text);
+}
+
+.cds-avatar-status--offline {
+  background: var(--theme-neutral-border-strong);
+}
+
+.cds-avatar-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.cds-avatar-group-item {
+  margin-left: calc(-1 * var(--core-space-2));
+  border: 2px solid var(--core-color-surface-default);
+  border-radius: 50%;
+  display: inline-flex;
+  background: var(--core-color-surface-default);
+  flex-shrink: 0;
+}
+
+.cds-avatar-group-item:first-child {
+  margin-left: 0;
+}
+
+.cds-avatar-group--sm .cds-avatar-group-item {
+  margin-left: calc(-1 * var(--core-space-2));
+}
+.cds-avatar-group--sm .cds-avatar-group-item:first-child {
+  margin-left: 0;
+}
+
+.cds-avatar-group--md .cds-avatar-group-item {
+  margin-left: calc(-1 * var(--core-space-3));
+}
+.cds-avatar-group--md .cds-avatar-group-item:first-child {
+  margin-left: 0;
+}
+
+.cds-avatar-group--lg .cds-avatar-group-item {
+  margin-left: calc(-1 * var(--core-space-4));
+}
+.cds-avatar-group--lg .cds-avatar-group-item:first-child {
+  margin-left: 0;
+}
+
+.cds-progress {
+  height: 8px;
+  border-radius: var(--core-radius-sm);
+  background: var(--core-color-surface-sunken);
+  border: 1px solid var(--theme-neutral-border-strong);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.cds-progress-bar {
+  height: 100%;
+  background: var(--brand-background-primary-strong);
+  border-radius: var(--core-radius-sm);
+  transition: width 280ms ease;
+}
+
+.cds-progress--indeterminate .cds-progress-bar {
+  width: 40% !important;
+  animation: cds-progress-indeterminate 1.2s ease-in-out infinite;
+}
+
+@keyframes cds-progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cds-progress--indeterminate .cds-progress-bar {
+    animation-duration: 2.4s;
+  }
+}
+
+/* ---------- Tabs ---------- */
+.cds-tabs {
+  display: flex;
+  gap: var(--core-space-1);
+  border-bottom: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+.cds-tab {
+  padding: var(--core-space-3) var(--core-space-3);
+  margin-right: var(--core-space-4);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: var(--typography-body-lg-size);
+  font-weight: 500;
+  color: var(--theme-neutral-text-subtle);
+  cursor: pointer;
+  /* The tablist's own separator is 1px; the active-tab indicator is a
+     thicker 3px so it reads clearly as a selection marker rather than a
+     border. Since it's thicker than the separator it sits on top of, the
+     tab is nudged down by the separator's own width (1px) so the indicator
+     starts flush with the separator line, then extends past it. */
+  transform: translateY(1px);
+}
+
+.cds-tab:hover {
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-tab[aria-selected="true"] {
+  /*
+   * --core-color-action-primary-bg is a static token that resolves to the
+   * exact same #1F4F8D in both light and dark mode (not mode-aware) — in
+   * dark mode that measured only 2.31:1 against the page, well under the
+   * 3:1 non-text floor. --brand-background-primary-strong is the same
+   * mode-aware "-strong" token already used across this library wherever a
+   * brand accent needs to be visible on either a light or dark canvas.
+   */
+  color: var(--brand-text-primary-default);
+  border-bottom-color: var(--brand-background-primary-strong);
+  font-weight: 600;
+}
+
+.cds-tab:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+}
+
+[role="tabpanel"]:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+  border-radius: var(--core-radius-sm);
+}
+
+/* Tabs: vertical orientation */
+.cds-tabs-layout--vertical {
+  display: flex;
+  gap: var(--core-space-4);
+  align-items: flex-start;
+}
+
+.cds-tabs--vertical {
+  flex-direction: column;
+  border-bottom: none;
+  border-right: 1px solid var(--theme-neutral-border-primary-default);
+  gap: var(--core-space-1);
+  min-width: 180px;
+  flex-shrink: 0;
+}
+
+.cds-tab--vertical {
+  margin-right: 0;
+  margin-bottom: 0;
+  padding: var(--core-space-2) var(--core-space-4);
+  text-align: left;
+  border-bottom: none;
+  border-right: 3px solid transparent;
+  border-radius: var(--core-radius-sm) 0 0 var(--core-radius-sm);
+  transform: none;
+}
+
+.cds-tab--vertical:hover {
+  background: var(--core-color-surface-sunken);
+}
+
+.cds-tab--vertical[aria-selected="true"] {
+  border-right-color: var(--brand-background-primary-strong);
+  background: var(--brand-background-primary-subtle);
+  color: var(--brand-text-primary-default);
+}
+
+/* ---------- Description List ---------- */
+.cds-description-list {
+  display: grid;
+  gap: var(--core-space-4);
+  margin: 0;
+}
+
+.cds-description-list--stacked .cds-description-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-1);
+}
+
+.cds-description-list--inline .cds-description-item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--core-space-3);
+  padding: var(--core-space-2) var(--core-space-0);
+  border-bottom: 1px solid var(--core-color-border-subtle);
+}
+
+.cds-description-term {
+  font-size: var(--typography-font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+.cds-description-list--inline .cds-description-term {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--typography-body-lg-size);
+  font-weight: 400;
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-description-value {
+  margin: 0;
+  font-size: var(--typography-body-lg-size);
+  color: var(--theme-neutral-text-primary-default);
+  font-weight: 500;
+}
+
+/* ---------- Breadcrumb ---------- */
+.cds-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  font-size: var(--typography-body-md-size);
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+.cds-breadcrumb a {
+  color: var(--theme-neutral-text-subtle);
+  text-decoration: none;
+}
+
+.cds-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.cds-breadcrumb .current {
+  color: var(--theme-neutral-text-primary-default);
+  font-weight: 500;
+}
+
+/* ---------- Pagination ---------- */
+.cds-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-1);
+  font-family: var(--typography-font-family-sans);
+  font-synthesis: weight style;
+}
+
+.cds-page-btn {
+  min-width: 32px;
+  height: 32px;
+  padding: var(--core-space-0) var(--core-space-2);
+  border-radius: var(--core-radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--theme-neutral-text-subtle);
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  font-weight: var(--typography-font-weight-medium);
+  font-synthesis: weight style;
+  cursor: pointer;
+}
+
+.cds-page-btn:hover {
+  background: var(--core-color-surface-raised);
+}
+
+.cds-page-btn[aria-current="page"] {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+  font-weight: var(--typography-font-weight-semibold);
+}
+
+.cds-page-btn:disabled {
+  opacity: 1;
+  color: var(--theme-semantics-disabled-text);
+  cursor: not-allowed;
+}
+
+.cds-page-btn:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 1px;
+}
+
+/* ---------- Tooltip / Popover ---------- */
+.cds-tooltip {
+  position: absolute;
+  background: var(--theme-neutral-text-primary-default);
+  color: var(--core-color-surface-default);
+  font-size: var(--typography-font-size-xs);
+  padding: var(--core-space-1) var(--core-space-2);
+  border-radius: var(--core-radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: var(--core-card-shadow);
+}
+
+/* Arrow pointing down (tooltip above trigger) */
+.cds-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-popover {
+  background: var(--core-color-surface-overlay);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  box-shadow: var(--core-elevation-3);
+  padding: var(--core-space-4);
+  min-width: 220px;
+}
+
+/* ---------- Toast ---------- */
+.cds-toast {
+  /*
+   * Row layout: icon badge, content column (title/timestamp/body), close
+   * button — replaces the old column layout that put a colored 3px stripe
+   * on the left edge to carry the tone. Severity now reads from the icon
+   * badge (a shape + a tinted circle) instead of a thin color-only stripe,
+   * and the card itself is a neutral surface with a uniform border on all
+   * sides, matching the plain "notification pill" pattern (icon + bold
+   * single-line message) rather than the alert-banner look.
+   */
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-3);
+  background: var(--core-color-surface-default);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-xl);
+  padding: var(--core-space-4);
+  box-shadow: var(--core-card-shadow);
+  min-width: 280px;
+}
+
+.cds-toast__icon-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+/* Icon badge fill/color reuse Alert's already-audited tone tokens (light
+   background + matching text color, ≥4.5:1 in both light and dark mode) so
+   a "success" toast and a "success" alert share the same visual language. */
+.cds-toast--success .cds-toast__icon-badge {
+  background: var(--theme-semantics-success-light-background);
+  color: var(--theme-semantics-success-text);
+}
+
+.cds-toast--danger .cds-toast__icon-badge {
+  background: var(--theme-semantics-critical-light-background);
+  color: var(--theme-semantics-critical-text);
+}
+
+.cds-toast--warning .cds-toast__icon-badge {
+  background: var(--theme-semantics-warning-light-background);
+  color: var(--theme-semantics-warning-text);
+}
+
+.cds-toast--info .cds-toast__icon-badge {
+  background: var(--theme-semantics-highlight-light-background);
+  color: var(--theme-semantics-highlight-text);
+}
+
+/* ---------- Spinner ---------- */
+.cds-spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  --cds-spinner-track: color-mix(in srgb, var(--core-color-text-primary) 32%, transparent);
+  --cds-spinner-active: var(--brand-text-primary-default, var(--core-color-action-primary-bg));
+  border: 2px solid var(--cds-spinner-track);
+  border-top-color: var(--cds-spinner-active);
+  animation: cds-spin 700ms linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cds-spinner {
+    animation-duration: 1400ms;
+  }
+}
+
+@keyframes cds-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Modal / Drawer ---------- */
+.cds-overlay-scrim {
+  position: fixed;
+  inset: 0;
+  background: var(--core-overlay-scrim);
+  z-index: 40;
+  padding: var(--core-space-4);
+  box-sizing: border-box;
+}
+
+.cds-overlay-scrim--drawer {
+  padding: 0;
+}
+
+.cds-overlay-scrim--drawer-closing {
+  opacity: 0;
+  transition: opacity 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cds-modal {
+  background: var(--core-color-surface-overlay);
+  border-radius: var(--core-radius-sm);
+  box-shadow: var(--core-elevation-4);
+  max-width: 480px;
+  width: 100%;
+  padding: var(--core-space-4);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-modal-title {
+  font-size: var(--core-font-size-xl);
+  font-weight: 700;
+  margin: var(--core-space-0) var(--core-space-0) var(--core-space-2);
+}
+
+.cds-modal-body {
+  font-size: var(--typography-body-lg-size);
+  color: var(--theme-neutral-text-subtle);
+  margin: var(--core-space-0) var(--core-space-0) var(--core-space-4);
+}
+
+.cds-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--core-space-2);
+}
+
+.cds-drawer {
+  background: var(--core-color-surface-overlay);
+  height: 100%;
+  min-height: 100dvh;
+  width: 360px;
+  max-width: min(90vw, 100%);
+  box-shadow: var(--core-elevation-4);
+  color: var(--theme-neutral-text-primary-default);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: none;
+  backface-visibility: hidden;
+}
+
+.cds-drawer--from-right {
+  transform: translate3d(100%, 0, 0);
+}
+
+.cds-drawer--from-left {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.cds-drawer--animating {
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cds-drawer--from-right.cds-drawer--visible,
+.cds-drawer--from-left.cds-drawer--visible {
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cds-overlay-scrim--drawer-closing,
+  .cds-drawer--animating {
+    transition-duration: 0ms;
+  }
+}
+
+.cds-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--core-space-4);
+  padding: var(--core-space-4);
+  border-bottom: 1px solid var(--theme-neutral-border-primary-default);
+  flex-shrink: 0;
+}
+
+.cds-drawer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  flex-shrink: 0;
+}
+
+.cds-drawer-close {
+  background: none;
+  border: none;
+  color: var(--theme-neutral-text-subtleleast);
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-drawer-close:hover {
+  background: var(--core-color-surface-raised);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-drawer-body {
+  padding: var(--core-space-4);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.cds-drawer-body--split {
+  display: flex;
+  gap: var(--core-space-4);
+}
+
+.cds-drawer-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.cds-drawer-aside {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--core-color-surface-sunken);
+  border-radius: var(--core-radius-sm);
+  padding: var(--core-space-4);
+  align-self: flex-start;
+}
+
+/* The Slideover pattern's two-column split (main form + aside summary) has
+   no room to stay side-by-side once the drawer itself is narrow — it's
+   `width: 90vw` at most, so on a phone that's ~330px total. Stack instead. */
+@media (max-width: 575px) {
+  .cds-drawer-body--split {
+    flex-direction: column;
+  }
+
+  .cds-drawer-aside {
+    width: 100%;
+  }
+}
+
+/* ---------- Accordion / Collapsible ---------- */
+.cds-accordion {
+  background: var(--core-color-surface-default);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  overflow: hidden;
+  box-shadow: var(--core-elevation-1);
+}
+
+.cds-accordion-item {
+  background: var(--core-color-surface-default);
+  transition: background-color var(--core-motion-duration-base, 150ms) ease;
+}
+
+.cds-accordion-item+.cds-accordion-item {
+  border-top: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+.cds-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--core-space-3);
+  background: transparent;
+  border: none;
+  padding: var(--core-space-4);
+  text-align: left;
+  font-size: var(--typography-body-md-size);
+  font-weight: 600;
+  color: var(--theme-neutral-text-primary-default);
+  cursor: pointer;
+  transition: background-color var(--core-motion-duration-base, 150ms) ease, color var(--core-motion-duration-base, 150ms) ease;
+}
+
+.cds-accordion-trigger:hover:not(:disabled) {
+  background: var(--core-color-surface-sunken);
+}
+
+.cds-accordion-trigger:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: -2px;
+}
+
+.cds-accordion-chevron {
+  transition: transform var(--core-motion-duration-base, 200ms) cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--theme-neutral-text-subtleleast);
+  flex-shrink: 0;
+}
+
+.cds-accordion-trigger[aria-expanded="true"] {
+  color: var(--brand-text-primary-default);
+}
+
+.cds-accordion-trigger[aria-expanded="true"] .cds-accordion-chevron {
+  transform: rotate(180deg);
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-accordion-panel {
+  padding: var(--core-space-4);
+  font-size: var(--typography-body-md-size);
+  line-height: 1.65;
+  color: var(--theme-neutral-text-subtle);
+  background: var(--core-color-surface-default);
+}
+
+.cds-accordion-panel p {
+  margin: var(--core-space-0) var(--core-space-0) var(--core-space-3) var(--core-space-0);
+}
+
+.cds-accordion-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.cds-accordion-trigger:disabled {
+  cursor: not-allowed;
+  color: var(--theme-semantics-disabled-text);
+  opacity: 1;
+}
+
+.cds-accordion-trigger:disabled:hover {
+  background: transparent;
+}
+
+.cds-accordion-trigger:disabled .cds-accordion-chevron {
+  color: var(--theme-semantics-disabled-text);
+}
+
+/* Separated / Card variant */
+.cds-accordion--separated {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-3);
+}
+
+.cds-accordion--separated .cds-accordion-item {
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  overflow: hidden;
+  box-shadow: var(--core-elevation-1);
+}
+
+.cds-accordion--separated .cds-accordion-item+.cds-accordion-item {
+  border-top: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+/* Flush variant — no outer border/radius */
+.cds-accordion--flush {
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cds-accordion--flush .cds-accordion-item {
+  background: transparent;
+}
+
+.cds-accordion--flush .cds-accordion-trigger {
+}
+
+.cds-accordion--flush .cds-accordion-panel {
+  padding-bottom: var(--core-space-4);
+}
+
+/* Accordion nested inside a table cell (expandable row-detail pattern) */
+.cds-table-accordion-row td {
+  padding: var(--core-space-0) var(--core-space-4) !important;
+}
+
+/* ---------- Collapsible ---------- */
+.cds-collapsible {
+  width: 100%;
+}
+
+.cds-collapsible--card {
+  background: var(--core-color-surface-default);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  overflow: hidden;
+  box-shadow: var(--core-elevation-1);
+  transition: border-color var(--core-motion-duration-base, 150ms) ease;
+}
+
+.cds-collapsible--card:hover {
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-collapsible--bordered {
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  overflow: hidden;
+  background: transparent;
+}
+
+.cds-collapsible-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--core-space-3);
+  background: transparent;
+  border: none;
+  padding: var(--core-space-4);
+  text-align: left;
+  font-size: var(--typography-body-md-size);
+  font-weight: 600;
+  color: var(--theme-neutral-text-primary-default);
+  cursor: pointer;
+  transition: background-color var(--core-motion-duration-base, 150ms) ease, color var(--core-motion-duration-base, 150ms) ease;
+}
+
+.cds-collapsible-trigger:hover {
+  background: var(--core-color-surface-sunken);
+}
+
+.cds-collapsible--open .cds-collapsible-trigger {
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-collapsible-chevron {
+  transition: transform var(--core-motion-duration-base, 200ms) cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--theme-neutral-text-subtleleast);
+  flex-shrink: 0;
+}
+
+.cds-collapsible--open .cds-collapsible-chevron {
+  transform: rotate(180deg);
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-collapsible-content {
+  padding: var(--core-space-4);
+  font-size: var(--typography-body-md-size);
+  line-height: 1.65;
+  color: var(--theme-neutral-text-subtle);
+  border-top: 1px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+}
+
+/* Button variant */
+.cds-collapsible--button .cds-collapsible-trigger {
+  width: auto;
+  display: inline-flex;
+  border-radius: var(--core-radius-sm);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+  padding: var(--core-space-2) var(--core-space-4);
+  font-size: var(--typography-body-md-size);
+  box-shadow: var(--core-elevation-1);
+}
+
+.cds-collapsible--button .cds-collapsible-trigger:hover {
+  background: var(--core-color-surface-sunken);
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-collapsible--button .cds-collapsible-content {
+  margin-top: var(--core-space-3);
+  border-radius: var(--core-radius-sm);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+}
+
+/* Ghost / Inline variant */
+.cds-collapsible--ghost .cds-collapsible-trigger {
+  width: auto;
+  display: inline-flex;
+  padding: var(--core-space-2) var(--core-space-0);
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-collapsible--ghost .cds-collapsible-trigger:hover {
+  background: transparent;
+  color: var(--brand-text-primary-active);
+}
+
+.cds-collapsible--ghost .cds-collapsible-content {
+  padding: var(--core-space-3) var(--core-space-0);
+  border-top: none;
+  background: transparent;
+}
+
+.cds-separator {
+  border: none;
+  background: var(--theme-neutral-border-primary-default);
+}
+
+.cds-separator--h {
+  height: 1px;
+  width: 100%;
+  margin: var(--core-space-4) var(--core-space-0);
+}
+
+.cds-separator--v {
+  width: 1px;
+  align-self: stretch;
+  margin: var(--core-space-0) var(--core-space-3);
+}
+
+/* ---------- Skeleton ---------- */
+.cds-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--theme-colors-neutral-100);
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--theme-neutral-text-primary-default) 14%, transparent),
+    transparent
+  );
+  animation: cds-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+[data-mode="dark"] .cds-skeleton {
+  background: var(--theme-colors-neutral-800);
+}
+
+[data-mode="dark"] .cds-skeleton::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--theme-colors-neutral-0) 10%, transparent),
+    transparent
+  );
+}
+
+@keyframes cds-skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cds-skeleton::after {
+    animation: none;
+  }
+
+  .cds-skeleton {
+    opacity: 0.6;
+  }
+}
+
+/* ---------- Toggle / Toggle Group ---------- */
+.cds-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--core-space-2);
+  padding: var(--core-space-2) var(--core-space-3);
+  font-size: var(--typography-button-md-size);
+  line-height: var(--typography-button-md-line-height);
+  font-weight: var(--typography-button-md-weight);
+  letter-spacing: var(--typography-button-md-letter-spacing);
+  border-radius: var(--core-radius-sm);
+  border: 1px solid var(--brand-border-primary-default);
+  background: transparent;
+  color: var(--brand-text-primary-default);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease, color 120ms ease;
+}
+
+.cds-toggle--sm {
+  padding: var(--core-space-2) var(--core-space-3);
+  font-size: var(--typography-button-sm-size);
+  line-height: var(--typography-button-sm-line-height);
+  font-weight: var(--typography-button-sm-weight);
+  letter-spacing: var(--typography-button-sm-letter-spacing);
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-toggle--md {
+  font-size: var(--typography-button-md-size);
+  line-height: var(--typography-button-md-line-height);
+  font-weight: var(--typography-button-md-weight);
+  letter-spacing: var(--typography-button-md-letter-spacing);
+}
+
+.cds-toggle--lg {
+  padding: var(--core-space-3) var(--core-space-4);
+  font-size: var(--typography-button-lg-size);
+  line-height: var(--typography-button-lg-line-height);
+  font-weight: var(--typography-button-lg-weight);
+  letter-spacing: var(--typography-button-lg-letter-spacing);
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-toggle:hover:not(:disabled) {
+  background: var(--brand-background-primary-hover);
+  color: var(--theme-primitive-color-primary-100);
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-toggle:active:not(:disabled) {
+  background: var(--brand-background-primary-active);
+  color: var(--theme-primitive-color-primary-100);
+  border-color: var(--brand-background-primary-active);
+}
+
+.cds-toggle[aria-pressed="true"] {
+  background: var(--brand-background-primary-subtle);
+  border-color: var(--brand-border-primary-default);
+  color: var(--brand-text-primary-default);
+}
+
+.cds-toggle[aria-pressed="true"]:hover:not(:disabled) {
+  background: var(--brand-background-primary-hover);
+  color: var(--theme-primitive-color-primary-100);
+  border-color: var(--brand-border-primary-hover);
+}
+
+.cds-toggle:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: var(--core-focusRing-offset);
+}
+
+.cds-toggle:disabled,
+.cds-toggle[disabled] {
+  cursor: not-allowed;
+  opacity: 1;
+  background: var(--brand-background-primary-disabled-light);
+  color: var(--theme-neutral-text-subtleleast);
+  border-color: var(--theme-neutral-border-primary-default);
+}
+
+.cds-toggle:disabled[aria-pressed="true"],
+.cds-toggle[disabled][aria-pressed="true"] {
+  background: var(--theme-semantics-disabled-border);
+  color: var(--theme-neutral-text-subtleleast);
+  border-color: var(--theme-neutral-border-primary-default);
+}
+
+[data-mode="dark"] .cds-toggle:not(:hover):not(:active):not(:disabled):not([aria-pressed="true"]),
+[data-mode="dark"] .cds-toggle:focus-visible:not(:disabled):not([aria-pressed="true"]) {
+  color: var(--brand-text-primary-oncolor);
+}
+
+[data-mode="dark"] .cds-toggle[aria-pressed="true"]:not(:hover):not(:active):not(:disabled) {
+  color: var(--brand-text-primary-oncolor);
+}
+
+.cds-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-1);
+  padding: var(--core-space-1);
+  background: var(--core-color-surface-sunken);
+  border-radius: var(--core-radius-sm);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.cds-toggle-group__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-4);
+  border: none;
+  border-radius: var(--core-radius-sm);
+  background: transparent;
+  color: var(--theme-neutral-text-subtle);
+  font-size: var(--typography-button-md-size);
+  line-height: var(--typography-button-md-line-height);
+  font-weight: var(--typography-button-md-weight);
+  letter-spacing: var(--typography-button-md-letter-spacing);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.cds-toggle-group__item--sm {
+  gap: var(--core-space-2);
+  padding: var(--core-space-2) var(--core-space-3);
+  font-size: var(--typography-button-sm-size);
+  line-height: var(--typography-button-sm-line-height);
+  font-weight: var(--typography-button-sm-weight);
+  letter-spacing: var(--typography-button-sm-letter-spacing);
+}
+
+.cds-toggle-group__item--lg {
+  gap: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-4);
+  font-size: var(--typography-button-lg-size);
+  line-height: var(--typography-button-lg-line-height);
+  font-weight: var(--typography-button-lg-weight);
+  letter-spacing: var(--typography-button-lg-letter-spacing);
+}
+
+.cds-toggle-group__item:hover:not(:disabled):not([aria-pressed="true"]) {
+  color: var(--brand-text-primary-default);
+}
+
+.cds-toggle-group__item[aria-pressed="true"] {
+  background: var(--brand-background-primary-subtle);
+  color: var(--brand-text-primary-active);
+}
+
+.cds-toggle-group__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: var(--core-radius-sm);
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-toggle-group__item--sm .cds-toggle-group__icon {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-toggle-group__item--lg .cds-toggle-group__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-toggle-group__icon--selected {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+}
+
+.cds-toggle-group__item:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.cds-toggle-group__item[aria-pressed="true"]:focus-visible {
+  background: var(--brand-background-primary-subtle);
+  color: var(--brand-text-primary-active);
+}
+
+/* Disabled — unselected: grey, no fill */
+.cds-toggle-group__item:disabled:not([aria-pressed="true"]),
+.cds-toggle-group__item[disabled]:not([aria-pressed="true"]) {
+  cursor: not-allowed;
+  background: transparent;
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+.cds-toggle-group__item:disabled:not([aria-pressed="true"]) .cds-toggle-group__icon,
+.cds-toggle-group__item[disabled]:not([aria-pressed="true"]) .cds-toggle-group__icon {
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+/* Disabled — selected: faded blue fill (selection still visible) */
+.cds-toggle-group__item:disabled[aria-pressed="true"],
+.cds-toggle-group__item[disabled][aria-pressed="true"] {
+  cursor: not-allowed;
+  background: var(--brand-background-primary-subtle);
+  color: var(--brand-text-primary-disabled);
+}
+
+.cds-toggle-group__item:disabled[aria-pressed="true"] .cds-toggle-group__icon--selected,
+.cds-toggle-group__item[disabled][aria-pressed="true"] .cds-toggle-group__icon--selected {
+  background: var(--brand-background-primary-disabled);
+  color: var(--brand-text-primary-disabled);
+}
+
+.cds-toggle-group--disabled {
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+/* ---------- Input group (addon) / OTP ---------- */
+.cds-input-group {
+  display: flex;
+  align-items: stretch;
+}
+
+.cds-input-group-addon {
+  display: flex;
+  align-items: center;
+  padding: var(--core-space-0) var(--core-space-3);
+  background: var(--core-color-surface-sunken);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  color: var(--theme-neutral-text-subtle);
+  font-size: var(--typography-text14-regular-size);
+  line-height: var(--typography-text14-regular-line-height);
+  font-weight: var(--typography-text14-regular-weight);
+  letter-spacing: 0;
+  transition: border-color 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+.cds-input-group-addon:first-child {
+  border-right: none;
+  border-radius: var(--core-input-radius) 0 0 var(--core-input-radius);
+}
+
+.cds-input-group-addon:last-child {
+  border-left: none;
+  border-radius: 0 var(--core-input-radius) var(--core-input-radius) 0;
+}
+
+.cds-input-group .cds-input {
+  border-radius: 0;
+}
+
+.cds-input-group .cds-input-group-addon:first-child+.cds-input {
+  border-radius: 0 var(--core-input-radius) var(--core-input-radius) 0;
+}
+
+.cds-input-group .cds-input:has(+ .cds-input-group-addon:last-child) {
+  border-radius: var(--core-input-radius) 0 0 var(--core-input-radius);
+}
+
+.cds-input-group:has(.cds-input:hover:not(:disabled)) .cds-input-group-addon {
+  border-color: var(--theme-neutral-border-strong);
+}
+
+.cds-input-group .cds-input:focus,
+.cds-input-group .cds-input:focus-visible {
+  box-shadow: none;
+}
+
+.cds-input-group:focus-within {
+  border-radius: var(--core-input-radius);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
+.cds-input-group:focus-within .cds-input,
+.cds-input-group:focus-within .cds-input-group-addon {
+  border-color: var(--theme-primitive-color-primary-400);
+}
+
+.cds-input-group:has(.cds-input:disabled) .cds-input-group-addon {
+  background: var(--brand-background-primary-disabled-light);
+  color: var(--theme-neutral-text-subtleleast);
+  border-color: var(--theme-neutral-border-primary-default);
+  cursor: not-allowed;
+}
+
+/* ---------- Incremental selector ----------
+ * Reworked as a single unified control (one outer border/radius, internal
+ * 1px dividers between segments) instead of three independently-bordered
+ * segments whose grouping relied on a background-color difference between
+ * the buttons and the value cell — that background-only distinction broke
+ * down whenever a hover/focus token happened to coincide with its neighbor
+ * (e.g. surface-raised === surface-default in light mode). An explicit
+ * border-based divider can't disappear that way, matching how reference
+ * quantity steppers (Shopify Polaris, Ant InputNumber) build this control.
+ */
+.cds-incremental-selector {
+  display: inline-flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 160px;
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-input-radius);
+  background: var(--core-color-surface-default);
+  overflow: hidden;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.cds-incremental-selector__btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--theme-neutral-text-subtle);
+  font-size: var(--typography-text16-regular-size);
+  line-height: 1;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.cds-incremental-selector--sm .cds-incremental-selector__btn {
+  width: 34px;
+  min-height: 34px;
+  font-size: var(--typography-text14-regular-size);
+}
+
+.cds-incremental-selector--lg .cds-incremental-selector__btn {
+  width: 46px;
+  min-height: 46px;
+  font-size: var(--typography-text18-regular-size, 18px);
+}
+
+.cds-incremental-selector__btn--decrease {
+  border-right: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+.cds-incremental-selector__btn--increase {
+  border-left: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+.cds-incremental-selector__value {
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  appearance: none;
+  outline: none;
+  min-height: 40px;
+  padding: var(--core-space-0) var(--core-space-2);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--theme-neutral-text-primary-default);
+  font-family: inherit;
+  font-size: var(--typography-text14-regular-size);
+  line-height: var(--typography-text14-regular-line-height);
+  font-weight: var(--typography-text14-regular-weight);
+}
+
+.cds-incremental-selector__value:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.cds-incremental-selector--sm .cds-incremental-selector__value {
+  min-height: 34px;
+}
+
+.cds-incremental-selector--lg .cds-incremental-selector__value {
+  min-height: 46px;
+  font-size: var(--typography-text16-regular-size);
+  line-height: var(--typography-text16-regular-line-height);
+}
+
+.cds-incremental-selector:hover:not(:has(.cds-incremental-selector__btn:disabled)) {
+  border-color: var(--theme-neutral-border-strong);
+}
+
+/* Wash covers the whole button — visible against any surface in either
+   mode since it's mixed from the icon's own currentColor, not a fixed token. */
+.cds-incremental-selector__btn:hover:not(:disabled) {
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-incremental-selector__btn:active:not(:disabled) {
+  background: color-mix(in srgb, currentColor 24%, transparent);
+}
+
+.cds-incremental-selector:focus-within {
+  border-color: var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
+.cds-incremental-selector__btn:focus-visible {
+  outline: none;
+}
+
+.cds-incremental-selector__value:focus-visible {
+  outline: none;
+}
+
+.cds-incremental-selector--disabled,
+.cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) {
+  background: var(--theme-semantics-disabled-background);
+  border-color: var(--theme-semantics-disabled-border);
+}
+
+.cds-incremental-selector--disabled .cds-incremental-selector__btn--decrease,
+.cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) .cds-incremental-selector__btn--decrease {
+  border-right-color: var(--theme-semantics-disabled-border);
+}
+
+.cds-incremental-selector--disabled .cds-incremental-selector__btn--increase,
+.cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) .cds-incremental-selector__btn--increase {
+  border-left-color: var(--theme-semantics-disabled-border);
+}
+
+.cds-incremental-selector__btn:disabled {
+  color: var(--theme-semantics-disabled-text);
+  cursor: not-allowed;
+}
+
+.cds-incremental-selector--disabled .cds-incremental-selector__value,
+.cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) .cds-incremental-selector__value {
+  color: var(--theme-semantics-disabled-text);
+  cursor: not-allowed;
+}
+
+.cds-otp {
+  display: flex;
+  gap: var(--core-space-2);
+  align-items: center;
+}
+
+.cds-otp-digit {
+  width: 40px;
+  height: 44px;
+  text-align: center;
+  font-size: var(--core-font-size-lg, 20px);
+  font-weight: 600;
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-input-radius);
+  background: var(--core-color-surface-default);
+  color: var(--theme-neutral-text-primary-default);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.cds-otp-digit:hover:not(:disabled):not([aria-invalid="true"]) {
+  border-color: var(--core-input-borderHover);
+}
+
+.cds-otp-digit:focus-visible {
+  outline: none;
+  border-color: var(--core-input-borderFocus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--core-input-borderFocus) 25%, transparent);
+}
+
+/* Error state */
+.cds-otp-digit[aria-invalid="true"],
+.cds-otp-digit--error,
+.cds-otp--error .cds-otp-digit {
+  border-color: var(--theme-semantics-critical-border) !important;
+}
+
+.cds-otp-digit[aria-invalid="true"]:focus-visible,
+.cds-otp-digit--error:focus-visible,
+.cds-otp--error .cds-otp-digit:focus-visible {
+  outline: none;
+  border-color: var(--theme-semantics-critical-border) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-semantics-critical-border) 25%, transparent) !important;
+}
+
+/* Disabled state */
+.cds-otp-digit:disabled,
+.cds-otp--disabled .cds-otp-digit {
+  background: var(--brand-background-primary-disabled-light) !important;
+  color: var(--theme-semantics-disabled-text) !important;
+  border-color: var(--brand-border-primary-disabled) !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
+}
+
+/* ---------- Dropdown Menu ---------- */
+.cds-menu {
+  background: var(--core-color-surface-overlay);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  box-shadow: var(--core-elevation-3);
+  padding: var(--core-space-2);
+  min-width: 200px;
+}
+
+.cds-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  width: 100%;
+  padding: var(--core-space-2) var(--core-space-3);
+  border-radius: var(--core-radius-sm);
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: var(--typography-body-lg-size);
+  color: var(--theme-neutral-text-primary-default);
+  cursor: pointer;
+}
+
+.cds-menu-item:hover,
+.cds-menu-item:focus-visible {
+  background: var(--core-color-surface-raised);
+  outline: none;
+}
+
+.cds-menu-item--danger {
+  color: var(--theme-semantics-critical-strong-background);
+}
+
+.cds-menu-separator {
+  height: 1px;
+  background: var(--core-color-border-subtle);
+  margin: var(--core-space-2) var(--core-space-1);
+  border: none;
+}
+
+/* ---------- Slider ---------- */
+.cds-slider {
+  position: relative;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-3);
+  --cds-slider-track-height: 6px;
+  --cds-slider-track-fill: var(--brand-background-primary-strong);
+  --cds-slider-track-bg: var(--theme-colors-neutral-100);
+  --cds-slider-thumb-size: 18px;
+  --cds-slider-thumb-bg: var(--brand-background-primary-strong);
+  --cds-slider-thumb-border: var(--theme-colors-neutral-0);
+  --cds-slider-thumb-ring: var(--brand-background-primary-strong);
+}
+
+.cds-slider input[type="range"] {
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.cds-slider input[type="range"]::-webkit-slider-runnable-track {
+  height: var(--cds-slider-track-height);
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--cds-slider-track-fill) 0%,
+    var(--cds-slider-track-fill) var(--cds-slider-fill, 0%),
+    var(--cds-slider-track-bg) var(--cds-slider-fill, 0%),
+    var(--cds-slider-track-bg) 100%
+  );
+}
+
+.cds-slider input[type="range"]::-moz-range-track {
+  height: var(--cds-slider-track-height);
+  border-radius: 999px;
+  background: var(--cds-slider-track-bg);
+}
+
+.cds-slider input[type="range"]::-moz-range-progress {
+  height: var(--cds-slider-track-height);
+  border-radius: 999px;
+  background: var(--cds-slider-track-fill);
+}
+
+.cds-slider input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--cds-slider-thumb-size);
+  height: var(--cds-slider-thumb-size);
+  margin-top: calc((var(--cds-slider-track-height) - var(--cds-slider-thumb-size)) / 2);
+  border-radius: 50%;
+  background: var(--cds-slider-thumb-bg);
+  border: 2px solid var(--cds-slider-thumb-border);
+  box-shadow: 0 0 0 2px var(--cds-slider-thumb-ring);
+  cursor: pointer;
+  transition: box-shadow 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.cds-slider input[type="range"]::-moz-range-thumb {
+  width: var(--cds-slider-thumb-size);
+  height: var(--cds-slider-thumb-size);
+  border-radius: 50%;
+  background: var(--cds-slider-thumb-bg);
+  border: 2px solid var(--cds-slider-thumb-border);
+  box-shadow: 0 0 0 2px var(--cds-slider-thumb-ring);
+  cursor: pointer;
+  transition: box-shadow 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.cds-slider input[type="range"]:focus-visible {
+  outline: none;
+}
+
+.cds-slider--disabled,
+.cds-slider input[type="range"]:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+  --cds-slider-track-fill: var(--theme-colors-neutral-300);
+  --cds-slider-track-bg: var(--theme-semantics-disabled-background);
+  --cds-slider-thumb-bg: var(--theme-colors-neutral-300);
+  --cds-slider-thumb-ring: var(--theme-colors-neutral-300);
+}
+
+.cds-slider input[type="range"]:disabled::-webkit-slider-thumb,
+.cds-slider input[type="range"]:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
+
+.cds-slider--disabled .cds-slider-value {
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+.cds-slider-value {
+  font-size: var(--typography-text14-semibold-size);
+  line-height: var(--typography-text14-semibold-line-height);
+  font-weight: var(--typography-text14-semibold-weight);
+  letter-spacing: 0;
+  color: var(--theme-neutral-text-primary-default);
+  min-width: 40px;
+  text-align: right;
+}
+
+/* ---------- Button Group ---------- */
+.cds-btn-group {
+  display: inline-flex;
+}
+
+.cds-btn-group .cds-btn {
+  border-radius: 0;
+  margin-left: var(--core-space-0);
+}
+
+.cds-btn-group .cds-btn:first-child {
+  border-top-left-radius: var(--core-button-radius);
+  border-bottom-left-radius: var(--core-button-radius);
+  margin-left: 0;
+}
+
+.cds-btn-group .cds-btn:last-child {
+  border-top-right-radius: var(--core-button-radius);
+  border-bottom-right-radius: var(--core-button-radius);
+}
+
+.cds-btn-group .cds-btn:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Empty state ---------- */
+.cds-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: var(--core-space-4);
+  gap: var(--core-space-2);
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-empty-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--core-color-surface-sunken);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--core-space-3);
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+.cds-empty-title {
+  font-size: var(--typography-font-size-lg);
+  font-weight: 600;
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-empty-desc {
+  font-size: var(--typography-body-md-size);
+  max-width: 320px;
+}
+
+.cds-empty-action {
+  margin-top: var(--core-space-3);
+}
+
+/* ---------- Item (generic row primitive) ---------- */
+.cds-item {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-3);
+  border-bottom: 1px solid var(--core-color-border-subtle);
+}
+
+.cds-item:last-child {
+  border-bottom: none;
+}
+
+.cds-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.cds-item-title {
+  font-size: var(--typography-body-lg-size);
+  font-weight: 500;
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-item-desc {
+  font-size: var(--typography-body-md-size);
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-item-action {
+  flex-shrink: 0;
+}
+
+/* ---------- Hover Card ---------- */
+.cds-hovercard {
+  background: var(--core-color-surface-overlay);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  box-shadow: var(--core-elevation-3);
+  padding: var(--core-space-4) var(--core-space-4);
+  min-width: 240px;
+  font-size: var(--typography-body-md-size);
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-hovercard-title {
+  font-size: var(--typography-body-lg-size);
+  font-weight: 600;
+  color: var(--theme-neutral-text-primary-default);
+  margin-bottom: var(--core-space-1);
+}
+
+/* ---------- Combobox ---------- */
+.cds-combobox {
+  position: relative;
+}
+
+.cds-combobox-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-height: 220px;
+  overflow-y: auto;
+  background: var(--core-color-surface-overlay);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  box-shadow: var(--core-elevation-3);
+  padding: var(--core-space-1);
+}
+
+.cds-combobox-option {
+  padding: var(--core-space-2) var(--core-space-3);
+  border-radius: var(--core-radius-sm);
+  font-size: var(--typography-text14-regular-size);
+  line-height: var(--typography-text14-regular-line-height);
+  font-weight: var(--typography-text14-regular-weight);
+  letter-spacing: 0;
+  color: var(--theme-neutral-text-primary-default);
+  cursor: pointer;
+}
+
+.cds-combobox-option[aria-selected="true"] {
+  background: var(--brand-background-primary-subtle);
+  color: var(--brand-text-primary-default);
+}
+
+/*
+ * Highlight uses a brand-blue wash rather than --core-color-surface-raised:
+ * the list sits on --core-color-surface-overlay, and raised === overlay in
+ * both light (#FFFFFF/#FFFFFF) and dark (#2E2D38/#2E2D38) mode, so hover was
+ * rendering pixel-identical to the resting option — completely invisible in
+ * either mode. Mixing brand-text-primary-default into the overlay (same
+ * technique and same blue tone as Select's option highlight, rather than a
+ * neutral grey) keeps the two dropdown patterns visually consistent while
+ * guaranteeing a visible step in both modes.
+ */
+.cds-combobox-option:hover:not([aria-selected="true"]),
+.cds-combobox-option--active:not([aria-selected="true"]) {
+  background: color-mix(in srgb, var(--brand-text-primary-default) 18%, var(--core-color-surface-overlay));
+}
+
+.cds-combobox-empty {
+  padding: var(--core-space-3);
+  font-size: var(--typography-text14-regular-size);
+  line-height: var(--typography-text14-regular-line-height);
+  font-weight: var(--typography-text14-regular-weight);
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+/* ---------- Calendar / Date Picker ---------- */
+.cds-date-picker {
+  width: 100%;
+}
+
+.cds-date-picker > span {
+  display: block;
+  width: 100%;
+}
+
+.cds-date-picker .cds-input-affix-wrap:focus-within .cds-input,
+.cds-date-picker .cds-input:focus,
+.cds-date-picker .cds-input:focus-visible {
+  border-color: var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
+.cds-calendar {
+  width: 280px;
+}
+
+.cds-calendar--disabled {
+  pointer-events: none;
+}
+
+.cds-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--core-space-3) var(--core-space-1);
+}
+
+.cds-calendar-title {
+  font-size: var(--typography-body-lg-size);
+  font-weight: 600;
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-calendar-nav {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--core-radius-sm);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  background: var(--core-color-surface-default);
+  cursor: pointer;
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-calendar-nav:hover {
+  background: var(--core-color-surface-raised);
+}
+
+.cds-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--core-space-1);
+}
+
+.cds-calendar-weekday {
+  font-size: var(--typography-font-size-xs);
+  font-weight: 600;
+  text-align: center;
+  color: var(--theme-neutral-text-subtle);
+  padding: var(--core-space-1) var(--core-space-0);
+}
+
+.cds-calendar-day {
+  height: 32px;
+  border-radius: var(--core-radius-sm);
+  border: none;
+  background: transparent;
+  font-size: var(--typography-body-md-size);
+  color: var(--theme-neutral-text-primary-default);
+  cursor: pointer;
+}
+
+.cds-calendar-day:hover:not(:disabled):not([aria-pressed="true"]) {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.cds-calendar-day[aria-pressed="true"] {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+  font-weight: 600;
+}
+
+.cds-calendar-day:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 1px;
+}
+
+.cds-calendar-day:disabled {
+  color: var(--theme-semantics-disabled-text);
+  cursor: not-allowed;
+}
+
+.cds-calendar-day--outside {
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-calendar--disabled .cds-calendar-title,
+.cds-calendar--disabled .cds-calendar-nav,
+.cds-calendar--disabled .cds-calendar-weekday,
+.cds-calendar--disabled .cds-calendar-day {
+  color: var(--theme-semantics-disabled-text);
+}
+
+.cds-calendar--disabled .cds-calendar-day[aria-pressed="true"] {
+  background: var(--brand-background-primary-disabled);
+  color: var(--brand-text-primary-disabled);
+}
+
+.cds-calendar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-1);
+  border-top: 1px solid var(--theme-neutral-border-primary-default);
+}
+
+/* ---------- Data Table (sortable) ---------- */
+.cds-th-sortable {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-1);
+  cursor: pointer;
+  user-select: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.cds-th-sortable:hover {
+  color: var(--theme-neutral-text-primary-default);
+}
+
+/* Right-aligned numeric/currency headers: the header sits flush right like
+   its column's cells; the sort icon still trails the label on its right. */
+.cds-th-sortable--right {
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.cds-sort-icon {
+  flex-shrink: 0;
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-sort-icon--active {
+  color: var(--brand-text-primary-default);
+}
+
+.cds-table-truncate {
+  display: inline-block;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+/* ---------- Table: column content-type utilities ----------
+ * Composable classes for the content patterns a table cell commonly needs
+ * (linked value, secondary/subtext line, positive/negative financial
+ * delta, empty/N-A placeholder) — applied via a column's `render`, since
+ * the Table/DataTable column API deliberately stays data-shape-agnostic
+ * rather than growing a `type: "currency" | "link" | ...` enum per cell.
+ */
+.cds-table-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: var(--brand-text-primary-default);
+  font-weight: var(--typography-font-weight-semibold);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 2px;
+}
+
+.cds-table-link:hover {
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-table-link:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+  border-radius: var(--core-radius-xs);
+}
+
+.cds-table-secondary {
+  display: block;
+  margin-top: var(--core-space-1);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  color: var(--theme-neutral-text-subtle);
+  font-weight: 400;
+  white-space: normal;
+}
+
+.cds-table-numeric {
+  font-variant-numeric: tabular-nums;
+}
+
+.cds-table-positive {
+  color: var(--theme-semantics-success-text);
+  font-weight: var(--typography-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.cds-table-negative {
+  color: var(--theme-semantics-critical-text);
+  font-weight: var(--typography-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.cds-table-empty-value {
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+/* Grouped/multi-level headers and benchmark rows — hand-built with raw
+   table markup + these classes rather than through the Table/DataTable
+   component, which only renders a single flat header row and has no
+   concept of a paired "comparison" row; adding full colspan-header and
+   row-pairing support to the shared component would be a much larger
+   change than this one table needs. */
+.cds-table thead th[scope="colgroup"] {
+  text-align: center;
+  border-bottom: 1px solid var(--cds-table-border-color, var(--theme-neutral-border-subtle));
+}
+
+/* Vertical rules between every column — for dense, multi-level-header
+   tables (e.g. Benchmark/Comparison) where columns are otherwise hard to
+   tell apart at a glance. */
+.cds-table--divided th,
+.cds-table--divided td {
+  border-right: 1px solid var(--cds-table-border-color, var(--theme-neutral-border-subtle));
+}
+
+/* Only tbody rows reliably have one cell per real column — a rowSpan
+   header (e.g. a column spanning two header rows) means the second header
+   row's last <th> isn't actually the table's last column, so excluding
+   :last-child there would drop the divider before that rowSpan column
+   instead of after the table's true last column. */
+.cds-table--divided tbody td:last-child {
+  border-right: none;
+}
+
+.cds-table-row--benchmark td {
+  background: var(--core-color-surface-sunken);
+  color: var(--theme-neutral-text-subtle);
+  font-style: italic;
+}
+
+/* ---------- Attachment ---------- */
+.cds-dropzone {
+  border: 1.5px dashed var(--theme-neutral-border-strong);
+  border-radius: var(--core-radius-sm);
+  padding: var(--core-space-4);
+  text-align: center;
+  color: var(--theme-neutral-text-subtle);
+  font-size: var(--typography-body-md-size);
+  background: var(--core-color-surface-sunken);
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.cds-dropzone-trigger {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--brand-text-primary-default);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  border-radius: var(--core-radius-xs);
+}
+
+.cds-dropzone-trigger:hover:not(:disabled) {
+  color: var(--brand-text-primary-hover);
+}
+
+.cds-dropzone-trigger:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 2px;
+}
+
+.cds-dropzone-trigger:disabled {
+  cursor: not-allowed;
+}
+
+.cds-dropzone-icon {
+  font-size: var(--typography-font-size-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dropzone States. Border reuses each tone's *-text token, not *-border —
+   the dedicated border step is tuned for controls on the page canvas, but
+   here it sits against the dropzone's own light tinted fill and fell short
+   of 3:1 (WCAG 1.4.11) for error in light mode (2.89:1), with success right
+   at the 3.00:1 edge. The text token is already proven >=4.5:1 against this
+   same fill, so reusing it guarantees the border reads at least as well. */
+.cds-dropzone--success {
+  border-color: var(--theme-semantics-success-text) !important;
+  background: var(--theme-semantics-success-light-background) !important;
+  color: var(--theme-semantics-success-text) !important;
+}
+.cds-dropzone--success .cds-dropzone-trigger {
+  color: var(--theme-semantics-success-text) !important;
+}
+.cds-dropzone--success .cds-dropzone-hint {
+  color: var(--theme-semantics-success-text) !important;
+}
+
+.cds-dropzone--error {
+  border-color: var(--theme-semantics-critical-text) !important;
+  background: var(--theme-semantics-critical-light-background) !important;
+  color: var(--theme-semantics-critical-text) !important;
+}
+.cds-dropzone--error .cds-dropzone-trigger {
+  color: var(--theme-semantics-critical-text) !important;
+}
+.cds-dropzone--error .cds-dropzone-hint {
+  color: var(--theme-semantics-critical-text) !important;
+}
+
+.cds-dropzone--warning {
+  border-color: var(--theme-semantics-warning-text) !important;
+  background: var(--theme-semantics-warning-light-background) !important;
+  color: var(--theme-semantics-warning-text) !important;
+}
+.cds-dropzone--warning .cds-dropzone-trigger {
+  color: var(--theme-semantics-warning-text) !important;
+}
+.cds-dropzone--warning .cds-dropzone-hint {
+  color: var(--theme-semantics-warning-text) !important;
+}
+
+.cds-dropzone--disabled {
+  background: var(--theme-semantics-disabled-background) !important;
+  border-color: var(--theme-semantics-disabled-border) !important;
+  color: var(--theme-semantics-disabled-text) !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
+}
+.cds-dropzone--disabled .cds-dropzone-trigger {
+  color: var(--theme-semantics-disabled-text) !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+.cds-dropzone--disabled .cds-dropzone-hint {
+  color: var(--theme-semantics-disabled-text) !important;
+}
+
+.cds-attachment-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-2);
+  margin-top: var(--core-space-3);
+}
+
+.cds-attachment {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-3);
+  border: 1px solid var(--theme-neutral-border-primary-default);
+  border-radius: var(--core-radius-sm);
+  font-size: var(--typography-body-md-size);
+  background: var(--core-color-surface-default);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.cds-attachment-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--core-radius-sm);
+  background: var(--core-color-surface-sunken);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: var(--typography-font-size-xs);
+  font-weight: 700;
+  color: var(--theme-neutral-text-subtleleast);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.cds-attachment-name {
+  font-weight: 500;
+  color: var(--theme-neutral-text-primary-default);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cds-attachment-meta {
+  color: var(--theme-neutral-text-subtleleast);
+  font-size: var(--typography-font-size-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-1);
+}
+
+.cds-attachment-meta-sep {
+  color: var(--theme-neutral-text-subtleleast);
+  opacity: 0.6;
+}
+
+.cds-attachment-remove {
+  flex-shrink: 0;
+  margin-left: auto;
+  /* 24x24 CSS-pixel minimum target (WCAG 2.5.8) — was ~17x20 from font-size
+     + tight padding alone, under the minimum. */
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--theme-neutral-text-subtleleast);
+  cursor: pointer;
+  font-size: var(--typography-body-lg-size);
+  line-height: 1;
+  padding: 0;
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-attachment-remove:hover {
+  color: var(--theme-semantics-critical-strong-background);
+  background: var(--core-color-surface-raised);
+}
+
+.cds-attachment-remove:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 1px;
+}
+
+/* Attachment Item States */
+.cds-attachment--success {
+  border-color: var(--theme-semantics-success-border);
+  background: var(--theme-semantics-success-light-background);
+}
+.cds-attachment--success .cds-attachment-icon {
+  background: var(--theme-semantics-success-strong-background);
+  color: var(--theme-neutral-text-on-color);
+}
+.cds-attachment--success .cds-attachment-status {
+  color: var(--theme-semantics-success-text);
+  font-weight: 500;
+}
+
+.cds-attachment--error {
+  border-color: var(--theme-semantics-critical-border);
+  background: var(--theme-semantics-critical-light-background);
+}
+.cds-attachment--error .cds-attachment-icon {
+  background: var(--theme-semantics-critical-strong-background);
+  color: var(--theme-neutral-text-on-color);
+}
+.cds-attachment--error .cds-attachment-status {
+  color: var(--theme-semantics-critical-text);
+  font-weight: 500;
+}
+
+.cds-attachment--warning {
+  border-color: var(--theme-semantics-warning-border);
+  background: var(--theme-semantics-warning-light-background);
+}
+.cds-attachment--warning .cds-attachment-icon {
+  background: var(--theme-semantics-warning-strong-background);
+  color: var(--theme-neutral-text-on-color);
+}
+.cds-attachment--warning .cds-attachment-status {
+  color: var(--theme-semantics-warning-text);
+  font-weight: 500;
+}
+
+.cds-attachment--disabled {
+  background: var(--theme-semantics-disabled-background) !important;
+  border-color: var(--theme-semantics-disabled-border) !important;
+  color: var(--theme-semantics-disabled-text) !important;
+  cursor: not-allowed !important;
+}
+.cds-attachment--disabled .cds-attachment-icon {
+  background: var(--theme-semantics-disabled-background) !important;
+  color: var(--theme-semantics-disabled-text) !important;
+}
+.cds-attachment--disabled .cds-attachment-name {
+  color: var(--theme-semantics-disabled-text) !important;
+}
+.cds-attachment--disabled .cds-attachment-meta,
+.cds-attachment--disabled .cds-attachment-status {
+  color: var(--theme-semantics-disabled-text) !important;
+}
+.cds-attachment--disabled .cds-attachment-remove {
+  display: none;
+}
+
+.cds-attachment-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ---------- Navigation Menu / Sidebar (app shell) ---------- */
+.cds-navmenu {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-1);
+}
+
+.cds-navmenu-link {
+  padding: var(--core-space-2) var(--core-space-3);
+  border-radius: var(--core-radius-sm);
+  font-size: var(--typography-body-lg-size);
+  font-weight: 500;
+  color: var(--theme-neutral-text-subtle);
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.cds-navmenu-link:hover {
+  background: var(--core-color-surface-raised);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-navmenu-link[aria-current="page"] {
+  color: var(--brand-text-primary-default);
+  background: var(--brand-background-primary-subtle);
+}
+
+.cds-app-sidebar {
+  width: var(--core-layout-sidebar-width);
+  background: var(--core-color-surface-raised);
+  border-right: 1px solid var(--theme-neutral-border-primary-default);
+  padding: var(--core-space-4) var(--core-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-1);
+}
+
+/* Tablet range (sm–md, 576–767px): the full labeled shell sidebar collapses
+   to icon-only (rail width) rather than eating ~40% of the width. Labels
+   stay in the DOM (visually-hidden, not display:none) for screen readers.
+   The rail/panel variants are unaffected. */
+@media (min-width: 576px) and (max-width: 767px) {
+  .cds-app-sidebar:not(.cds-app-sidebar--panel):not(.cds-app-sidebar--rail) {
+    width: var(--core-layout-sidebar-railWidth);
+  }
+
+  .cds-app-sidebar:not(.cds-app-sidebar--panel):not(.cds-app-sidebar--rail) .cds-sidenav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .cds-app-sidebar:not(.cds-app-sidebar--panel):not(.cds-app-sidebar--rail) .cds-app-sidebar-link {
+    justify-content: center;
+  }
+}
+
+/* Phone range (below breakpoint.sm, 576px): the shell sidebar becomes a
+   fixed bottom tab bar — icon over a *visible* short label, row instead of
+   column, spanning the full width — matching the reference app's actual
+   mobile navigation pattern rather than a cramped vertical rail down the
+   side of a 360px screen. AppMain gets bottom padding so the last bit of
+   content isn't hidden behind the fixed bar (see .cds-app-main below). */
+@media (max-width: 575px) {
+  .cds-app-sidebar:not(.cds-app-sidebar--panel) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    border-right: none;
+    border-top: 1px solid var(--theme-neutral-border-primary-default);
+    padding: var(--core-space-2) var(--core-space-1);
+    padding-bottom: max(var(--core-space-2), env(safe-area-inset-bottom));
+    gap: 0;
+    box-shadow: var(--core-elevation-2);
+  }
+
+  .cds-app-sidebar:not(.cds-app-sidebar--panel) .cds-app-sidebar-link {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--core-space-1);
+    padding: var(--core-space-1);
+    font-size: var(--typography-font-size-xs);
+    text-align: center;
+  }
+
+  .cds-app-sidebar:not(.cds-app-sidebar--panel) .cds-sidenav-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  .cds-app-sidebar:not(.cds-app-sidebar--panel) .cds-sidenav-icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* Panel variant — the same nav list embedded inside a Card (e.g. a settings
+   page's Personal/Bank/Employment sub-nav) instead of the app shell: no fixed
+   width, no background/border of its own, sized to its container instead. */
+.cds-app-sidebar--panel {
+  width: auto;
+  background: var(--core-color-surface-raised);
+  border-right: none;
+  padding: 0;
+  gap: var(--core-space-1);
+}
+
+/* Rail variant — a compact icon-over-label rail: centered stacked items, a
+   left accent bar + tinted band marking the active item, no icon badge.
+   Same mode-aware tokens as the "shell" row layout (sidebar.item.*,
+   sidebar.rail.*), so it goes light/dark with the rest of the app — not a
+   fixed-dark chrome. */
+.cds-app-sidebar--rail {
+  width: var(--core-space-24);
+  background: var(--core-color-surface-raised);
+  border-right: 1px solid var(--theme-neutral-border-primary-default);
+  padding: var(--core-space-4) 0;
+  gap: var(--core-space-2);
+  align-items: stretch;
+}
+
+.cds-app-sidebar--rail .cds-app-sidebar-link {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  gap: var(--core-space-1);
+  padding: var(--core-space-3) var(--core-space-2);
+  border-radius: 0;
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+  letter-spacing: var(--typography-body-xs-letter-spacing);
+  font-weight: var(--typography-font-weight-semibold);
+  color: var(--theme-neutral-text-subtle);
+  box-shadow: inset 3px 0 0 0 transparent;
+  transition: color 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+.cds-app-sidebar--rail .cds-app-sidebar-link:hover:not(:disabled):not([aria-disabled="true"]) {
+  color: var(--brand-text-primary-default);
+  background: var(--brand-background-primary-subtle);
+  box-shadow: inset 3px 0 0 0 transparent;
+}
+
+.cds-app-sidebar--rail .cds-app-sidebar-link[aria-current="page"] {
+  background: var(--brand-background-primary-subtle);
+  color: var(--brand-text-primary-default);
+  box-shadow: inset 3px 0 0 0 var(--brand-background-primary-strong);
+  font-weight: var(--typography-font-weight-bold);
+}
+
+.cds-app-sidebar--rail .cds-app-sidebar-link:disabled,
+.cds-app-sidebar--rail .cds-app-sidebar-link[aria-disabled="true"] {
+  color: var(--theme-neutral-text-subtle-least);
+  cursor: not-allowed;
+  background: var(--brand-background-primary-disabled-light);
+  box-shadow: inset 3px 0 0 0 transparent;
+  pointer-events: none;
+}
+
+.cds-app-sidebar--rail .cds-app-sidebar-link:disabled .cds-sidenav-icon-plain,
+.cds-app-sidebar--rail .cds-app-sidebar-link[aria-disabled="true"] .cds-sidenav-icon-plain {
+  color: var(--theme-semantics-disabled-text);
+}
+
+.cds-app-sidebar--rail .cds-app-sidebar-link:focus-visible {
+  outline: var(--core-focusRing-width, 2px) solid var(--theme-primitive-color-primary-400);
+  outline-offset: -2px;
+}
+
+/* Sidebar nav item — an icon badge + label, with a tinted (not solid) pill for
+   the active row. This same pair of classes (cds-sidenav-item / cds-sidenav-icon)
+   is meant to be reused anywhere a vertical nav list needs this treatment (the
+   app-level AppSidebar and a settings-style sub-nav alike), so the two contexts
+   read as one system instead of two different navs. */
+.cds-app-sidebar-link,
+.cds-sidenav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-3);
+  padding: var(--core-space-2) var(--core-space-3);
+  border-radius: var(--core-sidebar-item-radius);
+  font-size: var(--typography-body-lg-size);
+  font-weight: 500;
+  color: var(--core-sidebar-item-text);
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.cds-app-sidebar-link:hover,
+.cds-sidenav-item:hover {
+  background: var(--core-sidebar-item-hoverBg);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-app-sidebar-link[aria-current="page"],
+.cds-sidenav-item[aria-current="page"],
+.cds-sidenav-item[data-active="true"] {
+  background: var(--core-sidebar-item-activeBg);
+  color: var(--core-sidebar-item-activeText);
+  font-weight: 600;
+}
+
+.cds-sidenav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--core-sidebar-icon-radius);
+  background: var(--core-sidebar-icon-bg);
+  color: var(--core-sidebar-icon-text);
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.cds-app-sidebar-link[aria-current="page"] .cds-sidenav-icon,
+.cds-sidenav-item[aria-current="page"] .cds-sidenav-icon,
+.cds-sidenav-item[data-active="true"] .cds-sidenav-icon {
+  background: var(--core-sidebar-icon-activeBg);
+  color: var(--core-sidebar-icon-activeText);
+}
+
+/*
+ * The shell/panel sidenav item never had a disabled treatment at all —
+ * only the rail variant did (.cds-app-sidebar--rail .cds-app-sidebar-link:disabled,
+ * further down). Reusing the same semantics-disabled-* tokens every other
+ * disabled control in this library uses.
+ */
+.cds-sidenav-item:disabled {
+  cursor: not-allowed;
+  color: var(--theme-semantics-disabled-text);
+  background: none;
+}
+
+.cds-sidenav-item:disabled .cds-sidenav-icon {
+  background: var(--theme-semantics-disabled-background);
+  color: var(--theme-semantics-disabled-text);
+}
+
+.cds-app-sidebar-link:focus-visible,
+.cds-sidenav-item:focus-visible {
+  outline: var(--core-focusRing-width, 2px) solid var(--theme-primitive-color-primary-400);
+  outline-offset: -2px;
+}
+
+.cds-sidenav-label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.cds-sidenav-sublabel {
+  font-size: var(--typography-font-size-xs);
+  font-weight: 400;
+  color: var(--theme-neutral-text-subtleleast);
+}
+
+/* Plain icon — no badge container, used by the rail variant: the icon is
+   large and colored by the item's own text color (currentColor), matching
+   the reference's icon-over-label rail rather than an icon-in-a-badge row. */
+.cds-sidenav-icon-plain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--core-size-icon-lg);
+  line-height: 1;
+  color: currentColor;
+}
+
+/* ---------- Icon (Font Awesome wrapper) ---------- */
+.cds-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.cds-icon--sm {
+  font-size: var(--core-size-icon-sm);
+  width: var(--core-size-icon-sm);
+  height: var(--core-size-icon-sm);
+}
+
+.cds-icon--md {
+  font-size: var(--core-size-icon-md);
+  width: var(--core-size-icon-md);
+  height: var(--core-size-icon-md);
+}
+
+.cds-icon--lg {
+  font-size: var(--core-size-icon-lg);
+  width: var(--core-size-icon-lg);
+  height: var(--core-size-icon-lg);
+}
+
+.cds-icon--interactive {
+  cursor: pointer;
+  border-radius: var(--core-radius-sm);
+}
+
+.cds-icon--interactive:hover {
+  background: var(--core-color-surface-raised);
+}
+
+.cds-icon--interactive:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: 1px;
+}
+
+/* ---------- Kbd ---------- */
+.cds-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: var(--core-space-0) var(--core-space-1);
+  border-radius: var(--core-radius-sm);
+  border: 1px solid var(--theme-neutral-border-strong);
+  border-bottom-width: 2px;
+  background: var(--core-color-surface-sunken);
+  color: var(--theme-neutral-text-subtle);
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-font-size-xs);
+  font-weight: 600;
+  box-shadow: 0 1px 0 var(--theme-neutral-border-primary-default);
+}
+
+/* ---------- Aspect Ratio ---------- */
+.cds-aspect-ratio {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.cds-aspect-ratio>* {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Input icon affix ---------- */
+.cds-input-affix-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cds-input-affix-wrap .cds-input {
+  width: 100%;
+}
+
+.cds-input-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--theme-neutral-text-subtleleast);
+  pointer-events: none;
+}
+
+.cds-input-affix-wrap:focus-within .cds-input {
+  border-color: var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
+.cds-input-affix-wrap:focus-within .cds-input-icon {
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-input-affix-wrap:has(.cds-input:hover:not(:disabled)) .cds-input-icon {
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-input-icon--leading {
+  left: 12px;
+}
+
+.cds-input-icon--trailing {
+  right: 12px;
+}
+
+/* Documented exception to the 16px spacing cap: this isn't decorative
+   spacing, it's the icon's functional clearance (icon inset 12px + 16px
+   icon + 4px gap = 32px) — capping it to 16px made input text run under
+   the icon. Flagged and confirmed with the design system owner. */
+.cds-input-affix-wrap .cds-input[data-has-leading="true"] {
+  padding-left: var(--core-space-8);
+}
+
+.cds-input-affix-wrap .cds-input[data-has-trailing="true"] {
+  padding-right: var(--core-space-8);
+}
+
+/* ---------- Toast manager (stacked, positioned) ---------- */
+.cds-toast-viewport {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--core-space-3);
+  pointer-events: none;
+  max-width: 360px;
+}
+
+.cds-toast-viewport .cds-toast {
+  pointer-events: auto;
+  animation: cds-toast-in 180ms ease;
+}
+
+@keyframes cds-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cds-toast-viewport .cds-toast {
+    animation: none;
+  }
+}
+
+/* ---------- Dropdown menu: submenu / checkbox / radio items ---------- */
+.cds-menu-item--check,
+.cds-menu-item--radio {
+  justify-content: space-between;
+}
+
+.cds-menu-item-check-mark {
+  width: 14px;
+  opacity: 0;
+}
+
+.cds-menu-item-check-mark[data-checked="true"] {
+  opacity: 1;
+}
+
+.cds-menu-submenu-trigger {
+  position: relative;
+}
+
+.cds-menu-submenu {
+  position: absolute;
+  left: 100%;
+  top: -6px;
+  margin-left: var(--core-space-1);
+}
+
+/* ---- Layout: App Shell + Grid (token-driven, no hardcoded px) ---- */
+.cds-app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--core-color-bg-page);
+  border-radius: var(--core-card-radius);
+  overflow: hidden;
+  border: 1px solid var(--core-color-border-subtle);
+}
+
+.cds-app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--core-space-4);
+  min-height: var(--core-layout-header-height);
+  padding: 0 var(--core-space-4);
+  background: var(--core-color-surface-raised);
+  border-bottom: 1px solid var(--core-color-border-subtle);
+  box-sizing: border-box;
+}
+
+.cds-app-header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  font-weight: 700;
+  font-size: var(--typography-font-size-lg);
+  color: var(--theme-neutral-text-primary-default);
+  min-width: 0;
+}
+
+.cds-app-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-4);
+  flex-shrink: 0;
+}
+
+.cds-app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+/* Deliberately undecorated: the AppShell's sidebar slot supplies layout only
+   (flex-shrink so it doesn't get squeezed). Every AppSidebar variant already
+   carries its own full chrome — background, border, padding — so adding any
+   here would double up with it (that was a real bug, fixed once already). */
+.cds-app-shell-sidebar {
+  flex-shrink: 0;
+}
+
+.cds-app-main {
+  flex: 1;
+  min-width: 0;
+  padding: var(--core-space-4);
+}
+
+/* Room for the fixed bottom tab bar the shell sidebar becomes on phones,
+   so the last bit of page content isn't hidden underneath it. */
+@media (max-width: 575px) {
+  .cds-app-body:has(> .cds-app-shell-sidebar > .cds-app-sidebar:not(.cds-app-sidebar--panel)) .cds-app-main {
+    padding-bottom: calc(var(--core-space-4) + var(--core-space-16) + env(safe-area-inset-bottom));
+  }
+}
+
+.cds-app-footer {
+  display: flex;
+  align-items: center;
+  min-height: var(--core-layout-footer-minHeight);
+  padding: var(--core-space-3) var(--core-space-4);
+  border-top: 1px solid var(--core-color-border-subtle);
+  font-size: var(--typography-font-size-xs);
+  color: var(--theme-neutral-text-subtle);
+  background: var(--core-color-surface-raised);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cds-app-footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: var(--core-space-2);
+}
+
+.cds-app-footer-links {
+  display: flex;
+  gap: var(--core-space-4);
+  flex-wrap: wrap;
+}
+
+.cds-app-footer-links a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cds-app-footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Container — Bootstrap's own breakpoint/max-width scale (container.maxWidth.*
+   primitives, resolved from the same breakpoint.* values as the grid below):
+   fluid (100%) until a breakpoint is reached, then clamped to that
+   breakpoint's max-width so line lengths stay readable on very wide screens.
+   CSS @media conditions can't reference custom properties, so the pixel
+   values below are literals — but they're required to match
+   packages/tokens/src/primitives.json's breakpoint/container scale exactly;
+   see the Layout & Grid foundations page for the single documented source. */
+.cds-container {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-left: var(--core-container-gutter);
+  padding-right: var(--core-container-gutter);
+}
+
+@media (min-width: 576px) {
+  .cds-container {
+    max-width: var(--core-container-maxWidth-sm);
+  }
+}
+
+@media (min-width: 768px) {
+  .cds-container {
+    max-width: var(--core-container-maxWidth-md);
+  }
+}
+
+@media (min-width: 992px) {
+  .cds-container {
+    max-width: var(--core-container-maxWidth-lg);
+  }
+}
+
+@media (min-width: 1200px) {
+  .cds-container {
+    max-width: var(--core-container-maxWidth-xl);
+  }
+}
+
+@media (min-width: 1400px) {
+  .cds-container {
+    max-width: var(--core-container-maxWidth-xxl);
+  }
+}
+
+.cds-container--fluid {
+  max-width: none !important;
+}
+
+.cds-grid {
+  display: grid;
+}
+
+.cds-grid--gap-2 {
+  gap: var(--core-space-2);
+}
+
+.cds-grid--gap-3 {
+  gap: var(--core-space-3);
+}
+
+.cds-grid--gap-4 {
+  gap: var(--core-space-4);
+}
+
+.cds-grid--gap-6 {
+  gap: var(--core-space-4);
+}
+
+.cds-grid--gap-8 {
+  gap: var(--core-space-4);
+}
+
+.cds-grid-col {
+  min-width: 0;
+}
+
+/* breakpoint.md (768px) — a GridCol's `spanMd` takes over from `span` here. */
+@media (min-width: 768px) {
+  .cds-grid-col {
+    grid-column: span var(--cds-grid-col-span-md, 12) !important;
+  }
+}
+
+/* ---------- Visually hidden (screen-reader only) ---------- */
+.cds-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: var(--core-space-0);
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Chart ---------- */
+.cds-chart {
+  margin: 0;
+}
+
+.cds-chart-title {
+  font-size: var(--typography-body-md-size);
+  font-weight: 600;
+  color: var(--theme-neutral-text-primary-default);
+  margin-bottom: var(--core-space-3);
+}
+
+.cds-chart-desc {
+  font-size: var(--typography-font-size-xs);
+  color: var(--theme-neutral-text-subtle);
+  margin: var(--core-space-2) 0 0;
+}
+
+.cds-chart .recharts-cartesian-axis-tick-value {
+  fill: var(--theme-neutral-text-subtle);
+}
+
+.cds-chart .recharts-legend-item-text {
+  fill: var(--theme-neutral-text-subtle) !important;
+  color: var(--theme-neutral-text-subtle);
+}
+
+/* ---------- Questionnaire ---------- */
+.cds-questionnaire {
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-4);
+  max-width: 480px;
+}
+
+.cds-questionnaire-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--core-space-4);
+}
+
+.cds-questionnaire-title {
+  font-weight: 700;
+  font-size: var(--typography-body-lg-size);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-questionnaire-count {
+  font-size: var(--typography-font-size-xs);
+  color: var(--theme-neutral-text-subtleleast);
+  white-space: nowrap;
+}
+
+.cds-questionnaire-body {
+  padding: var(--core-space-4) 0;
+}
+
+.cds-questionnaire-prompt {
+  font-size: var(--typography-font-size-lg);
+  font-weight: 700;
+  margin: 0 0 var(--core-space-2);
+  color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-questionnaire-desc {
+  font-size: var(--typography-body-md-size);
+  color: var(--theme-neutral-text-subtle);
+  margin: 0 0 var(--core-space-4);
+}
+
+.cds-questionnaire-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--core-space-2);
+}

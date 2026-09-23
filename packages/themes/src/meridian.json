@@ -1,0 +1,19 @@
+{
+  "id": "meridian",
+  "label": "Meridian (dummy client)",
+  "meta": {
+    "logoText": "Meridian",
+    "density": "comfortable",
+    "radiusScale": "soft",
+    "logo": "/brand/lendguard/logo-lockup-light.svg",
+    "logoOnDark": "/brand/lendguard/logo-lockup-dark.svg"
+  },
+  "overrides": {
+    "color.brand.50": "#F0F6FA", "color.brand.100": "#DCEBF3", "color.brand.200": "#B3D4E5",
+    "color.brand.300": "#86BAD6", "color.brand.400": "#4998C1", "color.brand.500": "#1B7EB2",
+    "color.brand.600": "#0270A9", "color.brand.700": "#025C8B", "color.brand.800": "#014A70",
+    "color.brand.900": "#013854", "color.brand.950": "#012639",
+    "font.family.base": "'Inclusive Sans', -apple-system, 'Segoe UI', sans-serif",
+    "radius.sm": "10px", "radius.md": "14px", "radius.lg": "18px", "radius.xl": "22px"
+  }
+}
