@@ -3,6 +3,8 @@ import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { ComponentStateMatrix, DEFAULT_MATRIX_STATES } from "../ComponentStateMatrix";
 import { Preview } from "../Preview";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
+import { AnatomySection } from "../AnatomySection";
+import { AttachmentAnatomy } from "../AttachmentAnatomy";
 import { Field, Input, InputWithIcon } from "../../../../packages/core/src/components/Field";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 import { Switch } from "../../../../packages/core/src/components/Misc";
@@ -82,6 +84,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       title: "Attachment",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<AttachmentAnatomy />}
+            demo={
           <Preview showModeToggle>
             <p style={{ margin: "0 0 16px", fontSize: "var(--typography-body-sm-size)", color: "var(--theme-neutral-text-subtle)" }}>
               File rows use the shared <strong style={{ color: "var(--theme-neutral-text-primary-default)" }}>Badge</strong> component — first file in each state uses <code>size=&quot;md&quot;</code>, second uses <code>size=&quot;sm&quot;</code>.
@@ -198,6 +203,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               </div>
             </div>
           </Preview>
+            }
+          />
         </div>
       )
     },

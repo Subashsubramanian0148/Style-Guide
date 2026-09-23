@@ -5,6 +5,8 @@ import { Alert } from "../../../../packages/core/src/components/Misc";
 import { Toast, Spinner } from "../../../../packages/core/src/components/Overlays";
 import { Empty } from "../../../../packages/core/src/components/Primitives";
 import { Button } from "../../../../packages/core/src/components/Button";
+import { AnatomySection } from "../AnatomySection";
+import { AlertAnatomy } from "../AlertAnatomy";
 
 export default function Feedback({ embedded = false }: { embedded?: boolean }) {
   const [dismissed, setDismissed] = React.useState<Set<string>>(new Set());
@@ -20,41 +22,46 @@ export default function Feedback({ embedded = false }: { embedded?: boolean }) {
       title: "Alert",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
-          <Preview showModeToggle>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "stretch", gap: 12, width: "100%" }}>
-            {!dismissed.has("success") && (
-              <Alert tone="success" title="Enrollment complete" onDismiss={() => dismiss("success")}>
-                You are contributing 6% starting next pay cycle.
-              </Alert>
-            )}
-            {!dismissed.has("warning") && (
-              <Alert tone="warning" title="Beneficiary missing" onDismiss={() => dismiss("warning")}>
-                Add a beneficiary to finish setting up your account.
-              </Alert>
-            )}
-            {!dismissed.has("danger") && (
-              <Alert tone="danger" title="Update failed" onDismiss={() => dismiss("danger")}>
-                We couldn't save your contribution change. Try again.
-              </Alert>
-            )}
-            {!dismissed.has("info") && (
-              <Alert tone="info" title="Scheduled maintenance" onDismiss={() => dismiss("info")}>
-                The portal will be unavailable Sunday 2–4am ET.
-              </Alert>
-            )}
-            {dismissed.size === 4 && (
-              <div style={{ textAlign: "center", padding: "12px 0" }}>
-                <button
-                  type="button"
-                  className="cds-btn cds-btn--secondary cds-btn--sm"
-                  onClick={resetAlerts}
-                >
-                  ↺ Reset alerts
-                </button>
-              </div>
-            )}
-            </div>
-          </Preview>
+          <AnatomySection
+            anatomy={<AlertAnatomy />}
+            demo={
+              <Preview showModeToggle>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "stretch", gap: 12, width: "100%" }}>
+                {!dismissed.has("success") && (
+                  <Alert tone="success" title="Enrollment complete" onDismiss={() => dismiss("success")}>
+                    You are contributing 6% starting next pay cycle.
+                  </Alert>
+                )}
+                {!dismissed.has("warning") && (
+                  <Alert tone="warning" title="Beneficiary missing" onDismiss={() => dismiss("warning")}>
+                    Add a beneficiary to finish setting up your account.
+                  </Alert>
+                )}
+                {!dismissed.has("danger") && (
+                  <Alert tone="danger" title="Update failed" onDismiss={() => dismiss("danger")}>
+                    We couldn't save your contribution change. Try again.
+                  </Alert>
+                )}
+                {!dismissed.has("info") && (
+                  <Alert tone="info" title="Scheduled maintenance" onDismiss={() => dismiss("info")}>
+                    The portal will be unavailable Sunday 2–4am ET.
+                  </Alert>
+                )}
+                {dismissed.size === 4 && (
+                  <div style={{ textAlign: "center", padding: "12px 0" }}>
+                    <button
+                      type="button"
+                      className="cds-btn cds-btn--secondary cds-btn--sm"
+                      onClick={resetAlerts}
+                    >
+                      ↺ Reset alerts
+                    </button>
+                  </div>
+                )}
+                </div>
+              </Preview>
+            }
+          />
         </div>
       ),
     },
