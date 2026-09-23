@@ -111,42 +111,147 @@ export function ButtonAnatomy() {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "flex-start" }}>
-      <AnatomyFrame>
-        <div ref={boxRef} style={{ position: "relative", marginTop: 40, marginLeft: 60, marginRight: 60, marginBottom: 12 }}>
-          <Button variant="primary" size="md">Medium</Button>
-          {btn && <VGapMark x={btn.x} y={btn.y} height={btn.height} value={12} color={GREEN} extendTo={btn.y - 30} bandInset="start" />}
-          {btn && <VGapMark x={btn.x + btn.width} y={btn.y} height={btn.height} value={12} color={GREEN} extendTo={btn.y - 30} bandInset="end" />}
-          {btn && <HTickMark x={btn.x} y={btn.y} width={btn.width} value={8} color={GREEN} extendTo={btn.x - 40} bandInset="start" />}
-          {btn && <HTickMark x={btn.x} y={btn.y + btn.height} width={btn.width} value={8} color={GREEN} extendTo={btn.x - 40} bandInset="end" />}
-        </div>
-      </AnatomyFrame>
+    <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+      <div>
+        <SectionHeading>Structure — shared by all variants &amp; states</SectionHeading>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "flex-start" }}>
+          <AnatomyFrame>
+            <div ref={boxRef} style={{ position: "relative", marginTop: 40, marginLeft: 60, marginRight: 60, marginBottom: 12 }}>
+              <Button variant="primary" size="md">Medium</Button>
+              {btn && <VGapMark x={btn.x} y={btn.y} height={btn.height} value={12} color={GREEN} extendTo={btn.y - 30} bandInset="start" />}
+              {btn && <VGapMark x={btn.x + btn.width} y={btn.y} height={btn.height} value={12} color={GREEN} extendTo={btn.y - 30} bandInset="end" />}
+              {btn && <HTickMark x={btn.x} y={btn.y} width={btn.width} value={8} color={GREEN} extendTo={btn.x - 40} bandInset="start" />}
+              {btn && <HTickMark x={btn.x} y={btn.y + btn.height} width={btn.width} value={8} color={GREEN} extendTo={btn.x - 40} bandInset="end" />}
+            </div>
+          </AnatomyFrame>
 
-      {spec && (
-        <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)" }}>
-          <thead>
-            <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.04em" }}>
-              <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>Property</th>
-              <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>Token</th>
-              <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>Value</th>
-              <th style={{ padding: "0 0 8px 0", fontWeight: 700 }}>Standards</th>
-            </tr>
-          </thead>
-          <tbody>
-            <SpecRow label="Size" token="core-size-control-md" value={`Medium · min-height ${spec.minHeight}`} standard="warn" note="40px < 44px touch-target guideline (fine for desktop)" />
-            <SpecRow label="Padding" token="core-space-2 / core-space-3" value={`${spec.paddingY} ${spec.paddingX}`} standard="pass" />
-            <SpecRow label="Icon gap" token="core-space-2" value={spec.gap} standard="pass" />
-            <SpecRow label="Font family" token="typography-font-family-sans" value={spec.fontFamily} standard="pass" />
-            <SpecRow label="Font size" token="typography-text14-semibold-size" value={spec.fontSize} standard="pass" />
-            <SpecRow label="Font weight" token="typography-text14-semibold-weight" value={spec.fontWeight} standard="warn" note="700 is Bold; “semibold” usually means 600" />
-            <SpecRow label="Line height" token="typography-text14-semibold-line-height" value={spec.lineHeight} standard="pass" />
-            <SpecRow label="Text color" token="brand-text-primary-oncolor" value={spec.color} swatch={spec.color} standard="pass" />
-            <SpecRow label="Background" token="brand-background-primary-strong" value={spec.background} swatch={spec.background} standard="pass" />
-            <SpecRow label="Border" token="brand-border-primary-default" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
-            <SpecRow label="Border radius" token="core-radius-sm" value={spec.borderRadius} standard="pass" />
-          </tbody>
-        </table>
-      )}
+          {spec && (
+            <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)" }}>
+              <thead>
+                <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                  <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>Property</th>
+                  <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>Token</th>
+                  <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>Value</th>
+                  <th style={{ padding: "0 0 8px 0", fontWeight: 700 }}>Standards</th>
+                </tr>
+              </thead>
+              <tbody>
+                <SpecRow label="Size" token="core-size-control-md" value={`Medium · min-height ${spec.minHeight}`} standard="warn" note="40px < 44px touch-target guideline (fine for desktop)" />
+                <SpecRow label="Padding" token="core-space-2 / core-space-3" value={`${spec.paddingY} ${spec.paddingX}`} standard="pass" />
+                <SpecRow label="Icon gap" token="core-space-2" value={spec.gap} standard="pass" />
+                <SpecRow label="Font family" token="typography-font-family-sans" value={spec.fontFamily} standard="pass" />
+                <SpecRow label="Font size" token="typography-text14-semibold-size" value={spec.fontSize} standard="pass" />
+                <SpecRow label="Font weight" token="typography-text14-semibold-weight" value={spec.fontWeight} standard="warn" note="700 is Bold; “semibold” usually means 600" />
+                <SpecRow label="Line height" token="typography-text14-semibold-line-height" value={spec.lineHeight} standard="pass" />
+                <SpecRow label="Text color" token="brand-text-primary-oncolor" value={spec.color} swatch={spec.color} standard="pass" />
+                <SpecRow label="Background" token="brand-background-primary-strong" value={spec.background} swatch={spec.background} standard="pass" />
+                <SpecRow label="Border" token="brand-border-primary-default" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
+                <SpecRow label="Border radius" token="core-radius-sm" value={spec.borderRadius} standard="pass" />
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <SectionHeading>Color tokens — what changes per variant &amp; state</SectionHeading>
+        <p style={{ margin: "0 0 16px", fontSize: "var(--typography-body-sm-size)", color: "var(--core-color-text-tertiary)" }}>
+          Only background / text / border change per cell — every structural spec above stays identical. Focused adds a{" "}
+          <code>core-focusRing-width</code> (2px) ring via <code>primitive-color-primary-400</code> on all variants (Tertiary uses a{" "}
+          <code>border-primary-default</code> outline instead).
+        </p>
+        <StateMatrix />
+      </div>
     </div>
+  );
+}
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ fontSize: "var(--typography-label-size)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)", marginBottom: 16 }}>
+      {children}
+    </div>
+  );
+}
+
+interface CellSpec {
+  bg: string;
+  text: string;
+  border: string;
+}
+
+const STATE_MATRIX: { state: string; primary: CellSpec; secondary: CellSpec; tertiary: CellSpec }[] = [
+  {
+    state: "Default",
+    primary: { bg: "background-primary-strong", text: "text-primary-oncolor", border: "border-primary-default" },
+    secondary: { bg: "transparent", text: "text-primary-on-surface", border: "border-primary-default" },
+    tertiary: { bg: "transparent", text: "text-primary-on-surface", border: "transparent" },
+  },
+  {
+    state: "Hover",
+    primary: { bg: "background-primary-hover", text: "(unchanged)", border: "border-primary-hover" },
+    secondary: { bg: "primary-strong · 12% wash", text: "text-primary-hover", border: "border-primary-hover" },
+    tertiary: { bg: "primary-strong · 8% wash", text: "text-primary-hover", border: "transparent · underline" },
+  },
+  {
+    state: "Active",
+    primary: { bg: "background-primary-active", text: "(unchanged)", border: "background-primary-active" },
+    secondary: { bg: "primary-strong · 24% wash", text: "text-primary-active", border: "border-primary-hover" },
+    tertiary: { bg: "primary-strong · 16% wash", text: "text-primary-active", border: "transparent · underline" },
+  },
+  {
+    state: "Focused",
+    primary: { bg: "(unchanged) + 2px ring", text: "(unchanged)", border: "primitive-color-primary-400" },
+    secondary: { bg: "(unchanged) + 2px ring", text: "(unchanged)", border: "primitive-color-primary-400" },
+    tertiary: { bg: "transparent", text: "text-primary-on-surface", border: "border-primary-default" },
+  },
+  {
+    state: "Disabled",
+    primary: { bg: "background-primary-disabled", text: "text-primary-disabled", border: "border-primary-disabled" },
+    secondary: { bg: "transparent", text: "semantics-disabled-text", border: "semantics-disabled-border" },
+    tertiary: { bg: "transparent", text: "semantics-disabled-text", border: "transparent" },
+  },
+];
+
+function MatrixCell({ spec }: { spec: CellSpec }) {
+  const line = (label: string, val: string) => (
+    <div style={{ display: "flex", gap: 6, fontSize: 12, lineHeight: 1.5 }}>
+      <span style={{ color: "var(--core-color-text-tertiary)", minWidth: 30 }}>{label}</span>
+      <span style={{ fontFamily: "var(--typography-font-family-mono, monospace)", color: "var(--core-color-text-secondary)" }}>{val}</span>
+    </div>
+  );
+  return (
+    <td style={{ padding: "10px 16px", borderTop: "1px solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
+      {line("bg", spec.bg)}
+      {line("text", spec.text)}
+      {line("border", spec.border)}
+    </td>
+  );
+}
+
+/** Compact matrix of the color-token deltas across the 3 variants × 5
+ *  states — the only things that change from the shared structure above. */
+function StateMatrix() {
+  return (
+    <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)" }}>
+      <thead>
+        <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.04em" }}>
+          <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>State</th>
+          <th style={{ padding: "0 16px 8px 16px", fontWeight: 700 }}>Primary</th>
+          <th style={{ padding: "0 16px 8px 16px", fontWeight: 700 }}>Secondary</th>
+          <th style={{ padding: "0 16px 8px 16px", fontWeight: 700 }}>Tertiary</th>
+        </tr>
+      </thead>
+      <tbody>
+        {STATE_MATRIX.map((row) => (
+          <tr key={row.state}>
+            <td style={{ padding: "10px 16px 10px 0", borderTop: "1px solid var(--core-color-border-subtle)", fontWeight: 600, color: "var(--core-color-text-primary)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
+            <MatrixCell spec={row.primary} />
+            <MatrixCell spec={row.secondary} />
+            <MatrixCell spec={row.tertiary} />
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
