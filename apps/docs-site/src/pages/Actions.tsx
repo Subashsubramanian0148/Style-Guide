@@ -5,6 +5,8 @@ import { Button, IconButton } from "../../../../packages/core/src/components/But
 import { ButtonMatrix } from "../ButtonMatrix";
 import { ComponentStateMatrix, DEFAULT_MATRIX_STATES } from "../ComponentStateMatrix";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
+import { AnatomySection } from "../AnatomySection";
+import { ButtonAnatomy } from "../ButtonAnatomy";
 
 const EditIcon = ({ size }: { size: "sm" | "md" | "lg" }) => {
   const px = size === "sm" ? 16 : size === "lg" ? 24 : 20;
@@ -21,7 +23,7 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
     {
       anchorId: "button",
       title: "Buttons",
-      content: <ButtonMatrix />,
+      content: <AnatomySection demo={<ButtonMatrix />} anatomy={<ButtonAnatomy />} />,
     },
     {
       anchorId: "icon-button",
