@@ -57,6 +57,60 @@ export function SpacingBand({ edge, size, color = PADDING_COLOR }: { edge: "top"
   }
 }
 
+/** Like `SpacingBand`, but for a padding region that doesn't span the whole
+ *  `AnatomyFrame` — e.g. a single row within a larger component (an
+ *  Accordion's trigger and panel each have their own 16px padding, at
+ *  different vertical offsets within the same frame). */
+export function RegionPadding({
+  x,
+  y,
+  width,
+  height,
+  size,
+  color = PADDING_COLOR,
+  edges = ["top", "right", "bottom", "left"],
+}: {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  size: number;
+  color?: string;
+  edges?: Array<"top" | "right" | "bottom" | "left">;
+}) {
+  const band: React.CSSProperties = { position: "absolute", background: fill(color), pointerEvents: "none", zIndex: 1 };
+  const badge: React.CSSProperties = { position: "absolute", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 2, pointerEvents: "none" };
+
+  return (
+    <>
+      {edges.includes("top") && (
+        <>
+          <div style={{ ...band, left: x, top: y, width, height: size }} />
+          <div style={{ ...badge, left: x + width / 2, top: y - 9, transform: "translateX(-50%)" }}>{size}</div>
+        </>
+      )}
+      {edges.includes("bottom") && (
+        <>
+          <div style={{ ...band, left: x, top: y + height - size, width, height: size }} />
+          <div style={{ ...badge, left: x + width / 2, top: y + height - 9, transform: "translateX(-50%)" }}>{size}</div>
+        </>
+      )}
+      {edges.includes("left") && (
+        <>
+          <div style={{ ...band, left: x, top: y, width: size, height }} />
+          <div style={{ ...badge, left: x - 9, top: y + height / 2, transform: "translateY(-50%)" }}>{size}</div>
+        </>
+      )}
+      {edges.includes("right") && (
+        <>
+          <div style={{ ...band, left: x + width - size, top: y, width: size, height }} />
+          <div style={{ ...badge, left: x + width - 9, top: y + height / 2, transform: "translateY(-50%)" }}>{size}</div>
+        </>
+      )}
+    </>
+  );
+}
+
 /** A solid-color band + numbered badge marking the gap between two elements,
  *  positioned at pixel coordinates measured from the live DOM. */
 export function GapBand({ x, y, width, height, color = GAP_COLOR }: { x: number; y: number; width: number; height: number; color?: string }) {
@@ -106,7 +160,21 @@ export function GapCallout({ x, width, value, color = CALLOUT_COLOR }: { x: numb
  *  frame, connected by a leader line — for a vertical gap called out
  *  separately from the main padding spec (e.g. the title-to-body gap in
  *  Alert). */
-export function HGapCallout({ y, width, height, value, color = DEFAULT_COLOR }: { y: number; width: number; height: number; value: number; color?: string }) {
+export function HGapCallout({
+  y,
+  width,
+  height,
+  value,
+  color = DEFAULT_COLOR,
+  side = "right",
+}: {
+  y: number;
+  width: number;
+  height: number;
+  value: number;
+  color?: string;
+  side?: "left" | "right";
+}) {
   if (height <= 0) return null;
   const badge: React.CSSProperties = { position: "absolute", top: y + height / 2, transform: "translateY(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" };
   const line: React.CSSProperties = { position: "absolute", top: y + height / 2, width: 34, height: 1, background: color, pointerEvents: "none", zIndex: 2 };
@@ -115,8 +183,17 @@ export function HGapCallout({ y, width, height, value, color = DEFAULT_COLOR }: 
     <>
       <div style={{ position: "absolute", left: 0, top: y, width, height, background: fill(color), pointerEvents: "none", zIndex: 1 }} />
 
-      <div style={{ ...line, left: width }} />
-      <div style={{ ...badge, left: width + 34 }}>{value}</div>
+      {side === "right" ? (
+        <>
+          <div style={{ ...line, left: width }} />
+          <div style={{ ...badge, left: width + 34 }}>{value}</div>
+        </>
+      ) : (
+        <>
+          <div style={{ ...line, left: -34 }} />
+          <div style={{ ...badge, left: -46 }}>{value}</div>
+        </>
+      )}
     </>
   );
 }

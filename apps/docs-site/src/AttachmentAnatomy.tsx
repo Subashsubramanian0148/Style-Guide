@@ -1,76 +1,163 @@
-import React from "react";
-import { PaddingRing, GapMark } from "./AnatomyPrimitives";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { Dropzone, AttachmentList } from "../../../packages/core/src/components/Attachment";
 import { Badge } from "../../../packages/core/src/components/Misc";
 import { Icon } from "../../../packages/core/src/components/Primitives";
+import { AnatomyFrame, SpacingBand, RegionPadding, AutoBand, GapCallout, HGapCallout } from "./AnatomyPrimitives";
+
+interface Region {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+interface RowGap {
+  y: number;
+  width: number;
+  height: number;
+}
+
+const CALLOUT_ORANGE = "#C2410C";
 
 /**
- * Spacing anatomy for the Attachment component, built from the live
- * Dropzone/AttachmentList/Badge components rather than a static screenshot —
- * values below are read directly from packages/core/src/styles/components.css
- * and packages/tokens/src/primitives.json, so they stay accurate as those
- * tokens change:
- *   .cds-dropzone        padding: core-space-4  (16px)
- *   .cds-attachment      padding: core-space-3  (12px), gap: core-space-3 (12px)
- *   .cds-attachment-meta gap: core-space-1      (4px)
- *   .cds-badge-size--sm  padding: core-space-1 core-space-2 (4px / 8px)
+ * Spacing anatomy for the Attachment "Success" state, measured from the live
+ * Dropzone/AttachmentList/Badge components. Padding/gap values (16, 12, 8,
+ * 6, 4) are fixed to the approved reference spec; positions are still
+ * located dynamically so the diagram tracks the live layout.
  */
 export function AttachmentAnatomy() {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [headerAuto, setHeaderAuto] = useState<Region | null>(null);
+  const [headerIconGap, setHeaderIconGap] = useState<{ x: number; width: number } | null>(null);
+  const [badgeRegion, setBadgeRegion] = useState<Region | null>(null);
+  const [dropzoneRegion, setDropzoneRegion] = useState<Region | null>(null);
+  const [dropzoneTextGap, setDropzoneTextGap] = useState<RowGap | null>(null);
+  const [headerToDropzoneGap, setHeaderToDropzoneGap] = useState<RowGap | null>(null);
+  const [dropzoneToListGap, setDropzoneToListGap] = useState<RowGap | null>(null);
+  const [rowGap, setRowGap] = useState<RowGap | null>(null);
+  const [firstRowRegion, setFirstRowRegion] = useState<Region | null>(null);
+
+  useLayoutEffect(() => {
+    const box = boxRef.current;
+    const headerIcon = box?.querySelector(".cds-attachment-anatomy-header .cds-icon") as HTMLElement | null;
+    const headerText = headerIcon?.nextSibling as ChildNode | null;
+    const headerRow = box?.querySelector(".cds-attachment-anatomy-header") as HTMLElement | null;
+    const badge = box?.querySelector(".cds-attachment-anatomy-header .cds-badge") as HTMLElement | null;
+    const dropzone = box?.querySelector(".cds-dropzone") as HTMLElement | null;
+    const dropzoneTitle = dropzone?.querySelector(".cds-dropzone-title") as HTMLElement | null;
+    const dropzoneHint = dropzone?.querySelector(".cds-dropzone-hint") as HTMLElement | null;
+    const list = box?.querySelector(".cds-attachment-list") as HTMLElement | null;
+    const rows = list ? (Array.from(list.querySelectorAll(".cds-attachment")) as HTMLElement[]) : [];
+    if (!box || !headerIcon || !headerText || !headerRow || !badge || !dropzone || !dropzoneTitle || !dropzoneHint || !list || rows.length < 2) return;
+
+    const boxRect = box.getBoundingClientRect();
+    const headerIconRect = headerIcon.getBoundingClientRect();
+    const headerRowRect = headerRow.getBoundingClientRect();
+    const badgeRect = badge.getBoundingClientRect();
+    const dropzoneRect = dropzone.getBoundingClientRect();
+    const dropzoneTitleRect = dropzoneTitle.getBoundingClientRect();
+    const dropzoneHintRect = dropzoneHint.getBoundingClientRect();
+    const row1Rect = rows[0].getBoundingClientRect();
+    const row2Rect = rows[1].getBoundingClientRect();
+
+    const headerTextRange = document.createRange();
+    headerTextRange.selectNodeContents(headerText);
+    const headerTextRect = headerTextRange.getBoundingClientRect();
+
+    setHeaderIconGap({
+      x: Math.round(headerIconRect.right - boxRect.left),
+      width: Math.round(headerTextRect.left - headerIconRect.right),
+    });
+    setHeaderAuto({
+      x: Math.round(headerTextRect.right - boxRect.left),
+      y: Math.round(headerTextRect.top - boxRect.top),
+      width: Math.round(badgeRect.left - headerTextRect.right),
+      height: Math.round(headerTextRect.height),
+    });
+    setBadgeRegion({
+      x: Math.round(badgeRect.left - boxRect.left),
+      y: Math.round(badgeRect.top - boxRect.top),
+      width: Math.round(badgeRect.width),
+      height: Math.round(badgeRect.height),
+    });
+    setDropzoneRegion({
+      x: Math.round(dropzoneRect.left - boxRect.left),
+      y: Math.round(dropzoneRect.top - boxRect.top),
+      width: Math.round(dropzoneRect.width),
+      height: Math.round(dropzoneRect.height),
+    });
+    setDropzoneTextGap({
+      y: Math.round(dropzoneTitleRect.bottom - boxRect.top),
+      width: Math.round(dropzoneRect.width),
+      height: Math.round(dropzoneHintRect.top - dropzoneTitleRect.bottom),
+    });
+    setHeaderToDropzoneGap({
+      y: Math.round(headerRowRect.bottom - boxRect.top),
+      width: Math.round(boxRect.width),
+      height: Math.round(dropzoneRect.top - headerRowRect.bottom),
+    });
+    setDropzoneToListGap({
+      y: Math.round(dropzoneRect.bottom - boxRect.top),
+      width: Math.round(boxRect.width),
+      height: Math.round(list.getBoundingClientRect().top - dropzoneRect.bottom),
+    });
+    setRowGap({
+      y: Math.round(row1Rect.bottom - boxRect.top),
+      width: Math.round(boxRect.width),
+      height: Math.round(row2Rect.top - row1Rect.bottom),
+    });
+    setFirstRowRegion({
+      x: Math.round(row1Rect.left - boxRect.left),
+      y: Math.round(row1Rect.top - boxRect.top),
+      width: Math.round(row1Rect.width),
+      height: Math.round(row1Rect.height),
+    });
+  }, []);
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 48, padding: "32px 24px" }}>
-      <div>
-        <p style={{ margin: "0 0 24px", fontSize: 13, fontWeight: 600, color: "var(--core-color-text-secondary)" }}>
-          Header — icon-to-label gap
-        </p>
-        <div style={{ position: "relative", display: "inline-flex" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-success-text)" }}>
+    <AnatomyFrame>
+      <div ref={boxRef} style={{ position: "relative", width: 918, display: "flex", flexDirection: "column", gap: 12, marginTop: 46, marginLeft: 50 }}>
+        <div
+          className="cds-attachment-anatomy-header"
+          style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
+        >
+          <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-success-text)" }}>
             <Icon name="fa-solid fa-circle-check" size="sm" />
             Success State
-          </div>
-          <GapMark value={6} style={{ top: -14, left: 20 }} />
-        </div>
-      </div>
-
-      <div>
-        <p style={{ margin: "0 0 24px", fontSize: 13, fontWeight: 600, color: "var(--core-color-text-secondary)" }}>
-          Badge — padding (sm)
-        </p>
-        <PaddingRing top={4} left={8}>
+          </span>
           <Badge tone="success" variant="soft" size="sm">Complete</Badge>
-        </PaddingRing>
-      </div>
+        </div>
 
-      <div>
-        <p style={{ margin: "0 0 24px", fontSize: 13, fontWeight: 600, color: "var(--core-color-text-secondary)" }}>
-          Status panel — padding
-        </p>
-        <PaddingRing top={16}>
-          <div style={{ minWidth: 320 }}>
-            <Dropzone
-              status="success"
-              icon={<Icon name="fa-solid fa-circle-check" size="md" color="var(--core-color-status-success-text)" />}
-              label={<span>File uploaded successfully, or <strong>browse more</strong></span>}
-              hint="All files passed security and format verification."
-            />
-          </div>
-        </PaddingRing>
-      </div>
+        <Dropzone
+          status="success"
+          icon={<Icon name="fa-solid fa-circle-check" size="md" color="var(--core-color-status-success-text)" />}
+          label={<span>File uploaded successfully, or <strong>browse more</strong></span>}
+          hint="All files passed security and format verification."
+        />
 
-      <div>
-        <p style={{ margin: "0 0 24px", fontSize: 13, fontWeight: 600, color: "var(--core-color-text-secondary)" }}>
-          File row — padding, internal gap, and meta separator gap
-        </p>
-        <PaddingRing top={12}>
-          <div style={{ minWidth: 360, position: "relative" }}>
-            <AttachmentList
-              files={[{ id: "a1", name: "beneficiary-form.pdf", size: "212 KB", status: "success", statusText: "Uploaded", badgeSize: "md" }]}
-              onRemove={() => {}}
-            />
-            <GapMark value={12} style={{ top: 8, left: 46 }} />
-            <GapMark value={4} style={{ bottom: -6, left: 78 }} />
-          </div>
-        </PaddingRing>
+        <AttachmentList
+          files={[
+            { id: "a1", name: "beneficiary-form.pdf", size: "212 KB", status: "success", statusText: "Uploaded", badgeSize: "md" },
+            { id: "a2", name: "voided-check.png", size: "480 KB", status: "success", statusText: "Verified", badgeSize: "sm" },
+          ]}
+          onRemove={() => {}}
+        />
+
+        {headerIconGap && <GapCallout x={headerIconGap.x} width={headerIconGap.width} value={6} />}
+        {headerAuto && <AutoBand x={headerAuto.x} y={headerAuto.y} width={headerAuto.width} height={headerAuto.height} />}
+        {badgeRegion && <RegionPadding x={badgeRegion.x} y={badgeRegion.y} width={badgeRegion.width} height={badgeRegion.height} size={4} edges={["top", "bottom"]} />}
+        {badgeRegion && <RegionPadding x={badgeRegion.x} y={badgeRegion.y} width={badgeRegion.width} height={badgeRegion.height} size={8} edges={["left", "right"]} />}
+
+        {headerToDropzoneGap && <HGapCallout y={headerToDropzoneGap.y} width={headerToDropzoneGap.width} height={headerToDropzoneGap.height} value={12} color={CALLOUT_ORANGE} side="left" />}
+
+        {dropzoneRegion && <RegionPadding x={dropzoneRegion.x} y={dropzoneRegion.y} width={dropzoneRegion.width} height={dropzoneRegion.height} size={16} />}
+        {dropzoneTextGap && <HGapCallout y={dropzoneTextGap.y} width={dropzoneTextGap.width} height={dropzoneTextGap.height} value={4} side="left" />}
+
+        {dropzoneToListGap && <HGapCallout y={dropzoneToListGap.y} width={dropzoneToListGap.width} height={dropzoneToListGap.height} value={12} color={CALLOUT_ORANGE} side="left" />}
+
+        {firstRowRegion && <RegionPadding x={firstRowRegion.x} y={firstRowRegion.y} width={firstRowRegion.width} height={firstRowRegion.height} size={12} />}
+        {rowGap && <HGapCallout y={rowGap.y} width={rowGap.width} height={rowGap.height} value={8} color={CALLOUT_ORANGE} side="left" />}
       </div>
-    </div>
+    </AnatomyFrame>
   );
 }

@@ -6,6 +6,8 @@ import {
   Separator,
   Skeleton,
 } from "../../../../packages/core/src/components/Disclosure";
+import { AnatomySection } from "../AnatomySection";
+import { AccordionAnatomy } from "../AccordionAnatomy";
 
 function AccordionVariantsDemo() {
   const [variant, setVariant] = useState<"bordered" | "separated" | "flush">("bordered");
@@ -118,7 +120,7 @@ export default function DisclosurePage({ embedded = false }: { embedded?: boolea
       anchorId: "accordion",
       title: "Accordion",
       content: (
-        <AccordionVariantsDemo />
+        <AnatomySection demo={<AccordionVariantsDemo />} anatomy={<AccordionAnatomy />} />
       ),
     },
     {
