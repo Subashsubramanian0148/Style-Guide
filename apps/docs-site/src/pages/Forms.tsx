@@ -8,6 +8,7 @@ import { AttachmentAnatomy } from "../AttachmentAnatomy";
 import { CheckboxRadioAnatomy } from "../CheckboxRadioAnatomy";
 import { ComboboxAnatomy } from "../ComboboxAnatomy";
 import { DatePickerAnatomy } from "../DatePickerAnatomy";
+import { InputIconAnatomy } from "../InputIconAnatomy";
 import { Field, Input, InputWithIcon } from "../../../../packages/core/src/components/Field";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 import { Switch } from "../../../../packages/core/src/components/Misc";
@@ -464,6 +465,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       anchorId: "input-icon",
       title: "Input with icon",
       content: (
+        <AnatomySection
+          anatomy={<InputIconAnatomy />}
+          demo={
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div className="site-panel site-panel--flush site-panel--demo">
             <Preview showModeToggle>
@@ -562,6 +566,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
             </Preview>
           </div>
         </div>
+          }
+        />
       )
     },
     {
