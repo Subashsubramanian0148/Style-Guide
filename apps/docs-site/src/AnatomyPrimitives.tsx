@@ -111,6 +111,21 @@ export function RegionPadding({
   );
 }
 
+/** A thin vertical tick + badge at its top, marking an internal flex gap
+ *  within a row (e.g. the icon-to-text, text-to-badge, and badge-to-remove
+ *  gaps inside an Attachment row) — unlike `GapCallout`, the badge sits at
+ *  the mark's own top rather than floating above the whole frame. */
+export function VGapMark({ x, y, height, value, color = PADDING_COLOR }: { x: number; y: number; height: number; value: number; color?: string }) {
+  return (
+    <>
+      <div style={{ position: "absolute", left: x, top: y, width: 1, height, background: color, zIndex: 2, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", left: x, top: y - 9, transform: "translateX(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
+        {value}
+      </div>
+    </>
+  );
+}
+
 /** A solid-color band + numbered badge marking the gap between two elements,
  *  positioned at pixel coordinates measured from the live DOM. */
 export function GapBand({ x, y, width, height, color = GAP_COLOR }: { x: number; y: number; width: number; height: number; color?: string }) {

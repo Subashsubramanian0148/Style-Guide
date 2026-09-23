@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import { Dropzone, AttachmentList } from "../../../packages/core/src/components/Attachment";
 import { Badge } from "../../../packages/core/src/components/Misc";
 import { Icon } from "../../../packages/core/src/components/Primitives";
-import { AnatomyFrame, SpacingBand, RegionPadding, AutoBand, GapCallout, HGapCallout } from "./AnatomyPrimitives";
+import { AnatomyFrame, SpacingBand, RegionPadding, AutoBand, GapCallout, HGapCallout, VGapMark } from "./AnatomyPrimitives";
 
 interface Region {
   x: number;
@@ -36,6 +36,7 @@ export function AttachmentAnatomy() {
   const [dropzoneToListGap, setDropzoneToListGap] = useState<RowGap | null>(null);
   const [rowGap, setRowGap] = useState<RowGap | null>(null);
   const [firstRowRegion, setFirstRowRegion] = useState<Region | null>(null);
+  const [rowInternalGaps, setRowInternalGaps] = useState<{ x: number; y: number; height: number }[] | null>(null);
 
   useLayoutEffect(() => {
     const box = boxRef.current;
@@ -112,6 +113,27 @@ export function AttachmentAnatomy() {
       width: Math.round(row1Rect.width),
       height: Math.round(row1Rect.height),
     });
+
+    const rowIcon = rows[0].querySelector(".cds-attachment-icon") as HTMLElement | null;
+    const rowBody = rows[0].querySelector(".cds-attachment-body") as HTMLElement | null;
+    const rowBadge = rows[0].querySelector(".cds-attachment-badge") as HTMLElement | null;
+    const rowRemove = rows[0].querySelector(".cds-attachment-remove") as HTMLElement | null;
+    if (rowIcon && rowBody && rowBadge) {
+      const rowIconRect = rowIcon.getBoundingClientRect();
+      const rowBodyRect = rowBody.getBoundingClientRect();
+      const rowBadgeRect = rowBadge.getBoundingClientRect();
+      const gapY = Math.round(row1Rect.top - boxRect.top);
+      const gapHeight = Math.round(row1Rect.height);
+      const gaps = [
+        { x: Math.round(rowIconRect.right - boxRect.left) + Math.round((rowBodyRect.left - rowIconRect.right) / 2), y: gapY, height: gapHeight },
+        { x: Math.round(rowBodyRect.right - boxRect.left) + Math.round((rowBadgeRect.left - rowBodyRect.right) / 2), y: gapY, height: gapHeight },
+      ];
+      if (rowRemove) {
+        const rowRemoveRect = rowRemove.getBoundingClientRect();
+        gaps.push({ x: Math.round(rowBadgeRect.right - boxRect.left) + Math.round((rowRemoveRect.left - rowBadgeRect.right) / 2), y: gapY, height: gapHeight });
+      }
+      setRowInternalGaps(gaps);
+    }
   }, []);
 
   return (
@@ -156,6 +178,7 @@ export function AttachmentAnatomy() {
         {dropzoneToListGap && <HGapCallout y={dropzoneToListGap.y} width={dropzoneToListGap.width} height={dropzoneToListGap.height} value={12} color={CALLOUT_ORANGE} side="left" />}
 
         {firstRowRegion && <RegionPadding x={firstRowRegion.x} y={firstRowRegion.y} width={firstRowRegion.width} height={firstRowRegion.height} size={12} />}
+        {rowInternalGaps?.map((g, i) => <VGapMark key={i} x={g.x} y={g.y} height={g.height} value={12} />)}
         {rowGap && <HGapCallout y={rowGap.y} width={rowGap.width} height={rowGap.height} value={8} color={CALLOUT_ORANGE} side="left" />}
       </div>
     </AnatomyFrame>
