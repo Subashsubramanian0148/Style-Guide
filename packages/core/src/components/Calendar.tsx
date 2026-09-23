@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Button } from "./Button";
 import { InputWithIcon } from "./Field";
 import { CalendarIcon } from "./Primitives";
 import { Popover } from "./Overlays";
@@ -143,22 +144,12 @@ export function Calendar({ selected, onSelect, onClear, minDate, maxDate, disabl
         })}
       </div>
       <div className="cds-calendar-footer">
-        <button
-          type="button"
-          className="cds-calendar-footer-btn"
-          disabled={disabled || !onClear}
-          onClick={onClear}
-        >
+        <Button type="button" variant="tertiary" size="sm" disabled={disabled || !onClear} onClick={onClear}>
           Clear
-        </button>
-        <button
-          type="button"
-          className="cds-calendar-footer-btn"
-          disabled={disabled}
-          onClick={goToToday}
-        >
+        </Button>
+        <Button type="button" variant="tertiary" size="sm" disabled={disabled} onClick={goToToday}>
           Today
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Badge, type BadgeSize } from "./Misc";
 
 export type DropzoneStatus = "default" | "success" | "error" | "warning";
 export type AttachmentStatus = "default" | "success" | "error" | "warning" | "disabled";
@@ -9,7 +10,22 @@ export interface AttachmentFile {
   size: string;
   status?: AttachmentStatus;
   statusText?: string;
+  /** Status pill uses the shared Badge component (`sm` | `md`). */
+  badgeSize?: BadgeSize;
   disabled?: boolean;
+}
+
+function attachmentBadgeTone(status: AttachmentStatus): "success" | "danger" | "warning" | "neutral" {
+  switch (status) {
+    case "success":
+      return "success";
+    case "error":
+      return "danger";
+    case "warning":
+      return "warning";
+    default:
+      return "neutral";
+  }
 }
 
 export interface DropzoneProps {
@@ -153,12 +169,15 @@ export function AttachmentList({
               </div>
             </div>
             {f.statusText && (
-              <span className={`cds-attachment-badge cds-attachment-badge--${status}`}>
-                {status === "success" && "✓ "}
-                {status === "error" && "✕ "}
-                {status === "warning" && "⚠ "}
+              <Badge
+                tone={attachmentBadgeTone(status)}
+                variant="soft"
+                size={f.badgeSize ?? "md"}
+                disabled={status === "disabled"}
+                className="cds-attachment-badge"
+              >
                 {f.statusText}
-              </span>
+              </Badge>
             )}
             {!itemDisabled && onRemove && (
               <button

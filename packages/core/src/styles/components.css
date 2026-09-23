@@ -762,8 +762,10 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid color-mix(in srgb, var(--theme-primitive-color-primary-500) 25%, transparent);
-  border-top-color: var(--theme-primitive-color-primary-500);
+  --cds-spinner-track: color-mix(in srgb, var(--core-color-text-primary) 32%, transparent);
+  --cds-spinner-active: var(--brand-text-primary-default, var(--theme-primitive-color-primary-500));
+  border: 2px solid var(--cds-spinner-track);
+  border-top-color: var(--cds-spinner-active);
   animation: cds-spin 700ms linear infinite;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -839,14 +841,30 @@
 
 .cds-stepper-mobile-track {
   display: flex;
+  gap: var(--core-space-2);
+}
+
+.cds-stepper-mobile-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: var(--core-space-1);
+  min-width: 0;
 }
 
 .cds-stepper-mobile-segment {
-  flex: 1;
+  width: 100%;
   height: 4px;
   border-radius: 999px;
-  background: var(--theme-neutral-border-primary-default);
+  background: color-mix(in srgb, var(--core-color-text-primary) 20%, transparent);
+}
+
+.cds-stepper-mobile-step-label {
+  font-size: var(--typography-font-size-xs);
+  font-weight: 600;
+  color: var(--theme-neutral-text-subtle);
+  line-height: 1;
 }
 
 .cds-stepper-mobile-segment--completed {
@@ -854,7 +872,7 @@
 }
 
 .cds-stepper-mobile-segment--in-progress {
-  background: var(--brand-background-primary-strong);
+  background: var(--brand-text-primary-default, var(--brand-background-primary-strong));
 }
 
 .cds-stepper-mobile-segment--warning {
@@ -1768,7 +1786,7 @@
 
 .cds-select {
   height: var(--core-size-control-md);
-  padding: var(--core-space-0) var(--core-space-8) var(--core-space-0) var(--core-space-3);
+  padding: var(--core-space-0) var(--core-space-4);
   width: 100%;
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-primary-default);
@@ -1783,13 +1801,13 @@
 .cds-select--sm {
   height: var(--core-size-control-sm);
   font-size: var(--typography-body-md-size);
-  padding: var(--core-space-0) var(--core-space-8) var(--core-space-0) var(--core-space-3);
+  padding: var(--core-space-0) var(--core-space-4);
 }
 
 .cds-select--lg {
   height: var(--core-size-control-lg);
   font-size: var(--typography-font-size-lg);
-  padding: var(--core-space-0) var(--core-space-8) var(--core-space-0) var(--core-space-4);
+  padding: var(--core-space-0) var(--core-space-4);
 }
 
 .cds-select:hover:not(:disabled):not([aria-disabled="true"]),
@@ -2257,6 +2275,8 @@
      without depending on a semantic border step that may or may not
      actually be lighter. */
   --cds-table-border-color: color-mix(in srgb, var(--core-color-text-primary) 12%, var(--core-color-surface-default));
+  --cds-table-scrollbar-track: color-mix(in srgb, var(--core-color-text-primary) 14%, var(--core-color-surface-default));
+  --cds-table-scrollbar-thumb: color-mix(in srgb, var(--core-color-text-primary) 45%, transparent);
   overflow-x: auto;
   border: 1px solid var(--cds-table-border-color);
   border-radius: var(--core-radius-sm);
@@ -2267,6 +2287,57 @@
      wrap actually shrink to the available space and take over scrolling. */
   min-width: 0;
   max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cds-table-scrollbar-thumb) var(--cds-table-scrollbar-track);
+}
+
+/* When content overflows, force a persistent horizontal scrollbar (not overlay-only). */
+.cds-table-wrap--scrollable {
+  overflow-x: scroll;
+  scrollbar-width: auto;
+  -ms-overflow-style: scrollbar;
+  padding-bottom: var(--core-space-1);
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar {
+  height: 12px;
+  -webkit-appearance: none;
+  background: var(--cds-table-scrollbar-track);
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar-track {
+  background: var(--cds-table-scrollbar-track);
+  border-radius: var(--core-radius-full);
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar-thumb {
+  background: var(--cds-table-scrollbar-thumb);
+  border-radius: var(--core-radius-full);
+  border: 2px solid var(--cds-table-scrollbar-track);
+  min-width: 48px;
+}
+
+.cds-table-wrap--scrollable::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--core-color-text-primary) 58%, transparent);
+}
+
+.cds-table-wrap::-webkit-scrollbar {
+  height: 10px;
+}
+
+.cds-table-wrap::-webkit-scrollbar-track {
+  background: var(--cds-table-scrollbar-track);
+  border-radius: var(--core-radius-full);
+}
+
+.cds-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--cds-table-scrollbar-thumb);
+  border-radius: var(--core-radius-full);
+  border: 2px solid var(--cds-table-scrollbar-track);
+}
+
+.cds-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--core-color-text-primary) 58%, transparent);
 }
 
 .cds-table {
@@ -2651,7 +2722,7 @@
 }
 
 .cds-tab {
-  padding: var(--core-space-3) var(--core-space-1);
+  padding: var(--core-space-3) var(--core-space-3);
   margin-right: var(--core-space-4);
   background: none;
   border: none;
@@ -2716,7 +2787,7 @@
 .cds-tab--vertical {
   margin-right: 0;
   margin-bottom: 0;
-  padding: var(--core-space-2) var(--core-space-4) var(--core-space-2) var(--core-space-3);
+  padding: var(--core-space-2) var(--core-space-4);
   text-align: left;
   border-bottom: none;
   border-right: 3px solid transparent;
@@ -2942,8 +3013,10 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 2px solid var(--theme-neutral-border-primary-default);
-  border-top-color: var(--core-color-action-primary-bg);
+  --cds-spinner-track: color-mix(in srgb, var(--core-color-text-primary) 32%, transparent);
+  --cds-spinner-active: var(--brand-text-primary-default, var(--core-color-action-primary-bg));
+  border: 2px solid var(--cds-spinner-track);
+  border-top-color: var(--cds-spinner-active);
   animation: cds-spin 700ms linear infinite;
 }
 
@@ -3178,7 +3251,7 @@
 }
 
 .cds-accordion-panel {
-  padding: var(--core-space-2) var(--core-space-4) var(--core-space-4) var(--core-space-4);
+  padding: var(--core-space-4);
   font-size: var(--typography-body-md-size);
   line-height: 1.65;
   color: var(--theme-neutral-text-subtle);
@@ -3360,7 +3433,7 @@
 }
 
 .cds-collapsible--ghost .cds-collapsible-content {
-  padding: var(--core-space-2) var(--core-space-0) var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-0);
   border-top: none;
   background: transparent;
 }
@@ -4152,7 +4225,7 @@
   display: flex;
   align-items: center;
   gap: var(--core-space-3);
-  padding: var(--core-space-3) var(--core-space-1);
+  padding: var(--core-space-3) var(--core-space-3);
   border-bottom: 1px solid var(--core-color-border-subtle);
 }
 
@@ -4287,7 +4360,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--core-space-1) var(--core-space-1) var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-1);
 }
 
 .cds-calendar-title {
@@ -4375,35 +4448,8 @@
   align-items: center;
   justify-content: space-between;
   margin-top: var(--core-space-3);
-  padding-top: var(--core-space-3);
+  padding: var(--core-space-3) var(--core-space-1);
   border-top: 1px solid var(--theme-neutral-border-primary-default);
-}
-
-.cds-calendar-footer-btn {
-  border: none;
-  background: none;
-  padding: var(--core-space-1) var(--core-space-1);
-  font-size: var(--typography-body-md-size);
-  font-weight: 600;
-  color: var(--brand-text-primary-default);
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.cds-calendar-footer-btn:hover:not(:disabled) {
-  color: var(--brand-text-primary-hover, var(--brand-text-primary-default));
-}
-
-.cds-calendar-footer-btn:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
-  outline-offset: 2px;
-  border-radius: var(--core-radius-xs);
-}
-
-.cds-calendar-footer-btn:disabled {
-  color: var(--theme-semantics-disabled-text);
-  cursor: not-allowed;
-  text-decoration: none;
 }
 
 /* ---------- Data Table (sortable) ---------- */
@@ -4793,42 +4839,9 @@
   display: none;
 }
 
-/* Attachment Badge */
 .cds-attachment-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--core-space-1);
-  padding: var(--core-space-1) var(--core-space-2);
-  border-radius: var(--core-radius-sm);
-  font-size: var(--typography-font-size-xs);
-  font-weight: 600;
-  line-height: 1.4;
   margin-left: auto;
   flex-shrink: 0;
-}
-
-.cds-attachment-badge--success {
-  background: var(--theme-semantics-success-light-background);
-  color: var(--theme-semantics-success-text);
-  border: 1px solid var(--theme-semantics-success-border);
-}
-
-.cds-attachment-badge--error {
-  background: var(--theme-semantics-critical-light-background);
-  color: var(--theme-semantics-critical-text);
-  border: 1px solid var(--theme-semantics-critical-border);
-}
-
-.cds-attachment-badge--warning {
-  background: var(--theme-semantics-warning-light-background);
-  color: var(--theme-semantics-warning-text);
-  border: 1px solid var(--theme-semantics-warning-border);
-}
-
-.cds-attachment-badge--disabled {
-  background: var(--theme-semantics-disabled-background);
-  color: var(--theme-semantics-disabled-text);
-  border: 1px solid var(--theme-semantics-disabled-border);
 }
 
 /* ---------- Navigation Menu / Sidebar (app shell) ---------- */

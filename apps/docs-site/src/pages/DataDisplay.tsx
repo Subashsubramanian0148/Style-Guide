@@ -3,7 +3,7 @@ import { Preview, CodeBlock } from "../Preview";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
 import { Card, Badge, BadgeTone, BadgeSize } from "../../../../packages/core/src/components/Misc";
-import { Table, DataTable, Avatar, AvatarGroup, Progress } from "../../../../packages/core/src/components/DataDisplay";
+import { Table, DataTable, TableScrollWrap, Avatar, AvatarGroup, Progress } from "../../../../packages/core/src/components/DataDisplay";
 import { AVATAR_JORDAN, AVATAR_SAM, AVATAR_SAMPLES } from "../avatarSamples";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 const rows = [
@@ -322,7 +322,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
                     <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>
                       Benchmark / Comparison Table
                     </div>
-                    <div className="cds-table-wrap">
+                    <TableScrollWrap className="cds-table-wrap">
                       <table className="cds-table cds-table--divided" data-zebra="false">
                         <thead>
                           <tr>
@@ -363,7 +363,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
                           ))}
                         </tbody>
                       </table>
-                    </div>
+                    </TableScrollWrap>
                   </div>
 
                   <div>
@@ -396,7 +396,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
             </div>
             <div className="site-panel site-panel--flush site-panel--demo">
               <Preview showModeToggle>
-                <div className="cds-table-wrap">
+                <TableScrollWrap className="cds-table-wrap">
                   <table className="cds-table">
                     <thead>
                       <tr>
@@ -428,7 +428,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
                       </tr>
                     </tbody>
                   </table>
-                </div>
+                </TableScrollWrap>
               </Preview>
             </div>
           </div>

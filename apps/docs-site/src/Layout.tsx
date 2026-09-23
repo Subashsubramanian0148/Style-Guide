@@ -254,8 +254,11 @@ function LayoutInner() {
     // ([data-site-mode] on <html>, driven by useSiteMode() below) — that's a
     // separate --site-* variable system for the docs UI itself.
     <div className="site-shell" data-theme="core" data-mode={mode}>
+      <a href="#main-content" className="site-skip-link">
+        Skip to main content
+      </a>
       <GlobalPreviewModeToggle />
-      <aside className="site-sidebar" ref={sidebarRef}>
+      <aside className="site-sidebar" ref={sidebarRef} aria-label="Site navigation">
         <div className="site-logo" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 6, padding: "8px 12px 20px" }}>
           <CoreLogo size={22} />
           <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, color: "var(--site-text-dim)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
@@ -298,7 +301,12 @@ function LayoutInner() {
           </div>
         )}
       </aside>
-      <div className="site-main" style={location.pathname === "/" || location.pathname === "/components" ? { backgroundColor: "var(--site-bg-elevated)" } : undefined}>
+      <main
+        id="main-content"
+        className="site-main"
+        tabIndex={-1}
+        style={location.pathname === "/" || location.pathname === "/components" ? { backgroundColor: "var(--site-bg-elevated)" } : undefined}
+      >
         <div className="site-content" style={location.pathname === "/" || location.pathname === "/components" ? { maxWidth: "100%", padding: 0, backgroundColor: "var(--site-bg-elevated)" } : undefined}>
           <Outlet />
         </div>
@@ -315,7 +323,7 @@ function LayoutInner() {
             </div>
           </div>
         </footer>
-      </div>
+      </main>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
+import { ComponentStateMatrix, DEFAULT_MATRIX_STATES } from "../ComponentStateMatrix";
 import { Preview } from "../Preview";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
 import { Field, Input, InputWithIcon } from "../../../../packages/core/src/components/Field";
@@ -11,6 +12,8 @@ import { Slider } from "../../../../packages/core/src/components/Primitives";
 import { Combobox } from "../../../../packages/core/src/components/Combobox";
 import { Calendar, DatePicker } from "../../../../packages/core/src/components/Calendar";
 import { Dropzone, AttachmentList, AttachmentFile } from "../../../../packages/core/src/components/Attachment";
+import { Badge } from "../../../../packages/core/src/components/Misc";
+import { Button } from "../../../../packages/core/src/components/Button";
 
 const employers = [
   { value: "acme", label: "Acme Corporation" },
@@ -80,6 +83,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
+            <p style={{ margin: "0 0 16px", fontSize: "var(--typography-body-sm-size)", color: "var(--theme-neutral-text-subtle)" }}>
+              File rows use the shared <strong style={{ color: "var(--theme-neutral-text-primary-default)" }}>Badge</strong> component — first file in each state uses <code>size=&quot;md&quot;</code>, second uses <code>size=&quot;sm&quot;</code>.
+            </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))", gap: 32, width: "100%" }}>
               {/* Default State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -106,9 +112,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                   <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-success-text)", display: "flex", alignItems: "center", gap: 6 }}>
                     <Icon name="fa-solid fa-circle-check" size="sm" /> Success State
                   </span>
-                  <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 600, color: "var(--core-color-status-success-text)", background: "var(--core-color-status-success-bg)", border: "1px solid var(--core-color-status-success-border)", padding: "1px 8px", borderRadius: 999 }}>
-                    Complete
-                  </span>
+                  <Badge tone="success" variant="soft" size="sm">Complete</Badge>
                 </div>
                 <Dropzone
                   status="success"
@@ -118,8 +122,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 />
                 <AttachmentList
                   files={[
-                    { id: "s1", name: "beneficiary-form.pdf", size: "212 KB", status: "success", statusText: "Uploaded" },
-                    { id: "s2", name: "voided-check.png", size: "480 KB", status: "success", statusText: "Verified" }
+                    { id: "s1", name: "beneficiary-form.pdf", size: "212 KB", status: "success", statusText: "Uploaded", badgeSize: "md" },
+                    { id: "s2", name: "voided-check.png", size: "480 KB", status: "success", statusText: "Verified", badgeSize: "sm" }
                   ]}
                   onRemove={() => {}}
                 />
@@ -131,9 +135,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                   <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-danger-text)", display: "flex", alignItems: "center", gap: 6 }}>
                     <Icon name="fa-solid fa-circle-exclamation" size="sm" /> Error State
                   </span>
-                  <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 600, color: "var(--core-color-status-danger-text)", background: "var(--core-color-status-danger-bg)", border: "1px solid var(--core-color-status-danger-border)", padding: "1px 8px", borderRadius: 999 }}>
-                    Failed
-                  </span>
+                  <Badge tone="danger" variant="soft" size="sm">Failed</Badge>
                 </div>
                 <Dropzone
                   status="error"
@@ -143,8 +145,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 />
                 <AttachmentList
                   files={[
-                    { id: "e1", name: "annual-financial-audit-2024.zip", size: "14.2 MB", status: "error", statusText: "Exceeds 10MB limit" },
-                    { id: "e2", name: "unsupported-installer.pkg", size: "3.5 MB", status: "error", statusText: "Unsupported format" }
+                    { id: "e1", name: "annual-financial-audit-2024.zip", size: "14.2 MB", status: "error", statusText: "Exceeds 10MB limit", badgeSize: "md" },
+                    { id: "e2", name: "unsupported-installer.pkg", size: "3.5 MB", status: "error", statusText: "Unsupported format", badgeSize: "sm" }
                   ]}
                   onRemove={() => {}}
                 />
@@ -156,9 +158,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                   <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-warning-text)", display: "flex", alignItems: "center", gap: 6 }}>
                     <Icon name="fa-solid fa-triangle-exclamation" size="sm" /> Warning State
                   </span>
-                  <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 600, color: "var(--core-color-status-warning-text)", background: "var(--core-color-status-warning-bg)", border: "1px solid var(--core-color-status-warning-border)", padding: "1px 8px", borderRadius: 999 }}>
-                    Warning
-                  </span>
+                  <Badge tone="warning" variant="soft" size="sm">Warning</Badge>
                 </div>
                 <Dropzone
                   status="warning"
@@ -168,8 +168,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 />
                 <AttachmentList
                   files={[
-                    { id: "w1", name: "macro-enabled-roster.xlsm", size: "4.8 MB", status: "warning", statusText: "Virus scan pending" },
-                    { id: "w2", name: "high-res-contract.tiff", size: "8.9 MB", status: "warning", statusText: "Auto-converted" }
+                    { id: "w1", name: "macro-enabled-roster.xlsm", size: "4.8 MB", status: "warning", statusText: "Virus scan pending", badgeSize: "md" },
+                    { id: "w2", name: "high-res-contract.tiff", size: "8.9 MB", status: "warning", statusText: "Auto-converted", badgeSize: "sm" }
                   ]}
                   onRemove={() => {}}
                 />
@@ -181,9 +181,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                   <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-tertiary)", display: "flex", alignItems: "center", gap: 6 }}>
                     <Icon name="fa-solid fa-lock" size="sm" /> Disable State
                   </span>
-                  <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 600, color: "var(--theme-neutral-text-subtleleast)", background: "var(--theme-brand-background-primary-disabled-light)", border: "1px solid var(--theme-brand-border-primary-disabled)", padding: "1px 8px", borderRadius: 999 }}>
-                    Disabled
-                  </span>
+                  <Badge tone="neutral" variant="soft" size="sm" disabled>Disabled</Badge>
                 </div>
                 <Dropzone
                   disabled={true}
@@ -194,7 +192,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 <AttachmentList
                   disabled={true}
                   files={[
-                    { id: "d1", name: "beneficiary-form.pdf", size: "212 KB", status: "disabled", statusText: "Locked" }
+                    { id: "d1", name: "beneficiary-form.pdf", size: "212 KB", status: "disabled", statusText: "Locked", badgeSize: "md" }
                   ]}
                 />
               </div>
@@ -361,6 +359,44 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
               </div>
             </Preview>
+          </div>
+
+          <div className="site-panel site-panel--flush site-panel--demo">
+            <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 4 }}>
+              Calendar actions (Tertiary CTA)
+            </div>
+            <ComponentStateMatrix
+              columns={[
+                { id: "clear", label: "Clear" },
+                { id: "today", label: "Today" },
+              ]}
+              states={DEFAULT_MATRIX_STATES}
+              sizes={[{ id: "sm", label: "Small (calendar)" }]}
+              defaultSize="sm"
+              columnMinWidth={140}
+              renderCell={({ columnId, stateKey, size }) => {
+                const wrapperClass =
+                  stateKey === "hover"
+                    ? "force-hover"
+                    : stateKey === "active"
+                    ? "force-active"
+                    : stateKey === "focused"
+                    ? "force-focus"
+                    : undefined;
+                return (
+                  <div className={wrapperClass} style={{ display: "inline-flex" }}>
+                    <Button
+                      type="button"
+                      variant="tertiary"
+                      size={size as "sm"}
+                      disabled={stateKey === "disabled" || (columnId === "clear" && stateKey === "disabled")}
+                    >
+                      {columnId === "clear" ? "Clear" : "Today"}
+                    </Button>
+                  </div>
+                );
+              }}
+            />
           </div>
         </div>
       )
@@ -1051,6 +1087,23 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
         .force-focus .cds-incremental-selector {
           border-color: var(--theme-primitive-color-primary-400) !important;
           box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent) !important;
+        }
+        .force-hover .cds-btn--tertiary:not(:disabled) .cds-btn__text {
+          color: var(--theme-brand-text-primary-hover) !important;
+        }
+        .force-hover .cds-btn--tertiary:not(:disabled) {
+          background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 8%, transparent) !important;
+        }
+        .force-active .cds-btn--tertiary:not(:disabled) .cds-btn__text {
+          color: var(--theme-brand-text-primary-active) !important;
+        }
+        .force-active .cds-btn--tertiary:not(:disabled) {
+          background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 16%, transparent) !important;
+          transform: translateY(1px);
+        }
+        .force-focus .cds-btn--tertiary:not(:disabled) {
+          outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400) !important;
+          outline-offset: 2px;
         }
         .force-focus .cds-checkbox input:not(:checked):not(:disabled) + .cds-checkbox-box,
         .force-focus .cds-radio input:not(:checked):not(:disabled) + .cds-radio-box {

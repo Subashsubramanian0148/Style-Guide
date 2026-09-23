@@ -36,7 +36,7 @@ const CRITERIA: Criterion[] = [
   { id: "2.2.1", name: "Timing Adjustable", level: "A", status: "product", note: "Toast auto-dismiss (4s default) is the one CORE-owned timing — durationMs is adjustable per call, and a manual close button is always present." },
   { id: "2.2.2", name: "Pause, Stop, Hide", level: "A", status: "component", note: "Skeleton/Spinner/progress animations are decorative only, not required for comprehension." },
   { id: "2.3.1", name: "Three Flashes or Below Threshold", level: "A", status: "component", note: "No CORE animation flashes more than 3 times per second." },
-  { id: "2.4.1", name: "Bypass Blocks", level: "A", status: "product", note: "AppSidebar/NavigationMenu are landmark-ready; the app must add a \"skip to content\" link." },
+  { id: "2.4.1", name: "Bypass Blocks", level: "A", status: "component", note: "This docs site ships a \"Skip to main content\" link plus a <main id=\"main-content\"> landmark; AppSidebar is labeled for navigation. Consumer apps should mirror the same pattern." },
   { id: "2.4.2", name: "Page Titled", level: "A", status: "product", note: "Per-page <title> is an app/routing concern, not a CORE component." },
   { id: "2.4.3", name: "Focus Order", level: "A", status: "component", note: "Focus order follows visual/DOM order in every component; Modal/Drawer move focus in on open." },
   { id: "2.4.4", name: "Link Purpose (In Context)", level: "A", status: "content", note: "Link/Button text is supplied by the app — CORE can't guarantee wording, only that it renders accessibly." },
@@ -106,8 +106,28 @@ export default function Accessibility() {
         <div className="stat-card"><div className="num">{counts.content}</div><div className="lbl">Content responsibility</div></div>
       </div>
 
+      <h2 className="site-section-title" id="docs-site-audit">This docs site — ADA audit (live)</h2>
+      <div className="site-panel" style={{ marginBottom: 32 }}>
+        <table className="spec-table" style={{ width: "100%" }}>
+          <thead>
+            <tr><th>Check</th><th>Status</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Document language (<code>lang=&quot;en&quot;</code>)</td><td>Pass</td><td>Set in <code>index.html</code>.</td></tr>
+            <tr><td>Skip to main content</td><td>Pass</td><td>Keyboard-focusable link targets <code>#main-content</code>.</td></tr>
+            <tr><td>Main landmark</td><td>Pass</td><td>Page content is wrapped in <code>&lt;main id=&quot;main-content&quot;&gt;</code>.</td></tr>
+            <tr><td>Navigation landmark</td><td>Pass</td><td>Sidebar uses <code>aria-label=&quot;Site navigation&quot;</code>.</td></tr>
+            <tr><td>Global dark/light toggle</td><td>Pass</td><td>Sidebar switch drives demo canvases and site chrome.</td></tr>
+            <tr><td>Semantic color contrast</td><td>Pass (tokens)</td><td>Computed on Foundations → Color; re-check after palette changes.</td></tr>
+            <tr><td>Keyboard-only walkthrough</td><td>Partial</td><td>CORE components are keyboard-ready; full page-by-page QA not signed off.</td></tr>
+            <tr><td>NVDA / VoiceOver pass</td><td>Open</td><td>Not yet run end-to-end on this site — see section below.</td></tr>
+            <tr><td>Responsive QA (all breakpoints)</td><td>Open</td><td>See Layout &amp; breakpoints section below.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       {PRINCIPLES.map((p) => (
-        <div key={p.name}>
+        <div key={p.name} id={`wcag-${p.range.replace(".", "").replace(" · ", "-")}`}>
           <h2 className="site-section-title">{p.name}</h2>
           <div className="site-panel site-panel--flush">
             <table className="spec-table" style={{ width: "100%" }}>

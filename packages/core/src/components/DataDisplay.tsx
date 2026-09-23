@@ -1,6 +1,54 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Select } from "./FormControls";
 import { ChevronIcon, SortIcon } from "./Primitives";
+
+/** Applies `cds-table-wrap--scrollable` when content is wider than the viewport
+ *  so horizontal scrollbars stay visible (not overlay-hidden on macOS). */
+export function TableScrollWrap({
+  className,
+  style,
+  children,
+}: {
+  className: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [scrollable, setScrollable] = useState(false);
+
+  const measure = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    setScrollable(el.scrollWidth > el.clientWidth + 1);
+  }, []);
+
+  useLayoutEffect(() => {
+    measure();
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    for (const child of el.children) {
+      if (child instanceof Element) ro.observe(child);
+    }
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [measure, children]);
+
+  return (
+    <div
+      ref={ref}
+      className={`${className}${scrollable ? " cds-table-wrap--scrollable" : ""}`}
+      style={style}
+      data-scrollable={scrollable ? "true" : undefined}
+    >
+      {children}
+    </div>
+  );
+}
 
 export interface Column<T> { key: string; header: string; render?: (row: T) => React.ReactNode; align?: "left" | "right"; }
 export interface TableProps<T extends { id: string | number }> {
@@ -32,7 +80,7 @@ export function Table<T extends { id: string | number }>({
   ].filter(Boolean).join(" ");
 
   return (
-    <div className={wrapClasses} style={style}>
+    <TableScrollWrap className={wrapClasses} style={style}>
       <table
         className={`cds-table ${disabled ? "cds-table--disabled" : ""} ${viewMode ? "cds-table--view-mode" : ""}`.trim()}
         data-density={density}
@@ -51,7 +99,7 @@ export function Table<T extends { id: string | number }>({
           ))}
         </tbody>
       </table>
-    </div>
+    </TableScrollWrap>
   );
 }
 
@@ -171,7 +219,7 @@ export function DataTable<T extends { id: string | number }>({
           )}
         </div>
       )}
-      <div className={wrapClasses}>
+      <TableScrollWrap className={wrapClasses}>
         <table
           className={`cds-table ${disabled ? "cds-table--disabled" : ""} ${viewMode ? "cds-table--view-mode" : ""}`.trim()}
           data-density={density}
@@ -215,7 +263,7 @@ export function DataTable<T extends { id: string | number }>({
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScrollWrap>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12, fontFamily: "var(--typography-font-family-sans)", fontSize: "var(--typography-body-xs-size)", lineHeight: "var(--typography-body-xs-line-height)", color: disabled ? "var(--theme-neutral-text-subtleleast)" : "var(--theme-neutral-text-subtle)" }}>
         <span>Page {page_} of {pageCount} — {sorted.length} rows</span>
         <div className="cds-pagination">

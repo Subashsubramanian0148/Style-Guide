@@ -205,13 +205,18 @@ export function Stepper({ steps, currentIndex, orientation = "horizontal" }: { s
       <div className="cds-stepper cds-stepper--mobile" aria-label="Progress">
         <div className="cds-stepper-mobile-track" role="list">
           {resolvedStates.map((state, i) => (
-            <span
-              key={steps[i].label}
+            <div
+              key={`${steps[i].label}-${i}`}
               role="listitem"
-              className={`cds-stepper-mobile-segment cds-stepper-mobile-segment--${state}`}
+              className="cds-stepper-mobile-step"
               aria-current={i === currentIndex ? "step" : undefined}
-              aria-label={`${steps[i].label}: ${state.replace("-", " ")}`}
-            />
+              aria-label={`Step ${i + 1}, ${steps[i].label}: ${state.replace("-", " ")}`}
+            >
+              <span className={`cds-stepper-mobile-segment cds-stepper-mobile-segment--${state}`} aria-hidden="true" />
+              <span className="cds-stepper-mobile-step-label" aria-hidden="true">
+                {i + 1}
+              </span>
+            </div>
           ))}
         </div>
         {current && (

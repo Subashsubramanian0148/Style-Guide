@@ -65,7 +65,27 @@ body {
 a { color: inherit; }
 ::selection { background: var(--site-accent-soft); }
 
-.site-shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+.site-skip-link {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 1000;
+  padding: var(--core-space-2) var(--core-space-4);
+  border-radius: var(--core-radius-sm);
+  background: var(--site-bg-elevated);
+  color: var(--site-text);
+  border: 2px solid var(--site-accent);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--core-elevation-3);
+}
+
+.site-skip-link:focus {
+  top: 12px;
+  outline: none;
+}
+
+.site-shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; position: relative; }
 @media (max-width: 900px) { .site-shell { grid-template-columns: 1fr; } .site-sidebar { display: none; } }
 
 .site-sidebar {

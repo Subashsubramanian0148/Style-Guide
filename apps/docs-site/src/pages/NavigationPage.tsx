@@ -131,29 +131,35 @@ const variantLabelStyle: React.CSSProperties = {
  *  width. Shown once per state so every state's marker/border/status
  *  treatment is visible, matching the desktop states demo above it. */
 function MobileStepperStatesDemo() {
+  const flowSteps = [
+    { label: "Withdrawal", description: "Set amount." },
+    { label: "Allocation", description: "Pick sources." },
+    { label: "Fees", description: "Review fees." },
+    { label: "Documents", description: "Attach forms." },
+    { label: "Review", description: "Confirm and submit." },
+  ] as const;
+
   const cases: Array<{
     eyebrow: string;
     state: StepState;
-    title: string;
-    description: string;
     status?: string;
-    stepNumber?: number;
-    totalSteps: number;
     currentIndex: number;
   }> = [
-    { eyebrow: "DEFAULT", state: "default", title: "Fees", description: "Review fees.", stepNumber: 3, totalSteps: 5, currentIndex: 2 },
-    { eyebrow: "IN PROGRESS", state: "in-progress", title: "Allocation", description: "Pick sources.", status: "In progress", stepNumber: 2, totalSteps: 5, currentIndex: 1 },
-    { eyebrow: "COMPLETED", state: "completed", title: "Withdrawal", description: "Set amount.", totalSteps: 5, currentIndex: 0 },
-    { eyebrow: "WARNING", state: "warning", title: "Fees", description: "Review fees.", status: "Review needed", stepNumber: 3, totalSteps: 5, currentIndex: 2 },
-    { eyebrow: "ERROR", state: "error", title: "Documents", description: "Attach forms.", status: "Required", stepNumber: 4, totalSteps: 5, currentIndex: 3 },
+    { eyebrow: "STEP 1", state: "default", currentIndex: 0 },
+    { eyebrow: "STEP 2", state: "in-progress", status: "In progress", currentIndex: 1 },
+    { eyebrow: "STEP 3", state: "warning", status: "Review needed", currentIndex: 2 },
+    { eyebrow: "STEP 4", state: "error", status: "Required", currentIndex: 3 },
+    { eyebrow: "STEP 5", state: "in-progress", status: "In progress", currentIndex: 4 },
   ];
 
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--core-space-5, 20px)" }}>
       {cases.map((c) => {
-        const steps: StepDef[] = Array.from({ length: c.totalSteps }, (_, i) => {
-          if (i === c.currentIndex) return { label: c.title, description: c.description, status: c.status, state: c.state };
-          return { label: `Step ${i + 1}`, state: i < c.currentIndex ? "completed" : "default" };
+        const steps: StepDef[] = flowSteps.map((step, i) => {
+          if (i === c.currentIndex) {
+            return { label: step.label, description: step.description, status: c.status, state: c.state };
+          }
+          return { label: step.label, description: step.description, state: i < c.currentIndex ? "completed" : "default" };
         });
         return (
           <div key={c.eyebrow} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3, 12px)", width: 280 }}>
