@@ -122,11 +122,30 @@ export function RegionPadding({
  *  within a row (e.g. the icon-to-text, text-to-badge, and badge-to-remove
  *  gaps inside an Attachment row) — unlike `GapCallout`, the badge sits at
  *  the mark's own top rather than floating above the whole frame. */
-export function VGapMark({ x, y, height, value, color = PADDING_COLOR }: { x: number; y: number; height: number; value: number; color?: string }) {
+export function VGapMark({
+  x,
+  y,
+  height,
+  value,
+  color = PADDING_COLOR,
+  extendTo,
+}: {
+  x: number;
+  y: number;
+  height: number;
+  value: number;
+  color?: string;
+  /** When neighboring marks would otherwise collide (e.g. several gap
+   *  badges landing at the same row-top height), pass a y above `y` here —
+   *  the line stretches up to meet it and the badge floats there instead,
+   *  clear of the clutter. */
+  extendTo?: number;
+}) {
+  const top = extendTo !== undefined ? Math.min(extendTo, y) : y;
   return (
     <>
-      <div style={{ position: "absolute", left: x, top: y, width: 1, height, background: color, zIndex: 2, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", left: x, top: y - 9, transform: "translateX(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
+      <div style={{ position: "absolute", left: x, top, width: 1, height: y + height - top, background: color, zIndex: 2, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", left: x, top: top - 9, transform: "translateX(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
         {value}
       </div>
     </>

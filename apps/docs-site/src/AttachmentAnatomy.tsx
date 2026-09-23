@@ -124,7 +124,12 @@ export function AttachmentAnatomy() {
       const rowBadgeRect = rowBadge.getBoundingClientRect();
       const gapY = Math.round(row1Rect.top - boxRect.top);
       const gapHeight = Math.round(row1Rect.height);
+      // Left edge, each internal gap, and the right edge all land badges at
+      // the same row-top height — crowded together, so every mark's line
+      // extends up above the row (clear of the gap band above it) instead
+      // of sitting right at the row's own top edge.
       const gaps = [
+        { x: Math.round(row1Rect.left - boxRect.left), y: gapY, height: gapHeight },
         { x: Math.round(rowIconRect.right - boxRect.left) + Math.round((rowBodyRect.left - rowIconRect.right) / 2), y: gapY, height: gapHeight },
         { x: Math.round(rowBodyRect.right - boxRect.left) + Math.round((rowBadgeRect.left - rowBodyRect.right) / 2), y: gapY, height: gapHeight },
       ];
@@ -132,6 +137,7 @@ export function AttachmentAnatomy() {
         const rowRemoveRect = rowRemove.getBoundingClientRect();
         gaps.push({ x: Math.round(rowBadgeRect.right - boxRect.left) + Math.round((rowRemoveRect.left - rowBadgeRect.right) / 2), y: gapY, height: gapHeight });
       }
+      gaps.push({ x: Math.round(row1Rect.right - boxRect.left), y: gapY, height: gapHeight });
       setRowInternalGaps(gaps);
     }
   }, []);
@@ -177,8 +183,8 @@ export function AttachmentAnatomy() {
 
         {dropzoneToListGap && <HGapCallout y={dropzoneToListGap.y} width={dropzoneToListGap.width} height={dropzoneToListGap.height} value={12} color={CALLOUT_ORANGE} side="left" />}
 
-        {firstRowRegion && <RegionPadding x={firstRowRegion.x} y={firstRowRegion.y} width={firstRowRegion.width} height={firstRowRegion.height} size={12} />}
-        {rowInternalGaps?.map((g, i) => <VGapMark key={i} x={g.x} y={g.y} height={g.height} value={12} />)}
+        {firstRowRegion && <RegionPadding x={firstRowRegion.x} y={firstRowRegion.y} width={firstRowRegion.width} height={firstRowRegion.height} size={12} edges={["bottom"]} />}
+        {firstRowRegion && rowInternalGaps?.map((g, i) => <VGapMark key={i} x={g.x} y={g.y} height={g.height} value={12} extendTo={firstRowRegion.y - 24} />)}
         {rowGap && <HGapCallout y={rowGap.y} width={rowGap.width} height={rowGap.height} value={8} color={CALLOUT_ORANGE} side="left" />}
       </div>
     </AnatomyFrame>
