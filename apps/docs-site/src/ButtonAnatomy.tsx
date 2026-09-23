@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Button } from "../../../packages/core/src/components/Button";
 import { AnatomyFrame, VGapMark, HTickMark } from "./AnatomyPrimitives";
-import { SectionHeading, SpecTableHead, SpecRow } from "./AnatomySpec";
+import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
 
 interface Region {
   x: number;
@@ -97,7 +97,7 @@ export function ButtonAnatomy() {
           </AnatomyFrame>
 
           {spec && (
-            <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)" }}>
+            <SpecTableCard>
               <SpecTableHead />
               <tbody>
                 <SpecRow label="Size" token="core-size-control-md" value={`Medium · min-height ${spec.minHeight}`} standard="warn" note="40px < 44px touch-target guideline (fine for desktop)" />
@@ -112,18 +112,18 @@ export function ButtonAnatomy() {
                 <SpecRow label="Border" token="brand-border-primary-default" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
                 <SpecRow label="Border radius" token="core-radius-sm" value={spec.borderRadius} standard="pass" />
               </tbody>
-            </table>
+            </SpecTableCard>
           )}
         </div>
       </div>
 
       <div>
         <SectionHeading>Color tokens — what changes per variant &amp; state</SectionHeading>
-        <p style={{ margin: "0 0 16px", fontSize: "var(--typography-body-sm-size)", color: "var(--core-color-text-tertiary)" }}>
+        <SpecNote>
           Only background / text / border change per cell — every structural spec above stays identical. Focused adds a{" "}
           <code>core-focusRing-width</code> (2px) ring via <code>primitive-color-primary-400</code> on all variants (Tertiary uses a{" "}
           <code>border-primary-default</code> outline instead).
-        </p>
+        </SpecNote>
         <StateMatrix />
       </div>
     </div>
@@ -189,25 +189,25 @@ function MatrixCell({ spec }: { spec: CellSpec }) {
  *  states — the only things that change from the shared structure above. */
 function StateMatrix() {
   return (
-    <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)" }}>
+    <SpecTableCard>
       <thead>
-        <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.04em" }}>
-          <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>State</th>
-          <th style={{ padding: "0 16px 8px 16px", fontWeight: 700 }}>Primary</th>
-          <th style={{ padding: "0 16px 8px 16px", fontWeight: 700 }}>Secondary</th>
-          <th style={{ padding: "0 16px 8px 16px", fontWeight: 700 }}>Tertiary</th>
+        <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
+          <th style={{ padding: "10px 16px", fontWeight: 700 }}>State</th>
+          <th style={{ padding: "10px 16px", fontWeight: 700 }}>Primary</th>
+          <th style={{ padding: "10px 16px", fontWeight: 700 }}>Secondary</th>
+          <th style={{ padding: "10px 16px", fontWeight: 700 }}>Tertiary</th>
         </tr>
       </thead>
       <tbody>
         {STATE_MATRIX.map((row) => (
-          <tr key={row.state}>
-            <td style={{ padding: "10px 16px 10px 0", borderTop: "1px solid var(--core-color-border-subtle)", fontWeight: 600, color: "var(--core-color-text-primary)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
+          <tr key={row.state} style={{ borderTop: "1px solid var(--core-color-border-subtle)" }}>
+            <td style={{ padding: "10px 16px", fontWeight: 600, color: "var(--core-color-text-primary)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
             <MatrixCell spec={row.primary} />
             <MatrixCell spec={row.secondary} />
             <MatrixCell spec={row.tertiary} />
           </tr>
         ))}
       </tbody>
-    </table>
+    </SpecTableCard>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Checkbox, Radio } from "../../../packages/core/src/components/FormControls";
 import { AnatomyFrame, GapCallout } from "./AnatomyPrimitives";
-import { SectionHeading, SpecTableHead, SpecRow } from "./AnatomySpec";
+import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
 
 interface Spec {
   boxSize: string;
@@ -95,7 +95,7 @@ export function CheckboxRadioAnatomy() {
           </AnatomyFrame>
 
           {spec && (
-            <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)" }}>
+            <SpecTableCard>
               <SpecTableHead />
               <tbody>
                 <SpecRow label="Control size" token="(fixed)" value={spec.boxSize} standard="warn" note="18px control; keep the clickable label row ≥44px for touch" />
@@ -110,17 +110,17 @@ export function CheckboxRadioAnatomy() {
                 <SpecRow label="Label family" token="typography-font-family-sans" value={spec.fontFamily} standard="pass" />
                 <SpecRow label="Label color" token="theme-neutral-text-primary-default" value={spec.labelColor} swatch={spec.labelColor} standard="pass" />
               </tbody>
-            </table>
+            </SpecTableCard>
           )}
         </div>
       </div>
 
       <div>
         <SectionHeading>Color tokens — what changes per state</SectionHeading>
-        <p style={{ margin: "0 0 16px", fontSize: "var(--typography-body-sm-size)", color: "var(--core-color-text-tertiary)" }}>
+        <SpecNote>
           Checkbox and Radio share these state changes. Focused adds a{" "}
           <code>core-focusRing-width</code> (2px) ring via <code>primitive-color-primary-400</code>.
-        </p>
+        </SpecNote>
         <StateMatrix />
       </div>
     </div>
@@ -179,23 +179,23 @@ function MatrixCell({ spec }: { spec: CellSpec }) {
  *  both the unchecked and checked box. */
 function StateMatrix() {
   return (
-    <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)" }}>
+    <SpecTableCard>
       <thead>
-        <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.04em" }}>
-          <th style={{ padding: "0 16px 8px 0", fontWeight: 700 }}>State</th>
-          <th style={{ padding: "0 16px 8px 16px", fontWeight: 700 }}>Unchecked</th>
-          <th style={{ padding: "0 16px 8px 16px", fontWeight: 700 }}>Checked</th>
+        <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
+          <th style={{ padding: "10px 16px", fontWeight: 700 }}>State</th>
+          <th style={{ padding: "10px 16px", fontWeight: 700 }}>Unchecked</th>
+          <th style={{ padding: "10px 16px", fontWeight: 700 }}>Checked</th>
         </tr>
       </thead>
       <tbody>
         {STATE_MATRIX.map((row) => (
-          <tr key={row.state}>
-            <td style={{ padding: "10px 16px 10px 0", borderTop: "1px solid var(--core-color-border-subtle)", fontWeight: 600, color: "var(--core-color-text-primary)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
+          <tr key={row.state} style={{ borderTop: "1px solid var(--core-color-border-subtle)" }}>
+            <td style={{ padding: "10px 16px", fontWeight: 600, color: "var(--core-color-text-primary)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
             <MatrixCell spec={row.unchecked} />
             <MatrixCell spec={row.checked} />
           </tr>
         ))}
       </tbody>
-    </table>
+    </SpecTableCard>
   );
 }
