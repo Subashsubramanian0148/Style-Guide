@@ -142,8 +142,10 @@ export function VGapMark({
   extendTo?: number;
 }) {
   const top = extendTo !== undefined ? Math.min(extendTo, y) : y;
+  const bandWidth = 8;
   return (
     <>
+      <div style={{ position: "absolute", left: x - bandWidth / 2, top: y, width: bandWidth, height, background: fillStrong(color), zIndex: 1, pointerEvents: "none" }} />
       <div style={{ position: "absolute", left: x, top, width: 1, height: y + height - top, background: color, zIndex: 2, pointerEvents: "none" }} />
       <div style={{ position: "absolute", left: x, top: top - 9, transform: "translateX(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
         {value}
