@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Field } from "../../../packages/core/src/components/Field";
 import { DatePicker } from "../../../packages/core/src/components/Calendar";
-import { AnatomyFrame, VGapMark, HTickMark, HGapCallout } from "./AnatomyPrimitives";
+import { AnatomyFrame, VGapMark, HTickMark, HGapCallout, AutoBand } from "./AnatomyPrimitives";
 
 interface Region {
   x: number;
@@ -27,16 +27,19 @@ export function DatePickerAnatomy() {
   const boxRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState<Region | null>(null);
   const [labelGap, setLabelGap] = useState<{ y: number; width: number; height: number } | null>(null);
+  const [auto, setAuto] = useState<Region | null>(null);
 
   useLayoutEffect(() => {
     const box = boxRef.current;
     const label = box?.querySelector(".cds-label") as HTMLElement | null;
-    const inputEl = box?.querySelector(".cds-input") as HTMLElement | null;
-    if (!box || !label || !inputEl) return;
+    const inputEl = box?.querySelector(".cds-input") as HTMLInputElement | null;
+    const icon = box?.querySelector(".cds-input-icon--trailing") as HTMLElement | null;
+    if (!box || !label || !inputEl || !icon) return;
 
     const boxRect = box.getBoundingClientRect();
     const labelRect = label.getBoundingClientRect();
     const inputRect = inputEl.getBoundingClientRect();
+    const iconRect = icon.getBoundingClientRect();
 
     setInput({
       x: Math.round(inputRect.left - boxRect.left),
@@ -49,11 +52,25 @@ export function DatePickerAnatomy() {
       width: Math.round(boxRect.width),
       height: Math.round(inputRect.top - labelRect.bottom),
     });
+
+    const style = getComputedStyle(inputEl);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d")!;
+    ctx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    const textWidth = ctx.measureText(inputEl.value || inputEl.placeholder).width;
+    const textRight = inputRect.left + parseFloat(style.paddingLeft) + textWidth;
+
+    setAuto({
+      x: Math.round(textRight - boxRect.left),
+      y: Math.round(inputRect.top - boxRect.top),
+      width: Math.round(iconRect.left - textRight),
+      height: Math.round(inputRect.height),
+    });
   }, []);
 
   return (
     <AnatomyFrame>
-      <div ref={boxRef} style={{ position: "relative", width: 220, marginTop: 46 }}>
+      <div ref={boxRef} style={{ position: "relative", width: 260, marginTop: 46 }}>
         <Field label="Default">
           {() => <DatePicker placeholder="Select date" />}
         </Field>
@@ -62,6 +79,7 @@ export function DatePickerAnatomy() {
         {input && <VGapMark x={input.x + input.width} y={input.y} height={input.height} value={12} color={GREEN} extendTo={input.y - 30} bandInset="end" />}
         {input && <HTickMark x={input.x} y={input.y} width={input.width} value={8} color={GREEN} extendTo={input.x - 40} bandInset="start" />}
         {input && <HTickMark x={input.x} y={input.y + input.height} width={input.width} value={8} color={GREEN} extendTo={input.x - 40} bandInset="end" />}
+        {auto && <AutoBand x={auto.x} y={auto.y} width={auto.width} height={auto.height} color={ORANGE} />}
       </div>
     </AnatomyFrame>
   );
