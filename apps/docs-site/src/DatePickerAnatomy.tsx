@@ -1,0 +1,63 @@
+import React, { useLayoutEffect, useRef, useState } from "react";
+import { Field } from "../../../packages/core/src/components/Field";
+import { DatePicker } from "../../../packages/core/src/components/Calendar";
+import { AnatomyFrame, VGapMark, HGapCallout } from "./AnatomyPrimitives";
+
+interface Region {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+const GREEN = "#118D57";
+const ORANGE = "#C2410C";
+
+/**
+ * Spacing anatomy for DatePicker, measured from the live Field/DatePicker
+ * components:
+ *   .cds-field gap: core-space-2 (8px), between label and input
+ *   .cds-input[data-has-trailing] padding-right: core-space-8 (32px) —
+ *   the calendar icon's functional clearance (documented exception to the
+ *   16px spacing cap).
+ */
+export function DatePickerAnatomy() {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [input, setInput] = useState<Region | null>(null);
+  const [labelGap, setLabelGap] = useState<{ y: number; width: number; height: number } | null>(null);
+
+  useLayoutEffect(() => {
+    const box = boxRef.current;
+    const label = box?.querySelector(".cds-label") as HTMLElement | null;
+    const inputEl = box?.querySelector(".cds-input") as HTMLElement | null;
+    if (!box || !label || !inputEl) return;
+
+    const boxRect = box.getBoundingClientRect();
+    const labelRect = label.getBoundingClientRect();
+    const inputRect = inputEl.getBoundingClientRect();
+
+    setInput({
+      x: Math.round(inputRect.left - boxRect.left),
+      y: Math.round(inputRect.top - boxRect.top),
+      width: Math.round(inputRect.width),
+      height: Math.round(inputRect.height),
+    });
+    setLabelGap({
+      y: Math.round(labelRect.bottom - boxRect.top),
+      width: Math.round(boxRect.width),
+      height: Math.round(inputRect.top - labelRect.bottom),
+    });
+  }, []);
+
+  return (
+    <AnatomyFrame>
+      <div ref={boxRef} style={{ position: "relative", width: 220, marginTop: 46 }}>
+        <Field label="Default">
+          {() => <DatePicker placeholder="Select date" />}
+        </Field>
+        {labelGap && <HGapCallout y={labelGap.y} width={labelGap.width} height={labelGap.height} value={8} color={ORANGE} side="left" />}
+        {input && <VGapMark x={input.x + input.width} y={input.y} height={input.height} value={32} color={GREEN} extendTo={input.y - 30} bandInset="end" />}
+      </div>
+    </AnatomyFrame>
+  );
+}

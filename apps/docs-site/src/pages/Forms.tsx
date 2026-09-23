@@ -6,6 +6,8 @@ import { Anatomy, AnatomyLegend } from "../Anatomy";
 import { AnatomySection } from "../AnatomySection";
 import { AttachmentAnatomy } from "../AttachmentAnatomy";
 import { CheckboxRadioAnatomy } from "../CheckboxRadioAnatomy";
+import { ComboboxAnatomy } from "../ComboboxAnatomy";
+import { DatePickerAnatomy } from "../DatePickerAnatomy";
 import { Field, Input, InputWithIcon } from "../../../../packages/core/src/components/Field";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 import { Switch } from "../../../../packages/core/src/components/Misc";
@@ -284,6 +286,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       title: "Combobox",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<ComboboxAnatomy />}
+            demo={
           <Preview showModeToggle>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16, width: "100%" }}>
               <div className="force-default">
@@ -313,6 +318,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               </div>
             </div>
           </Preview>
+            }
+          />
         </div>
       )
     },
@@ -321,6 +328,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       anchorId: "date-picker",
       title: "Date Selection",
       content: (
+        <AnatomySection
+          anatomy={<DatePickerAnatomy />}
+          demo={
         <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
           <div className="site-panel site-panel--flush site-panel--demo">
             <Preview showModeToggle>
@@ -412,6 +422,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
             />
           </div>
         </div>
+          }
+        />
       )
     },
     {
