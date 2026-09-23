@@ -895,13 +895,13 @@
 .cds-stepper-mobile-segment {
   width: 100%;
   height: 4px;
-  border-radius: 999px;
+  border-radius: var(--core-radius-full);
   background: color-mix(in srgb, var(--core-color-text-primary) 20%, transparent);
 }
 
 .cds-stepper-mobile-step-label {
   font-size: var(--typography-font-size-xs);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   color: var(--theme-neutral-text-subtle);
   line-height: 1;
 }
@@ -928,7 +928,7 @@
   line-height: var(--typography-body-xs-line-height);
   font-weight: var(--typography-font-weight-semibold);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
   color: var(--theme-neutral-text-subtle);
 }
 
@@ -995,7 +995,7 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--core-space-2) var(--core-space-3);
-  min-height: 40px;
+  min-height: var(--core-size-control-md);
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-primary-default);
   background: var(--core-color-surface-default);
@@ -1008,21 +1008,21 @@
 
 .cds-input--sm {
   padding: var(--core-space-2) var(--core-space-3);
-  min-height: 34px;
+  min-height: var(--core-size-control-sm);
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
 }
 
 .cds-input--md {
   padding: var(--core-space-2) var(--core-space-3);
-  min-height: 40px;
+  min-height: var(--core-size-control-md);
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
 }
 
 .cds-input--lg {
   padding: var(--core-space-3) var(--core-space-4);
-  min-height: 46px;
+  min-height: var(--core-size-control-lg);
   font-size: var(--typography-text16-regular-size);
   line-height: var(--typography-text16-regular-line-height);
 }
@@ -1150,8 +1150,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: var(--core-size-control-md);
+  height: var(--core-size-control-md);
   border-radius: var(--core-radius-sm);
   background: var(--brand-background-primary-light);
   color: var(--brand-text-primary-default);
@@ -1931,7 +1931,7 @@
 }
 
 .cds-select-option[aria-selected="true"] {
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
 }
 
 .cds-select-option--disabled {
@@ -2198,7 +2198,7 @@
 .cds-field-style--flush:focus-visible {
   box-shadow: none;
   border-bottom-color: var(--core-input-borderFocus);
-  border-bottom-width: 2px;
+  border-bottom-width: var(--core-border-width-thick);
 }
 
 /* Breadcrumb: separator variants */
@@ -2233,7 +2233,7 @@
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
   letter-spacing: var(--typography-body-md-letter-spacing);
-  font-weight: 700;
+  font-weight: var(--typography-font-weight-bold);
   color: var(--theme-neutral-text-primary-default);
 }
 
@@ -2616,7 +2616,7 @@
   border-radius: 50%;
   background: var(--brand-background-primary-subtle);
   color: var(--theme-neutral-text-subtle);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   overflow: hidden;
   flex-shrink: 0;
   border: 1px solid var(--theme-neutral-border-primary-default);
@@ -2769,7 +2769,7 @@
   border: none;
   border-bottom: 3px solid transparent;
   font-size: var(--typography-body-lg-size);
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
   color: var(--theme-neutral-text-subtle);
   cursor: pointer;
   /* The tablist's own separator is 1px; the active-tab indicator is a
@@ -2795,7 +2795,7 @@
    */
   color: var(--brand-text-primary-default);
   border-bottom-color: var(--brand-background-primary-strong);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
 }
 
 .cds-tab:focus-visible {
@@ -2869,9 +2869,9 @@
 
 .cds-description-term {
   font-size: var(--typography-font-size-xs);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0;
   color: var(--theme-neutral-text-subtleleast);
 }
 
@@ -2879,7 +2879,7 @@
   text-transform: none;
   letter-spacing: 0;
   font-size: var(--typography-body-lg-size);
-  font-weight: 400;
+  font-weight: var(--typography-font-weight-regular);
   color: var(--theme-neutral-text-subtle);
 }
 
@@ -2887,7 +2887,7 @@
   margin: 0;
   font-size: var(--typography-body-lg-size);
   color: var(--theme-neutral-text-primary-default);
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -2910,7 +2910,7 @@
 
 .cds-breadcrumb .current {
   color: var(--theme-neutral-text-primary-default);
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
 }
 
 /* ---------- Pagination ---------- */
@@ -2923,8 +2923,8 @@
 }
 
 .cds-page-btn {
-  min-width: 32px;
-  height: 32px;
+  min-width: var(--core-size-control-sm);
+  height: var(--core-size-control-sm);
   padding: var(--core-space-0) var(--core-space-2);
   border-radius: var(--core-radius-sm);
   border: 1px solid transparent;
@@ -3104,7 +3104,7 @@
 
 .cds-modal-title {
   font-size: var(--core-font-size-xl);
-  font-weight: 700;
+  font-weight: var(--typography-font-weight-bold);
   margin: var(--core-space-0) var(--core-space-0) var(--core-space-2);
 }
 
@@ -3261,7 +3261,7 @@
   padding: var(--core-space-4);
   text-align: left;
   font-size: var(--typography-body-md-size);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   color: var(--theme-neutral-text-primary-default);
   cursor: pointer;
   transition: background-color var(--core-motion-duration-base, 150ms) ease, color var(--core-motion-duration-base, 150ms) ease;
@@ -3402,7 +3402,7 @@
   padding: var(--core-space-4);
   text-align: left;
   font-size: var(--typography-body-md-size);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   color: var(--theme-neutral-text-primary-default);
   cursor: pointer;
   transition: background-color var(--core-motion-duration-base, 150ms) ease, color var(--core-motion-duration-base, 150ms) ease;
@@ -3868,29 +3868,29 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  min-height: 40px;
+  width: var(--core-size-control-md);
+  min-height: var(--core-size-control-md);
   padding: 0;
   border: none;
   background: transparent;
   color: var(--theme-neutral-text-subtle);
   font-size: var(--typography-text16-regular-size);
   line-height: 1;
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
   cursor: pointer;
   transition: background 120ms ease, color 120ms ease;
 }
 
 .cds-incremental-selector--sm .cds-incremental-selector__btn {
-  width: 34px;
-  min-height: 34px;
+  width: var(--core-size-control-sm);
+  min-height: var(--core-size-control-sm);
   font-size: var(--typography-text14-regular-size);
 }
 
 .cds-incremental-selector--lg .cds-incremental-selector__btn {
-  width: 46px;
-  min-height: 46px;
-  font-size: var(--typography-text18-regular-size, 18px);
+  width: var(--core-size-control-lg);
+  min-height: var(--core-size-control-lg);
+  font-size: var(--typography-text16-regular-size);
 }
 
 .cds-incremental-selector__btn--decrease {
@@ -3910,7 +3910,7 @@
   text-align: center;
   appearance: none;
   outline: none;
-  min-height: 40px;
+  min-height: var(--core-size-control-md);
   padding: var(--core-space-0) var(--core-space-2);
   border: none;
   border-radius: 0;
@@ -3928,11 +3928,11 @@
 }
 
 .cds-incremental-selector--sm .cds-incremental-selector__value {
-  min-height: 34px;
+  min-height: var(--core-size-control-sm);
 }
 
 .cds-incremental-selector--lg .cds-incremental-selector__value {
-  min-height: 46px;
+  min-height: var(--core-size-control-lg);
   font-size: var(--typography-text16-regular-size);
   line-height: var(--typography-text16-regular-line-height);
 }
@@ -3999,11 +3999,11 @@
 }
 
 .cds-otp-digit {
-  width: 40px;
-  height: 44px;
+  width: var(--core-size-control-md);
+  height: var(--core-size-control-lg);
   text-align: center;
-  font-size: var(--core-font-size-lg, 20px);
-  font-weight: 600;
+  font-size: var(--core-font-size-lg);
+  font-weight: var(--typography-font-weight-semibold);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-input-radius);
   background: var(--core-color-surface-default);
@@ -4116,7 +4116,7 @@
 
 .cds-slider input[type="range"]::-webkit-slider-runnable-track {
   height: var(--cds-slider-track-height);
-  border-radius: 999px;
+  border-radius: var(--core-radius-full);
   background: linear-gradient(
     to right,
     var(--cds-slider-track-fill) 0%,
@@ -4128,13 +4128,13 @@
 
 .cds-slider input[type="range"]::-moz-range-track {
   height: var(--cds-slider-track-height);
-  border-radius: 999px;
+  border-radius: var(--core-radius-full);
   background: var(--cds-slider-track-bg);
 }
 
 .cds-slider input[type="range"]::-moz-range-progress {
   height: var(--cds-slider-track-height);
-  border-radius: 999px;
+  border-radius: var(--core-radius-full);
   background: var(--cds-slider-track-fill);
 }
 
@@ -4248,7 +4248,7 @@
 
 .cds-empty-title {
   font-size: var(--typography-font-size-lg);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   color: var(--theme-neutral-text-primary-default);
 }
 
@@ -4281,7 +4281,7 @@
 
 .cds-item-title {
   font-size: var(--typography-body-lg-size);
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
   color: var(--theme-neutral-text-primary-default);
 }
 
@@ -4308,7 +4308,7 @@
 
 .cds-hovercard-title {
   font-size: var(--typography-body-lg-size);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   color: var(--theme-neutral-text-primary-default);
   margin-bottom: var(--core-space-1);
 }
@@ -4406,7 +4406,7 @@
 
 .cds-calendar-title {
   font-size: var(--typography-body-lg-size);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   color: var(--theme-neutral-text-primary-default);
 }
 
@@ -4432,7 +4432,7 @@
 
 .cds-calendar-weekday {
   font-size: var(--typography-font-size-xs);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   text-align: center;
   color: var(--theme-neutral-text-subtle);
   padding: var(--core-space-1) var(--core-space-0);
@@ -4455,7 +4455,7 @@
 .cds-calendar-day[aria-pressed="true"] {
   background: var(--brand-background-primary-strong);
   color: var(--brand-text-primary-oncolor);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
 }
 
 .cds-calendar-day:focus-visible {
@@ -4572,7 +4572,7 @@
   font-size: var(--typography-body-xs-size);
   line-height: var(--typography-body-xs-line-height);
   color: var(--theme-neutral-text-subtle);
-  font-weight: 400;
+  font-weight: var(--typography-font-weight-regular);
   white-space: normal;
 }
 
@@ -4648,7 +4648,7 @@
   padding: 0;
   margin: 0;
   font: inherit;
-  font-weight: 700;
+  font-weight: var(--typography-font-weight-bold);
   color: var(--brand-text-primary-default);
   cursor: pointer;
   text-decoration: underline;
@@ -4763,13 +4763,13 @@
   justify-content: center;
   flex-shrink: 0;
   font-size: var(--typography-font-size-xs);
-  font-weight: 700;
+  font-weight: var(--typography-font-weight-bold);
   color: var(--theme-neutral-text-subtleleast);
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .cds-attachment-name {
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
   color: var(--theme-neutral-text-primary-default);
   white-space: nowrap;
   overflow: hidden;
@@ -4830,7 +4830,7 @@
 }
 .cds-attachment--success .cds-attachment-status {
   color: var(--theme-semantics-success-text);
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
 }
 
 .cds-attachment--error {
@@ -4843,7 +4843,7 @@
 }
 .cds-attachment--error .cds-attachment-status {
   color: var(--theme-semantics-critical-text);
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
 }
 
 .cds-attachment--warning {
@@ -4856,7 +4856,7 @@
 }
 .cds-attachment--warning .cds-attachment-status {
   color: var(--theme-semantics-warning-text);
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
 }
 
 .cds-attachment--disabled {
@@ -4896,7 +4896,7 @@
   padding: var(--core-space-2) var(--core-space-3);
   border-radius: var(--core-radius-sm);
   font-size: var(--typography-body-lg-size);
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
   color: var(--theme-neutral-text-subtle);
   text-decoration: none;
   cursor: pointer;
@@ -5085,7 +5085,7 @@
   padding: var(--core-space-2) var(--core-space-3);
   border-radius: var(--core-sidebar-item-radius);
   font-size: var(--typography-body-lg-size);
-  font-weight: 500;
+  font-weight: var(--typography-font-weight-medium);
   color: var(--core-sidebar-item-text);
   text-decoration: none;
   cursor: pointer;
@@ -5107,7 +5107,7 @@
 .cds-sidenav-item[data-active="true"] {
   background: var(--core-sidebar-item-activeBg);
   color: var(--core-sidebar-item-activeText);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
 }
 
 .cds-sidenav-icon {
@@ -5161,7 +5161,7 @@
 
 .cds-sidenav-sublabel {
   font-size: var(--typography-font-size-xs);
-  font-weight: 400;
+  font-weight: var(--typography-font-weight-regular);
   color: var(--theme-neutral-text-subtleleast);
 }
 
@@ -5227,12 +5227,12 @@
   padding: var(--core-space-0) var(--core-space-1);
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-strong);
-  border-bottom-width: 2px;
+  border-bottom-width: var(--core-border-width-thick);
   background: var(--core-color-surface-sunken);
   color: var(--theme-neutral-text-subtle);
   font-family: var(--typography-font-family-sans);
   font-size: var(--typography-font-size-xs);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   box-shadow: 0 1px 0 var(--theme-neutral-border-primary-default);
 }
 
@@ -5393,7 +5393,7 @@
   display: flex;
   align-items: center;
   gap: var(--core-space-2);
-  font-weight: 700;
+  font-weight: var(--typography-font-weight-bold);
   font-size: var(--typography-font-size-lg);
   color: var(--theme-neutral-text-primary-default);
   min-width: 0;
@@ -5577,7 +5577,7 @@
 
 .cds-chart-title {
   font-size: var(--typography-body-md-size);
-  font-weight: 600;
+  font-weight: var(--typography-font-weight-semibold);
   color: var(--theme-neutral-text-primary-default);
   margin-bottom: var(--core-space-3);
 }
@@ -5613,7 +5613,7 @@
 }
 
 .cds-questionnaire-title {
-  font-weight: 700;
+  font-weight: var(--typography-font-weight-bold);
   font-size: var(--typography-body-lg-size);
   color: var(--theme-neutral-text-primary-default);
 }
@@ -5630,7 +5630,7 @@
 
 .cds-questionnaire-prompt {
   font-size: var(--typography-font-size-lg);
-  font-weight: 700;
+  font-weight: var(--typography-font-weight-bold);
   margin: 0 0 var(--core-space-2);
   color: var(--theme-neutral-text-primary-default);
 }
