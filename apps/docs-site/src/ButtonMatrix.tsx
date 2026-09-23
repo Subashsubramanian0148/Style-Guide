@@ -169,22 +169,22 @@ export function ButtonMatrix() {
     sm: {
       padding: "var(--core-space-2) var(--core-space-3)",
       minHeight: "var(--core-size-control-sm)",
-      fontSize: "var(--core-typography-text12SemiBold-size, 12px)",
-      lineHeight: "var(--core-typography-text12SemiBold-lineHeight, 1.5)",
+      fontSize: "var(--typography-text12-semibold-size)",
+      lineHeight: "var(--typography-text12-semibold-line-height)",
       radius: "var(--core-radius-sm)",
     },
     md: {
       padding: "var(--core-space-2) var(--core-space-3)",
       minHeight: "var(--core-size-control-md)",
-      fontSize: "var(--core-typography-text14SemiBold-size, 14px)",
-      lineHeight: "var(--core-typography-text14SemiBold-lineHeight, 1.5)",
+      fontSize: "var(--typography-text14-semibold-size)",
+      lineHeight: "var(--typography-text14-semibold-line-height)",
       radius: "var(--core-radius-sm)",
     },
     lg: {
       padding: "var(--core-space-3) var(--core-space-4)",
       minHeight: "var(--core-size-control-lg)",
-      fontSize: "var(--core-typography-text16SemiBold-size, 16px)",
-      lineHeight: "var(--core-typography-text16SemiBold-lineHeight, 1.5)",
+      fontSize: "var(--typography-text16-semibold-size)",
+      lineHeight: "var(--typography-text16-semibold-line-height)",
       radius: "var(--core-radius-sm)",
     },
   }[size];

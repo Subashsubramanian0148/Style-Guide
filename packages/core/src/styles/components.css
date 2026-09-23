@@ -3,6 +3,24 @@
    Corner radius: 8px (--core-radius-sm) on all rectangular component surfaces.
    Semantic tones: edit apps/docs-site/public/Format to follow naming.scss only. */
 
+/* Focus visibility — two intentional treatments, not an inconsistency:
+   1. Discrete controls (Button, IconButton, Link, Badge, Checkbox/Radio,
+      Tabs, Toggle, Accordion, Pagination, Menu item, …) use a hard
+      `outline` ring via `--core-focusRing-width`/`-offset`. These are small,
+      often non-rectangular or icon-only targets where a crisp ring reads
+      clearly at any size.
+   2. Text-entry fields and clickable card-like surfaces (Input, Textarea,
+      Select, OTP digit, interactive Card, QuickLink) use `outline: none`
+      plus this shared glow instead. A hard ring on a bordered, rounded
+      field competes with the field's own border for the same edge; the
+      soft glow signals focus without adding a second rectangle and stays
+      visually continuous with the border-radius. `--cds-focus-glow` is the
+      single source for that box-shadow so every field-style component
+      stays in sync instead of re-deriving the same value. */
+:root {
+  --cds-focus-glow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+}
+
 /* ── Semantic tone utilities (token-driven) ──
    Edit apps/docs-site/public/Format to follow naming.scss → npm run palette:tokens */
 .cds-sem-success-soft {
@@ -790,8 +808,8 @@
 }
 
 .cds-step-status-dot {
-  width: 6px;
-  height: 6px;
+  width: var(--core-space-2);
+  height: var(--core-space-2);
   border-radius: 50%;
   background: currentColor;
   flex-shrink: 0;
@@ -1051,7 +1069,7 @@
 .cds-input:focus {
   outline: none;
   border-color: var(--theme-primitive-color-primary-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+  box-shadow: var(--cds-focus-glow);
 }
 
 .cds-input[aria-invalid="true"] {
@@ -1109,7 +1127,7 @@
 .cds-card--interactive:focus-visible {
   outline: none;
   border-color: var(--theme-primitive-color-primary-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+  box-shadow: var(--cds-focus-glow);
 }
 
 .cds-card--disabled,
@@ -1174,7 +1192,7 @@
 .cds-quicklink:focus-visible {
   outline: none;
   border-color: var(--theme-primitive-color-primary-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+  box-shadow: var(--cds-focus-glow);
 }
 
 .cds-quicklink[data-selected="true"] {
@@ -1493,8 +1511,8 @@
 }
 
 .cds-badge-dot {
-  width: 6px;
-  height: 6px;
+  width: var(--core-space-2);
+  height: var(--core-space-2);
   border-radius: 50%;
   background-color: currentColor;
   flex-shrink: 0;
@@ -1643,24 +1661,24 @@
  * switches, none of which put a border on the track.
  */
 /*
- * Fixed geometry, not layout-derived: track is a hardcoded 32×18 box (no
+ * Fixed geometry, not layout-derived: track is a hardcoded 32×16 box (no
  * padding), and the thumb is absolutely positioned inside it with explicit
  * `left`/`right` values — OFF sets `left: 2px`, ON sets `right: 2px`
  * (switching which edge is anchored, not translating from a computed
  * travel distance). Nothing here depends on flex alignment, gap, or padding
- * to place the thumb; the track's own 32×18 box is the only container.
+ * to place the thumb; the track's own 32×16 box is the only container.
  * Vertical centering uses `top: 50%` + `translateY(-50%)`, which stays
  * exact regardless of track height, rather than assuming inset math
  * happens to center it. No border on the track or default box-shadow on
  * the thumb — either would add real layout box size (a border) or a visual
  * halo that reads as size even though it technically isn't (a shadow), so
  * both are pushed to :focus-visible / --disabled variants only, via
- * box-shadow (which never affects layout or the 32×18 bounding box).
+ * box-shadow (which never affects layout or the 32×16 bounding box).
  */
 .cds-switch-track {
-  width: 32px;
-  height: 18px;
-  border-radius: 9px;
+  width: var(--core-space-8);
+  height: var(--core-space-4);
+  border-radius: var(--core-radius-full);
   background: var(--theme-colors-neutral-500);
   border: none;
   box-sizing: border-box;
@@ -1674,8 +1692,8 @@
   position: absolute;
   top: 50%;
   left: 2px;
-  width: 14px;
-  height: 14px;
+  width: var(--core-space-3);
+  height: var(--core-space-3);
   border-radius: 50%;
   background: var(--theme-colors-neutral-0);
   box-shadow: var(--core-elevation-1);
@@ -1803,7 +1821,7 @@
 .cds-textarea:focus {
   outline: none;
   border-color: var(--theme-primitive-color-primary-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+  box-shadow: var(--cds-focus-glow);
 }
 
 .cds-textarea[aria-invalid="true"] {
@@ -1860,7 +1878,7 @@
 .cds-select:focus-visible {
   outline: none;
   border-color: var(--theme-primitive-color-primary-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+  box-shadow: var(--cds-focus-glow);
 }
 
 .cds-select[aria-disabled="true"],
@@ -1942,7 +1960,7 @@
 }
 
 .cds-select-check {
-  width: 14px;
+  width: var(--core-size-icon-sm);
   color: var(--brand-text-primary-default);
   flex-shrink: 0;
 }
@@ -1991,8 +2009,8 @@
 
 .cds-checkbox-box,
 .cds-radio-box {
-  width: 18px;
-  height: 18px;
+  width: var(--core-size-icon-md);
+  height: var(--core-size-icon-md);
   border: 1.5px solid var(--theme-neutral-border-primary-default);
   background: var(--core-color-surface-default);
   display: inline-flex;
@@ -2072,8 +2090,8 @@
 }
 
 .cds-radio-box .dot {
-  width: 7px;
-  height: 7px;
+  width: var(--core-space-2);
+  height: var(--core-space-2);
   border-radius: 50%;
   background: var(--theme-colors-neutral-0);
 }
@@ -2122,30 +2140,30 @@
 /* Checkbox/Radio: size */
 .cds-checkbox-box--sm,
 .cds-radio-box--sm {
-  width: 14px;
-  height: 14px;
+  width: var(--core-size-icon-sm);
+  height: var(--core-size-icon-sm);
 }
 
 .cds-checkbox-box--md,
 .cds-radio-box--md {
-  width: 18px;
-  height: 18px;
+  width: var(--core-size-icon-md);
+  height: var(--core-size-icon-md);
 }
 
 .cds-checkbox-box--lg,
 .cds-radio-box--lg {
-  width: 22px;
-  height: 22px;
+  width: var(--core-size-icon-lg);
+  height: var(--core-size-icon-lg);
 }
 
 .cds-radio-box--sm .dot {
-  width: 5px;
-  height: 5px;
+  width: var(--core-space-1);
+  height: var(--core-space-1);
 }
 
 .cds-radio-box--lg .dot {
-  width: 9px;
-  height: 9px;
+  width: var(--core-space-3);
+  height: var(--core-space-3);
 }
 
 /* Checkbox: tone (checked-state color only — unchecked stays neutral) */
@@ -2363,7 +2381,7 @@
 }
 
 .cds-table-wrap::-webkit-scrollbar {
-  height: 10px;
+  height: var(--core-space-2);
 }
 
 .cds-table-wrap::-webkit-scrollbar-track {
@@ -2601,8 +2619,8 @@
 }
 
 .cds-table-view-badge__dot {
-  width: 6px;
-  height: 6px;
+  width: var(--core-space-2);
+  height: var(--core-space-2);
   border-radius: 50%;
   background: var(--theme-neutral-text-subtle);
   flex-shrink: 0;
@@ -2661,8 +2679,8 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 9px;
-  height: 9px;
+  width: var(--core-space-2);
+  height: var(--core-space-2);
   border-radius: 50%;
   border: 2px solid var(--core-color-surface-default);
 }
@@ -3051,8 +3069,8 @@
 
 /* ---------- Spinner ---------- */
 .cds-spinner {
-  width: 18px;
-  height: 18px;
+  width: var(--core-size-icon-md);
+  height: var(--core-size-icon-md);
   border-radius: 50%;
   --cds-spinner-track: color-mix(in srgb, var(--core-color-text-primary) 32%, transparent);
   --cds-spinner-active: var(--brand-text-primary-default, var(--core-color-action-primary-bg));
@@ -3826,7 +3844,7 @@
 
 .cds-input-group:focus-within {
   border-radius: var(--core-input-radius);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+  box-shadow: var(--cds-focus-glow);
 }
 
 .cds-input-group:focus-within .cds-input,
@@ -3954,7 +3972,7 @@
 
 .cds-incremental-selector:focus-within {
   border-color: var(--theme-primitive-color-primary-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+  box-shadow: var(--cds-focus-glow);
 }
 
 .cds-incremental-selector__btn:focus-visible {
@@ -4095,10 +4113,10 @@
   display: flex;
   align-items: center;
   gap: var(--core-space-3);
-  --cds-slider-track-height: 6px;
+  --cds-slider-track-height: var(--core-space-1);
   --cds-slider-track-fill: var(--brand-background-primary-strong);
   --cds-slider-track-bg: var(--theme-colors-neutral-100);
-  --cds-slider-thumb-size: 18px;
+  --cds-slider-thumb-size: var(--core-size-icon-md);
   --cds-slider-thumb-bg: var(--brand-background-primary-strong);
   --cds-slider-thumb-border: var(--theme-colors-neutral-0);
   --cds-slider-thumb-ring: var(--brand-background-primary-strong);
@@ -4386,7 +4404,7 @@
 .cds-date-picker .cds-input:focus,
 .cds-date-picker .cds-input:focus-visible {
   border-color: var(--theme-primitive-color-primary-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+  box-shadow: var(--cds-focus-glow);
 }
 
 .cds-calendar {
@@ -4992,8 +5010,8 @@
   }
 
   .cds-app-sidebar:not(.cds-app-sidebar--panel) .cds-sidenav-icon {
-    width: 26px;
-    height: 26px;
+    width: var(--core-size-icon-lg);
+    height: var(--core-size-icon-lg);
   }
 }
 
@@ -5115,8 +5133,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 30px;
-  height: 30px;
+  width: var(--core-space-8);
+  height: var(--core-space-8);
   border-radius: var(--core-sidebar-icon-radius);
   background: var(--core-sidebar-icon-bg);
   color: var(--core-sidebar-icon-text);
@@ -5273,7 +5291,7 @@
 
 .cds-input-affix-wrap:focus-within .cds-input {
   border-color: var(--theme-primitive-color-primary-400);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+  box-shadow: var(--cds-focus-glow);
 }
 
 .cds-input-affix-wrap:focus-within .cds-input-icon {
@@ -5347,7 +5365,7 @@
 }
 
 .cds-menu-item-check-mark {
-  width: 14px;
+  width: var(--core-size-icon-sm);
   opacity: 0;
 }
 

@@ -76,25 +76,14 @@ function buildPrimitiveBlock(overriddenPrimitives) {
     // picks up a theme's overridden brand color automatically.
     lines.push(`  ${toCssVarName(key)}: ${resolve(value, overriddenPrimitives)};`);
   }
-  // Semantic typography roles (Bootstrap-aligned h1–h6, lead, body, …).
-  // Desktop sizes are the canonical CSS vars; mobile is available as
-  // --core-typography-{role}-mobile-* for RFS-style media queries.
-  for (const [role, spec] of Object.entries(typography)) {
-    const family = resolve(spec.family, overriddenPrimitives);
-    lines.push(`  ${toCssVarName(`typography.${role}.family`)}: ${family};`);
-    for (const bp of ["desktop", "mobile"]) {
-      const t = spec[bp];
-      lines.push(`  ${toCssVarName(`typography.${role}.${bp}.size`)}: ${t.size};`);
-      lines.push(`  ${toCssVarName(`typography.${role}.${bp}.weight`)}: ${t.weight};`);
-      lines.push(`  ${toCssVarName(`typography.${role}.${bp}.lineHeight`)}: ${t.lineHeight};`);
-      lines.push(`  ${toCssVarName(`typography.${role}.${bp}.letterSpacing`)}: ${t.letterSpacing};`);
-    }
-    // Convenience aliases — desktop size/weight as the default role tokens
-    lines.push(`  ${toCssVarName(`typography.${role}.size`)}: ${spec.desktop.size};`);
-    lines.push(`  ${toCssVarName(`typography.${role}.weight`)}: ${spec.desktop.weight};`);
-    lines.push(`  ${toCssVarName(`typography.${role}.lineHeight`)}: ${spec.desktop.lineHeight};`);
-    lines.push(`  ${toCssVarName(`typography.${role}.letterSpacing`)}: ${spec.desktop.letterSpacing};`);
-  }
+  // Note: this used to also emit a parallel --core-typography-{role}-* CSS
+  // variable set (Bootstrap-aligned h1–h6, lead, body, …) generated straight
+  // from typography.json. Nothing consumed those vars — every component and
+  // doc-site usage resolves through the --typography-* set in
+  // apps/docs-site/src/typography-tokens.css instead — and the two
+  // disagreed on font-weight (eyebrow 700 vs 800) and letter-spacing
+  // (headings 0 vs negative tracking) for the same semantic roles. Removed
+  // rather than reconciled, since it was dead output with no consumer.
   return lines.join("\n");
 }
 
