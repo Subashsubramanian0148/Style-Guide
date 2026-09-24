@@ -1,8 +1,9 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Field } from "../../../packages/core/src/components/Field";
 import { Textarea } from "../../../packages/core/src/components/FormControls";
-import { TrueBand, NodeOutline, Callout, type Rect } from "./AnatomyPrimitives";
+import { TrueBand, NodeOutline, Callout, SizeTag, type Rect } from "./AnatomyPrimitives";
 import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
+import { LayerTable, type AnatomyLayer } from "./MeasuredAnatomy";
 
 const GREEN = "#118D57";
 const ORANGE = "#C2410C";
@@ -26,10 +27,10 @@ interface Measure {
   resize: string;
 }
 
-const LAYERS: { node: string; cls: string; direction: string; alignment: string; resizing: string; spacing: string }[] = [
-  { node: "Container (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Fixed", spacing: "Gap 8" },
-  { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-  { node: "Text area", cls: ".cds-textarea", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Fixed (min 88)", spacing: "Padding 12" },
+const LAYERS: AnatomyLayer[] = [
+  { node: "Container (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ".cds-field" },
+  { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-label" },
+  { node: "Text area", cls: ".cds-textarea", direction: "Vertical", alignment: "Top left", spacing: "Padding 12", sel: ".cds-textarea" },
 ];
 
 /** Textarea anatomy: label→field spacing and field padding in one diagram,
@@ -104,13 +105,11 @@ export function TextareaAnatomy() {
         <Callout x={leftCol} y={inner.y + inner.h - p / 2} from={inner.x} axis="h" value={m.pad} color={GREEN} />
 
         <NodeOutline r={L} />
-        <NodeOutline r={A} />
+        <SizeTag r={A} label={`${Math.round(A.w / SCALE)} × ${Math.round(A.h / SCALE)}`} offset={24} />
       </>
     );
   })();
 
-  const th: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 };
-  const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", fontSize: 13, verticalAlign: "top" };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
@@ -127,39 +126,13 @@ export function TextareaAnatomy() {
         <SpecNote>
           <span style={{ color: ORANGE, fontWeight: 700 }}>Orange</span> = item spacing between label and field,{" "}
           <span style={{ color: GREEN, fontWeight: 700 }}>green</span> = field padding,{" "}
-          <span style={{ color: BLUE, fontWeight: 700 }}>blue</span> outlines = child nodes. Shown at{" "}
+          <span style={{ color: BLUE, fontWeight: 700 }}>blue</span> outlines = child nodes, <span style={{ color: "#7C3AED", fontWeight: 700 }}>purple</span> = fixed width × height. Shown at{" "}
           {SCALE.toFixed(2).replace(/\.?0+$/, "")}× — every badge reads the real CSS value. Structure is shared by every state; only border and
           background tokens change on hover, focus, filled and disabled.
         </SpecNote>
       </div>
 
-      <div>
-        <SectionHeading>Layer structure — Figma node → CSS class</SectionHeading>
-        <SpecTableCard>
-          <thead>
-            <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
-              <th style={th}>Node</th>
-              <th style={th}>Class</th>
-              <th style={th}>Direction</th>
-              <th style={th}>Alignment</th>
-              <th style={th}>Resizing (W × H)</th>
-              <th style={th}>Spacing</th>
-            </tr>
-          </thead>
-          <tbody>
-            {LAYERS.map((l) => (
-              <tr key={l.cls}>
-                <td style={{ ...td, fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap" }}>{l.node}</td>
-                <td style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap" }}>{l.cls}</td>
-                <td style={td}>{l.direction}</td>
-                <td style={td}>{l.alignment}</td>
-                <td style={td}>{l.resizing}</td>
-                <td style={td}>{l.spacing}</td>
-              </tr>
-            ))}
-          </tbody>
-        </SpecTableCard>
-      </div>
+      <LayerTable layers={LAYERS} root={boxRef} />
 
       {m && (
         <div>
@@ -171,7 +144,7 @@ export function TextareaAnatomy() {
               <SpecRow label="Field padding" token="core-space-3" value={`${m.pad}px`} standard="pass" />
               <SpecRow label="Label" token="typography-label" value={m.labelType} standard="pass" />
               <SpecRow label="Input text" token="typography-text14-regular-size" value={m.inputType} standard="pass" />
-              <SpecRow label="Min height" token="88px (2 rows)" value={m.minHeight} standard="pass" />
+              <SpecRow label="Text area (W × H)" token="width stretches to container · min-height 88" value={`${Math.round(m.area.w / SCALE)} × ${Math.round(m.area.h / SCALE)}px`} standard="pass" />
               <SpecRow label="Resize" token="resize: vertical" value={m.resize} standard="pass" />
               <SpecRow label="Border" token="theme-neutral-border-primary-default" value={m.borderSpec} standard="pass" />
               <SpecRow label="Border radius" token="core-radius-sm" value={m.radius} standard="pass" />

@@ -139,8 +139,8 @@ export function CheckboxRadioAnatomy() {
                 <SpecRow label="Border" token="theme-neutral-border-primary-default" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
                 <SpecRow label="Radius — Checkbox" token="core-radius-xs" value={spec.checkboxRadius} standard="pass" />
                 <SpecRow label="Radius — Radio" token="(circle)" value={spec.radioRadius} standard="pass" />
-                <SpecRow label="Fill (unchecked)" token="core-color-surface-default" value={spec.fill} swatch={spec.fill} standard="pass" />
-                <SpecRow label="Fill (checked)" token="brand-background-primary-strong" value="rgb(31, 79, 141)" swatch="rgb(31, 79, 141)" standard="pass" />
+                <SpecRow label="Background (unchecked)" token="core-color-surface-default" value={spec.fill} swatch={spec.fill} standard="pass" />
+                <SpecRow label="Background (checked)" token="brand-background-primary-strong" value="rgb(31, 79, 141)" swatch="rgb(31, 79, 141)" standard="pass" />
                 <SpecRow label="Indicator" token="Checkbox: check glyph · Radio: 7px dot" value="neutral-0 (white)" standard="pass" />
                 <SpecRow label="Label gap" token="core-space-2" value={spec.gap} standard="pass" />
                 <SpecRow label="Row padding" token="core-space-1 / core-space-0" value={spec.padding} standard="pass" note="Keeps the clickable row at least 24px tall (WCAG 2.5.8)" />
@@ -207,7 +207,7 @@ function MatrixCell({ spec }: { spec: CellSpec }) {
   );
   return (
     <td style={{ padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
-      {line("fill", spec.fill)}
+      {line("bg", spec.fill)}
       {line("border", spec.border)}
     </td>
   );

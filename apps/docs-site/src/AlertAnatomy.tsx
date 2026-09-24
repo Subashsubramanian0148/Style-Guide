@@ -82,8 +82,8 @@ export function AlertAnatomy() {
   }, []);
 
   return (
-    <AnatomyFrame>
-      <div ref={boxRef} style={{ position: "relative", width: 918, marginTop: 46, marginLeft: 50 }}>
+    <div style={{ position: "relative", display: "flex", width: "100%" }}>
+      <div ref={boxRef} style={{ position: "relative", width: "calc(100% - 100px)", marginTop: 46, marginLeft: 50 }}>
         <Alert tone="success" title="Enrollment complete" onDismiss={() => {}}>
           You are contributing 6% starting next pay cycle.
         </Alert>
@@ -95,6 +95,6 @@ export function AlertAnatomy() {
         {iconGap && <GapCallout x={iconGap.x} width={iconGap.width} value={12} />}
         {titleGap && <HGapCallout y={titleGap.y} width={titleGap.width} height={titleGap.height} value={4} />}
       </div>
-    </AnatomyFrame>
+    </div>
   );
 }

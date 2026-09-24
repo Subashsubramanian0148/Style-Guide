@@ -62,8 +62,8 @@ export function AccordionAnatomy() {
   }, []);
 
   return (
-    <AnatomyFrame>
-      <div ref={boxRef} style={{ position: "relative", width: 918 }}>
+    <div style={{ position: "relative", display: "flex", width: "100%" }}>
+      <div ref={boxRef} style={{ position: "relative", width: "calc(100% - 100px)", marginLeft: 50 }}>
         <Accordion
           items={[
             {
@@ -80,6 +80,6 @@ export function AccordionAnatomy() {
         {panel && <RegionPadding x={panel.x} y={panel.y} width={panel.width} height={panel.height} size={16} edges={["top", "left", "bottom"]} />}
         {auto && <AutoBand x={auto.x} y={auto.y} width={auto.width} height={auto.height} />}
       </div>
-    </AnatomyFrame>
+    </div>
   );
 }

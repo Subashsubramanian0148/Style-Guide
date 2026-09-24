@@ -66,15 +66,16 @@ export function SeparatorAnatomy() {
         { kind: "gap", a: ".cds-separator", b: "[data-a=s2]", axis: "y", color: "#118D57" },
         { kind: "gap", a: "[data-a=t1]", b: "[data-a=b1]", axis: "y", color: "#118D57" },
         { kind: "gap", a: "[data-a=t2]", b: "[data-a=b2]", axis: "y", color: "#118D57" },
+        { kind: "size", sel: ".cds-separator", name: "Separator line", fill: "w" },
         { kind: "outline", sel: "[data-a=s1]" },
         { kind: "outline", sel: "[data-a=s2]" },
       ]}
       layers={[
-        { node: "Container (card)", cls: "demo card", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Padding 16" },
-        { node: "Section", cls: "div", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Title", cls: "div", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Body", cls: "div", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Top 4" },
-        { node: "Container:margin", cls: ".cds-separator", direction: "Vertical", alignment: "Top left", resizing: "Fill × 1px", spacing: "Top 16 · Bottom 16" },
+        { node: "Container (card)", cls: "demo card", direction: "Vertical", alignment: "Top left", spacing: "Padding 16", sel: "[data-a=card]" },
+        { node: "Section", cls: "div", direction: "Vertical", alignment: "Top left", spacing: "—", sel: "[data-a=s1]" },
+        { node: "Title", cls: "div", direction: "Vertical", alignment: "Top left", spacing: "—", sel: "[data-a=t1]" },
+        { node: "Body", cls: "div", direction: "Vertical", alignment: "Top left", spacing: "Top 4", sel: "[data-a=b1]" },
+        { node: "Container:margin", cls: ".cds-separator", direction: "Vertical", alignment: "Top left", spacing: "Top 16 · Bottom 16", sel: ".cds-separator" },
       ]}
       specs={(q) => [
         pass("Card padding", "core-space-4", `${q.px("[data-a=card]", "padding-top")}px`),
@@ -105,16 +106,17 @@ export function SelectAnatomy() {
       marks={[
         { kind: "gap", a: ".cds-label", b: ".cds-select-wrap", axis: "y" },
         { kind: "padding", sel: ".cds-select" },
+        { kind: "size", sel: ".cds-select", name: "Trigger", fill: "w" },
         { kind: "gap", a: ".cds-select > span", b: ".cds-select-wrap > svg", axis: "x", label: "Auto" },
         { kind: "outline", sel: ".cds-label" },
         { kind: "outline", sel: ".cds-select-wrap > svg" },
       ]}
       layers={[
-        { node: "Container (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Fixed", spacing: "Gap 8" },
-        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container", cls: ".cds-select-wrap", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "—" },
-        { node: "Button", cls: ".cds-select", direction: "Horizontal", alignment: "Middle, spaced equally", resizing: "Fill × Fixed", spacing: "Padding 8 / 12" },
-        { node: "Frame 4", cls: "text + chevron", direction: "Horizontal", alignment: "Middle, spaced equally", resizing: "Fill × Hug", spacing: "Auto" },
+        { node: "Container (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ".cds-field" },
+        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-label" },
+        { node: "Container", cls: ".cds-select-wrap", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-select-wrap" },
+        { node: "Button", cls: ".cds-select", direction: "Horizontal", alignment: "Middle, spaced equally", spacing: "Padding 8 / 12", sel: ".cds-select" },
+        { node: "Frame 4", cls: "text + chevron", direction: "Horizontal", alignment: "Middle, spaced equally", spacing: "Auto", sel: ".cds-select > span" },
       ]}
       specs={(q) => [
         pass("Label → field", "core-space-2", `${q.px(".cds-field", "row-gap")}px`),
@@ -144,16 +146,18 @@ export function QuickLinksAnatomy() {
       marks={[
         { kind: "gap", a: ".docs-state-label", b: ".cds-quicklink", axis: "y" },
         { kind: "padding", sel: ".cds-quicklink" },
+        { kind: "size", sel: ".cds-quicklink", name: "Card", fill: "w" },
+        { kind: "size", sel: ".cds-quicklink-icon", name: "Icon tile" },
         { kind: "gap", a: ".cds-quicklink-icon", b: ".cds-quicklink-label", axis: "x", span: ".cds-quicklink-icon" },
         { kind: "outline", sel: ".cds-quicklink-icon" },
         { kind: "outline", sel: ".cds-quicklink-label" },
       ]}
       layers={[
-        { node: "Container", cls: "demo cell", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8" },
-        { node: "Button", cls: ".cds-quicklink", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 12 · Padding 16" },
-        { node: "Icon tile", cls: ".cds-quicklink-icon", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 40 × 40", spacing: "—" },
-        { node: "Icon", cls: ".cds-icon", direction: "Vertical", alignment: "Top left", resizing: "Fixed", spacing: "—" },
-        { node: "Text", cls: ".cds-quicklink-label", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Container", cls: "demo cell", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ":scope > div" },
+        { node: "Button", cls: ".cds-quicklink", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 12 · Padding 16", sel: ".cds-quicklink" },
+        { node: "Icon tile", cls: ".cds-quicklink-icon", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-quicklink-icon" },
+        { node: "Icon", cls: ".cds-icon", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-quicklink-icon .cds-icon" },
+        { node: "Text", cls: ".cds-quicklink-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-quicklink-label" },
       ]}
       specs={(q) => [
         pass("State label → card", "core-space-2", `${q.gap(".docs-state-label", ".cds-quicklink", "y")}px`),
@@ -182,18 +186,20 @@ export function BankFieldsAnatomy() {
       marks={[
         { kind: "gap", a: ".cds-label", b: ".cds-input-affix-wrap", axis: "y" },
         { kind: "padding", sel: ".cds-input", edges: ["top", "bottom", "left"] },
+        { kind: "size", sel: ".cds-input", name: "Input", fill: "w" },
+        { kind: "size", sel: ".cds-input-icon", name: "Card icon" },
         { kind: "gap", a: ".cds-input-icon", b: { inner: ".cds-input", edge: "right" }, axis: "x", color: "#118D57" },
         { kind: "gap", a: { content: ".cds-input", edge: "right" }, b: ".cds-input-icon", axis: "x" },
         { kind: "outline", sel: ".cds-label" },
         { kind: "outline", sel: ".cds-input-icon" },
       ]}
       layers={[
-        { node: "Bank Fields", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Fixed", spacing: "Gap 8" },
-        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container", cls: ".cds-input-affix-wrap", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Text Input", cls: ".cds-input", direction: "Horizontal", alignment: "Middle left", resizing: "Fixed × Fixed", spacing: "Padding 8 / 12" },
-        { node: "Frame 5", cls: "text + icon", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 8" },
-        { node: "Icon", cls: ".cds-input-icon--trailing", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 16", spacing: "—" },
+        { node: "Bank Fields", cls: ".cds-field", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ".cds-field" },
+        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-label" },
+        { node: "Container", cls: ".cds-input-affix-wrap", direction: "Horizontal", alignment: "Middle left", spacing: "—", sel: ".cds-input-affix-wrap" },
+        { node: "Text Input", cls: ".cds-input", direction: "Horizontal", alignment: "Middle left", spacing: "Padding 8 / 12", sel: ".cds-input" },
+        { node: "Frame 5", cls: "text + icon", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 8", sel: "union:.cds-input,.cds-input-icon" },
+        { node: "Icon", cls: ".cds-input-icon--trailing", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-input-icon" },
       ]}
       specs={(q) => {
         const textToIcon = q.gap({ content: ".cds-input", edge: "right" }, ".cds-input-icon", "x");
@@ -234,15 +240,17 @@ export function InputGroupAnatomy() {
         { kind: "gap", a: "[data-a=suf] .cds-label", b: "[data-a=suf] .cds-input-group", axis: "y" },
         { kind: "padding", sel: "[data-a=suf] .cds-input" },
         { kind: "padding", sel: "[data-a=suf] .cds-input-group-addon" },
+        { kind: "size", sel: "[data-a=suf] .cds-input-group-addon", name: "Addon" },
+        { kind: "size", sel: "[data-a=suf] .cds-input-group", name: "Input group", fill: "w" },
         { kind: "outline", sel: "[data-a=pre] .cds-label" },
         { kind: "outline", sel: "[data-a=suf] .cds-label" },
       ]}
       layers={[
-        { node: "Prefix / Suffix", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Fixed", spacing: "Gap 8" },
-        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container", cls: ".cds-input-group", direction: "Horizontal", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Text (addon)", cls: ".cds-input-group-addon", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Fill", spacing: "Padding 8 / 12" },
-        { node: "Text Input", cls: ".cds-input", direction: "Vertical", alignment: "Middle left", resizing: "Fixed × Fixed", spacing: "Padding 8 / 12" },
+        { node: "Prefix / Suffix", cls: ".cds-field", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: "[data-a=pre] .cds-field" },
+        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: "[data-a=pre] .cds-label" },
+        { node: "Container", cls: ".cds-input-group", direction: "Horizontal", alignment: "Top left", spacing: "—", sel: "[data-a=pre] .cds-input-group" },
+        { node: "Text (addon)", cls: ".cds-input-group-addon", direction: "Horizontal", alignment: "Middle left", spacing: "Padding 8 / 12", sel: "[data-a=pre] .cds-input-group-addon" },
+        { node: "Text Input", cls: ".cds-input", direction: "Vertical", alignment: "Middle left", spacing: "Padding 8 / 12", sel: "[data-a=pre] .cds-input" },
       ]}
       specs={(q) => [
         pass("Label → field", "core-space-2", `${q.px("[data-a=pre] .cds-field", "row-gap")}px`),
@@ -281,18 +289,20 @@ export function TabsAnatomy() {
         { kind: "gap", a: `${h}:nth-child(1)`, b: `${h}:nth-child(2)`, axis: "x" },
         { kind: "gap", a: `${h}:nth-child(2)`, b: `${h}:nth-child(3)`, axis: "x" },
         { kind: "padding", sel: `${h}:nth-child(1)` },
+        { kind: "size", sel: `${h}:nth-child(3)`, name: "Tab (horizontal)" },
         { kind: "gap", a: `${v}:nth-child(1)`, b: `${v}:nth-child(2)`, axis: "y" },
         { kind: "gap", a: `${v}:nth-child(2)`, b: `${v}:nth-child(3)`, axis: "y" },
         { kind: "gap", a: `${v}:nth-child(3)`, b: `${v}:nth-child(4)`, axis: "y" },
         { kind: "padding", sel: `${v}:nth-child(2)` },
+        { kind: "size", sel: `${v}:nth-child(4)`, name: "Tab (vertical)", fill: "w" },
         { kind: "outline", sel: "[data-a=h] .cds-tabs" },
         { kind: "outline", sel: "[data-a=v] .cds-tabs" },
       ]}
       layers={[
-        { node: "Frame 7 (tab list)", cls: ".cds-tabs", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Gap 8" },
-        { node: "Tab", cls: ".cds-tab", direction: "Vertical", alignment: "Middle center", resizing: "Hug × Fixed", spacing: "Padding 12" },
-        { node: "Tab List (vertical)", cls: ".cds-tabs--vertical", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug", spacing: "Gap 4" },
-        { node: "Tab (vertical)", cls: ".cds-tab--vertical", direction: "Vertical", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Padding 8 / 16" },
+        { node: "Frame 7 (tab list)", cls: ".cds-tabs", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 8", sel: "[data-a=h] .cds-tabs" },
+        { node: "Tab", cls: ".cds-tab", direction: "Vertical", alignment: "Middle center", spacing: "Padding 12", sel: "[data-a=h] .cds-tab" },
+        { node: "Tab List (vertical)", cls: ".cds-tabs--vertical", direction: "Vertical", alignment: "Top left", spacing: "Gap 4", sel: "[data-a=v] .cds-tabs" },
+        { node: "Tab (vertical)", cls: ".cds-tab--vertical", direction: "Vertical", alignment: "Middle left", spacing: "Padding 8 / 16", sel: "[data-a=v] .cds-tab" },
       ]}
       specs={(q) => {
         const hGap = q.gap(`${h}:nth-child(1)`, `${h}:nth-child(2)`, "x");
@@ -384,15 +394,18 @@ export function SkeletonAnatomy() {
         { kind: "gap", a: "[data-a=m1]", b: "[data-a=m2]", axis: "y", span: "[data-a=meta]" },
         { kind: "gap", a: "[data-a=l1]", b: "[data-a=l2]", axis: "y", span: "[data-a=lines]" },
         { kind: "gap", a: "[data-a=l2]", b: "[data-a=l3]", axis: "y", span: "[data-a=lines]" },
+        { kind: "size", sel: "[data-a=avatar] .cds-skeleton", name: "Avatar bone" },
+        { kind: "size", sel: "[data-a=cta] .cds-skeleton", name: "CTA bone", fill: "w" },
+        { kind: "size", sel: "[data-a=card]", name: "Card" },
         { kind: "outline", sel: "[data-a=head]" },
         { kind: "outline", sel: "[data-a=lines]" },
       ]}
       layers={[
-        { node: "Skeleton (card)", cls: "demo card", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 16 · Padding 24" },
-        { node: "Container (header)", cls: "div", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 12" },
-        { node: "Container (meta lines)", cls: "div", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 4" },
-        { node: "Container (body lines)", cls: "div", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 8" },
-        { node: "Bone", cls: ".cds-skeleton", direction: "—", alignment: "—", resizing: "Fixed height", spacing: "—" },
+        { node: "Skeleton (card)", cls: "demo card", direction: "Vertical", alignment: "Top left", spacing: "Gap 16 · Padding 24", sel: "[data-a=card]" },
+        { node: "Container (header)", cls: "div", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 12", sel: "[data-a=head]" },
+        { node: "Container (meta lines)", cls: "div", direction: "Vertical", alignment: "Top left", spacing: "Gap 4", sel: "[data-a=meta]" },
+        { node: "Container (body lines)", cls: "div", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: "[data-a=lines]" },
+        { node: "Bone", cls: ".cds-skeleton", direction: "—", alignment: "—", spacing: "—", sel: "[data-a=l1] .cds-skeleton" },
       ]}
       specs={(q) => [
         pass("Card padding", "core-space-6", `${q.px("[data-a=card]", "padding-top")}px`),
@@ -433,15 +446,17 @@ export function SidebarAnatomy() {
         { kind: "gap", a: `${link}:nth-child(3)`, b: `${link}:nth-child(4)`, axis: "y" },
         { kind: "gap", a: `${link}:nth-child(4)`, b: `${link}:nth-child(5)`, axis: "y" },
         { kind: "padding", sel: `${link}:nth-child(1)` },
+        { kind: "size", sel: `${link}:nth-child(5)`, name: "Nav item" },
+        { kind: "size", sel: `${link}:nth-child(1) .cds-sidenav-icon-plain`, name: "Icon" },
         { kind: "gap", a: `${link}:nth-child(1) .cds-sidenav-icon-plain`, b: `${link}:nth-child(1) .cds-sidenav-label`, axis: "y", span: `${link}:nth-child(1) .cds-sidenav-label` },
         { kind: "outline", sel: `${link}:nth-child(1) .cds-sidenav-icon-plain` },
         { kind: "outline", sel: `${link}:nth-child(1) .cds-sidenav-label` },
       ]}
       layers={[
-        { node: "Navigation - Sidebar", cls: ".cds-app-sidebar--rail", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8 · Padding top/bottom 16" },
-        { node: "Button", cls: ".cds-app-sidebar-link", direction: "Vertical", alignment: "Top center", resizing: "Fixed × Hug", spacing: "Gap 4 · Padding 12 / 8" },
-        { node: "Text (icon)", cls: ".cds-sidenav-icon-plain", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 24 × 24", spacing: "—" },
-        { node: "Italic Text (label)", cls: ".cds-sidenav-label", direction: "Vertical", alignment: "Top center", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Navigation - Sidebar", cls: ".cds-app-sidebar--rail", direction: "Vertical", alignment: "Top left", spacing: "Gap 8 · Padding top/bottom 16", sel: ".cds-app-sidebar" },
+        { node: "Button", cls: ".cds-app-sidebar-link", direction: "Vertical", alignment: "Top center", spacing: "Gap 4 · Padding 12 / 8", sel: ".cds-app-sidebar-link" },
+        { node: "Text (icon)", cls: ".cds-sidenav-icon-plain", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-sidenav-icon-plain" },
+        { node: "Italic Text (label)", cls: ".cds-sidenav-label", direction: "Vertical", alignment: "Top center", spacing: "—", sel: ".cds-sidenav-label" },
       ]}
       specs={(q) => [
         pass("Rail padding", "core-space-4", `${q.px(".cds-app-sidebar", "padding-top")}px / ${q.px(".cds-app-sidebar", "padding-bottom")}px`),
@@ -470,18 +485,18 @@ export function ProgressAnatomy() {
       marks={[
         { kind: "gap", a: label, b: ".cds-progress", axis: "y" },
         { kind: "outline", sel: label },
-        { kind: "outline", sel: ".cds-progress" },
+        { kind: "size", sel: ".cds-progress", name: "Track", fill: "w" },
       ]}
       layers={[
-        { node: "Progress bar", cls: "wrapper", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 4" },
-        { node: "Container (label)", cls: "div", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Bottom 4" },
-        { node: "Progress Bar:margin", cls: ".cds-progress", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Progress Bar (fill)", cls: ".cds-progress-bar", direction: "Vertical", alignment: "Top left", resizing: "% × Fixed", spacing: "—" },
+        { node: "Progress bar", cls: "wrapper", direction: "Vertical", alignment: "Top left", spacing: "Gap 4", sel: "[data-a=p] > div" },
+        { node: "Container (label)", cls: "div", direction: "Vertical", alignment: "Top left", spacing: "Bottom 4", sel: "[data-a=p] > div > div:first-child" },
+        { node: "Progress Bar:margin", cls: ".cds-progress", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-progress" },
+        { node: "Progress Bar (value)", cls: ".cds-progress-bar", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-progress-bar" },
       ]}
       specs={(q) => [
         pass("Label → bar", "core-space-1", `${q.gap(label, ".cds-progress", "y")}px`),
         pass("Track height", "core-space-2", `${q.el(".cds-progress").offsetHeight}px`),
-        pass("Fill", "value 68%", `${Math.round((q.el(".cds-progress-bar").offsetWidth / q.el(".cds-progress").clientWidth) * 100)}%`),
+        pass("Progress value", "value 68%", `${Math.round((q.el(".cds-progress-bar").offsetWidth / q.el(".cds-progress").clientWidth) * 100)}%`),
         pass("Label", "typography-body-sm", q.type(label)),
         pass("Radius", "core-radius-full", q.css(".cds-progress", "border-top-left-radius")),
       ]}
@@ -504,11 +519,12 @@ export function InputAnatomy() {
         { kind: "gap", a: ".cds-label", b: ".cds-input", axis: "y" },
         { kind: "padding", sel: ".cds-input" },
         { kind: "outline", sel: ".cds-label" },
+        { kind: "size", sel: ".cds-input", name: "Input", fill: "w" },
       ]}
       layers={[
-        { node: "Input (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8" },
-        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Text Input", cls: ".cds-input", direction: "Vertical", alignment: "Middle left", resizing: "Fixed × Fixed", spacing: "Padding 8 / 12" },
+        { node: "Input (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ".cds-field" },
+        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-label" },
+        { node: "Text Input", cls: ".cds-input", direction: "Vertical", alignment: "Middle left", spacing: "Padding 8 / 12", sel: ".cds-input" },
       ]}
       specs={(q) => [
         pass("Label → input", "core-space-2", `${q.px(".cds-field", "row-gap")}px`),
@@ -539,15 +555,16 @@ export function EmptyAnatomy() {
         { kind: "gap", a: ".cds-empty-title", b: ".cds-empty-desc", axis: "y", span: ".cds-empty-desc" },
         { kind: "gap", a: ".cds-empty-desc", b: ".cds-empty-action", axis: "y", span: ".cds-empty-desc" },
         { kind: "padding", sel: ".cds-empty-action .cds-btn" },
+        { kind: "size", sel: ".cds-empty-action .cds-btn", name: "Button" },
         { kind: "size", sel: ".cds-empty-icon" },
         { kind: "outline", sel: ".cds-empty-title" },
         { kind: "outline", sel: ".cds-empty-desc" },
       ]}
       layers={[
-        { node: "Empty State", cls: ".cds-empty", direction: "Vertical", alignment: "Middle center", resizing: "Hug × Hug", spacing: "Gap 16 · Padding 16" },
-        { node: "Frame 9", cls: "icon + title + desc", direction: "Vertical", alignment: "Top center", resizing: "Hug × Hug", spacing: "Gap 8" },
-        { node: "Container (icon)", cls: ".cds-empty-icon", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 44 × 44", spacing: "—" },
-        { node: "Button", cls: ".cds-btn--sm", direction: "Horizontal", alignment: "Middle center", resizing: "Hug × Fixed", spacing: "Gap 8 · Padding 8 / 12" },
+        { node: "Empty State", cls: ".cds-empty", direction: "Vertical", alignment: "Middle center", spacing: "Gap 16 · Padding 16", sel: ".cds-empty" },
+        { node: "Frame 9", cls: "icon + title + desc", direction: "Vertical", alignment: "Top center", spacing: "Gap 8", sel: "union:.cds-empty-icon,.cds-empty-title,.cds-empty-desc" },
+        { node: "Container (icon)", cls: ".cds-empty-icon", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-empty-icon" },
+        { node: "Button", cls: ".cds-btn--sm", direction: "Horizontal", alignment: "Middle center", spacing: "Gap 8 · Padding 8 / 12", sel: ".cds-empty-action .cds-btn" },
       ]}
       specs={(q) => {
         const iconTitle = q.gap(".cds-empty-icon", ".cds-empty-title", "y");
@@ -589,15 +606,15 @@ export function SliderAnatomy() {
         { kind: "gap", a: ".cds-label", b: ".cds-slider", axis: "y" },
         { kind: "gap", a: input, b: ".cds-slider-value", axis: "x", span: ".cds-slider" },
         { kind: "outline", sel: ".cds-label" },
-        { kind: "outline", sel: input },
-        { kind: "outline", sel: ".cds-slider-value" },
+        { kind: "size", sel: input, name: "Control", fill: "w" },
+        { kind: "size", sel: ".cds-slider-value", name: "Value" },
       ]}
       layers={[
-        { node: "Slider (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8" },
-        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container", cls: ".cds-slider", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 12" },
-        { node: "Input (track + thumb)", cls: ".cds-slider > input[type=range]", direction: "Vertical", alignment: "Middle center", resizing: "Fill × Fixed 32", spacing: "—" },
-        { node: "Container (value)", cls: ".cds-slider-value", direction: "Vertical", alignment: "Top right", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Slider (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ".cds-field" },
+        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-label" },
+        { node: "Container", cls: ".cds-slider", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 12", sel: ".cds-slider" },
+        { node: "Input (track + thumb)", cls: ".cds-slider > input[type=range]", direction: "Vertical", alignment: "Middle center", spacing: "—", sel: ".cds-slider > input" },
+        { node: "Container (value)", cls: ".cds-slider-value", direction: "Vertical", alignment: "Top right", spacing: "—", sel: ".cds-slider-value" },
       ]}
       specs={(q) => [
         pass("Label → control", "core-space-2", `${q.px(".cds-field", "row-gap")}px`),
@@ -632,16 +649,18 @@ export function DialogAnatomy() {
         { kind: "gap", a: ".cds-modal-actions .cds-btn:nth-child(1)", b: ".cds-modal-actions .cds-btn:nth-child(2)", axis: "x" },
         { kind: "padding", sel: ".cds-modal-actions .cds-btn:nth-child(1)" },
         { kind: "padding", sel: ".cds-modal-actions .cds-btn:nth-child(2)" },
+        { kind: "size", sel: ".cds-modal-actions .cds-btn:nth-child(2)", name: "Button (Save)" },
+        { kind: "size", sel: ".cds-modal", name: "Dialog" },
         { kind: "outline", sel: ".cds-modal-title" },
         { kind: "outline", sel: ".cds-modal-body" },
       ]}
       layers={[
-        { node: "Dialog", cls: ".cds-modal", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 16 · Padding 16" },
-        { node: "Frame 10 (text)", cls: "title + body", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 4" },
-        { node: "Heading 2", cls: ".cds-modal-title", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container (body)", cls: ".cds-modal-body", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container (actions)", cls: ".cds-modal-actions", direction: "Horizontal", alignment: "Top right", resizing: "Fill × Hug", spacing: "Gap 8" },
-        { node: "Button", cls: ".cds-btn--sm", direction: "Horizontal", alignment: "Middle center", resizing: "Hug × Hug", spacing: "Gap 8 · Padding 8 / 12" },
+        { node: "Dialog", cls: ".cds-modal", direction: "Vertical", alignment: "Top left", spacing: "Gap 16 · Padding 16", sel: ".cds-modal" },
+        { node: "Frame 10 (text)", cls: "title + body", direction: "Vertical", alignment: "Top left", spacing: "Gap 4", sel: "union:.cds-modal-title,.cds-modal-body" },
+        { node: "Heading 2", cls: ".cds-modal-title", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-modal-title" },
+        { node: "Container (body)", cls: ".cds-modal-body", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-modal-body" },
+        { node: "Container (actions)", cls: ".cds-modal-actions", direction: "Horizontal", alignment: "Top right", spacing: "Gap 8", sel: ".cds-modal-actions" },
+        { node: "Button", cls: ".cds-btn--sm", direction: "Horizontal", alignment: "Middle center", spacing: "Gap 8 · Padding 8 / 12", sel: ".cds-modal-actions .cds-btn" },
       ]}
       specs={(q) => {
         const titleBody = q.gap(".cds-modal-title", ".cds-modal-body", "y");
@@ -689,15 +708,15 @@ export function TableAnatomy() {
       marks={[
         { kind: "padding", sel: "thead th:nth-child(1)" },
         { kind: "padding", sel: "tbody tr:nth-child(1) td:nth-child(3)" },
+        { kind: "size", sel: "tbody tr:nth-child(3)", name: "Row", fill: "w" },
         { kind: "outline", sel: "thead tr" },
-        { kind: "outline", sel: "tbody tr:nth-child(1)" },
       ]}
       layers={[
-        { node: "Table", cls: ".cds-table-wrap > .cds-table", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Header row", cls: "thead tr", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Header cell", cls: "th", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Padding 12 / 16" },
-        { node: "Body row", cls: "tbody tr", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Body cell", cls: "td", direction: "Horizontal", alignment: "Middle left (numbers right)", resizing: "Fill × Hug", spacing: "Padding 12 / 16" },
+        { node: "Table", cls: ".cds-table-wrap > .cds-table", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-table" },
+        { node: "Header row", cls: "thead tr", direction: "Horizontal", alignment: "Middle left", spacing: "—", sel: "thead tr" },
+        { node: "Header cell", cls: "th", direction: "Horizontal", alignment: "Middle left", spacing: "Padding 12 / 16", sel: "thead th" },
+        { node: "Body row", cls: "tbody tr", direction: "Horizontal", alignment: "Middle left", spacing: "—", sel: "tbody tr" },
+        { node: "Body cell", cls: "td", direction: "Horizontal", alignment: "Middle left (numbers right)", spacing: "Padding 12 / 16", sel: "tbody td" },
       ]}
       specs={(q) => [
         pass("Header cell padding", "core-space-3 / core-space-4", `${q.px("thead th", "padding-top")}px ${q.px("thead th", "padding-left")}px`),
@@ -735,12 +754,13 @@ export function PaginationAnatomy() {
         { kind: "padding", sel: btn(1), edges: ["left", "right"] },
         { kind: "padding", sel: btn(4), edges: ["left", "right"] },
         { kind: "padding", sel: btn(10), edges: ["left", "right"] },
+        { kind: "size", sel: btn(6), name: "Page button" },
         { kind: "outline", sel: ".cds-pagination" },
       ]}
       layers={[
-        { node: "Navigation - Pagination", cls: ".cds-pagination", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Gap 4" },
-        { node: "Button - Previous / Next page", cls: ".cds-page-btn (‹ ›)", direction: "Vertical", alignment: "Middle center", resizing: "Hug × Fixed 32", spacing: "Padding left/right 8" },
-        { node: "Button (page)", cls: ".cds-page-btn", direction: "Vertical", alignment: "Middle center", resizing: "Hug × Fixed 32", spacing: "Padding 8" },
+        { node: "Navigation - Pagination", cls: ".cds-pagination", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 4", sel: ".cds-pagination" },
+        { node: "Button - Previous / Next page", cls: ".cds-page-btn (‹ ›)", direction: "Vertical", alignment: "Middle center", spacing: "Padding left/right 8", sel: ".cds-page-btn:first-child" },
+        { node: "Button (page)", cls: ".cds-page-btn", direction: "Vertical", alignment: "Middle center", spacing: "Padding 8", sel: ".cds-page-btn:nth-child(2)" },
       ]}
       specs={(q) => [
         pass("Item spacing", "core-space-1", `${q.px(".cds-pagination", "column-gap")}px`),
@@ -779,17 +799,19 @@ export function SlideoverAnatomy() {
         { kind: "padding", sel: ".cds-drawer-body" },
         { kind: "gap", a: "[data-a=f1]", b: "[data-a=f2]", axis: "y" },
         { kind: "gap", a: "[data-a=f2]", b: "[data-a=f3]", axis: "y" },
+        { kind: "size", sel: ".cds-drawer-close", name: "Close button" },
+        { kind: "size", sel: "[data-a=f3] .cds-input", name: "Field input", fill: "w" },
         { kind: "outline", sel: ".cds-modal-title" },
         { kind: "outline", sel: ".cds-drawer-header-actions" },
       ]}
       layers={[
-        { node: "Slideover", cls: ".cds-drawer", direction: "Vertical", alignment: "Top left", resizing: "Fixed 520 × Fill", spacing: "—" },
-        { node: "Header", cls: ".cds-drawer-header", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Hug", spacing: "Gap 16 · Padding 16" },
-        { node: "Heading", cls: ".cds-modal-title", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug", spacing: "—" },
-        { node: "Actions", cls: ".cds-drawer-header-actions", direction: "Horizontal", alignment: "Middle right", resizing: "Hug × Hug", spacing: "Gap 8" },
-        { node: "Button", cls: ".cds-btn--sm", direction: "Horizontal", alignment: "Middle center", resizing: "Hug × Hug", spacing: "Padding 8 / 12" },
-        { node: "Body", cls: ".cds-drawer-body", direction: "Vertical", alignment: "Top left", resizing: "Fill × Fill", spacing: "Padding 16" },
-        { node: "Form fields", cls: ".cds-field stack", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 16" },
+        { node: "Slideover", cls: ".cds-drawer", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-drawer" },
+        { node: "Header", cls: ".cds-drawer-header", direction: "Horizontal", alignment: "Middle, space between", spacing: "Gap 16 · Padding 16", sel: ".cds-drawer-header" },
+        { node: "Heading", cls: ".cds-modal-title", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-modal-title" },
+        { node: "Actions", cls: ".cds-drawer-header-actions", direction: "Horizontal", alignment: "Middle right", spacing: "Gap 8", sel: ".cds-drawer-header-actions" },
+        { node: "Button", cls: ".cds-btn--sm", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 8 / 12", sel: ".cds-drawer-header-actions .cds-btn" },
+        { node: "Body", cls: ".cds-drawer-body", direction: "Vertical", alignment: "Top left", spacing: "Padding 16", sel: ".cds-drawer-body" },
+        { node: "Form fields", cls: ".cds-field stack", direction: "Vertical", alignment: "Top left", spacing: "Gap 16", sel: ".cds-drawer-main > div" },
       ]}
       specs={(q) => [
         pass("Header padding", "core-space-4", `${q.px(".cds-drawer-header", "padding-top")}px`),
@@ -839,14 +861,15 @@ export function SpinnerAnatomy() {
       marks={[
         { kind: "padding", sel: "[data-a=box]" },
         { kind: "gap", a: ".cds-spinner", b: "[data-a=text]", axis: "x", span: "[data-a=text]" },
+        { kind: "size", sel: ".cds-spinner", name: "Spinner" },
         { kind: "outline", sel: "[data-a=text]" },
       ]}
       layers={[
-        { node: "Container (section)", cls: ".docs-section__content", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Fixed", spacing: "Gap 20" },
-        { node: "Container (panel)", cls: ".site-panel", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container (row)", cls: ".preview-surface", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 16 · Padding 32" },
-        { node: "Spinner", cls: ".cds-spinner", direction: "—", alignment: "—", resizing: "Fixed (icon-md)", spacing: "—" },
-        { node: "Text", cls: "span", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Container (section)", cls: ".docs-section__content", direction: "Vertical", alignment: "Top left", spacing: "Gap 20", sel: "" },
+        { node: "Container (panel)", cls: ".site-panel", direction: "Vertical", alignment: "Top left", spacing: "—", sel: "[data-a=box]" },
+        { node: "Container (row)", cls: ".preview-surface", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 16 · Padding 32", sel: "[data-a=box]" },
+        { node: "Spinner", cls: ".cds-spinner", direction: "—", alignment: "—", spacing: "—", sel: ".cds-spinner" },
+        { node: "Text", cls: "span", direction: "Vertical", alignment: "Top left", spacing: "—", sel: "[data-a=text]" },
       ]}
       specs={(q) => [
         pass("Container padding", "core-space-8", `${q.px("[data-a=box]", "padding-top")}px`),
@@ -938,12 +961,12 @@ export function StepperAnatomy() {
         { kind: "outline", sel: `${b} .cds-step-label` },
       ]}
       layers={[
-        { node: "Stepper (state cell)", cls: "demo cell", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8" },
-        { node: "Ordered List → Item", cls: ".cds-step", direction: "Horizontal", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 12" },
-        { node: "Background+Border (marker)", cls: ".cds-step-marker", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 28 × 28", spacing: "—" },
-        { node: "Margin (text stack)", cls: ".cds-step-label", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug", spacing: "—" },
-        { node: "Container (title / desc)", cls: ".cds-step-title / .cds-step-desc", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Margin (status)", cls: ".cds-step-status", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Top 4 · Gap 4" },
+        { node: "Stepper (state cell)", cls: "demo cell", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: "[data-a=state] [data-a=cell]" },
+        { node: "Ordered List → Item", cls: ".cds-step", direction: "Horizontal", alignment: "Top left", spacing: "Gap 12", sel: "[data-a=state] .cds-step" },
+        { node: "Background+Border (marker)", cls: ".cds-step-marker", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: "[data-a=state] .cds-step-marker" },
+        { node: "Margin (text stack)", cls: ".cds-step-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: "[data-a=state] .cds-step-label" },
+        { node: "Container (title / desc)", cls: ".cds-step-title / .cds-step-desc", direction: "Vertical", alignment: "Top left", spacing: "—", sel: "[data-a=state] .cds-step-title" },
+        { node: "Margin (status)", cls: ".cds-step-status", direction: "Horizontal", alignment: "Middle left", spacing: "Top 4 · Gap 4", sel: "[data-a=state] .cds-step-status" },
       ]}
       specs={(q) => [
         pass("State label → step", "core-space-2", `${q.gap(`${a} .docs-state-label`, `${a} .cds-stepper`, "y")}px`),
@@ -989,16 +1012,16 @@ export function AvatarGroupAnatomy() {
         { kind: "gap", a: item(1), b: item(2), axis: "x" },
         { kind: "gap", a: item(2), b: item(3), axis: "x" },
         { kind: "gap", a: item(3), b: item(4), axis: "x" },
-        { kind: "outline", sel: item(1) },
+        { kind: "size", sel: item(1), name: "Avatar (with ring)" },
         { kind: "outline", sel: item(2) },
         { kind: "outline", sel: item(3) },
         { kind: "outline", sel: item(4) },
       ]}
       layers={[
-        { node: "Avatar (group)", cls: ".cds-avatar-group", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Item spacing -8" },
-        { node: "Background+Border (ring)", cls: ".cds-avatar-group-item", direction: "Horizontal", alignment: "Top left", resizing: "Hug × Hug", spacing: "2px surface ring" },
-        { node: "Img - person", cls: ".cds-avatar-wrap / .cds-avatar", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed", spacing: "—" },
-        { node: "Img - +N more", cls: ".cds-avatar (overflow)", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed", spacing: "—" },
+        { node: "Avatar (group)", cls: ".cds-avatar-group", direction: "Horizontal", alignment: "Middle left", spacing: "Item spacing -8", sel: ".cds-avatar-group" },
+        { node: "Ring (background + border)", cls: ".cds-avatar-group-item", direction: "Horizontal", alignment: "Top left", spacing: "2px surface ring", sel: ".cds-avatar-group-item" },
+        { node: "Img - person", cls: ".cds-avatar-wrap / .cds-avatar", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-avatar-group-item > *" },
+        { node: "Img - +N more", cls: ".cds-avatar (overflow)", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-avatar-group-item:last-child > *" },
       ]}
       specs={(q) => [
         pass("Overlap", "-core-space-2", `${q.gap(item(1), item(2), "x")}px`, "Negative item spacing — each avatar tucks 8px under the previous one"),
@@ -1035,17 +1058,17 @@ export function LineChartAnatomy() {
         { kind: "gap", a: ".cds-chart-title", b: ".cds-chart > div", axis: "y" },
         { kind: "gap", a: ".cds-chart > div", b: ".cds-chart-desc", axis: "y" },
         { kind: "outline", sel: ".cds-chart-title" },
-        { kind: "outline", sel: ".cds-chart > div" },
+        { kind: "size", sel: ".cds-chart > div", name: "Plot", fill: "w" },
         { kind: "outline", sel: ".cds-chart-desc" },
       ]}
       layers={[
-        { node: "Chart card", cls: "demo wrapper", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Padding 20" },
-        { node: "Chart", cls: "figure.cds-chart", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Title", cls: "figcaption.cds-chart-title", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Bottom 12" },
-        { node: "Plot", cls: "Recharts ResponsiveContainer", direction: "—", alignment: "—", resizing: "Fill × Fixed 260", spacing: "Margin 8 / 16 / 0 / 0" },
-        { node: "Legend", cls: ".recharts-legend-wrapper", direction: "Horizontal", alignment: "Middle center", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Description", cls: "p.cds-chart-desc", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Top 8" },
-        { node: "Data table (a11y)", cls: "table.cds-visually-hidden", direction: "—", alignment: "—", resizing: "Visually hidden", spacing: "—" },
+        { node: "Chart card", cls: "demo wrapper", direction: "Vertical", alignment: "Top left", spacing: "Padding 20", sel: "[data-a=card]" },
+        { node: "Chart", cls: "figure.cds-chart", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-chart" },
+        { node: "Title", cls: "figcaption.cds-chart-title", direction: "Vertical", alignment: "Top left", spacing: "Bottom 12", sel: ".cds-chart-title" },
+        { node: "Plot", cls: "Recharts ResponsiveContainer", direction: "—", alignment: "—", spacing: "Margin 8 / 16 / 0 / 0", sel: ".cds-chart > div" },
+        { node: "Legend", cls: ".recharts-legend-wrapper", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".recharts-legend-wrapper" },
+        { node: "Description", cls: "p.cds-chart-desc", direction: "Vertical", alignment: "Top left", spacing: "Top 8", sel: ".cds-chart-desc" },
+        { node: "Data table (a11y)", cls: "table.cds-visually-hidden", direction: "—", alignment: "—", spacing: "—", sel: "table.cds-visually-hidden" },
       ]}
       specs={(q) => [
         pass("Card padding", "core-space-5", `${q.px("[data-a=card]", "padding-top")}px`, "Demo wrapper — the chart itself has no padding"),
@@ -1088,18 +1111,19 @@ export function CalendarAnatomy() {
         { kind: "gap", a: ".cds-calendar-weekday:nth-child(1)", b: ".cds-calendar-grid > :nth-child(8)", axis: "y" },
         { kind: "gap", a: ".cds-calendar-grid", b: ".cds-calendar-footer", axis: "y" },
         { kind: "padding", sel: ".cds-calendar-footer" },
-        { kind: "outline", sel: ".cds-calendar-nav" },
+        { kind: "size", sel: ".cds-calendar-footer .cds-btn:nth-child(2)", name: "Footer button" },
+        { kind: "size", sel: ".cds-calendar-nav", name: "Nav button" },
         { kind: "outline", sel: ".cds-calendar-grid" },
       ]}
       layers={[
-        { node: "Calendar", cls: ".cds-calendar", direction: "Vertical", alignment: "Top left", resizing: "Fixed 280 × Hug", spacing: "—" },
-        { node: "Header", cls: ".cds-calendar-header", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Hug", spacing: "Padding 12 / 4" },
-        { node: "Nav button", cls: ".cds-calendar-nav", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 28 × 28", spacing: "Padding 0 / 4" },
-        { node: "Month title", cls: ".cds-calendar-title", direction: "—", alignment: "Middle center", resizing: "Hug × Hug", spacing: "—" },
-        { node: "Day grid", cls: ".cds-calendar-grid", direction: "Grid 7 columns", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 4" },
-        { node: "Weekday", cls: ".cds-calendar-weekday", direction: "—", alignment: "Middle center", resizing: "Fill × Hug", spacing: "Padding 4 / 0" },
-        { node: "Day", cls: ".cds-calendar-day", direction: "—", alignment: "Middle center", resizing: "Fill × Fixed 32", spacing: "Padding 0 / 4" },
-        { node: "Footer", cls: ".cds-calendar-footer", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Hug", spacing: "Top 12 · Padding 12 / 4" },
+        { node: "Calendar", cls: ".cds-calendar", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-calendar" },
+        { node: "Header", cls: ".cds-calendar-header", direction: "Horizontal", alignment: "Middle, space between", spacing: "Padding 12 / 4", sel: ".cds-calendar-header" },
+        { node: "Nav button", cls: ".cds-calendar-nav", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 0 / 4", sel: ".cds-calendar-nav" },
+        { node: "Month title", cls: ".cds-calendar-title", direction: "—", alignment: "Middle center", spacing: "—", sel: ".cds-calendar-title" },
+        { node: "Day grid", cls: ".cds-calendar-grid", direction: "Grid 7 columns", alignment: "Top left", spacing: "Gap 4", sel: ".cds-calendar-grid" },
+        { node: "Weekday", cls: ".cds-calendar-weekday", direction: "—", alignment: "Middle center", spacing: "Padding 4 / 0", sel: ".cds-calendar-weekday" },
+        { node: "Day", cls: ".cds-calendar-day", direction: "—", alignment: "Middle center", spacing: "Padding 0 / 4", sel: ".cds-calendar-day" },
+        { node: "Footer", cls: ".cds-calendar-footer", direction: "Horizontal", alignment: "Middle, space between", spacing: "Top 12 · Padding 12 / 4", sel: ".cds-calendar-footer" },
       ]}
       specs={(q) => [
         pass("Header padding", "core-space-3 / core-space-1", `${q.px(".cds-calendar-header", "padding-top")}px ${q.px(".cds-calendar-header", "padding-left")}px`),
@@ -1179,22 +1203,22 @@ export function AppHeaderAnatomy() {
         { kind: "gap", a: "[data-a=menu] .cds-account-option-icon", b: "[data-a=menu] .cds-account-option-label", axis: "x", span: "[data-a=menu] .cds-account-option-icon" },
         { kind: "size", sel: ".docs-brand-logo--light" },
         { kind: "outline", sel: icon(1) },
-        { kind: "outline", sel: icon(2) },
-        { kind: "outline", sel: ".cds-account-trigger" },
+        { kind: "size", sel: icon(2), name: "Icon button" },
+        { kind: "size", sel: ".cds-account-trigger", name: "Avatar trigger" },
         { kind: "outline", sel: "[data-a=menu] .cds-account-identity" },
         { kind: "outline", sel: "[data-a=menu] .cds-account-option" },
       ]}
       layers={[
-        { node: "Header (topbar)", cls: ".cds-app-header", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Fixed 56", spacing: "Padding 0 / 24 · 1px bottom border" },
-        { node: "Brand (logo lockup)", cls: ".cds-app-header-brand > img", direction: "Horizontal", alignment: "Middle left", resizing: "Fixed 190 × 34", spacing: "—" },
-        { node: "Top right", cls: ".cds-app-header-actions", direction: "Horizontal", alignment: "Middle right", resizing: "Hug × Hug", spacing: "Gap 8" },
-        { node: "Icon button (help / theme)", cls: ".cds-app-header-icon-btn", direction: "—", alignment: "Middle center", resizing: "Fixed 36 × 36", spacing: "Hidden below 768px" },
-        { node: "User chip", cls: ".cds-account-trigger", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 34 × 34 (32 avatar)", spacing: "—" },
-        { node: "Account dropdown", cls: ".cds-account-dropdown", direction: "Vertical", alignment: "Top left", resizing: "Fixed 260 × Hug", spacing: "Padding 8 · 8 below trigger" },
-        { node: "Utilities (mobile)", cls: ".cds-account-utils", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 8 · Padding 8 · shown below 768px" },
-        { node: "Identity", cls: ".cds-account-identity", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 4 · Padding 8" },
-        { node: "Option", cls: ".cds-account-option", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 8 · Padding 8" },
-        { node: "Option icon", cls: ".cds-account-option-icon", direction: "—", alignment: "Middle center", resizing: "Fixed 36 × 36", spacing: "—" },
+        { node: "Header (topbar)", cls: ".cds-app-header", direction: "Horizontal", alignment: "Middle, space between", spacing: "Padding 0 / 24 · 1px bottom border", sel: ".cds-app-header" },
+        { node: "Brand (logo lockup)", cls: ".cds-app-header-brand > img", direction: "Horizontal", alignment: "Middle left", spacing: "—", sel: ".docs-brand-logo--light" },
+        { node: "Top right", cls: ".cds-app-header-actions", direction: "Horizontal", alignment: "Middle right", spacing: "Gap 8", sel: ".cds-app-header-actions" },
+        { node: "Icon button (help / theme)", cls: ".cds-app-header-icon-btn", direction: "—", alignment: "Middle center", spacing: "Hidden below 768px", sel: ".cds-app-header-icon-btn" },
+        { node: "User chip", cls: ".cds-account-trigger", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-app-header .cds-account-trigger" },
+        { node: "Account dropdown", cls: ".cds-account-dropdown", direction: "Vertical", alignment: "Top left", spacing: "Padding 8 · 8 below trigger", sel: "[data-a=menu] .cds-account-dropdown" },
+        { node: "Utilities (mobile)", cls: ".cds-account-utils", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 8 · Padding 8 · shown below 768px", sel: "[data-a=menu] .cds-account-utils" },
+        { node: "Identity", cls: ".cds-account-identity", direction: "Vertical", alignment: "Top left", spacing: "Gap 4 · Padding 8", sel: "[data-a=menu] .cds-account-identity" },
+        { node: "Option", cls: ".cds-account-option", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 8 · Padding 8", sel: "[data-a=menu] .cds-account-option" },
+        { node: "Option icon", cls: ".cds-account-option-icon", direction: "—", alignment: "Middle center", spacing: "—", sel: "[data-a=menu] .cds-account-option-icon" },
       ]}
       specs={(q) => [
         pass("Header height", "core-layout-header-height", `${q.el(".cds-app-header").offsetHeight}px`),
@@ -1215,7 +1239,7 @@ export function AppHeaderAnatomy() {
         <AppHeaderDemo />
         <div data-a="menu" style={{ position: "relative", height: 232 }}>
           <div style={{ position: "absolute", left: 226, top: -8 }}>
-            <AccountMenu account={headerAccount} defaultOpen />
+            <AccountMenu account={headerAccount} utilities={headerUtilities} defaultOpen />
           </div>
         </div>
       </div>
@@ -1235,12 +1259,13 @@ export function AppFooterAnatomy() {
         { kind: "gap", a: ".cds-app-footer-links > :nth-child(1)", b: ".cds-app-footer-links > :nth-child(2)", axis: "x" },
         { kind: "outline", sel: ".cds-app-footer-copy" },
         { kind: "outline", sel: ".cds-app-footer-links" },
+        { kind: "size", sel: ".cds-app-footer", name: "Footer", fill: "w" },
       ]}
       layers={[
-        { node: "Footer", cls: "footer.cds-app-footer", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Hug (min 48)", spacing: "Padding 8 / 24 · 1px top border" },
-        { node: "Inner row", cls: ".cds-app-footer-inner", direction: "Horizontal (stacks below 768px)", alignment: "Middle, space between", resizing: "Fill × Hug", spacing: "Gap 4 / 16" },
-        { node: "Copyright", cls: "p.cds-app-footer-copy", direction: "—", alignment: "Middle left", resizing: "Hug × Hug", spacing: "—" },
-        { node: "Legal links", cls: "nav.cds-app-footer-links", direction: "Horizontal", alignment: "Middle right", resizing: "Hug × Hug", spacing: "Gap 16" },
+        { node: "Footer", cls: "footer.cds-app-footer", direction: "Horizontal", alignment: "Middle, space between", spacing: "Padding 8 / 24 · 1px top border", sel: ".cds-app-footer" },
+        { node: "Inner row", cls: ".cds-app-footer-inner", direction: "Horizontal (stacks below 768px)", alignment: "Middle, space between", spacing: "Gap 4 / 16", sel: ".cds-app-footer-inner" },
+        { node: "Copyright", cls: "p.cds-app-footer-copy", direction: "—", alignment: "Middle left", spacing: "—", sel: ".cds-app-footer-copy" },
+        { node: "Legal links", cls: "nav.cds-app-footer-links", direction: "Horizontal", alignment: "Middle right", spacing: "Gap 16", sel: ".cds-app-footer-links" },
       ]}
       specs={(q) => [
         pass("Min height", "core-layout-footer-minHeight", `${q.el(".cds-app-footer").offsetHeight}px`),
@@ -1256,3 +1281,4 @@ export function AppFooterAnatomy() {
     </MeasuredAnatomy>
   );
 }
+

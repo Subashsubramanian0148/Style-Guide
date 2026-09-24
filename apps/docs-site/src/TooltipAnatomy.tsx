@@ -94,7 +94,7 @@ export function TooltipAnatomy() {
             <SpecTableCard>
               <SpecTableHead />
               <tbody>
-                <SpecRow label="Row direction" token="inline-flex · align center" value="Horizontal · middle left · hug" standard="pass" />
+                <SpecRow label="Row direction" token="inline-flex · align center" value="Horizontal · middle left" standard="pass" />
                 <SpecRow label="Label → icon gap" token="core-space-1" value={`${m.gap}px`} standard="pass" />
                 <SpecRow label="Label size" token="typography-body-md-size" value={m.fontSize} standard="pass" />
                 <SpecRow label="Trigger button (W × H)" token="core-size-control-sm" value={`${m.btnSize} · fixed`} standard="pass" />

@@ -145,8 +145,8 @@ export function AttachmentAnatomy() {
   }, []);
 
   return (
-    <AnatomyFrame>
-      <div ref={boxRef} style={{ position: "relative", width: 918, display: "flex", flexDirection: "column", gap: 12, marginTop: 46, marginLeft: 50 }}>
+    <div style={{ position: "relative", display: "flex", width: "100%" }}>
+      <div ref={boxRef} style={{ position: "relative", width: "calc(100% - 100px)", display: "flex", flexDirection: "column", gap: 12, marginTop: 46, marginLeft: 50 }}>
         <div
           className="cds-attachment-anatomy-header"
           style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
@@ -190,6 +190,6 @@ export function AttachmentAnatomy() {
         {firstRowRegion && rowInternalGaps?.map((g, i) => <VGapMark key={i} x={g.x} y={g.y} height={g.height} value={12} color={CALLOUT_ORANGE} extendTo={firstRowRegion.y - 28} />)}
         {rowGap && <HGapCallout y={rowGap.y} width={rowGap.width} height={rowGap.height} value={8} color={CALLOUT_ORANGE} side="left" />}
       </div>
-    </AnatomyFrame>
+    </div>
   );
 }

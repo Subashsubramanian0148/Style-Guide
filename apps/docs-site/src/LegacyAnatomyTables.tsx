@@ -36,11 +36,14 @@ function trailingIconSpecs(q: AnatomyQuery): AnatomySpecRow[] {
 export function AccordionAnatomyFull() {
   return (
     <AnatomyTables
+      sizes={[
+        { sel: ".cds-accordion-trigger", name: "Trigger", fill: "w", offset: 108 },
+      ]}
       layers={[
-        { node: "Accordion", cls: ".cds-accordion", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Item", cls: ".cds-accordion-item", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "1px divider" },
-        { node: "Trigger (button)", cls: ".cds-accordion-trigger", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Hug", spacing: "Gap 12 · Padding 16" },
-        { node: "Panel", cls: ".cds-accordion-panel", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Padding 16" },
+        { node: "Accordion", cls: ".cds-accordion", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-accordion" },
+        { node: "Item", cls: ".cds-accordion-item", direction: "Vertical", alignment: "Top left", spacing: "1px divider", sel: ".cds-accordion-item" },
+        { node: "Trigger (button)", cls: ".cds-accordion-trigger", direction: "Horizontal", alignment: "Middle, space between", spacing: "Gap 12 · Padding 16", sel: ".cds-accordion-trigger" },
+        { node: "Panel", cls: ".cds-accordion-panel", direction: "Vertical", alignment: "Top left", spacing: "Padding 16", sel: ".cds-accordion-panel" },
       ]}
       specs={(q) => [
         pass("Trigger padding", "core-space-4", `${q.px(".cds-accordion-trigger", "padding-top")}px`),
@@ -58,12 +61,16 @@ export function AccordionAnatomyFull() {
 export function AlertAnatomyFull() {
   return (
     <AnatomyTables
+      sizes={[
+        { sel: ".cds-alert__icon", name: "Icon" },
+        { sel: ".cds-alert__dismiss", name: "Dismiss button" },
+      ]}
       layers={[
-        { node: "Alert", cls: ".cds-alert", direction: "Horizontal", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 12 · Padding 16 (right 32)" },
-        { node: "Icon", cls: ".cds-alert__icon", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 20", spacing: "—" },
-        { node: "Content", cls: "div (title + body)", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Title", cls: "strong", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Bottom 4" },
-        { node: "Dismiss", cls: ".cds-alert__dismiss", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 24 × 24", spacing: "Padding 0 / 4" },
+        { node: "Alert", cls: ".cds-alert", direction: "Horizontal", alignment: "Top left", spacing: "Gap 12 · Padding 16 (right 32)", sel: ".cds-alert" },
+        { node: "Icon", cls: ".cds-alert__icon", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-alert__icon" },
+        { node: "Content", cls: "div (title + body)", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-alert > div" },
+        { node: "Title", cls: "strong", direction: "Vertical", alignment: "Top left", spacing: "Bottom 4", sel: ".cds-alert strong" },
+        { node: "Dismiss", cls: ".cds-alert__dismiss", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 0 / 4", sel: ".cds-alert__dismiss" },
       ]}
       specs={(q) => [
         pass("Padding", "core-space-4", `${q.px(".cds-alert", "padding-top")}px`),
@@ -82,14 +89,19 @@ export function AlertAnatomyFull() {
 export function AttachmentAnatomyFull() {
   return (
     <AnatomyTables
+      sizes={[
+        { sel: ".cds-attachment-icon", name: "File icon" },
+        { sel: ".cds-attachment-remove", name: "Remove button" },
+        { sel: ".cds-attachment", name: "File row", fill: "w", offset: 48 },
+      ]}
       layers={[
-        { node: "Attachment list", cls: ".cds-attachment-list", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 8" },
-        { node: "File row", cls: ".cds-attachment", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 12 · Padding 12" },
-        { node: "File icon", cls: ".cds-attachment-icon", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 32 × 32", spacing: "—" },
-        { node: "Body", cls: ".cds-attachment-body", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Meta", cls: ".cds-attachment-meta", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 4" },
-        { node: "Status badge", cls: ".cds-attachment-badge", direction: "Horizontal", alignment: "Middle center", resizing: "Hug × Hug", spacing: "Padding 4 / 12 (md) · 4 / 8 (sm)" },
-        { node: "Remove", cls: ".cds-attachment-remove", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 24 × 24", spacing: "—" },
+        { node: "Attachment list", cls: ".cds-attachment-list", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ".cds-attachment-list" },
+        { node: "File row", cls: ".cds-attachment", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 12 · Padding 12", sel: ".cds-attachment" },
+        { node: "File icon", cls: ".cds-attachment-icon", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-attachment-icon" },
+        { node: "Body", cls: ".cds-attachment-body", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-attachment-body" },
+        { node: "Meta", cls: ".cds-attachment-meta", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 4", sel: ".cds-attachment-meta" },
+        { node: "Status badge", cls: ".cds-attachment-badge", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 4 / 12 (md) · 4 / 8 (sm)", sel: ".cds-attachment-badge" },
+        { node: "Remove", cls: ".cds-attachment-remove", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-attachment-remove" },
       ]}
       specs={(q) => [
         pass("Row spacing", "core-space-2", `${q.px(".cds-attachment-list", "row-gap")}px`),
@@ -109,10 +121,13 @@ export function AttachmentAnatomyFull() {
 export function BadgeAnatomyFull() {
   return (
     <AnatomyTables
+      sizes={[
+        { sel: ".cds-badge", name: "Badge (md)" },
+      ]}
       layers={[
-        { node: "Badge", cls: ".cds-badge", direction: "Horizontal", alignment: "Middle center", resizing: "Hug × Hug", spacing: "Gap 8 · Padding 4 / 12 (md)" },
-        { node: "Icon (optional)", cls: ".cds-icon", direction: "—", alignment: "Middle center", resizing: "Fixed", spacing: "—" },
-        { node: "Label", cls: "text", direction: "—", alignment: "Middle left", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Badge", cls: ".cds-badge", direction: "Horizontal", alignment: "Middle center", spacing: "Gap 8 · Padding 4 / 12 (md)", sel: ".cds-badge" },
+        { node: "Dot / remove (optional)", cls: ".cds-badge-dot / .cds-badge-remove", direction: "—", alignment: "Middle center", spacing: "—", sel: ".cds-badge .cds-badge-dot, .cds-badge .cds-badge-remove", fallback: "shown only on dot / removable badges — see States" },
+        { node: "Label", cls: "text", direction: "—", alignment: "Middle left", spacing: "—", sel: "text:.cds-badge" },
       ]}
       specs={(q) => [
         pass("Padding", "core-space-1 / core-space-3", `${q.px(".cds-badge", "padding-top")}px ${q.px(".cds-badge", "padding-left")}px`),
@@ -129,11 +144,14 @@ export function BadgeAnatomyFull() {
 export function ButtonAnatomyFull() {
   return (
     <AnatomyTables
+      sizes={[
+        { sel: ".cds-btn", name: "Button (md)" },
+      ]}
       layers={[
-        { node: "Button", cls: ".cds-btn", direction: "Horizontal", alignment: "Middle center", resizing: "Hug × Fixed", spacing: "Gap 8 · Padding 8 / 12" },
-        { node: "Leading icon (optional)", cls: ".cds-icon", direction: "—", alignment: "Middle center", resizing: "Fixed 16", spacing: "—" },
-        { node: "Label", cls: ".cds-btn__text", direction: "—", alignment: "Middle center", resizing: "Hug × Hug", spacing: "—" },
-        { node: "Trailing icon (optional)", cls: ".cds-icon", direction: "—", alignment: "Middle center", resizing: "Fixed 16", spacing: "—" },
+        { node: "Button", cls: ".cds-btn", direction: "Horizontal", alignment: "Middle center", spacing: "Gap 8 · Padding 8 / 12", sel: ".cds-btn" },
+        { node: "Leading icon (optional)", cls: ".cds-icon", direction: "—", alignment: "Middle center", spacing: "—", sel: ".cds-btn .cds-icon", fallback: "16 × 16px (when an icon is used)" },
+        { node: "Label", cls: ".cds-btn__text", direction: "—", alignment: "Middle center", spacing: "—", sel: "text:.cds-btn" },
+        { node: "Trailing icon (optional)", cls: ".cds-icon", direction: "—", alignment: "Middle center", spacing: "—", sel: ".cds-btn .cds-icon:last-child", fallback: "16 × 16px (when an icon is used)" },
       ]}
     >
       <ButtonAnatomy />
@@ -145,11 +163,11 @@ export function CheckboxRadioAnatomyFull() {
   return (
     <AnatomyTables
       layers={[
-        { node: "Checkbox", cls: ".cds-checkbox", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Gap 8 · Padding 4 / 0" },
-        { node: "Box", cls: ".cds-checkbox-box", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 20 × 20", spacing: "—" },
-        { node: "Radio", cls: ".cds-radio", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Gap 8 · Padding 4 / 0" },
-        { node: "Circle", cls: ".cds-radio-box", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 20 × 20", spacing: "—" },
-        { node: "Label", cls: "text", direction: "—", alignment: "Middle left", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Checkbox", cls: ".cds-checkbox", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 8 · Padding 4 / 0", sel: ".cds-checkbox" },
+        { node: "Box", cls: ".cds-checkbox-box", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-checkbox-box" },
+        { node: "Radio", cls: ".cds-radio", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 8 · Padding 4 / 0", sel: ".cds-radio" },
+        { node: "Circle", cls: ".cds-radio-box", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-radio-box" },
+        { node: "Label", cls: "text", direction: "—", alignment: "Middle left", spacing: "—", sel: "text:.cds-checkbox" },
       ]}
     >
       <CheckboxRadioAnatomy />
@@ -160,12 +178,15 @@ export function CheckboxRadioAnatomyFull() {
 export function ComboboxAnatomyFull() {
   return (
     <AnatomyTables
+      sizes={[
+        { sel: ".cds-combobox .cds-input", name: "Input", fill: "w" },
+      ]}
       layers={[
-        { node: "Combobox (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8" },
-        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container", cls: ".cds-combobox", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Text Input", cls: ".cds-input", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Fixed", spacing: "Padding 8 / 12" },
-        { node: "Options list", cls: ".cds-combobox-list", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Opens below the input" },
+        { node: "Combobox (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ".cds-field" },
+        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-label" },
+        { node: "Container", cls: ".cds-combobox", direction: "Horizontal", alignment: "Middle left", spacing: "—", sel: ".cds-combobox" },
+        { node: "Text Input", cls: ".cds-input", direction: "Horizontal", alignment: "Middle left", spacing: "Padding 8 / 12", sel: ".cds-combobox .cds-input" },
+        { node: "Options list", cls: ".cds-combobox-list", direction: "Vertical", alignment: "Top left", spacing: "Opens below the input", sel: ".cds-combobox-list", fallback: "input width × up to 220px (when open)" },
       ]}
       specs={(q) => [
         pass("Label → input", "core-space-2", `${q.px(".cds-field", "row-gap")}px`),
@@ -182,13 +203,17 @@ export function ComboboxAnatomyFull() {
 export function DatePickerAnatomyFull() {
   return (
     <AnatomyTables
+      sizes={[
+        { sel: ".cds-input", name: "Input", fill: "w" },
+        { sel: ".cds-input-icon", name: "Calendar icon", offset: 48 },
+      ]}
       layers={[
-        { node: "Date picker (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8" },
-        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container", cls: ".cds-date-picker > .cds-input-affix-wrap", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Text Input", cls: ".cds-input", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Fixed", spacing: "Padding 8 / 12" },
-        { node: "Calendar icon", cls: ".cds-input-icon--trailing", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 16", spacing: "—" },
-        { node: "Calendar popover", cls: ".cds-calendar", direction: "Vertical", alignment: "Top left", resizing: "Fixed 280 × Hug", spacing: "See Calendar" },
+        { node: "Date picker (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ".cds-field" },
+        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-label" },
+        { node: "Container", cls: ".cds-date-picker > .cds-input-affix-wrap", direction: "Horizontal", alignment: "Middle left", spacing: "—", sel: ".cds-input-affix-wrap" },
+        { node: "Text Input", cls: ".cds-input", direction: "Horizontal", alignment: "Middle left", spacing: "Padding 8 / 12", sel: ".cds-input" },
+        { node: "Calendar icon", cls: ".cds-input-icon--trailing", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-input-icon" },
+        { node: "Calendar popover", cls: ".cds-calendar", direction: "Vertical", alignment: "Top left", spacing: "See Calendar", sel: ".cds-calendar", fallback: "280 × 324px (when open)" },
       ]}
       specs={trailingIconSpecs}
     >
@@ -200,9 +225,13 @@ export function DatePickerAnatomyFull() {
 export function IconButtonAnatomyFull() {
   return (
     <AnatomyTables
+      sizes={[
+        { sel: ".cds-icon-btn--sm", name: "Icon button (sm)" },
+        { sel: ".cds-icon-btn--md", name: "Icon button (md)" },
+      ]}
       layers={[
-        { node: "Icon button", cls: ".cds-icon-btn", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed (sm 32 · md 40)", spacing: "Padding 8 / 4 (sm) · 8 (md, lg)" },
-        { node: "Icon", cls: "svg / .cds-icon", direction: "—", alignment: "Middle center", resizing: "Fixed 16", spacing: "—" },
+        { node: "Icon button", cls: ".cds-icon-btn", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 8 / 4 (sm) · 8 (md, lg)", sel: ".cds-icon-btn" },
+        { node: "Icon", cls: "svg / .cds-icon", direction: "—", alignment: "Middle center", spacing: "—", sel: ".cds-icon-btn svg" },
       ]}
       specs={(q) => [
         pass("Padding (sm)", "core-space-2 / core-space-1", `${q.px(".cds-icon-btn", "padding-top")}px ${q.px(".cds-icon-btn", "padding-left")}px`),
@@ -219,12 +248,16 @@ export function IconButtonAnatomyFull() {
 export function InputIconAnatomyFull() {
   return (
     <AnatomyTables
+      sizes={[
+        { sel: ".cds-input", name: "Input", fill: "w" },
+        { sel: ".cds-input-icon", name: "Icon", offset: 48 },
+      ]}
       layers={[
-        { node: "Input (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8" },
-        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Container", cls: ".cds-input-affix-wrap", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "—" },
-        { node: "Text Input", cls: ".cds-input", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Fixed", spacing: "Padding 8 / 12 (icon side 32)" },
-        { node: "Icon", cls: ".cds-input-icon", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 16", spacing: "—" },
+        { node: "Input (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ".cds-field" },
+        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-label" },
+        { node: "Container", cls: ".cds-input-affix-wrap", direction: "Horizontal", alignment: "Middle left", spacing: "—", sel: ".cds-input-affix-wrap" },
+        { node: "Text Input", cls: ".cds-input", direction: "Horizontal", alignment: "Middle left", spacing: "Padding 8 / 12 (icon side 32)", sel: ".cds-input" },
+        { node: "Icon", cls: ".cds-input-icon", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-input-icon" },
       ]}
       specs={trailingIconSpecs}
     >
@@ -237,10 +270,10 @@ export function TooltipAnatomyFull() {
   return (
     <AnatomyTables
       layers={[
-        { node: "Text (row)", cls: "inline-flex row", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Gap 4" },
-        { node: "Label", cls: "span", direction: "—", alignment: "Middle left", resizing: "Hug × Hug", spacing: "—" },
-        { node: "Button (trigger)", cls: ".cds-icon-btn--sm.cds-icon-btn--circle", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 32 × 32", spacing: "Padding 4" },
-        { node: "Tooltip bubble", cls: ".cds-tooltip", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug (max width)", spacing: "Shown on hover / focus" },
+        { node: "Text (row)", cls: "inline-flex row", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 4", sel: "span[style*='inline-flex']" },
+        { node: "Label", cls: "span", direction: "—", alignment: "Middle left", spacing: "—", sel: "span[style*='inline-flex'] > span:first-child" },
+        { node: "Button (trigger)", cls: ".cds-icon-btn (sm · circle)", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 4", sel: ".cds-icon-btn" },
+        { node: "Tooltip bubble", cls: ".cds-tooltip", direction: "Vertical", alignment: "Top left", spacing: "Shown on hover / focus", sel: ".cds-tooltip", fallback: "sized by text · padding 4 / 8 (on hover / focus)" },
       ]}
     >
       <TooltipAnatomy />

@@ -70,7 +70,7 @@ export function DatePickerAnatomy() {
 
   return (
     <AnatomyFrame>
-      <div ref={boxRef} style={{ position: "relative", width: 260, marginTop: 46 }}>
+      <div ref={boxRef} style={{ position: "relative", width: 260, marginTop: 46, marginLeft: 24 }}>
         <Field label="Default">
           {() => <DatePicker placeholder="Select date" />}
         </Field>

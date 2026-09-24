@@ -3,7 +3,7 @@ import React from "react";
 /** Uppercase section label for a spec sheet. */
 export function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ fontSize: "var(--typography-label-size)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)", marginBottom: 16 }}>
+    <div className="docs-section-heading" style={{ fontSize: "var(--typography-label-size)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)", marginBottom: 16 }}>
       {children}
     </div>
   );
@@ -13,7 +13,7 @@ export function SectionHeading({ children }: { children: React.ReactNode }) {
  *  instead of loose rows on the page background. */
 export function SpecTableCard({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ border: "1px solid var(--core-color-border-subtle)", borderRadius: 12, overflow: "hidden", background: "var(--core-color-surface-default)" }}>
+    <div className="docs-spec-card" style={{ border: "1px solid var(--core-color-border-subtle)", borderRadius: 12, overflowX: "auto", overflowY: "hidden", background: "var(--core-color-surface-default)" }}>
       <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)", width: "100%" }}>
         {children}
       </table>
@@ -70,6 +70,7 @@ export function SpecRow({ label, token, value, swatch, standard, note }: { label
 export function SpecNote({ children }: { children: React.ReactNode }) {
   return (
     <div
+      className="docs-spec-note"
       style={{
         display: "flex",
         gap: "var(--core-space-2)",

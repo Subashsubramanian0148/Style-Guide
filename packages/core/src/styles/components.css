@@ -135,7 +135,7 @@
 
 .cds-btn--sm {
   min-height: var(--core-size-control-sm);
-  padding: var(--core-space-2) var(--core-space-3);
+  padding: var(--core-space-1) var(--core-space-3);
   font-size: var(--typography-text12-semibold-size);
   line-height: var(--typography-text12-semibold-line-height);
   border-radius: var(--core-radius-sm);
@@ -149,7 +149,7 @@
 
 .cds-btn--lg {
   min-height: var(--core-size-control-lg);
-  padding: var(--core-space-3) var(--core-space-4);
+  padding: var(--core-space-2) var(--core-space-4);
   font-size: var(--typography-text16-semibold-size);
   line-height: var(--typography-text16-semibold-line-height);
   border-radius: var(--core-radius-sm);
@@ -1040,7 +1040,7 @@
 }
 
 .cds-input--sm {
-  padding: var(--core-space-2) var(--core-space-3);
+  padding: var(--core-space-1) var(--core-space-3);
   min-height: var(--core-size-control-sm);
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
@@ -1054,7 +1054,7 @@
 }
 
 .cds-input--lg {
-  padding: var(--core-space-3) var(--core-space-4);
+  padding: var(--core-space-2) var(--core-space-4);
   min-height: var(--core-size-control-lg);
   font-size: var(--typography-text16-regular-size);
   line-height: var(--typography-text16-regular-line-height);

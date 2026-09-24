@@ -1,7 +1,8 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Toast } from "../../../packages/core/src/components/Overlays";
-import { TrueBand, NodeOutline, Callout, type Rect } from "./AnatomyPrimitives";
+import { TrueBand, NodeOutline, Callout, SizeTag, type Rect } from "./AnatomyPrimitives";
 import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
+import { LayerTable, type AnatomyLayer } from "./MeasuredAnatomy";
 
 const GREEN = "#118D57";
 const ORANGE = "#C2410C";
@@ -29,13 +30,13 @@ interface Measure {
   body14: string;
 }
 
-const LAYERS: { node: string; cls: string; direction: string; alignment: string; resizing: string; spacing: string }[] = [
-  { node: "Status (toast)", cls: ".cds-toast", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Gap 12 · Padding 16" },
-  { node: "Icon badge", cls: ".cds-toast__icon-badge", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 28 × 28", spacing: "—" },
-  { node: "Content", cls: ".cds-toast-content", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-  { node: "Title", cls: ".cds-toast-title", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
-  { node: "Body", cls: ".cds-toast-body", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Top 4" },
-  { node: "Dismiss button", cls: ".cds-toast-close", direction: "Horizontal", alignment: "Middle center", resizing: "Hug × Hug", spacing: "Padding 4" },
+const LAYERS: AnatomyLayer[] = [
+  { node: "Status (toast)", cls: ".cds-toast", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 12 · Padding 16", sel: ".cds-toast" },
+  { node: "Icon badge", cls: ".cds-toast__icon-badge", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-toast__icon-badge" },
+  { node: "Content", cls: ".cds-toast-content", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-toast-content" },
+  { node: "Title", cls: ".cds-toast-title", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-toast-title" },
+  { node: "Body", cls: ".cds-toast-body", direction: "Vertical", alignment: "Top left", spacing: "Top 4", sel: ".cds-toast-body" },
+  { node: "Dismiss button", cls: ".cds-toast-close", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 4", sel: ".cds-toast-close" },
 ];
 
 /** Toast anatomy: container padding, item spacing, title→body spacing and
@@ -143,23 +144,21 @@ export function ToastAnatomy() {
         <Callout x={right} y={X.y + X.h - cp / 2} from={X.x + X.w} axis="h" value={m.closePad} color={GREEN} />
 
         {/* Node outlines */}
-        <NodeOutline r={I} />
+        <SizeTag r={I} label={m.iconSize.replace("px", "")} offset={T.y + T.h - (I.y + I.h) + 28} />
         <NodeOutline r={H} />
         <NodeOutline r={B} />
-        <NodeOutline r={X} />
+        <SizeTag r={X} label={m.closeSize.replace("px", "")} offset={T.y + T.h - (X.y + X.h) + 60} />
       </>
     );
   })();
 
-  const th: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 };
-  const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", fontSize: 13, verticalAlign: "top" };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
       <div>
         <SectionHeading>Structure — padding, item spacing &amp; dismiss button</SectionHeading>
         <div ref={wrapRef} style={{ maxWidth: "100%", overflowX: "auto" }}>
-          <div ref={boxRef} style={{ position: "relative", width: TOAST_WIDTH * SCALE + GUTTER, height: 80 * SCALE + GUTTER }}>
+          <div ref={boxRef} style={{ position: "relative", width: TOAST_WIDTH * SCALE + GUTTER, height: 80 * SCALE + GUTTER + 24 }}>
             <div style={{ position: "absolute", left: 56, top: 56, width: TOAST_WIDTH, transform: `scale(${SCALE})`, transformOrigin: "0 0" }}>
               <Toast tone="warning" title="Beneficiary missing" onClose={() => {}}>
                 Add a beneficiary to finish setting up your account.
@@ -171,37 +170,11 @@ export function ToastAnatomy() {
         <SpecNote>
           <span style={{ color: GREEN, fontWeight: 700 }}>Green</span> = padding / inner spacing,{" "}
           <span style={{ color: ORANGE, fontWeight: 700 }}>orange</span> = item spacing between children,{" "}
-          <span style={{ color: BLUE, fontWeight: 700 }}>blue</span> outlines = child nodes. Shown at {SCALE.toFixed(2).replace(/\.?0+$/, "")}× — every badge reads the real CSS value.
+          <span style={{ color: BLUE, fontWeight: 700 }}>blue</span> outlines = child nodes, <span style={{ color: "#7C3AED", fontWeight: 700 }}>purple</span> = fixed width × height. Shown at {SCALE.toFixed(2).replace(/\.?0+$/, "")}× — every badge reads the real CSS value.
         </SpecNote>
       </div>
 
-      <div>
-        <SectionHeading>Layer structure — Figma node → CSS class</SectionHeading>
-        <SpecTableCard>
-          <thead>
-            <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
-              <th style={th}>Node</th>
-              <th style={th}>Class</th>
-              <th style={th}>Direction</th>
-              <th style={th}>Alignment</th>
-              <th style={th}>Resizing (W × H)</th>
-              <th style={th}>Spacing</th>
-            </tr>
-          </thead>
-          <tbody>
-            {LAYERS.map((l) => (
-              <tr key={l.cls}>
-                <td style={{ ...td, fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap" }}>{l.node}</td>
-                <td style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap" }}>{l.cls}</td>
-                <td style={td}>{l.direction}</td>
-                <td style={td}>{l.alignment}</td>
-                <td style={td}>{l.resizing}</td>
-                <td style={td}>{l.spacing}</td>
-              </tr>
-            ))}
-          </tbody>
-        </SpecTableCard>
-      </div>
+      <LayerTable layers={LAYERS} root={boxRef} />
 
       {m && (
         <div>
@@ -212,7 +185,7 @@ export function ToastAnatomy() {
               <SpecRow label="Container padding" token="core-space-4" value={`${m.pad}px`} standard="pass" />
               <SpecRow label="Item spacing" token="core-space-3" value={`${m.gap}px`} standard="pass" />
               <SpecRow label="Alignment" token="align-items: center" value="Middle left" standard="pass" />
-              <SpecRow label="Icon badge" token="28px · radius 50%" value={m.iconSize} standard="pass" />
+              <SpecRow label="Icon badge (W × H)" token="28px · radius 50%" value={m.iconSize} standard="pass" />
               <SpecRow label="Title" token="typography-body-md · bold" value={m.title14} standard="pass" />
               <SpecRow
                 label="Title → body"
@@ -223,7 +196,7 @@ export function ToastAnatomy() {
               />
               <SpecRow label="Body" token="typography-body-md" value={m.body14} standard="pass" />
               <SpecRow label="Dismiss padding" token="core-space-1" value={`${m.closePad}px`} standard="pass" />
-              <SpecRow label="Dismiss size" token="12px icon + padding" value={m.closeSize} standard="warn" note="Below the 24 × 24px minimum target (WCAG 2.5.8)" />
+              <SpecRow label="Dismiss button (W × H)" token="12px icon + padding" value={m.closeSize} standard="warn" note="Below the 24 × 24px minimum target (WCAG 2.5.8)" />
               <SpecRow label="Border radius" token="core-radius-sm" value={m.radius} standard="pass" />
             </tbody>
           </SpecTableCard>

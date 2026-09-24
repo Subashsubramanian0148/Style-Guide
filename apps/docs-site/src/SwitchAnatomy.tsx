@@ -3,6 +3,7 @@ import { Switch } from "../../../packages/core/src/components/Misc";
 import { StateLabel } from "./DocsSection";
 import { TrueBand, NodeOutline, Callout, SizeTag, type Rect } from "./AnatomyPrimitives";
 import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
+import { LayerTable, type AnatomyLayer } from "./MeasuredAnatomy";
 
 const GREEN = "#118D57";
 const ORANGE = "#C2410C";
@@ -38,12 +39,12 @@ interface Measure {
   stateType: string;
 }
 
-const LAYERS: { node: string; cls: string; direction: string; alignment: string; resizing: string; spacing: string }[] = [
-  { node: "Container", cls: "demo cell", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Fixed", spacing: "Gap 8 · Padding 8 / 12" },
-  { node: "State label", cls: ".docs-state-label", direction: "—", alignment: "Top left", resizing: "Hug × Hug", spacing: "—" },
-  { node: "Label (switch)", cls: ".cds-switch", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Gap 12" },
-  { node: "Track", cls: ".cds-switch-track", direction: "—", alignment: "—", resizing: "Fixed 32 × 16", spacing: "—" },
-  { node: "Text", cls: ".cds-switch > span", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug", spacing: "—" },
+const LAYERS: AnatomyLayer[] = [
+  { node: "Container", cls: "demo cell", direction: "Vertical", alignment: "Top left", spacing: "Gap 8 · Padding 8 / 12", sel: "[data-switch-cell]" },
+  { node: "State label", cls: ".docs-state-label", direction: "—", alignment: "Top left", spacing: "—", sel: ".docs-state-label" },
+  { node: "Label (switch)", cls: ".cds-switch", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 12", sel: ".cds-switch" },
+  { node: "Track", cls: ".cds-switch-track", direction: "—", alignment: "—", spacing: "—", sel: ".cds-switch-track" },
+  { node: "Text", cls: ".cds-switch > span", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-switch-track + span" },
 ];
 
 /** Switch anatomy: container padding, item spacing and track→text spacing in
@@ -141,8 +142,6 @@ export function SwitchAnatomy() {
     );
   })();
 
-  const th: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 };
-  const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", fontSize: 13, verticalAlign: "top" };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
@@ -169,33 +168,7 @@ export function SwitchAnatomy() {
         </SpecNote>
       </div>
 
-      <div>
-        <SectionHeading>Layer structure — Figma node → CSS class</SectionHeading>
-        <SpecTableCard>
-          <thead>
-            <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
-              <th style={th}>Node</th>
-              <th style={th}>Class</th>
-              <th style={th}>Direction</th>
-              <th style={th}>Alignment</th>
-              <th style={th}>Resizing (W × H)</th>
-              <th style={th}>Spacing</th>
-            </tr>
-          </thead>
-          <tbody>
-            {LAYERS.map((l) => (
-              <tr key={l.node}>
-                <td style={{ ...td, fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap" }}>{l.node}</td>
-                <td style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap" }}>{l.cls}</td>
-                <td style={td}>{l.direction}</td>
-                <td style={td}>{l.alignment}</td>
-                <td style={td}>{l.resizing}</td>
-                <td style={td}>{l.spacing}</td>
-              </tr>
-            ))}
-          </tbody>
-        </SpecTableCard>
-      </div>
+      <LayerTable layers={LAYERS} root={boxRef} />
 
       {m && (
         <div>

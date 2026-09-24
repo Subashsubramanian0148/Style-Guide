@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { TrueBand, NodeOutline, type Rect } from "./AnatomyPrimitives";
+import { TrueBand, NodeOutline, SizeTag, type Rect } from "./AnatomyPrimitives";
 import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
 
 export const ANATOMY_GREEN = "#118D57";
@@ -19,15 +19,20 @@ export type AnatomyMark =
   | { kind: "gap"; a: Target; b: Target; axis: "x" | "y"; color?: string; label?: string; span?: string }
   | { kind: "outline"; sel: string }
   /** Width × height of a fixed-size element (icon, marker, control), badged below it. */
-  | { kind: "size"; sel: string; pseudo?: "::after" | "::before" };
+  | { kind: "size"; sel: string; pseudo?: "::after" | "::before"; name?: string; fill?: "w" | "h" | "both" };
 
 export interface AnatomyLayer {
   node: string;
   cls: string;
   direction: string;
   alignment: string;
-  resizing: string;
+  /** Figma resizing mode — kept for reference, not displayed. */
+  resizing?: string;
   spacing: string;
+  /** Element to measure (relative to the anatomy root) for the W × H and radius columns. */
+  sel?: string;
+  /** Shown when the element is not rendered in the diagram (optional parts, closed popovers). */
+  fallback?: string;
 }
 
 export interface AnatomySpecRow {
@@ -95,6 +100,7 @@ export function MeasuredAnatomy({
   const [rootH, setRootH] = useState(0);
   const [drawn, setDrawn] = useState<Drawn | null>(null);
   const [padLeft, setPadLeft] = useState(0);
+  const [padBottom, setPadBottom] = useState(0);
 
   useLayoutEffect(() => {
     const wrap = wrapRef.current;
@@ -157,16 +163,19 @@ export function MeasuredAnatomy({
     };
 
     const sizeBadges: Badge[] = [];
+    const sizeRows: AnatomySpecRow[] = [];
     for (const mk of marks) {
       if (mk.kind === "size") {
         const e = el(mk.sel);
         let r = rectOf(e);
-        let label = `${Math.round(r.w / scale)} × ${Math.round(r.h / scale)}`;
+        let wv = Math.round(r.w / scale), hv = Math.round(r.h / scale);
         if (mk.pseudo) {
           const ps = getComputedStyle(e, mk.pseudo);
-          const w = parseFloat(ps.width), h = parseFloat(ps.height);
-          label = `${Math.round(w)} × ${Math.round(h)}`;
+          wv = Math.round(parseFloat(ps.width));
+          hv = Math.round(parseFloat(ps.height));
         }
+        const label = sizeLabel(wv, hv, mk.fill);
+        if (mk.name) sizeRows.push({ label: `${mk.name} (W × H)`, token: sizeToken(mk.fill), value: `${label}px`, standard: "pass" });
         const b: Badge = { x: r.x + r.w / 2, y: r.y + r.h + 22, lineX: r.x + r.w / 2, lineY: r.y + r.h, axis: "v", value: label, color: ANATOMY_PURPLE };
         let guard = 0;
         while ([...badges, ...sizeBadges].some((p) => Math.abs(p.x - b.x) < (p.value.length + b.value.length) * 3.5 + 14 && Math.abs(p.y - b.y) < 22) && guard++ < 8) b.y += LANE;
@@ -237,7 +246,9 @@ export function MeasuredAnatomy({
     };
 
     badges.push(...sizeBadges);
-    setDrawn({ bands, outlines, badges, specs: specs(q) });
+    setDrawn({ bands, outlines, badges, specs: [...specs(q), ...sizeRows] });
+    const boxH = root.offsetHeight * scale + GUTTER;
+    setPadBottom(Math.max(0, Math.ceil(Math.max(0, ...badges.map((b) => b.y + 16)) - boxH)));
     const overflowLeft = Math.max(0, -Math.min(0, ...badges.map((b) => b.x - 20)));
     setPadLeft(Math.ceil(overflowLeft / LANE) * LANE);
     // `marks`/`specs` are static per section; re-measure only on scale change.
@@ -251,7 +262,7 @@ export function MeasuredAnatomy({
       <div>
         <SectionHeading>{heading}</SectionHeading>
         <div ref={wrapRef} style={{ maxWidth: "100%", overflowX: "auto" }}>
-          <div style={{ position: "relative", paddingLeft: padLeft, paddingTop: -minBadgeY }}>
+          <div style={{ position: "relative", paddingLeft: padLeft, paddingTop: -minBadgeY, paddingBottom: padBottom }}>
             <div ref={boxRef} style={{ position: "relative", width: width * scale + GUTTER, height: rootH * scale + GUTTER }}>
               <div style={{ position: "absolute", left: 64, top: 56, width, transform: `scale(${scale})`, transformOrigin: "0 0" }}>
                 <div ref={rootRef}>{children}</div>
@@ -281,7 +292,7 @@ export function MeasuredAnatomy({
         </SpecNote>
       </div>
 
-      <LayerTable layers={layers} />
+      <LayerTable layers={layers} root={rootRef} />
       {drawn && <SpecsTable specs={drawn.specs} />}
     </div>
   );
@@ -322,7 +333,79 @@ function BadgeMark({ b }: { b: Badge }) {
 const th: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 };
 const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", fontSize: 13, verticalAlign: "top" };
 
-export function LayerTable({ layers }: { layers: AnatomyLayer[] }) {
+/** Rendered size of an element in CSS px — offset sizes ignore the diagram's
+ *  scale transform; SVG elements fall back to their computed size. */
+function measureEl(e: Element): { w: number; h: number } {
+  if (e instanceof HTMLElement) return { w: e.offsetWidth, h: e.offsetHeight };
+  const cs = getComputedStyle(e);
+  return { w: parseFloat(cs.width) || 0, h: parseFloat(cs.height) || 0 };
+}
+
+export function radiusLabel(e: Element): string {
+  const cs = getComputedStyle(e);
+  const corners = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius];
+  const fmt = (v: string) => {
+    if (v.includes("%")) return v;
+    const n = parseFloat(v);
+    if (n >= 999) return "full";
+    return `${Math.round(n)}px`;
+  };
+  const f = corners.map(fmt);
+  if (f.every((v) => v === f[0])) return f[0] === "50%" ? "50% (circle)" : f[0];
+  return f.map((v) => v.replace(/px$/, "")).join(" ") + "px";
+}
+
+/** Measured values read as code; explanatory phrases wrap as normal text. */
+function valueCell(v?: string): React.CSSProperties {
+  const isValue = !v || /^(\d|—|…|full)/.test(v) && v.length <= 16;
+  return isValue ? { ...td, fontFamily: "var(--typography-font-family-mono, monospace)", whiteSpace: "nowrap" } : { ...td, color: "var(--core-color-text-secondary)" };
+}
+
+export function LayerTable({ layers, root }: { layers: AnatomyLayer[]; root?: React.RefObject<HTMLElement> }) {
+  const [vals, setVals] = useState<{ size: string; radius: string }[]>([]);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const r = root?.current;
+      if (!r) return;
+      const rr = r.getBoundingClientRect();
+      const scale = r.offsetWidth ? rr.width / r.offsetWidth : 1;
+      const px = (w: number, h: number) => `${Math.round(w)} × ${Math.round(h)}px`;
+      setVals(
+        layers.map((l) => {
+          const none = { size: l.fallback ?? "—", radius: l.fallback ? "see component" : "—" };
+          if (l.sel === undefined) return none;
+          if (l.sel.startsWith("union:")) {
+            const els = l.sel.slice(6).split(",").map((q) => r.querySelector(q.trim())).filter(Boolean) as Element[];
+            if (!els.length) return none;
+            const rs = els.map((e) => e.getBoundingClientRect());
+            const L = Math.min(...rs.map((x) => x.left)), T = Math.min(...rs.map((x) => x.top));
+            const R = Math.max(...rs.map((x) => x.right)), B = Math.max(...rs.map((x) => x.bottom));
+            return { size: px((R - L) / scale, (B - T) / scale), radius: "0px (layout frame)" };
+          }
+          if (l.sel.startsWith("text:")) {
+            const host = r.querySelector(l.sel.slice(5));
+            const node = host && [...host.childNodes].find((n) => n.nodeType === 3 && n.textContent!.trim());
+            if (!node) return none;
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            const tr = range.getBoundingClientRect();
+            return { size: px(tr.width / scale, tr.height / scale), radius: "— (text)" };
+          }
+          const e = l.sel === "" ? r : r.querySelector(l.sel);
+          if (!e) return none;
+          if (getComputedStyle(e).display === "none") return { size: "hidden at this width", radius: radiusLabel(e) };
+          const { w, h } = measureEl(e);
+          return { size: px(w, h), radius: radiusLabel(e) };
+        }),
+      );
+    };
+    measure();
+    // Charts and images settle a frame or two after mount.
+    const t = window.setTimeout(measure, 400);
+    return () => window.clearTimeout(t);
+  }, [layers, root]);
+
   return (
     <div>
       <SectionHeading>Layer structure — Figma node → CSS class</SectionHeading>
@@ -333,18 +416,22 @@ export function LayerTable({ layers }: { layers: AnatomyLayer[] }) {
             <th style={th}>Class</th>
             <th style={th}>Direction</th>
             <th style={th}>Alignment</th>
-            <th style={th}>Resizing (W × H)</th>
+            <th style={th}>Size (W × H)</th>
+            <th style={th}>Radius</th>
             <th style={th}>Spacing</th>
           </tr>
         </thead>
         <tbody>
-          {layers.map((l) => (
+          {layers.map((l, i) => (
             <tr key={l.node + l.cls}>
               <td style={{ ...td, fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap" }}>{l.node}</td>
-              <td style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap" }}>{l.cls}</td>
+              <td className="docs-cls" style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)" }}>
+                {l.cls.split(/(\s+)/).map((part, j) => (/\s/.test(part) ? part : <span key={j} style={{ whiteSpace: "nowrap" }}>{part}</span>))}
+              </td>
               <td style={td}>{l.direction}</td>
               <td style={td}>{l.alignment}</td>
-              <td style={td}>{l.resizing}</td>
+              <td style={valueCell(vals[i]?.size)}>{vals[i]?.size ?? "…"}</td>
+              <td style={valueCell(vals[i]?.radius)}>{vals[i]?.radius ?? "…"}</td>
               <td style={td}>{l.spacing}</td>
             </tr>
           ))}
@@ -373,13 +460,32 @@ export function SpecsTable({ specs }: { specs: AnatomySpecRow[] }) {
 /** Adds the layer table (and, when `specs` is given, a measured spec table)
  *  under an existing hand-built anatomy. Specs query the live component the
  *  anatomy renders; selectors resolve inside `children`. */
-export function AnatomyTables({ children, layers, specs }: { children: React.ReactNode; layers: AnatomyLayer[]; specs?: (q: AnatomyQuery) => AnatomySpecRow[] }) {
+export interface SizeSpec {
+  sel: string;
+  name: string;
+  fill?: "w" | "h" | "both";
+  /** Push the badge further down when it would collide with the diagram's own marks. */
+  offset?: number;
+}
+
+export function AnatomyTables({
+  children,
+  layers,
+  specs,
+  sizes,
+}: {
+  children: React.ReactNode;
+  layers?: AnatomyLayer[];
+  specs?: (q: AnatomyQuery) => AnatomySpecRow[];
+  sizes?: SizeSpec[];
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [rows, setRows] = useState<AnatomySpecRow[] | null>(null);
+  const [tags, setTags] = useState<{ r: Rect; label: string; offset: number }[]>([]);
 
   useLayoutEffect(() => {
     const root = ref.current;
-    if (!root || !specs) return;
+    if (!root || (!specs && !sizes)) return;
     const el = (sel: string) => (sel ? (root.querySelector(sel) as HTMLElement) : root);
     const edgeRect = (t: Target): DOMRect => {
       if (typeof t === "string") return el(t).getBoundingClientRect();
@@ -411,16 +517,46 @@ export function AnatomyTables({ children, layers, specs }: { children: React.Rea
         return Math.round(axis === "x" ? rb.left - ra.right : rb.top - ra.bottom);
       },
     };
-    setRows(specs(q));
+    const o = root.getBoundingClientRect();
+    const measured = (sizes ?? [])
+      .map((sz) => ({ sz, e: root.querySelector(sz.sel) as HTMLElement | null }))
+      .filter((x): x is { sz: SizeSpec; e: HTMLElement } => !!x.e)
+      .map(({ sz, e }) => {
+        const r = e.getBoundingClientRect();
+        return { sz, r: { x: r.left - o.left, y: r.top - o.top, w: r.width, h: r.height }, label: sizeLabel(Math.round(r.width), Math.round(r.height), sz.fill) };
+      });
+    setTags(measured.map((m) => ({ r: m.r, label: m.label, offset: m.sz.offset ?? 24 })));
+    const sizeRows = measured.map((m) => ({ label: `${m.sz.name} (W × H)`, token: sizeToken(m.sz.fill), value: `${m.label}px`, standard: "pass" as const }));
+    const base = specs ? specs(q) : [];
+    setRows(base.length || sizeRows.length ? [...base, ...sizeRows] : null);
     // `specs` is static per section.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-      <div ref={ref}>{children}</div>
-      <LayerTable layers={layers} />
+      <div ref={ref} style={{ position: "relative", padding: `0 var(--core-space-10) ${tags.length ? 40 : 0}px` }}>
+        {children}
+        {tags.map((t, i) => (
+          <SizeTag key={i} r={t.r} label={t.label} offset={t.offset} />
+        ))}
+      </div>
+      {layers && <LayerTable layers={layers} root={ref} />}
       {rows && <SpecsTable specs={rows} />}
     </div>
   );
 }
+
+/** Always the measured pixel size, e.g. "48 × 32". Whether a dimension
+ *  stretches with its container is stated in the spec row token instead. */
+export function sizeLabel(w: number, h: number, _fill?: "w" | "h" | "both") {
+  return `${w} × ${h}`;
+}
+
+export function sizeToken(fill?: "w" | "h" | "both") {
+  if (fill === "w") return "width stretches to container · height fixed";
+  if (fill === "h") return "width fixed · height stretches to container";
+  if (fill === "both") return "stretches to container (size shown as rendered)";
+  return "fixed";
+}
+
