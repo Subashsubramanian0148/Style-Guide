@@ -114,12 +114,82 @@ export function TooltipAnatomy() {
         </div>
       </div>
 
+      <TooltipBubbleAnatomy />
+
       <SpecNote>
         <span style={{ color: ORANGE, fontWeight: 700 }}>Orange</span> marks the item spacing between label and trigger;{" "}
         <span style={{ color: GREEN, fontWeight: 700 }}>green</span> marks the trigger's own padding;{" "}
         <span style={{ color: "#7C3AED", fontWeight: 700 }}>purple</span> gives the fixed icon and button size. The trigger is the tertiary{" "}
         <code>IconButton</code> (sm, circle) — its <code>aria-label</code> must restate the question, e.g. “What is federal tax withholding?”.
       </SpecNote>
+    </div>
+  );
+}
+
+interface BubbleMeasure {
+  rect: { x: number; y: number; w: number; h: number };
+  width: number;
+  maxWidth: string;
+  padding: string;
+  radius: string;
+  fontSize: string;
+  offset: string;
+  truncated: boolean;
+}
+
+/** Bubble anatomy: a long label rendered at the real max width so the
+ *  ellipsis cut-off and the 240px cap are measured, not illustrated. */
+function TooltipBubbleAnatomy() {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [m, setM] = useState<BubbleMeasure | null>(null);
+
+  useLayoutEffect(() => {
+    const box = boxRef.current;
+    const el = box?.querySelector(".cds-tooltip") as HTMLElement | null;
+    if (!box || !el) return;
+    const o = box.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    const s = getComputedStyle(el);
+    setM({
+      rect: { x: r.left - o.left, y: r.top - o.top, w: r.width, h: r.height },
+      width: Math.round(r.width),
+      maxWidth: s.maxWidth,
+      padding: `${parseFloat(s.paddingTop)}px ${parseFloat(s.paddingLeft)}px`,
+      radius: s.borderTopLeftRadius,
+      fontSize: s.fontSize,
+      offset: getComputedStyle(box).getPropertyValue("--core-tooltip-offset").trim(),
+      truncated: el.scrollWidth > el.clientWidth,
+    });
+  }, []);
+
+  return (
+    <div>
+      <SectionHeading>Bubble — max width, truncation &amp; placement</SectionHeading>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "flex-start" }}>
+        <AnatomyFrame>
+          <div ref={boxRef} style={{ position: "relative", marginTop: 24, marginLeft: 24, marginRight: 24, marginBottom: 56 }}>
+            <span className="cds-tooltip" role="tooltip" style={{ position: "static", display: "block" }}>
+              20% is the IRS-mandated minimum for most retirement plan distributions.
+            </span>
+            {m && <SizeTag r={m.rect} label={`max ${m.width}`} place="below" offset={28} />}
+          </div>
+        </AnatomyFrame>
+
+        {m && (
+          <SpecTableCard>
+            <SpecTableHead />
+            <tbody>
+              <SpecRow label="Max width" token="core-tooltip-maxWidth" value={m.maxWidth} standard="pass" />
+              <SpecRow label="Overflow" token="nowrap · ellipsis" value={m.truncated ? "Truncated with …" : "Fits"} standard="pass" note="Keep tooltip copy short; anything past 240px is cut" />
+              <SpecRow label="Padding" token="core-space-1 / core-space-2" value={m.padding} standard="pass" />
+              <SpecRow label="Font size" token="typography-font-size-xs" value={m.fontSize} standard="pass" />
+              <SpecRow label="Border radius" token="core-radius-sm" value={m.radius} standard="pass" />
+              <SpecRow label="Offset from trigger" token="core-tooltip-offset" value={m.offset || "8px"} standard="pass" />
+              <SpecRow label="Placement" token="placement prop" value="top (default) · right · bottom · left" standard="pass" />
+            </tbody>
+          </SpecTableCard>
+        )}
+      </div>
     </div>
   );
 }

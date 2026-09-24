@@ -3008,21 +3008,84 @@
   font-size: var(--typography-font-size-xs);
   padding: var(--core-space-1) var(--core-space-2);
   border-radius: var(--core-radius-sm);
+  max-width: var(--core-tooltip-maxWidth);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   pointer-events: none;
   z-index: 20;
   box-shadow: var(--core-card-shadow);
 }
 
-/* Arrow pointing down (tooltip above trigger) */
-.cds-tooltip::after {
+/* Label lives in an inner span so the bubble can clip it with an ellipsis
+   while the arrow (a pseudo-element on the wrapper) stays unclipped. */
+.cds-tooltip-wrap {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.cds-tooltip-wrap .cds-tooltip {
+  position: static;
+  display: block;
+}
+
+.cds-tooltip-wrap::after {
   content: "";
   position: absolute;
+  border: 5px solid transparent;
+}
+
+.cds-tooltip-wrap--top {
+  bottom: calc(100% + var(--core-tooltip-offset));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cds-tooltip-wrap--top::after {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  border: 5px solid transparent;
   border-top-color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-tooltip-wrap--bottom {
+  top: calc(100% + var(--core-tooltip-offset));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cds-tooltip-wrap--bottom::after {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-tooltip-wrap--left {
+  right: calc(100% + var(--core-tooltip-offset));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cds-tooltip-wrap--left::after {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--theme-neutral-text-primary-default);
+}
+
+.cds-tooltip-wrap--right {
+  left: calc(100% + var(--core-tooltip-offset));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cds-tooltip-wrap--right::after {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--theme-neutral-text-primary-default);
 }
 
 .cds-popover {

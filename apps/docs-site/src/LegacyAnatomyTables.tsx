@@ -273,7 +273,7 @@ export function TooltipAnatomyFull() {
         { node: "Text (row)", cls: "inline-flex row", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 4", sel: "span[style*='inline-flex']" },
         { node: "Label", cls: "span", direction: "—", alignment: "Middle left", spacing: "—", sel: "span[style*='inline-flex'] > span:first-child" },
         { node: "Button (trigger)", cls: ".cds-icon-btn (sm · circle)", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 4", sel: ".cds-icon-btn" },
-        { node: "Tooltip bubble", cls: ".cds-tooltip", direction: "Vertical", alignment: "Top left", spacing: "Shown on hover / focus", sel: ".cds-tooltip", fallback: "sized by text · padding 4 / 8 (on hover / focus)" },
+        { node: "Tooltip bubble", cls: ".cds-tooltip", direction: "Vertical", alignment: "Top left", spacing: "Shown on hover / focus", sel: ".cds-tooltip", fallback: "sized by text · max width 240 · padding 4 / 8 (on hover / focus)" },
       ]}
     >
       <TooltipAnatomy />
