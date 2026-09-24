@@ -53,7 +53,6 @@ export const componentSections: NavSection[] = [
       componentLink("attachment", "Attachment"),
       componentLink("calendar", "Calendar"),
       componentLink("checkbox-radio", "Checkbox / Radio"),
-      componentLink("combobox", "Combobox"),
       componentLink("date-picker", "Date Picker"),
       componentLink("input", "Input"),
       componentLink("input-icon", "Input (with icon)"),

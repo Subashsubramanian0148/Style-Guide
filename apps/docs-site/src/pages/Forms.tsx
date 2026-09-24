@@ -3,7 +3,7 @@ import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { Preview } from "../Preview";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
 import { AnatomySection } from "../AnatomySection";
-import { AttachmentAnatomyFull, CheckboxRadioAnatomyFull, ComboboxAnatomyFull, DatePickerAnatomyFull, InputIconAnatomyFull } from "../LegacyAnatomyTables";
+import { AttachmentAnatomyFull, CheckboxRadioAnatomyFull, DatePickerAnatomyFull, InputIconAnatomyFull } from "../LegacyAnatomyTables";
 import { TextareaAnatomy } from "../TextareaAnatomy";
 import { SwitchAnatomy, SWITCH_CELL_STYLE } from "../SwitchAnatomy";
 import { SelectAnatomy, BankFieldsAnatomy, InputGroupAnatomy } from "../SectionAnatomies";
@@ -16,7 +16,6 @@ import { Switch } from "../../../../packages/core/src/components/Misc";
 import { Textarea, Select, Checkbox, Radio, RadioGroup } from "../../../../packages/core/src/components/FormControls";
 import { InputGroup, IncrementalSelector } from "../../../../packages/core/src/components/ToggleInputs";
 import { Slider } from "../../../../packages/core/src/components/Primitives";
-import { Combobox } from "../../../../packages/core/src/components/Combobox";
 import { Calendar, DatePicker } from "../../../../packages/core/src/components/Calendar";
 import { Dropzone, AttachmentList, AttachmentFile } from "../../../../packages/core/src/components/Attachment";
 import { Badge } from "../../../../packages/core/src/components/Misc";
@@ -273,49 +272,6 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                     <Radio name="radio-disabled" label="Option" value="opt" checked={false} disabled readOnly onChange={() => {}} />
                   </div>
                 </div>
-              </div>
-            </div>
-          </Preview>
-            }
-          />
-        </div>
-      )
-    },
-    {
-      id: "10",
-      anchorId: "combobox",
-      title: "Combobox",
-      content: (
-        <div className="site-panel site-panel--flush site-panel--demo">
-          <AnatomySection
-            anatomy={<ComboboxAnatomyFull />}
-            demo={
-          <Preview showModeToggle>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16, width: "100%" }}>
-              <div className="force-default">
-                <Field label="Default">
-                  {(p) => <Combobox {...p} options={employers} value="" onChange={() => { }} placeholder="Search employer…" />}
-                </Field>
-              </div>
-              <div className="force-hover">
-                <Field label="Hover">
-                  {(p) => <Combobox {...p} options={employers} value="" onChange={() => { }} placeholder="Search employer…" />}
-                </Field>
-              </div>
-              <div className="force-focus">
-                <Field label="Focus">
-                  {(p) => <Combobox {...p} options={employers} value="" onChange={() => { }} placeholder="Search employer…" />}
-                </Field>
-              </div>
-              <div className="force-filled">
-                <Field label="Filled">
-                  {(p) => <Combobox {...p} options={employers} value="acme" onChange={() => { }} placeholder="Search employer…" />}
-                </Field>
-              </div>
-              <div className="force-disabled">
-                <Field label="Disabled">
-                  {(p) => <Combobox {...p} disabled options={employers} value="" onChange={() => { }} placeholder="Locked" />}
-                </Field>
               </div>
             </div>
           </Preview>
@@ -974,20 +930,6 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
           <div className="site-panel site-panel--flush site-panel--demo">
             <Preview showModeToggle>
               <div style={{ display: "flex", flexDirection: "column", gap: 32, maxWidth: 420 }}>
-                {/* Kitchen Sink Input */}
-                <Field label="Kitchen Sink Input" hint="Prefix, suffix, icons, hint, and error all at once." error="Username is already taken">
-                  {(p) => (
-                    <InputGroup prefix="@">
-                      <InputWithIcon
-                        {...p}
-                        leadingIcon={<Icon name="fa-solid fa-user" size="sm" />}
-                        trailingIcon={<Icon name="fa-solid fa-circle-exclamation" size="sm" color="var(--core-color-status-danger-text)" />}
-                        defaultValue="jordanlee"
-                      />
-                    </InputGroup>
-                  )}
-                </Field>
-
                 {/* Working Form */}
                 <div style={{ padding: 24, border: "1px solid var(--site-border)", borderRadius: 12, background: "var(--core-color-surface-default)" }}>
                   <h3 style={{ margin: "0 0 24px 0", fontSize: 18, fontWeight: 600 }}>Profile Settings</h3>
