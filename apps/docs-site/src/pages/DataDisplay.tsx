@@ -3,6 +3,7 @@ import { CardQuickLink } from "../QuickLinkCard";
 import { QuickLinksAnatomy, QUICKLINK_CELL_STYLE } from "../SectionAnatomies";
 import { ProgressAnatomy } from "../SectionAnatomies";
 import { TableAnatomy } from "../SectionAnatomies";
+import { AvatarGroupAnatomy } from "../SectionAnatomies";
 import { Preview, CodeBlock } from "../Preview";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
@@ -11,7 +12,7 @@ import { Table, DataTable, TableScrollWrap, Avatar, AvatarGroup, Progress } from
 import { AVATAR_JORDAN, AVATAR_SAM, AVATAR_SAMPLES } from "../avatarSamples";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 import { AnatomySection } from "../AnatomySection";
-import { BadgeAnatomy } from "../BadgeAnatomy";
+import { BadgeAnatomyFull } from "../LegacyAnatomyTables";
 const rows = [
   { id: 1, date: "Sep 01, 2026", type: "Contribution", amount: "$412.50", status: "success" as const },
   { id: 2, date: "Aug 15, 2026", type: "Dividend", amount: "$18.20", status: "success" as const },
@@ -220,14 +221,14 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
       anchorId: "avatar",
       title: "Avatar & Groups",
       content: (
-        <AvatarSizeDemo />
+        <AnatomySection anatomy={<AvatarGroupAnatomy />} demo={<AvatarSizeDemo />} />
       ),
     },
     {
       id: "02",
       anchorId: "badge",
       title: "Badge",
-      content: <AnatomySection demo={<BadgeMatrixDemo />} anatomy={<BadgeAnatomy />} />,
+      content: <AnatomySection demo={<BadgeMatrixDemo />} anatomy={<BadgeAnatomyFull />} />,
     },
     {
       id: "03",

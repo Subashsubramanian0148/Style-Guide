@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import { IconButton } from "../../../packages/core/src/components/Button";
 import { Tooltip } from "../../../packages/core/src/components/Overlays";
 import { Icon } from "../../../packages/core/src/components/Primitives";
-import { AnatomyFrame, VGapMark, HTickMark } from "./AnatomyPrimitives";
+import { AnatomyFrame, VGapMark, HTickMark, SizeTag } from "./AnatomyPrimitives";
 import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
 
 const GREEN = "#118D57";
@@ -11,6 +11,7 @@ const SCALE = 2.5;
 
 interface Measure {
   btn: { x: number; y: number; width: number; height: number };
+  icon: { x: number; y: number; w: number; h: number };
   textRight: number;
   gap: number;
   padX: number;
@@ -45,13 +46,14 @@ export function TooltipAnatomy() {
 
     setM({
       btn: { x: b.left - o.left, y: b.top - o.top, width: b.width, height: b.height },
+      icon: { x: i.left - o.left, y: i.top - o.top, w: i.width, h: i.height },
       textRight: t.right - o.left,
       gap: css(b.left - t.right),
       padX: Math.round(parseFloat(s.paddingLeft)),
       insetTop: css(i.top - b.top),
       insetBottom: css(b.bottom - i.bottom),
       btnSize: `${css(b.width)} × ${css(b.height)}px`,
-      iconSize: `${css(i.width)}px`,
+      iconSize: `${css(i.width)} × ${css(i.height)}px`,
       radius: s.borderTopLeftRadius,
       fontSize: getComputedStyle(text).fontSize,
     });
@@ -64,7 +66,7 @@ export function TooltipAnatomy() {
         <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "flex-start" }}>
           <div style={{ maxWidth: "100%", overflowX: "auto" }}>
           <AnatomyFrame>
-            <div ref={boxRef} style={{ position: "relative", width: 200 * SCALE, height: 32 * SCALE, marginTop: 72, marginLeft: 48, marginRight: 48, marginBottom: 24 }}>
+            <div ref={boxRef} style={{ position: "relative", width: 200 * SCALE, height: 32 * SCALE, marginTop: 72, marginLeft: 48, marginRight: 48, marginBottom: 84 }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: 14, transform: `scale(${SCALE})`, transformOrigin: "0 0" }}>
                 <span ref={textRef} style={{ opacity: 0.55 }}>Federal tax withholding</span>
                 <Tooltip label="20% is the IRS-mandated minimum for most retirement plan distributions.">
@@ -79,6 +81,8 @@ export function TooltipAnatomy() {
                   <VGapMark x={m.btn.x} y={m.btn.y} height={m.btn.height} value={m.padX} color={GREEN} extendTo={m.btn.y - 20} bandInset="start" />
                   <VGapMark x={m.btn.x + m.btn.width} y={m.btn.y} height={m.btn.height} value={m.padX} color={GREEN} extendTo={m.btn.y - 20} bandInset="end" />
                   <HTickMark x={m.btn.x} y={m.btn.y} width={m.btn.width} value={m.insetTop} color={GREEN} extendTo={m.btn.x - 28} bandInset="start" />
+                  <SizeTag r={m.icon} label={m.iconSize.replace("px", "")} place="below" offset={30} />
+                  <SizeTag r={{ x: m.btn.x, y: m.btn.y, w: m.btn.width, h: m.btn.height }} label={m.btnSize.replace("px", "").replace(" · fixed", "")} place="below" offset={62} />
                   <HTickMark x={m.btn.x} y={m.btn.y + m.btn.height} width={m.btn.width} value={m.insetBottom} color={GREEN} extendTo={m.btn.x - 28} bandInset="end" />
                 </>
               )}
@@ -93,7 +97,7 @@ export function TooltipAnatomy() {
                 <SpecRow label="Row direction" token="inline-flex · align center" value="Horizontal · middle left · hug" standard="pass" />
                 <SpecRow label="Label → icon gap" token="core-space-1" value={`${m.gap}px`} standard="pass" />
                 <SpecRow label="Label size" token="typography-body-md-size" value={m.fontSize} standard="pass" />
-                <SpecRow label="Trigger size" token="core-size-control-sm" value={`${m.btnSize} · fixed`} standard="pass" />
+                <SpecRow label="Trigger button (W × H)" token="core-size-control-sm" value={`${m.btnSize} · fixed`} standard="pass" />
                 <SpecRow label="Padding left / right" token="core-space-1" value={`${m.padX}px`} standard="pass" />
                 <SpecRow
                   label="Icon inset top / bottom"
@@ -102,7 +106,7 @@ export function TooltipAnatomy() {
                   standard="pass"
                   note="Figma shows 7.5 / 8.5 — snapped to an even 8 / 8 per the 4-point rule"
                 />
-                <SpecRow label="Icon" token="fa-circle-info · size sm" value={m.iconSize} standard="pass" />
+                <SpecRow label="Icon (W × H)" token="fa-circle-info · size sm" value={m.iconSize} standard="pass" />
                 <SpecRow label="Border radius" token="core-iconButton-ghost-radius" value={m.radius} standard="pass" />
               </tbody>
             </SpecTableCard>
@@ -112,7 +116,8 @@ export function TooltipAnatomy() {
 
       <SpecNote>
         <span style={{ color: ORANGE, fontWeight: 700 }}>Orange</span> marks the item spacing between label and trigger;{" "}
-        <span style={{ color: GREEN, fontWeight: 700 }}>green</span> marks the trigger's own padding. The trigger is the tertiary{" "}
+        <span style={{ color: GREEN, fontWeight: 700 }}>green</span> marks the trigger's own padding;{" "}
+        <span style={{ color: "#7C3AED", fontWeight: 700 }}>purple</span> gives the fixed icon and button size. The trigger is the tertiary{" "}
         <code>IconButton</code> (sm, circle) — its <code>aria-label</code> must restate the question, e.g. “What is federal tax withholding?”.
       </SpecNote>
     </div>

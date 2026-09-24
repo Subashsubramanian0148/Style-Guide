@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Checkbox, Radio } from "../../../packages/core/src/components/FormControls";
-import { AnatomyFrame, GapCallout } from "./AnatomyPrimitives";
+import { AnatomyFrame, GapCallout, HTickMark, SizeTag } from "./AnatomyPrimitives";
 import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
 
 interface Spec {
@@ -16,6 +16,17 @@ interface Spec {
   lineHeight: string;
   labelColor: string;
   gap: string;
+  padding: string;
+  radioSize: string;
+}
+
+interface Row {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  pad: number;
+  box: { x: number; y: number; w: number; h: number };
 }
 
 /**
@@ -31,6 +42,7 @@ export function CheckboxRadioAnatomy() {
   const [checkboxGap, setCheckboxGap] = useState<{ x: number; width: number } | null>(null);
   const [radioGap, setRadioGap] = useState<{ x: number; width: number } | null>(null);
   const [spec, setSpec] = useState<Spec | null>(null);
+  const [rows, setRows] = useState<Row[]>([]);
 
   useLayoutEffect(() => {
     const box = boxRef.current;
@@ -57,6 +69,22 @@ export function CheckboxRadioAnatomy() {
     measureGap(checkboxControl, checkboxControlRect, setCheckboxGap);
     measureGap(radioControl, radioControlRect, setRadioGap);
 
+    setRows(
+      [...box.querySelectorAll<HTMLElement>(".cds-checkbox, .cds-radio")].map((el) => {
+        const r = el.getBoundingClientRect();
+        const parent = (el.parentElement as HTMLElement).getBoundingClientRect();
+        const b = (el.querySelector(".cds-checkbox-box, .cds-radio-box") as HTMLElement).getBoundingClientRect();
+        return {
+          x: Math.round(r.left - parent.left),
+          y: Math.round(r.top - parent.top),
+          width: Math.round(r.width),
+          height: Math.round(r.height),
+          pad: Math.round(parseFloat(getComputedStyle(el).paddingTop)),
+          box: { x: b.left - parent.left, y: b.top - parent.top, w: b.width, h: b.height },
+        };
+      }),
+    );
+
     const cs = getComputedStyle(checkboxControl);
     const rs = getComputedStyle(radioControl);
     const ls = getComputedStyle(checkboxLabel);
@@ -73,6 +101,8 @@ export function CheckboxRadioAnatomy() {
       lineHeight: ls.lineHeight,
       labelColor: ls.color,
       gap: ls.columnGap === "normal" ? ls.gap : ls.columnGap,
+      padding: `${ls.paddingTop} ${ls.paddingLeft}`,
+      radioSize: `${rs.width.replace("px", "")} × ${rs.height.replace("px", "")}px`,
     });
   }, []);
 
@@ -82,14 +112,20 @@ export function CheckboxRadioAnatomy() {
         <SectionHeading>Structure — shared by Checkbox &amp; Radio</SectionHeading>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "flex-start" }}>
           <AnatomyFrame>
-            <div ref={boxRef} style={{ position: "relative", display: "flex", flexDirection: "column", gap: 48, marginTop: 46 }}>
+            <div ref={boxRef} style={{ position: "relative", display: "flex", flexDirection: "column", gap: 96, marginTop: 46, marginLeft: 48, marginBottom: 40 }}>
               <div style={{ position: "relative", display: "inline-flex" }}>
                 <Checkbox label="Option" readOnly />
-                {checkboxGap && <GapCallout x={checkboxGap.x} width={checkboxGap.width} value={8} />}
+                {checkboxGap && <GapCallout x={checkboxGap.x} width={checkboxGap.width} value={checkboxGap.width} />}
+                {rows[0] && <HTickMark x={rows[0].x} y={rows[0].y} width={rows[0].width} value={rows[0].pad} extendTo={rows[0].x - 32} bandInset="start" />}
+                {rows[0] && <SizeTag r={rows[0].box} label={`${Math.round(rows[0].box.w)} × ${Math.round(rows[0].box.h)}`} offset={26} />}
+                {rows[0] && <HTickMark x={rows[0].x} y={rows[0].y + rows[0].height} width={rows[0].width} value={rows[0].pad} extendTo={rows[0].x - 32} bandInset="end" />}
               </div>
               <div style={{ position: "relative", display: "inline-flex" }}>
                 <Radio label="Option" readOnly />
-                {radioGap && <GapCallout x={radioGap.x} width={radioGap.width} value={8} />}
+                {radioGap && <GapCallout x={radioGap.x} width={radioGap.width} value={radioGap.width} />}
+                {rows[1] && <HTickMark x={rows[1].x} y={rows[1].y} width={rows[1].width} value={rows[1].pad} extendTo={rows[1].x - 32} bandInset="start" />}
+                {rows[1] && <SizeTag r={rows[1].box} label={`${Math.round(rows[1].box.w)} × ${Math.round(rows[1].box.h)}`} offset={26} />}
+                {rows[1] && <HTickMark x={rows[1].x} y={rows[1].y + rows[1].height} width={rows[1].width} value={rows[1].pad} extendTo={rows[1].x - 32} bandInset="end" />}
               </div>
             </div>
           </AnatomyFrame>
@@ -98,7 +134,8 @@ export function CheckboxRadioAnatomy() {
             <SpecTableCard>
               <SpecTableHead />
               <tbody>
-                <SpecRow label="Control size" token="(fixed)" value={spec.boxSize} standard="warn" note="18px control; keep the clickable label row ≥44px for touch" />
+                <SpecRow label="Checkbox box (W × H)" token="core-size-icon-md" value={spec.boxSize} standard="pass" />
+                <SpecRow label="Radio circle (W × H)" token="core-size-icon-md" value={spec.radioSize} standard="pass" />
                 <SpecRow label="Border" token="theme-neutral-border-primary-default" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
                 <SpecRow label="Radius — Checkbox" token="core-radius-xs" value={spec.checkboxRadius} standard="pass" />
                 <SpecRow label="Radius — Radio" token="(circle)" value={spec.radioRadius} standard="pass" />
@@ -106,6 +143,7 @@ export function CheckboxRadioAnatomy() {
                 <SpecRow label="Fill (checked)" token="brand-background-primary-strong" value="rgb(31, 79, 141)" swatch="rgb(31, 79, 141)" standard="pass" />
                 <SpecRow label="Indicator" token="Checkbox: check glyph · Radio: 7px dot" value="neutral-0 (white)" standard="pass" />
                 <SpecRow label="Label gap" token="core-space-2" value={spec.gap} standard="pass" />
+                <SpecRow label="Row padding" token="core-space-1 / core-space-0" value={spec.padding} standard="pass" note="Keeps the clickable row at least 24px tall (WCAG 2.5.8)" />
                 <SpecRow label="Label font" token="typography-body-md" value={`${spec.fontSize} / ${spec.fontWeight} / ${spec.lineHeight}`} standard="pass" />
                 <SpecRow label="Label family" token="typography-font-family-sans" value={spec.fontFamily} standard="pass" />
                 <SpecRow label="Label color" token="theme-neutral-text-primary-default" value={spec.labelColor} swatch={spec.labelColor} standard="pass" />

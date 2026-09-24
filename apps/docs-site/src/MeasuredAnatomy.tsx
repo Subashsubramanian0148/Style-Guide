@@ -4,6 +4,7 @@ import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from 
 
 export const ANATOMY_GREEN = "#118D57";
 export const ANATOMY_ORANGE = "#C2410C";
+export const ANATOMY_PURPLE = "#7C3AED";
 const BLUE = "#2563EB";
 const GUTTER = 120;
 const LANE = 24;
@@ -16,7 +17,9 @@ type Target = string | { inner: string; edge: "left" | "right" | "top" | "bottom
 export type AnatomyMark =
   | { kind: "padding"; sel: string; color?: string; edges?: Array<"top" | "right" | "bottom" | "left"> }
   | { kind: "gap"; a: Target; b: Target; axis: "x" | "y"; color?: string; label?: string; span?: string }
-  | { kind: "outline"; sel: string };
+  | { kind: "outline"; sel: string }
+  /** Width × height of a fixed-size element (icon, marker, control), badged below it. */
+  | { kind: "size"; sel: string; pseudo?: "::after" | "::before" };
 
 export interface AnatomyLayer {
   node: string;
@@ -153,8 +156,23 @@ export function MeasuredAnatomy({
       badges.push(b);
     };
 
+    const sizeBadges: Badge[] = [];
     for (const mk of marks) {
-      if (mk.kind === "outline") {
+      if (mk.kind === "size") {
+        const e = el(mk.sel);
+        let r = rectOf(e);
+        let label = `${Math.round(r.w / scale)} × ${Math.round(r.h / scale)}`;
+        if (mk.pseudo) {
+          const ps = getComputedStyle(e, mk.pseudo);
+          const w = parseFloat(ps.width), h = parseFloat(ps.height);
+          label = `${Math.round(w)} × ${Math.round(h)}`;
+        }
+        const b: Badge = { x: r.x + r.w / 2, y: r.y + r.h + 22, lineX: r.x + r.w / 2, lineY: r.y + r.h, axis: "v", value: label, color: ANATOMY_PURPLE };
+        let guard = 0;
+        while ([...badges, ...sizeBadges].some((p) => Math.abs(p.x - b.x) < (p.value.length + b.value.length) * 3.5 + 14 && Math.abs(p.y - b.y) < 22) && guard++ < 8) b.y += LANE;
+        sizeBadges.push(b);
+        outlines.push(r);
+      } else if (mk.kind === "outline") {
         outlines.push(rectOf(el(mk.sel)));
       } else if (mk.kind === "padding") {
         const e = el(mk.sel);
@@ -218,6 +236,7 @@ export function MeasuredAnatomy({
       gap: (a, b, axis) => Math.round(gapPx(resolve(a), resolve(b), axis) / scale),
     };
 
+    badges.push(...sizeBadges);
     setDrawn({ bands, outlines, badges, specs: specs(q) });
     const overflowLeft = Math.max(0, -Math.min(0, ...badges.map((b) => b.x - 20)));
     setPadLeft(Math.ceil(overflowLeft / LANE) * LANE);
@@ -225,8 +244,6 @@ export function MeasuredAnatomy({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scale]);
 
-  const th: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 };
-  const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", fontSize: 13, verticalAlign: "top" };
   const minBadgeY = drawn ? Math.min(0, ...drawn.badges.map((b) => b.y - 14)) : 0;
 
   return (
@@ -258,52 +275,14 @@ export function MeasuredAnatomy({
         <SpecNote>
           <span style={{ color: ANATOMY_GREEN, fontWeight: 700 }}>Green</span> = padding,{" "}
           <span style={{ color: ANATOMY_ORANGE, fontWeight: 700 }}>orange</span> = item spacing,{" "}
-          <span style={{ color: BLUE, fontWeight: 700 }}>blue</span> outlines = child nodes. Shown at {scale.toFixed(2).replace(/\.?0+$/, "")}× —
+          <span style={{ color: BLUE, fontWeight: 700 }}>blue</span> outlines = child nodes,{" "}
+          <span style={{ color: ANATOMY_PURPLE, fontWeight: 700 }}>purple</span> = fixed width × height. Shown at {scale.toFixed(2).replace(/\.?0+$/, "")}× —
           every badge reads the real CSS value.{note ? <> {note}</> : null}
         </SpecNote>
       </div>
 
-      <div>
-        <SectionHeading>Layer structure — Figma node → CSS class</SectionHeading>
-        <SpecTableCard>
-          <thead>
-            <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
-              <th style={th}>Node</th>
-              <th style={th}>Class</th>
-              <th style={th}>Direction</th>
-              <th style={th}>Alignment</th>
-              <th style={th}>Resizing (W × H)</th>
-              <th style={th}>Spacing</th>
-            </tr>
-          </thead>
-          <tbody>
-            {layers.map((l) => (
-              <tr key={l.node + l.cls}>
-                <td style={{ ...td, fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap" }}>{l.node}</td>
-                <td style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap" }}>{l.cls}</td>
-                <td style={td}>{l.direction}</td>
-                <td style={td}>{l.alignment}</td>
-                <td style={td}>{l.resizing}</td>
-                <td style={td}>{l.spacing}</td>
-              </tr>
-            ))}
-          </tbody>
-        </SpecTableCard>
-      </div>
-
-      {drawn && (
-        <div>
-          <SectionHeading>Specs — measured from the live component</SectionHeading>
-          <SpecTableCard>
-            <SpecTableHead />
-            <tbody>
-              {drawn.specs.map((s) => (
-                <SpecRow key={s.label} {...s} />
-              ))}
-            </tbody>
-          </SpecTableCard>
-        </div>
-      )}
+      <LayerTable layers={layers} />
+      {drawn && <SpecsTable specs={drawn.specs} />}
     </div>
   );
 }
@@ -337,5 +316,111 @@ function BadgeMark({ b }: { b: Badge }) {
         {b.value}
       </div>
     </>
+  );
+}
+
+const th: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 };
+const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", fontSize: 13, verticalAlign: "top" };
+
+export function LayerTable({ layers }: { layers: AnatomyLayer[] }) {
+  return (
+    <div>
+      <SectionHeading>Layer structure — Figma node → CSS class</SectionHeading>
+      <SpecTableCard>
+        <thead>
+          <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
+            <th style={th}>Node</th>
+            <th style={th}>Class</th>
+            <th style={th}>Direction</th>
+            <th style={th}>Alignment</th>
+            <th style={th}>Resizing (W × H)</th>
+            <th style={th}>Spacing</th>
+          </tr>
+        </thead>
+        <tbody>
+          {layers.map((l) => (
+            <tr key={l.node + l.cls}>
+              <td style={{ ...td, fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap" }}>{l.node}</td>
+              <td style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap" }}>{l.cls}</td>
+              <td style={td}>{l.direction}</td>
+              <td style={td}>{l.alignment}</td>
+              <td style={td}>{l.resizing}</td>
+              <td style={td}>{l.spacing}</td>
+            </tr>
+          ))}
+        </tbody>
+      </SpecTableCard>
+    </div>
+  );
+}
+
+export function SpecsTable({ specs }: { specs: AnatomySpecRow[] }) {
+  return (
+    <div>
+      <SectionHeading>Specs — measured from the live component</SectionHeading>
+      <SpecTableCard>
+        <SpecTableHead />
+        <tbody>
+          {specs.map((s) => (
+            <SpecRow key={s.label} {...s} />
+          ))}
+        </tbody>
+      </SpecTableCard>
+    </div>
+  );
+}
+
+/** Adds the layer table (and, when `specs` is given, a measured spec table)
+ *  under an existing hand-built anatomy. Specs query the live component the
+ *  anatomy renders; selectors resolve inside `children`. */
+export function AnatomyTables({ children, layers, specs }: { children: React.ReactNode; layers: AnatomyLayer[]; specs?: (q: AnatomyQuery) => AnatomySpecRow[] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [rows, setRows] = useState<AnatomySpecRow[] | null>(null);
+
+  useLayoutEffect(() => {
+    const root = ref.current;
+    if (!root || !specs) return;
+    const el = (sel: string) => (sel ? (root.querySelector(sel) as HTMLElement) : root);
+    const edgeRect = (t: Target): DOMRect => {
+      if (typeof t === "string") return el(t).getBoundingClientRect();
+      const e = el("inner" in t ? t.inner : t.content);
+      const s = getComputedStyle(e);
+      const r = e.getBoundingClientRect();
+      const n = (p: string) => parseFloat(s.getPropertyValue(p));
+      const c = "content" in t;
+      const L = r.left + n("border-left-width") + (c ? n("padding-left") : 0);
+      const R = r.right - n("border-right-width") - (c ? n("padding-right") : 0);
+      const T = r.top + n("border-top-width") + (c ? n("padding-top") : 0);
+      const B = r.bottom - n("border-bottom-width") - (c ? n("padding-bottom") : 0);
+      const x = t.edge === "right" ? R : L;
+      const y = t.edge === "bottom" ? B : T;
+      return t.edge === "left" || t.edge === "right" ? new DOMRect(x, T, 0, B - T) : new DOMRect(L, y, R - L, 0);
+    };
+    const q: AnatomyQuery = {
+      el,
+      px: (sel, prop) => Math.round(parseFloat(getComputedStyle(el(sel)).getPropertyValue(prop))),
+      css: (sel, prop, pseudo) => getComputedStyle(el(sel), pseudo).getPropertyValue(prop),
+      size: (sel) => `${el(sel).offsetWidth} × ${el(sel).offsetHeight}px`,
+      type: (sel) => {
+        const s = getComputedStyle(el(sel));
+        return `${s.fontSize} / ${s.fontWeight} / ${s.lineHeight}`;
+      },
+      gap: (a, b, axis) => {
+        const ra = edgeRect(a);
+        const rb = edgeRect(b);
+        return Math.round(axis === "x" ? rb.left - ra.right : rb.top - ra.bottom);
+      },
+    };
+    setRows(specs(q));
+    // `specs` is static per section.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+      <div ref={ref}>{children}</div>
+      <LayerTable layers={layers} />
+      {rows && <SpecsTable specs={rows} />}
+    </div>
   );
 }

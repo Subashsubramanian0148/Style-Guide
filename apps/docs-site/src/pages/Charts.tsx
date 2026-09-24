@@ -2,6 +2,8 @@ import React from "react";
 import { Preview } from "../Preview";
 import { DocsSection, DocsSectionList } from "../DocsSection";
 import { LineChartCard } from "../../../../packages/core/src/components/Chart";
+import { LineChartAnatomy } from "../SectionAnatomies";
+import { AnatomySection } from "../AnatomySection";
 
 const contributionGrowth = [
   { month: "Mar", balance: 78400, contributions: 82000 },
@@ -16,6 +18,9 @@ export default function Charts({ embedded = false }: { embedded?: boolean }) {
   const sections = (
     <DocsSectionList flat={embedded}>
       <DocsSection anchorId="line-chart" title="Line chart">
+        <AnatomySection
+          anatomy={<LineChartAnatomy />}
+          demo={<>
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
             <div style={{ width: "100%", padding: 20 }}>
@@ -32,6 +37,8 @@ export default function Charts({ embedded = false }: { embedded?: boolean }) {
             </div>
           </Preview>
         </div>
+      </>}
+        />
       </DocsSection>
     </DocsSectionList>
   );

@@ -7,7 +7,7 @@ import {
   Skeleton,
 } from "../../../../packages/core/src/components/Disclosure";
 import { AnatomySection } from "../AnatomySection";
-import { AccordionAnatomy } from "../AccordionAnatomy";
+import { AccordionAnatomyFull } from "../LegacyAnatomyTables";
 import { SeparatorAnatomy, SeparatorCard } from "../SectionAnatomies";
 import { SkeletonAnatomy, SkeletonCard } from "../SectionAnatomies";
 
@@ -122,7 +122,7 @@ export default function DisclosurePage({ embedded = false }: { embedded?: boolea
       anchorId: "accordion",
       title: "Accordion",
       content: (
-        <AnatomySection demo={<AccordionVariantsDemo />} anatomy={<AccordionAnatomy />} />
+        <AnatomySection demo={<AccordionVariantsDemo />} anatomy={<AccordionAnatomyFull />} />
       ),
     },
     {

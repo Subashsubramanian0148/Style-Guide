@@ -477,7 +477,7 @@
 .cds-icon-btn--sm {
   width: var(--core-size-control-sm);
   height: var(--core-size-control-sm);
-  padding: var(--core-space-1);
+  padding: var(--core-space-2) var(--core-space-1);
 }
 
 .cds-icon-btn--md {
@@ -2007,6 +2007,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--core-space-2);
+  padding: var(--core-space-1) var(--core-space-0);
   cursor: pointer;
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
@@ -2021,6 +2022,7 @@
   opacity: 0;
   width: 1px;
   height: 1px;
+  margin: 0;
 }
 
 .cds-checkbox-box,
@@ -5444,9 +5446,9 @@
   justify-content: space-between;
   gap: var(--core-space-4);
   min-height: var(--core-layout-header-height);
-  padding: 0 var(--core-space-4);
-  background: var(--core-color-surface-raised);
-  border-bottom: 1px solid var(--core-color-border-subtle);
+  padding: var(--core-space-0) var(--core-space-6);
+  background: var(--core-color-surface-default);
+  border-bottom: 1px solid var(--core-color-border-default);
   box-sizing: border-box;
 }
 
@@ -5463,8 +5465,178 @@
 .cds-app-header-actions {
   display: flex;
   align-items: center;
-  gap: var(--core-space-4);
+  gap: var(--core-space-2);
   flex-shrink: 0;
+}
+
+.cds-app-header-icon-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: var(--core-space-0);
+  border: none;
+  border-radius: var(--core-radius-full);
+  background: transparent;
+  color: var(--theme-neutral-text-subtle);
+  font-size: var(--core-size-icon-md);
+  cursor: pointer;
+  transition: background-color var(--core-motion-duration-fast) ease;
+}
+
+.cds-app-header-icon-btn:focus-visible,
+.cds-account-trigger:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline-offset: var(--core-focusRing-offset, 2px);
+}
+
+.cds-account-menu {
+  position: relative;
+}
+
+.cds-account-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: var(--core-space-0);
+  border: 1px solid transparent;
+  border-radius: var(--core-radius-full);
+  background: transparent;
+  cursor: pointer;
+}
+
+.cds-account-trigger img {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--core-radius-full);
+  object-fit: cover;
+}
+
+.cds-account-initials {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--core-radius-full);
+  background: var(--brand-background-primary-subtle, var(--core-color-surface-sunken));
+  color: var(--brand-text-primary-default, var(--theme-neutral-text-primary-default));
+  font-size: var(--typography-font-size-xs);
+  font-weight: var(--typography-font-weight-semibold);
+}
+
+.cds-account-dropdown {
+  position: absolute;
+  top: calc(100% + var(--core-space-2));
+  right: 0;
+  z-index: 40;
+  width: 260px;
+  padding: var(--core-space-2);
+  background: var(--core-color-surface-default);
+  border: 1px solid var(--core-color-border-default);
+  border-radius: var(--core-radius-sm);
+  box-shadow: var(--core-elevation-2);
+  box-sizing: border-box;
+}
+
+/* Utility actions only appear in the menu on narrow screens, where the
+   header hides its icon buttons. */
+.cds-account-utils {
+  display: none;
+  gap: var(--core-space-2);
+  padding: var(--core-space-2);
+  border-bottom: 1px solid var(--core-color-border-default);
+}
+
+.cds-account-util {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  padding: var(--core-space-1) var(--core-space-2);
+  border: none;
+  border-radius: var(--core-radius-sm);
+  background: transparent;
+  color: var(--theme-neutral-text-subtle);
+  font-family: var(--typography-font-family-sans);
+  font-size: var(--typography-font-size-xs);
+  cursor: pointer;
+}
+
+.cds-account-identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-1);
+  padding: var(--core-space-2);
+  border-bottom: 1px solid var(--core-color-border-default);
+}
+
+.cds-account-identity-label {
+  font-size: var(--typography-font-size-xs);
+  line-height: var(--typography-eyebrow-line-height);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--theme-neutral-text-subtle);
+}
+
+.cds-account-identity-value {
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--theme-neutral-text-primary-default);
+  overflow-wrap: anywhere;
+}
+
+.cds-account-option {
+  display: flex;
+  align-items: center;
+  gap: var(--core-space-2);
+  width: 100%;
+  padding: var(--core-space-2);
+  border: none;
+  border-radius: var(--core-radius-sm);
+  background: transparent;
+  color: var(--theme-neutral-text-primary-default);
+  font-family: var(--typography-font-family-sans);
+  text-align: left;
+  cursor: pointer;
+}
+
+.cds-account-option:hover,
+.cds-account-util:hover {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.cds-account-option--danger {
+  color: var(--core-color-status-danger-text);
+  border-top: 1px solid var(--core-color-border-default);
+  border-radius: 0 0 var(--core-radius-sm) var(--core-radius-sm);
+}
+
+.cds-account-option-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: var(--core-radius-full);
+  background: var(--core-color-status-danger-bg);
+  color: var(--core-color-status-danger-text);
+}
+
+.cds-account-option-label {
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  font-weight: var(--typography-font-weight-bold);
+}
+
+@media (max-width: 767px) {
+  .cds-app-header .cds-app-header-icon-btn {
+    display: none;
+  }
+
+  .cds-account-utils {
+    display: flex;
+  }
 }
 
 .cds-app-body {
@@ -5500,11 +5672,12 @@
   display: flex;
   align-items: center;
   min-height: var(--core-layout-footer-minHeight);
-  padding: var(--core-space-3) var(--core-space-4);
-  border-top: 1px solid var(--core-color-border-subtle);
+  padding: var(--core-space-2) var(--core-space-6);
+  border-top: 1px solid var(--core-color-border-default);
   font-size: var(--typography-font-size-xs);
+  line-height: var(--typography-eyebrow-line-height);
   color: var(--theme-neutral-text-subtle);
-  background: var(--core-color-surface-raised);
+  background: var(--core-color-surface-default);
   box-sizing: border-box;
   width: 100%;
 }
@@ -5515,7 +5688,11 @@
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1) var(--core-space-4);
+}
+
+.cds-app-footer-copy {
+  margin: 0;
 }
 
 .cds-app-footer-links {
@@ -5524,13 +5701,25 @@
   flex-wrap: wrap;
 }
 
+@media (max-width: 767px) {
+  .cds-app-footer {
+    padding: var(--core-space-3) var(--core-space-4);
+  }
+
+  .cds-app-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 .cds-app-footer-links a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .cds-app-footer-links a:hover {
-  text-decoration: underline;
+  color: var(--theme-neutral-text-primary-default);
 }
 
 /* Container — Bootstrap's own breakpoint/max-width scale (container.maxWidth.*

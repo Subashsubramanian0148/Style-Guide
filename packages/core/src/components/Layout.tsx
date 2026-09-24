@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 
 /**
  * Page shell + grid primitives — the structural layer every product screen is
@@ -30,15 +30,132 @@ export function AppShell({
   );
 }
 
-/** The two slots every app header needs: a brand/logo on the left, account/
- *  utility actions on the right. AppShell's `header` prop already supplies
- *  the flex row (space-between) and chrome (background, border, height) —
- *  this just fills the two ends of it consistently. */
-export function AppHeader({ brand, actions }: { brand: React.ReactNode; actions?: React.ReactNode }) {
+export interface HeaderUtility {
+  label: string;
+  icon: React.ReactNode;
+  onClick?: () => void;
+}
+
+export interface AccountMenuItem {
+  label: string;
+  icon: React.ReactNode;
+  tone?: "default" | "danger";
+  onSelect?: () => void;
+}
+
+export interface HeaderAccount {
+  name: string;
+  email: string;
+  avatarSrc?: string;
+  items: AccountMenuItem[];
+}
+
+/** Avatar trigger + account dropdown. `utilities` repeat inside the menu on
+ *  narrow screens, where the header hides its icon buttons. */
+export function AccountMenu({ account, utilities = [], defaultOpen = false }: { account: HeaderAccount; utilities?: HeaderUtility[]; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const menuId = useId();
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const initials = account.name
+    .split(" ")
+    .map((p) => p[0])
+    .slice(0, 2)
+    .join("");
+
+  return (
+    <div className="cds-account-menu" ref={rootRef}>
+      <button
+        type="button"
+        className="cds-account-trigger"
+        aria-label={`Account menu for ${account.name}`}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-controls={menuId}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {account.avatarSrc ? <img src={account.avatarSrc} alt="" /> : <span className="cds-account-initials">{initials}</span>}
+      </button>
+      {open && (
+        <div className="cds-account-dropdown" id={menuId} role="menu" aria-label="Account">
+          {utilities.length > 0 && (
+            <div className="cds-account-utils">
+              {utilities.map((u) => (
+                <button key={u.label} type="button" role="menuitem" className="cds-account-util" onClick={u.onClick}>
+                  {u.icon}
+                  {u.label}
+                </button>
+              ))}
+            </div>
+          )}
+          <div className="cds-account-identity">
+            <span className="cds-account-identity-label">Username</span>
+            <span className="cds-account-identity-value">{account.email}</span>
+          </div>
+          {account.items.map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              role="menuitem"
+              className={`cds-account-option${item.tone === "danger" ? " cds-account-option--danger" : ""}`}
+              onClick={() => {
+                item.onSelect?.();
+                setOpen(false);
+              }}
+            >
+              <span className="cds-account-option-icon" aria-hidden="true">{item.icon}</span>
+              <span className="cds-account-option-label">{item.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Brand on the left; round utility icon buttons and the account menu on the
+ *  right. AppShell's `header` prop supplies the row chrome (background,
+ *  border, height); standalone use wraps this in `.cds-app-header`. */
+export function AppHeader({
+  brand,
+  actions,
+  utilities,
+  account,
+}: {
+  brand: React.ReactNode;
+  actions?: React.ReactNode;
+  utilities?: HeaderUtility[];
+  account?: HeaderAccount;
+}) {
+  const hasRight = actions || utilities?.length || account;
   return (
     <>
       <div className="cds-app-header-brand">{brand}</div>
-      {actions && <div className="cds-app-header-actions">{actions}</div>}
+      {hasRight && (
+        <div className="cds-app-header-actions">
+          {utilities?.map((u) => (
+            <button key={u.label} type="button" className="cds-app-header-icon-btn" aria-label={u.label} onClick={u.onClick}>
+              {u.icon}
+            </button>
+          ))}
+          {actions}
+          {account && <AccountMenu account={account} utilities={utilities} />}
+        </div>
+      )}
     </>
   );
 }
@@ -48,8 +165,12 @@ export function AppHeader({ brand, actions }: { brand: React.ReactNode; actions?
 export function AppFooter({ copyright, links }: { copyright: React.ReactNode; links?: React.ReactNode }) {
   return (
     <div className="cds-app-footer-inner">
-      <span>{copyright}</span>
-      {links && <div className="cds-app-footer-links">{links}</div>}
+      <p className="cds-app-footer-copy">{copyright}</p>
+      {links && (
+        <nav className="cds-app-footer-links" aria-label="Legal">
+          {links}
+        </nav>
+      )}
     </div>
   );
 }

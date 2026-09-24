@@ -8,6 +8,7 @@ import DisclosurePage from "./Disclosure";
 import NavigationPage from "./NavigationPage";
 import Feedback from "./Feedback";
 import OverlaysPage from "./OverlaysPage";
+import AppChrome from "./AppChrome";
 
 const categoryPages: Record<string, React.ComponentType<{ embedded?: boolean }>> = {
   Actions,
@@ -18,6 +19,7 @@ const categoryPages: Record<string, React.ComponentType<{ embedded?: boolean }>>
   Navigation: NavigationPage,
   Feedback,
   Overlays: OverlaysPage,
+  Layout: AppChrome,
 };
 
 export default function Components() {

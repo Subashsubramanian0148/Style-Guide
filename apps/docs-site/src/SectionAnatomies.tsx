@@ -3,13 +3,17 @@ import { MeasuredAnatomy, type AnatomySpecRow } from "./MeasuredAnatomy";
 import { StateLabel } from "./DocsSection";
 import { CardQuickLink } from "./QuickLinkCard";
 import { Separator, Skeleton } from "../../../packages/core/src/components/Disclosure";
-import { Tabs, AppSidebar, Pagination } from "../../../packages/core/src/components/Navigation";
-import { Progress, Table } from "../../../packages/core/src/components/DataDisplay";
+import { Tabs, AppSidebar, Pagination, Stepper, defaultStepStatus, type StepState } from "../../../packages/core/src/components/Navigation";
+import { Progress, Table, AvatarGroup } from "../../../packages/core/src/components/DataDisplay";
+import { AVATAR_SAMPLES } from "./avatarSamples";
 import { Empty, Slider } from "../../../packages/core/src/components/Primitives";
 import { Button } from "../../../packages/core/src/components/Button";
 import { Field, Input, InputWithIcon } from "../../../packages/core/src/components/Field";
 import { Select } from "../../../packages/core/src/components/FormControls";
 import { Spinner } from "../../../packages/core/src/components/Overlays";
+import { LineChartCard } from "../../../packages/core/src/components/Chart";
+import { Calendar } from "../../../packages/core/src/components/Calendar";
+import { AppHeader, AppFooter, AccountMenu, type HeaderAccount, type HeaderUtility } from "../../../packages/core/src/components/Layout";
 import { InputGroup } from "../../../packages/core/src/components/ToggleInputs";
 import { Icon } from "../../../packages/core/src/components/Primitives";
 
@@ -535,7 +539,7 @@ export function EmptyAnatomy() {
         { kind: "gap", a: ".cds-empty-title", b: ".cds-empty-desc", axis: "y", span: ".cds-empty-desc" },
         { kind: "gap", a: ".cds-empty-desc", b: ".cds-empty-action", axis: "y", span: ".cds-empty-desc" },
         { kind: "padding", sel: ".cds-empty-action .cds-btn" },
-        { kind: "outline", sel: ".cds-empty-icon" },
+        { kind: "size", sel: ".cds-empty-icon" },
         { kind: "outline", sel: ".cds-empty-title" },
         { kind: "outline", sel: ".cds-empty-desc" },
       ]}
@@ -558,7 +562,7 @@ export function EmptyAnatomy() {
             ? pass("Description → action", "core-space-4", `${descAction}px`)
             : warn("Description → action", "gap core-space-2 + margin core-space-3", `${descAction}px`, "Figma: 16 (Empty State item spacing). Core .cds-empty-action adds a 12px top margin — left as-is pending a decision"),
           pass("Button padding", "core-space-2 / core-space-3", `${q.px(".cds-empty-action .cds-btn", "padding-top")}px ${q.px(".cds-empty-action .cds-btn", "padding-left")}px`),
-          pass("Icon", "44px", q.size(".cds-empty-icon")),
+          pass("Icon container (W × H)", "44 × 44", q.size(".cds-empty-icon")),
           pass("Title", "typography-heading", q.type(".cds-empty-title")),
           pass("Description", "typography-body-sm", q.type(".cds-empty-desc")),
         ];
@@ -867,6 +871,388 @@ export function SpinnerAnatomy() {
         <Spinner />
         <span data-a="text" style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Saving your changes…</span>
       </div>
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Stepper ---------- */
+
+/** Single-step state preview, shared by the Stepper state demo and its anatomy. */
+export function StepperStatePreview({
+  state,
+  eyebrow,
+  title,
+  description,
+  status,
+  stepNumber = 2,
+}: {
+  state: StepState;
+  eyebrow: string;
+  title: string;
+  description: string;
+  status?: string;
+  stepNumber?: number;
+}) {
+  const marker = state === "completed" ? "✓" : state === "warning" || state === "error" ? "!" : stepNumber;
+  return (
+    <div data-a="cell" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)", minWidth: 0 }}>
+      <StateLabel>{eyebrow}</StateLabel>
+      <ol className="cds-stepper cds-stepper--vertical" aria-label={`Stepper ${eyebrow}`} style={{ width: "auto", minWidth: 0 }}>
+        <li className={`cds-step cds-step--${state} cds-step--vertical`} style={{ paddingBottom: 0 }}>
+          <span className="cds-step-marker" aria-hidden="true">{marker}</span>
+          <span className="cds-step-label">
+            <span className="cds-step-title">{title}</span>
+            <span className="cds-step-desc">{description}</span>
+            <span className="cds-step-status">
+              {state === "in-progress" ? (
+                <span className="cds-step-status-spinner" role="status" aria-hidden="true" />
+              ) : (
+                <span className="cds-step-status-dot" aria-hidden="true" />
+              )}
+              {status ?? defaultStepStatus(state)}
+            </span>
+          </span>
+        </li>
+      </ol>
+    </div>
+  );
+}
+
+export function StepperAnatomy() {
+  const a = "[data-a=state]";
+  const b = "[data-a=vert] .cds-step:nth-child(1)";
+  return (
+    <MeasuredAnatomy
+      heading="Structure — step item, text stack & status (state cell and vertical stepper)"
+      width={420}
+      maxScale={1.5}
+      marks={[
+        { kind: "gap", a: `${a} .docs-state-label`, b: `${a} .cds-stepper`, axis: "y" },
+        { kind: "gap", a: `${a} .cds-step-marker`, b: `${a} .cds-step-label`, axis: "x", span: `${a} .cds-step-label` },
+        { kind: "gap", a: `${a} .cds-step-desc`, b: `${a} .cds-step-status`, axis: "y", color: "#118D57" },
+        { kind: "gap", a: `${b} .cds-step-marker`, b: `${b} .cds-step-label`, axis: "x", span: `${b} .cds-step-label` },
+        { kind: "gap", a: `${b} .cds-step-desc`, b: `${b} .cds-step-status`, axis: "y", color: "#118D57" },
+        { kind: "size", sel: `${a} .cds-step-marker` },
+        { kind: "outline", sel: `${a} .cds-step-label` },
+        { kind: "size", sel: `${b} .cds-step-marker` },
+        { kind: "outline", sel: `${b} .cds-step-label` },
+      ]}
+      layers={[
+        { node: "Stepper (state cell)", cls: "demo cell", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8" },
+        { node: "Ordered List → Item", cls: ".cds-step", direction: "Horizontal", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 12" },
+        { node: "Background+Border (marker)", cls: ".cds-step-marker", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 28 × 28", spacing: "—" },
+        { node: "Margin (text stack)", cls: ".cds-step-label", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Container (title / desc)", cls: ".cds-step-title / .cds-step-desc", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Margin (status)", cls: ".cds-step-status", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Top 4 · Gap 4" },
+      ]}
+      specs={(q) => [
+        pass("State label → step", "core-space-2", `${q.gap(`${a} .docs-state-label`, `${a} .cds-stepper`, "y")}px`),
+        pass("Marker → text", "core-space-3", `${q.gap(`${a} .cds-step-marker`, `${a} .cds-step-label`, "x")}px`),
+        pass("Description → status", "core-space-1", `${q.px(`${a} .cds-step-status`, "margin-top")}px`),
+        pass("Dot → status text", "core-space-1", `${q.px(`${a} .cds-step-status`, "column-gap")}px`),
+        pass("Number marker (W × H)", "28 × 28 · radius full", q.size(`${a} .cds-step-marker`)),
+        pass("Title", "typography-body-md · medium", q.type(`${a} .cds-step-title`)),
+        pass("Description", "typography-body-sm", q.type(`${a} .cds-step-desc`)),
+        pass("Status", "typography-font-size-xs", q.type(`${a} .cds-step-status`)),
+      ]}
+      note="The vertical stepper reuses the same step item; only the marker fill and status color change per state (default, in progress, completed, warning, error)."
+    >
+      <div style={{ display: "flex", gap: "var(--core-space-10)", alignItems: "flex-start" }}>
+        <div data-a="state">
+          <StepperStatePreview state="default" eyebrow="DEFAULT" title="Fees" description="Review fees." stepNumber={3} />
+        </div>
+        <div data-a="vert">
+          <Stepper
+            orientation="vertical"
+            currentIndex={1}
+            steps={[
+              { label: "Withdrawal", description: "Set type and amount." },
+              { label: "Allocation", description: "Pick sources.", status: "In progress" },
+            ]}
+          />
+        </div>
+      </div>
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Avatar group ---------- */
+
+export function AvatarGroupAnatomy() {
+  const item = (n: number) => `.cds-avatar-group-item:nth-child(${n})`;
+  return (
+    <MeasuredAnatomy
+      heading="Structure — overlapping avatar stack"
+      width={140}
+      maxScale={3}
+      marks={[
+        { kind: "gap", a: item(1), b: item(2), axis: "x" },
+        { kind: "gap", a: item(2), b: item(3), axis: "x" },
+        { kind: "gap", a: item(3), b: item(4), axis: "x" },
+        { kind: "outline", sel: item(1) },
+        { kind: "outline", sel: item(2) },
+        { kind: "outline", sel: item(3) },
+        { kind: "outline", sel: item(4) },
+      ]}
+      layers={[
+        { node: "Avatar (group)", cls: ".cds-avatar-group", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Item spacing -8" },
+        { node: "Background+Border (ring)", cls: ".cds-avatar-group-item", direction: "Horizontal", alignment: "Top left", resizing: "Hug × Hug", spacing: "2px surface ring" },
+        { node: "Img - person", cls: ".cds-avatar-wrap / .cds-avatar", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed", spacing: "—" },
+        { node: "Img - +N more", cls: ".cds-avatar (overflow)", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed", spacing: "—" },
+      ]}
+      specs={(q) => [
+        pass("Overlap", "-core-space-2", `${q.gap(item(1), item(2), "x")}px`, "Negative item spacing — each avatar tucks 8px under the previous one"),
+        pass("Item (with ring)", "avatar-sm + 2px ring", q.size(item(1))),
+        pass("Avatar", "avatar-sm", q.size(`${item(1)} > *`)),
+        pass("Overflow label", "+N · typography-font-size-xs", q.type(`${item(4)} > *`)),
+      ]}
+      note="Larger sizes (md / lg) keep the same structure; only the avatar diameter and overlap scale."
+    >
+      <AvatarGroup avatars={[...AVATAR_SAMPLES]} size="sm" max={3} />
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Line chart ---------- */
+
+const chartData = [
+  { month: "Mar", balance: 78400, contributions: 82000 },
+  { month: "Apr", balance: 81200, contributions: 84500 },
+  { month: "May", balance: 83950, contributions: 87000 },
+  { month: "Jun", balance: 87100, contributions: 89500 },
+  { month: "Jul", balance: 89800, contributions: 92000 },
+  { month: "Aug", balance: 92400, contributions: 94500 },
+];
+
+export function LineChartAnatomy() {
+  return (
+    <MeasuredAnatomy
+      heading="Structure — title, plot & description"
+      width={480}
+      maxScale={1.25}
+      marks={[
+        { kind: "padding", sel: "[data-a=card]" },
+        { kind: "gap", a: ".cds-chart-title", b: ".cds-chart > div", axis: "y" },
+        { kind: "gap", a: ".cds-chart > div", b: ".cds-chart-desc", axis: "y" },
+        { kind: "outline", sel: ".cds-chart-title" },
+        { kind: "outline", sel: ".cds-chart > div" },
+        { kind: "outline", sel: ".cds-chart-desc" },
+      ]}
+      layers={[
+        { node: "Chart card", cls: "demo wrapper", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Padding 20" },
+        { node: "Chart", cls: "figure.cds-chart", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Title", cls: "figcaption.cds-chart-title", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Bottom 12" },
+        { node: "Plot", cls: "Recharts ResponsiveContainer", direction: "—", alignment: "—", resizing: "Fill × Fixed 260", spacing: "Margin 8 / 16 / 0 / 0" },
+        { node: "Legend", cls: ".recharts-legend-wrapper", direction: "Horizontal", alignment: "Middle center", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Description", cls: "p.cds-chart-desc", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Top 8" },
+        { node: "Data table (a11y)", cls: "table.cds-visually-hidden", direction: "—", alignment: "—", resizing: "Visually hidden", spacing: "—" },
+      ]}
+      specs={(q) => [
+        pass("Card padding", "core-space-5", `${q.px("[data-a=card]", "padding-top")}px`, "Demo wrapper — the chart itself has no padding"),
+        pass("Title → plot", "core-space-3", `${q.px(".cds-chart-title", "margin-bottom")}px`),
+        pass("Plot → description", "core-space-2", `${q.px(".cds-chart-desc", "margin-top")}px`),
+        pass("Plot height", "260px", `${q.el(".cds-chart > div").offsetHeight}px`),
+        pass("Title", "typography-body-md · semibold", q.type(".cds-chart-title")),
+        pass("Description", "typography-font-size-xs", q.type(".cds-chart-desc")),
+      ]}
+      note="Line and bar charts share this frame; only the plot changes. A visually hidden data table carries the same numbers for screen readers."
+    >
+      <div data-a="card" style={{ padding: "var(--core-space-5)" }}>
+        <LineChartCard
+          title="Balance vs. contributions, last 6 months"
+          description="Account balance has tracked closely with total contributions."
+          data={chartData}
+          xKey="month"
+          series={[
+            { key: "balance", label: "Account balance" },
+            { key: "contributions", label: "Total contributions" },
+          ]}
+        />
+      </div>
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Calendar ---------- */
+
+export function CalendarAnatomy() {
+  return (
+    <MeasuredAnatomy
+      heading="Structure — header, day grid & footer"
+      width={280}
+      maxScale={1.75}
+      marks={[
+        { kind: "padding", sel: ".cds-calendar-header" },
+        { kind: "gap", a: ".cds-calendar-weekday:nth-child(1)", b: ".cds-calendar-weekday:nth-child(2)", axis: "x" },
+        { kind: "padding", sel: ".cds-calendar-weekday:nth-child(1)", edges: ["top", "bottom"] },
+        { kind: "gap", a: ".cds-calendar-weekday:nth-child(1)", b: ".cds-calendar-grid > :nth-child(8)", axis: "y" },
+        { kind: "gap", a: ".cds-calendar-grid", b: ".cds-calendar-footer", axis: "y" },
+        { kind: "padding", sel: ".cds-calendar-footer" },
+        { kind: "outline", sel: ".cds-calendar-nav" },
+        { kind: "outline", sel: ".cds-calendar-grid" },
+      ]}
+      layers={[
+        { node: "Calendar", cls: ".cds-calendar", direction: "Vertical", alignment: "Top left", resizing: "Fixed 280 × Hug", spacing: "—" },
+        { node: "Header", cls: ".cds-calendar-header", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Hug", spacing: "Padding 12 / 4" },
+        { node: "Nav button", cls: ".cds-calendar-nav", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 28 × 28", spacing: "Padding 0 / 4" },
+        { node: "Month title", cls: ".cds-calendar-title", direction: "—", alignment: "Middle center", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Day grid", cls: ".cds-calendar-grid", direction: "Grid 7 columns", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 4" },
+        { node: "Weekday", cls: ".cds-calendar-weekday", direction: "—", alignment: "Middle center", resizing: "Fill × Hug", spacing: "Padding 4 / 0" },
+        { node: "Day", cls: ".cds-calendar-day", direction: "—", alignment: "Middle center", resizing: "Fill × Fixed 32", spacing: "Padding 0 / 4" },
+        { node: "Footer", cls: ".cds-calendar-footer", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Hug", spacing: "Top 12 · Padding 12 / 4" },
+      ]}
+      specs={(q) => [
+        pass("Header padding", "core-space-3 / core-space-1", `${q.px(".cds-calendar-header", "padding-top")}px ${q.px(".cds-calendar-header", "padding-left")}px`),
+        pass("Grid gap", "core-space-1", `${q.px(".cds-calendar-grid", "row-gap")}px`),
+        pass("Weekday padding", "core-space-1 / core-space-0", `${q.px(".cds-calendar-weekday", "padding-top")}px ${q.px(".cds-calendar-weekday", "padding-left")}px`),
+        pass("Day cell", "32px high · padding 0 / 4", `${q.el(".cds-calendar-day").offsetHeight}px · ${q.px(".cds-calendar-day", "padding-top")}px ${q.px(".cds-calendar-day", "padding-left")}px`),
+        pass("Grid → footer", "core-space-3", `${q.px(".cds-calendar-footer", "margin-top")}px`),
+        pass("Footer padding", "core-space-3 / core-space-1", `${q.px(".cds-calendar-footer", "padding-top")}px ${q.px(".cds-calendar-footer", "padding-left")}px`),
+        pass("Nav button", "28 × 28", q.size(".cds-calendar-nav")),
+        pass("Width", "280px", `${q.el(".cds-calendar").offsetWidth}px`),
+      ]}
+      note="Selected, today and disabled days change only color and weight; the grid stays the same."
+    >
+      <Calendar selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} />
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- App header & footer ---------- */
+
+const headerAccount: HeaderAccount = {
+  name: "Ava Sullivan",
+  email: "ava.sullivan@email.com",
+  avatarSrc: AVATAR_SAMPLES[2].src,
+  items: [
+    { label: "Change Password", icon: <Icon name="fa-solid fa-key" size="sm" /> },
+    { label: "Log out", icon: <Icon name="fa-solid fa-right-from-bracket" size="sm" />, tone: "danger" },
+  ],
+};
+
+const headerUtilities: HeaderUtility[] = [
+  { label: "Get help", icon: <Icon name="fa-solid fa-circle-question" size="md" /> },
+  { label: "Switch to dark theme", icon: <Icon name="fa-solid fa-moon" size="md" /> },
+];
+
+function BrandLogo() {
+  return (
+    <span className="docs-brand-logo">
+      <img className="docs-brand-logo--light" src="/brand/lendguard/logo-lockup-light.svg" alt="LendGuard" width={190} height={34} />
+      <img className="docs-brand-logo--dark" src="/brand/lendguard/logo-lockup-dark.svg" alt="LendGuard" width={190} height={34} />
+    </span>
+  );
+}
+
+/** Shared by the App header demo and its anatomy. */
+export function AppHeaderDemo() {
+  return (
+    <div className="cds-app-header">
+      <AppHeader brand={<BrandLogo />} utilities={headerUtilities} account={headerAccount} />
+    </div>
+  );
+}
+
+/** Shared by the App footer demo and its anatomy. */
+export function AppFooterDemo() {
+  return (
+    <footer className="cds-app-footer">
+      <AppFooter copyright="© 2026 LendGuard." links={<><a href="mailto:support@lendguard.com">Privacy</a><a href="mailto:support@lendguard.com">Terms</a></>} />
+    </footer>
+  );
+}
+
+export function AppHeaderAnatomy() {
+  const icon = (n: number) => `.cds-app-header-actions > :nth-child(${n})`;
+  return (
+    <MeasuredAnatomy
+      heading="Structure — header bar, utilities & account menu"
+      width={640}
+      maxScale={1.1}
+      marks={[
+        { kind: "padding", sel: ".cds-app-header", edges: ["left", "right"] },
+        { kind: "gap", a: ".cds-app-header-brand", b: ".cds-app-header-actions", axis: "x", label: "Auto", span: ".cds-app-header-actions" },
+        { kind: "gap", a: icon(1), b: icon(2), axis: "x" },
+        { kind: "gap", a: icon(2), b: icon(3), axis: "x" },
+        { kind: "padding", sel: "[data-a=menu] .cds-account-dropdown" },
+        { kind: "gap", a: "[data-a=menu] .cds-account-identity-label", b: "[data-a=menu] .cds-account-identity-value", axis: "y" },
+        { kind: "gap", a: "[data-a=menu] .cds-account-option-icon", b: "[data-a=menu] .cds-account-option-label", axis: "x", span: "[data-a=menu] .cds-account-option-icon" },
+        { kind: "size", sel: ".docs-brand-logo--light" },
+        { kind: "outline", sel: icon(1) },
+        { kind: "outline", sel: icon(2) },
+        { kind: "outline", sel: ".cds-account-trigger" },
+        { kind: "outline", sel: "[data-a=menu] .cds-account-identity" },
+        { kind: "outline", sel: "[data-a=menu] .cds-account-option" },
+      ]}
+      layers={[
+        { node: "Header (topbar)", cls: ".cds-app-header", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Fixed 56", spacing: "Padding 0 / 24 · 1px bottom border" },
+        { node: "Brand (logo lockup)", cls: ".cds-app-header-brand > img", direction: "Horizontal", alignment: "Middle left", resizing: "Fixed 190 × 34", spacing: "—" },
+        { node: "Top right", cls: ".cds-app-header-actions", direction: "Horizontal", alignment: "Middle right", resizing: "Hug × Hug", spacing: "Gap 8" },
+        { node: "Icon button (help / theme)", cls: ".cds-app-header-icon-btn", direction: "—", alignment: "Middle center", resizing: "Fixed 36 × 36", spacing: "Hidden below 768px" },
+        { node: "User chip", cls: ".cds-account-trigger", direction: "Horizontal", alignment: "Middle center", resizing: "Fixed 34 × 34 (32 avatar)", spacing: "—" },
+        { node: "Account dropdown", cls: ".cds-account-dropdown", direction: "Vertical", alignment: "Top left", resizing: "Fixed 260 × Hug", spacing: "Padding 8 · 8 below trigger" },
+        { node: "Utilities (mobile)", cls: ".cds-account-utils", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 8 · Padding 8 · shown below 768px" },
+        { node: "Identity", cls: ".cds-account-identity", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 4 · Padding 8" },
+        { node: "Option", cls: ".cds-account-option", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 8 · Padding 8" },
+        { node: "Option icon", cls: ".cds-account-option-icon", direction: "—", alignment: "Middle center", resizing: "Fixed 36 × 36", spacing: "—" },
+      ]}
+      specs={(q) => [
+        pass("Header height", "core-layout-header-height", `${q.el(".cds-app-header").offsetHeight}px`),
+        pass("Header padding", "core-space-6", `${q.px(".cds-app-header", "padding-left")}px`),
+        pass("Logo (W × H)", "190 × 34 lockup", q.size(".docs-brand-logo--light")),
+        pass("Right cluster spacing", "core-space-2", `${q.px(".cds-app-header-actions", "column-gap")}px`, "Portal uses 10px — snapped to 8 per the 4-point rule"),
+        pass("Icon button", "36 × 36 · radius full", q.size(icon(1))),
+        pass("Avatar", "32px · 1px ring", q.size(".cds-account-trigger")),
+        pass("Dropdown width / padding", "260 · core-space-2", `${q.el("[data-a=menu] .cds-account-dropdown").offsetWidth}px · ${q.px("[data-a=menu] .cds-account-dropdown", "padding-top")}px`),
+        pass("Identity padding / gap", "core-space-2 / core-space-1", `${q.px("[data-a=menu] .cds-account-identity", "padding-top")}px / ${q.px("[data-a=menu] .cds-account-identity", "row-gap")}px`, "Portal uses 10 / 2 — snapped to 8 / 4"),
+        pass("Option padding / gap", "core-space-2", `${q.px("[data-a=menu] .cds-account-option", "padding-top")}px / ${q.px("[data-a=menu] .cds-account-option", "column-gap")}px`, "Portal uses 10 / 10 — snapped to 8 / 8"),
+        pass("Option label", "typography-body-md · bold", q.type("[data-a=menu] .cds-account-option-label")),
+        pass("Bottom border", "1px · border-default", `${q.px(".cds-app-header", "border-bottom-width")}px`),
+      ]}
+      note="Below 768px the help and theme buttons leave the bar and appear as a utilities row at the top of the account menu. The menu closes on Escape or an outside click."
+    >
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-6)" }}>
+        <AppHeaderDemo />
+        <div data-a="menu" style={{ position: "relative", height: 232 }}>
+          <div style={{ position: "absolute", left: 226, top: -8 }}>
+            <AccountMenu account={headerAccount} defaultOpen />
+          </div>
+        </div>
+      </div>
+    </MeasuredAnatomy>
+  );
+}
+
+export function AppFooterAnatomy() {
+  return (
+    <MeasuredAnatomy
+      heading="Structure — footer bar & legal links"
+      width={640}
+      maxScale={1.1}
+      marks={[
+        { kind: "padding", sel: ".cds-app-footer" },
+        { kind: "gap", a: ".cds-app-footer-copy", b: ".cds-app-footer-links", axis: "x", label: "Auto", span: ".cds-app-footer-links" },
+        { kind: "gap", a: ".cds-app-footer-links > :nth-child(1)", b: ".cds-app-footer-links > :nth-child(2)", axis: "x" },
+        { kind: "outline", sel: ".cds-app-footer-copy" },
+        { kind: "outline", sel: ".cds-app-footer-links" },
+      ]}
+      layers={[
+        { node: "Footer", cls: "footer.cds-app-footer", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Hug (min 48)", spacing: "Padding 8 / 24 · 1px top border" },
+        { node: "Inner row", cls: ".cds-app-footer-inner", direction: "Horizontal (stacks below 768px)", alignment: "Middle, space between", resizing: "Fill × Hug", spacing: "Gap 4 / 16" },
+        { node: "Copyright", cls: "p.cds-app-footer-copy", direction: "—", alignment: "Middle left", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Legal links", cls: "nav.cds-app-footer-links", direction: "Horizontal", alignment: "Middle right", resizing: "Hug × Hug", spacing: "Gap 16" },
+      ]}
+      specs={(q) => [
+        pass("Min height", "core-layout-footer-minHeight", `${q.el(".cds-app-footer").offsetHeight}px`),
+        pass("Padding", "core-space-2 / core-space-6", `${q.px(".cds-app-footer", "padding-top")}px ${q.px(".cds-app-footer", "padding-left")}px`),
+        pass("Row gap", "core-space-1 / core-space-4", `${q.px(".cds-app-footer-inner", "row-gap")}px / ${q.px(".cds-app-footer-inner", "column-gap")}px`),
+        pass("Link spacing", "core-space-4", `${q.px(".cds-app-footer-links", "column-gap")}px`),
+        pass("Text", "typography-font-size-xs · text-subtle", q.type(".cds-app-footer-copy")),
+        pass("Top border", "1px · border-default", `${q.px(".cds-app-footer", "border-top-width")}px`),
+      ]}
+      note="Below 768px the row stacks (copyright above links) and padding becomes 12 / 16."
+    >
+      <AppFooterDemo />
     </MeasuredAnatomy>
   );
 }

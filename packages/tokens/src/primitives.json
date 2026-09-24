@@ -175,8 +175,8 @@
     "columns": "12"
   },
   "layout": {
-    "header.height": "64px",
-    "footer.minHeight": "56px",
+    "header.height": "56px",
+    "footer.minHeight": "48px",
     "sidebar.width": "220px",
     "sidebar.railWidth": "96px"
   },

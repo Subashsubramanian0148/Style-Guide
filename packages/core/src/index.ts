@@ -13,4 +13,5 @@ export * from "./components/Combobox";
 export * from "./components/Calendar";
 export * from "./components/Attachment";
 export * from "./components/ToastManager";
+export * from "./components/Layout";
 import "./styles/components.css";

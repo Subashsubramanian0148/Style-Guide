@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Preview } from "../Preview";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { AnatomySection } from "../AnatomySection";
-import { TabsAnatomy, SidebarAnatomy, PaginationAnatomy } from "../SectionAnatomies";
+import { TabsAnatomy, SidebarAnatomy, PaginationAnatomy, StepperAnatomy, StepperStatePreview } from "../SectionAnatomies";
 import { Tabs, Pagination, AppSidebar, Stepper, defaultStepStatus, type SidebarItem, type StepState, type StepDef } from "../../../../packages/core/src/components/Navigation";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 
@@ -26,47 +26,6 @@ function railSidebarItems(state: SidebarRailState): SidebarItem[] {
   }
 
   return items;
-}
-
-function StepperStatePreview({
-  state,
-  eyebrow,
-  title,
-  description,
-  status,
-  stepNumber = 2,
-}: {
-  state: StepState;
-  eyebrow: string;
-  title: string;
-  description: string;
-  status?: string;
-  stepNumber?: number;
-}) {
-  const marker = state === "completed" ? "✓" : state === "warning" || state === "error" ? "!" : stepNumber;
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3, 12px)", minWidth: 0 }}>
-      <StateLabel>{eyebrow}</StateLabel>
-      <ol className="cds-stepper cds-stepper--vertical" aria-label={`Stepper ${eyebrow}`} style={{ width: "auto", minWidth: 0 }}>
-        <li className={`cds-step cds-step--${state} cds-step--vertical`} style={{ paddingBottom: 0 }}>
-          <span className="cds-step-marker" aria-hidden="true">{marker}</span>
-          <span className="cds-step-label">
-            <span className="cds-step-title">{title}</span>
-            <span className="cds-step-desc">{description}</span>
-            <span className="cds-step-status">
-              {state === "in-progress" ? (
-                <span className="cds-step-status-spinner" role="status" aria-hidden="true" />
-              ) : (
-                <span className="cds-step-status-dot" aria-hidden="true" />
-              )}
-              {status ?? defaultStepStatus(state)}
-            </span>
-          </span>
-        </li>
-      </ol>
-    </div>
-  );
 }
 
 function StepperStatesDemo() {
@@ -236,6 +195,9 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
       </DocsSection>
 
       <DocsSection anchorId="stepper" title="Stepper">
+        <AnatomySection
+          anatomy={<StepperAnatomy />}
+          demo={<>
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-8, 32px)", width: "100%" }}>
@@ -279,6 +241,8 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
             </div>
           </Preview>
         </div>
+      </>}
+        />
       </DocsSection>
 
       <DocsSection anchorId="tabs" title="Tabs">

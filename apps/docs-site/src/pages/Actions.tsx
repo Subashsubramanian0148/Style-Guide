@@ -6,8 +6,7 @@ import { ButtonMatrix } from "../ButtonMatrix";
 import { ComponentStateMatrix, DEFAULT_MATRIX_STATES } from "../ComponentStateMatrix";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { AnatomySection } from "../AnatomySection";
-import { ButtonAnatomy } from "../ButtonAnatomy";
-import { IconButtonAnatomy } from "../IconButtonAnatomy";
+import { ButtonAnatomyFull, IconButtonAnatomyFull } from "../LegacyAnatomyTables";
 
 const EditIcon = ({ size }: { size: "sm" | "md" | "lg" }) => {
   const px = size === "sm" ? 16 : size === "lg" ? 24 : 20;
@@ -24,14 +23,14 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
     {
       anchorId: "button",
       title: "Buttons",
-      content: <AnatomySection demo={<ButtonMatrix />} anatomy={<ButtonAnatomy />} />,
+      content: <AnatomySection demo={<ButtonMatrix />} anatomy={<ButtonAnatomyFull />} />,
     },
     {
       anchorId: "icon-button",
       title: "Icon Button",
       content: (
         <AnatomySection
-          anatomy={<IconButtonAnatomy />}
+          anatomy={<IconButtonAnatomyFull />}
           demo={
         <div className="site-panel site-panel--flush site-panel--demo">
           <ComponentStateMatrix

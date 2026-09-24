@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Switch } from "../../../packages/core/src/components/Misc";
 import { StateLabel } from "./DocsSection";
-import { TrueBand, NodeOutline, Callout, type Rect } from "./AnatomyPrimitives";
+import { TrueBand, NodeOutline, Callout, SizeTag, type Rect } from "./AnatomyPrimitives";
 import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
 
 const GREEN = "#118D57";
@@ -32,6 +32,8 @@ interface Measure {
   labelGap: number;
   trackSize: string;
   thumbSize: string;
+  thumbPx: number;
+  thumbLeft: number;
   textType: string;
   stateType: string;
 }
@@ -96,6 +98,8 @@ export function SwitchAnatomy() {
       labelGap: px(getComputedStyle(control).columnGap),
       trackSize: `${Math.round(tr.width / SCALE)} × ${Math.round(tr.height / SCALE)}px`,
       thumbSize: `${thumb.width} × ${thumb.height}`,
+      thumbPx: parseFloat(thumb.width),
+      thumbLeft: parseFloat(thumb.left),
       textType: type(text),
       stateType: type(state),
     });
@@ -130,6 +134,8 @@ export function SwitchAnatomy() {
         <NodeOutline r={S} />
         <NodeOutline r={K} />
         <NodeOutline r={X} />
+        <SizeTag r={{ x: T.x + m.thumbLeft * SCALE, y: T.y + (T.h - m.thumbPx * SCALE) / 2, w: m.thumbPx * SCALE, h: m.thumbPx * SCALE }} label={m.thumbSize.replace(/px/g, "")} offset={24} />
+        <SizeTag r={T} label={m.trackSize.replace("px", "")} offset={56} />
         <NodeOutline r={C} />
       </>
     );
@@ -156,7 +162,8 @@ export function SwitchAnatomy() {
         <SpecNote>
           <span style={{ color: GREEN, fontWeight: 700 }}>Green</span> = container padding,{" "}
           <span style={{ color: ORANGE, fontWeight: 700 }}>orange</span> = item spacing,{" "}
-          <span style={{ color: BLUE, fontWeight: 700 }}>blue</span> outlines = child nodes. Shown at{" "}
+          <span style={{ color: BLUE, fontWeight: 700 }}>blue</span> outlines = child nodes,{" "}
+          <span style={{ color: "#7C3AED", fontWeight: 700 }}>purple</span> = fixed width × height. Shown at{" "}
           {SCALE.toFixed(2).replace(/\.?0+$/, "")}× — every badge reads the real CSS value. Structure is shared by every state; only the track
           color and focus ring change on hover, focus, on and disabled.
         </SpecNote>
@@ -199,8 +206,8 @@ export function SwitchAnatomy() {
               <SpecRow label="Container padding" token="core-space-2 / core-space-3" value={`${m.padY}px ${m.padX}px`} standard="pass" />
               <SpecRow label="State label → switch" token="core-space-2" value={`${m.itemGap}px`} standard="pass" />
               <SpecRow label="Track → text" token="core-space-3" value={`${m.labelGap}px`} standard="pass" />
-              <SpecRow label="Track" token="core-space-8 × core-space-4" value={m.trackSize} standard="pass" />
-              <SpecRow label="Thumb" token="core-space-3" value={m.thumbSize} standard="pass" />
+              <SpecRow label="Track (W × H)" token="core-space-8 × core-space-4" value={m.trackSize} standard="pass" />
+              <SpecRow label="Toggle thumb (W × H)" token="core-space-3" value={m.thumbSize} standard="pass" />
               <SpecRow label="Text" token="typography-body-md" value={m.textType} standard="pass" />
               <SpecRow label="State label" token="typography-eyebrow" value={m.stateType} standard="pass" />
             </tbody>

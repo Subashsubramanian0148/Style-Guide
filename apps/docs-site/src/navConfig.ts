@@ -66,6 +66,13 @@ export const componentSections: NavSection[] = [
     ],
   },
   {
+    title: "Layout",
+    links: [
+      componentLink("app-footer", "App footer"),
+      componentLink("app-header", "App header"),
+    ],
+  },
+  {
     title: "Navigation",
     links: [
       componentLink("pagination", "Pagination"),

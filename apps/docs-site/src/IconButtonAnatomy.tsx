@@ -1,12 +1,14 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { IconButton } from "../../../packages/core/src/components/Button";
-import { AnatomyFrame, VGapMark } from "./AnatomyPrimitives";
+import { AnatomyFrame, VGapMark, HTickMark } from "./AnatomyPrimitives";
 
 interface Region {
   x: number;
   y: number;
   width: number;
   height: number;
+  padX: number;
+  padY: number;
 }
 
 const GREEN = "#118D57";
@@ -21,7 +23,7 @@ const EditIcon = ({ size }: { size: "sm" | "md" | "lg" }) => {
   );
 };
 
-function SingleIconButtonAnatomy({ size, value }: { size: "sm" | "md"; value: number }) {
+function SingleIconButtonAnatomy({ size }: { size: "sm" | "md" }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const [btn, setBtn] = useState<Region | null>(null);
 
@@ -32,7 +34,10 @@ function SingleIconButtonAnatomy({ size, value }: { size: "sm" | "md"; value: nu
 
     const boxRect = box.getBoundingClientRect();
     const btnRect = btnEl.getBoundingClientRect();
+    const cs = getComputedStyle(btnEl);
     setBtn({
+      padX: Math.round(parseFloat(cs.paddingLeft)),
+      padY: Math.round(parseFloat(cs.paddingTop)),
       x: Math.round(btnRect.left - boxRect.left),
       y: Math.round(btnRect.top - boxRect.top),
       width: Math.round(btnRect.width),
@@ -41,27 +46,29 @@ function SingleIconButtonAnatomy({ size, value }: { size: "sm" | "md"; value: nu
   }, []);
 
   return (
-    <div ref={boxRef} style={{ position: "relative", marginTop: 40, marginLeft: 40 }}>
+    <div ref={boxRef} style={{ position: "relative", marginTop: 40, marginLeft: 56 }}>
       <IconButton variant="secondary" size={size} aria-label="Edit">
         <EditIcon size={size} />
       </IconButton>
-      {btn && <VGapMark x={btn.x} y={btn.y} height={btn.height} value={value} color={GREEN} extendTo={btn.y - 30} bandInset="start" />}
-      {btn && <VGapMark x={btn.x + btn.width} y={btn.y} height={btn.height} value={value} color={GREEN} extendTo={btn.y - 30} bandInset="end" />}
+      {btn && <VGapMark x={btn.x} y={btn.y} height={btn.height} value={btn.padX} color={GREEN} extendTo={btn.y - 30} bandInset="start" />}
+      {btn && <VGapMark x={btn.x + btn.width} y={btn.y} height={btn.height} value={btn.padX} color={GREEN} extendTo={btn.y - 30} bandInset="end" />}
+      {btn && <HTickMark x={btn.x} y={btn.y} width={btn.width} value={btn.padY} color={GREEN} extendTo={btn.x - 36} bandInset="start" />}
+      {btn && <HTickMark x={btn.x} y={btn.y + btn.height} width={btn.width} value={btn.padY} color={GREEN} extendTo={btn.x - 36} bandInset="end" />}
     </div>
   );
 }
 
 /**
  * Spacing anatomy for Icon Button, measured from the live component:
- *   .cds-icon-btn--sm padding: core-space-1 (4px)
+ *   .cds-icon-btn--sm padding: core-space-2 core-space-1 (8px / 4px)
  *   .cds-icon-btn--md / --lg padding: core-space-2 (8px)
  */
 export function IconButtonAnatomy() {
   return (
     <AnatomyFrame>
       <div style={{ display: "flex", gap: 64 }}>
-        <SingleIconButtonAnatomy size="sm" value={4} />
-        <SingleIconButtonAnatomy size="md" value={8} />
+        <SingleIconButtonAnatomy size="sm" />
+        <SingleIconButtonAnatomy size="md" />
       </div>
     </AnatomyFrame>
   );

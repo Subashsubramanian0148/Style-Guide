@@ -411,3 +411,40 @@ export function Callout({ x, y, from, axis, value, color }: { x: number; y: numb
     </>
   );
 }
+
+const SIZE_COLOR = "#7C3AED";
+
+/** Width × height callout for a fixed-size element: an outline on the element
+ *  and a purple badge `below` (default) or `above` it. `r` is in the same
+ *  coordinate space as the other marks. */
+export function SizeTag({ r, label, place = "below", offset = 22 }: { r: Rect; label: string; place?: "below" | "above"; offset?: number }) {
+  const cx = r.x + r.w / 2;
+  const edge = place === "below" ? r.y + r.h : r.y;
+  const by = place === "below" ? edge + offset : edge - offset;
+  return (
+    <>
+      <div style={{ position: "absolute", left: r.x, top: r.y, width: r.w, height: r.h, outline: `1px dashed ${SIZE_COLOR}`, pointerEvents: "none", zIndex: 2 }} />
+      <div style={{ position: "absolute", left: cx, top: Math.min(edge, by), width: 1, height: Math.abs(by - edge), background: SIZE_COLOR, zIndex: 3, pointerEvents: "none" }} />
+      <div
+        style={{
+          position: "absolute",
+          left: cx,
+          top: by,
+          transform: "translate(-50%, -50%)",
+          background: SIZE_COLOR,
+          color: "white",
+          fontSize: 11,
+          fontWeight: 700,
+          lineHeight: 1,
+          padding: "var(--core-space-1) var(--core-space-1)",
+          borderRadius: 4,
+          zIndex: 4,
+          pointerEvents: "none",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {label}
+      </div>
+    </>
+  );
+}

@@ -6,7 +6,7 @@ import { Toast, Spinner } from "../../../../packages/core/src/components/Overlay
 import { Empty } from "../../../../packages/core/src/components/Primitives";
 import { Button } from "../../../../packages/core/src/components/Button";
 import { AnatomySection } from "../AnatomySection";
-import { AlertAnatomy } from "../AlertAnatomy";
+import { AlertAnatomyFull } from "../LegacyAnatomyTables";
 import { ToastAnatomy } from "../ToastAnatomy";
 import { EmptyAnatomy } from "../SectionAnatomies";
 import { SpinnerAnatomy } from "../SectionAnatomies";
@@ -26,7 +26,7 @@ export default function Feedback({ embedded = false }: { embedded?: boolean }) {
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
           <AnatomySection
-            anatomy={<AlertAnatomy />}
+            anatomy={<AlertAnatomyFull />}
             demo={
               <Preview showModeToggle>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "stretch", gap: 12, width: "100%" }}>

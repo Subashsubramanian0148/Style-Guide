@@ -7,7 +7,7 @@ import { Field, Input } from "../../../../packages/core/src/components/Field";
 import { Select } from "../../../../packages/core/src/components/FormControls";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 import { AnatomySection } from "../AnatomySection";
-import { TooltipAnatomy } from "../TooltipAnatomy";
+import { TooltipAnatomyFull } from "../LegacyAnatomyTables";
 import { DialogAnatomy } from "../SectionAnatomies";
 import { SlideoverAnatomy } from "../SectionAnatomies";
 
@@ -63,7 +63,7 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
       </DocsSection>
 
       <DocsSection anchorId="tooltip" title="Tooltip">
-        <AnatomySection anatomy={<TooltipAnatomy />} demo={
+        <AnatomySection anatomy={<TooltipAnatomyFull />} demo={
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: 14 }}>
