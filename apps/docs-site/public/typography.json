@@ -9,7 +9,7 @@
     "medium": 500,
     "semibold": 600,
     "bold": 700,
-    "extrabold": 700
+    "extrabold": 800
   },
   "fontSize": {
     "xs": {
@@ -279,7 +279,7 @@
       "rem": "0",
       "px": 0
     },
-    "fontWeight": 700
+    "fontWeight": 800
   },
   "button": {
     "lg": {
