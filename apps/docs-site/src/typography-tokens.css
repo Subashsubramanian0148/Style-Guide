@@ -11,7 +11,7 @@
   --typography-font-weight-medium: 500;
   --typography-font-weight-semibold: 600;
   --typography-font-weight-bold: 700;
-  --typography-font-weight-extrabold: 700;
+  --typography-font-weight-extrabold: 800;
   --typography-font-size-xs: 0.75rem;
   --typography-font-size-xs-px: 12px;
   --typography-font-size-sm: 0.875rem;
@@ -89,7 +89,7 @@
   --typography-eyebrow-size: 0.75rem;
   --typography-eyebrow-line-height: 1rem;
   --typography-eyebrow-letter-spacing: 0;
-  --typography-eyebrow-weight: 700;
+  --typography-eyebrow-weight: 800;
   --typography-link-size: 0.875rem;
   --typography-link-line-height: 1.25rem;
   --typography-link-letter-spacing: 0;

@@ -353,14 +353,13 @@ export function SkeletonCard() {
       data-a="card"
       style={{
         background: "var(--core-color-surface-raised)",
-        boxShadow: "inset 0 0 0 1px var(--core-color-border-default)",
+        boxShadow: "inset 0 0 0 1px var(--core-color-border-default), var(--core-elevation-1)",
         borderRadius: 8,
         padding: "var(--core-space-6)",
         width: 340,
         display: "flex",
         flexDirection: "column",
         gap: "var(--core-space-4)",
-        boxShadow: "var(--core-elevation-1)",
       }}
     >
       <div data-a="head" style={{ display: "flex", alignItems: "center", gap: "var(--core-space-3)" }}>

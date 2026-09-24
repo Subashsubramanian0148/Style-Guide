@@ -3,6 +3,7 @@ import typography from "../../../../packages/tokens/src/typography.json";
 import primitives from "../../../../packages/tokens/src/primitives.json";
 import { buildTypographyExportJson } from "./buildTypographyExport";
 import { fontSizeLabelFromPx, remLabel } from "./typographyScale";
+import { tokensFor, usageFor } from "./typographyUsage";
 
 const order = [
   "h1",
@@ -82,6 +83,75 @@ const roleName: Record<string, string> = {
   "numericData": "Numeric Data"
 };
 
+const labelStyle: React.CSSProperties = { fontSize: "var(--typography-font-size-xs)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--core-color-text-secondary)" };
+
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = React.useState(false);
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        navigator.clipboard?.writeText(text).then(() => {
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1500);
+        });
+      }}
+      style={{
+        padding: "var(--core-space-1) var(--core-space-2)",
+        borderRadius: "var(--core-radius-sm)",
+        border: "1px solid var(--core-color-border-default)",
+        background: "var(--core-color-surface-default)",
+        color: "var(--core-color-text-secondary)",
+        fontSize: "var(--typography-font-size-xs)",
+        fontWeight: 600,
+        cursor: "pointer",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {copied ? "Copied" : "Copy CSS"}
+    </button>
+  );
+}
+
+/** Token names (style guide --typography-* scheme) and usage guidance for one type style. */
+function TokensAndUsage({ roleKey, desktop }: { roleKey: string; desktop: { size: string; weight: string; lineHeight: string } }) {
+  const tokens = tokensFor(roleKey, desktop);
+  const usage = usageFor(roleKey, desktop);
+  const cssText = tokens.css.join("\n");
+  const row: React.CSSProperties = { display: "grid", gridTemplateColumns: "72px 1fr", gap: "var(--core-space-3)", fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", color: "var(--core-color-text-primary)" };
+  return (
+    <div style={{ flex: "1 1 100%", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "var(--core-space-6)", paddingTop: "var(--core-space-6)", borderTop: "1px solid var(--core-color-border-subtle)" }}>
+      <div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--core-space-3)", marginBottom: "var(--core-space-3)" }}>
+          <span style={labelStyle}>Tokens</span>
+          <CopyButton text={cssText} />
+        </div>
+        <pre style={{ margin: 0, padding: "var(--core-space-3)", borderRadius: "var(--core-radius-sm)", background: "var(--core-color-surface-default)", border: "1px solid var(--core-color-border-subtle)", fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, lineHeight: 1.7, color: "var(--core-color-text-primary)", whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>
+          {cssText}
+        </pre>
+        {tokens.alias && (
+          <div style={{ marginTop: "var(--core-space-2)", fontSize: "var(--typography-font-size-xs)", color: "var(--core-color-text-secondary)" }}>
+            Also available as: <strong style={{ color: "var(--core-color-text-primary)" }}>{tokens.alias}</strong>
+          </div>
+        )}
+        {desktop.weight === "800" && (
+          <div style={{ marginTop: "var(--core-space-2)", fontSize: "var(--typography-font-size-xs)", color: "var(--core-color-status-warning-text)" }}>
+            Weight 800 renders as 700 until the Inclusive Sans 800 weight is loaded (the site loads 400–700).
+          </div>
+        )}
+      </div>
+      <div>
+        <div style={{ ...labelStyle, marginBottom: "var(--core-space-3)" }}>Usage</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
+          <div style={row}><strong>Use for</strong><span>{usage.use}</span></div>
+          <div style={row}><strong>Example</strong><span>{usage.example}</span></div>
+          <div style={row}><strong>Avoid</strong><span>{usage.avoid}</span></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TypeScaleRow({ roleKey, roleNameStr, typoObj, isLast }: { roleKey: string, roleNameStr: string, typoObj: any, isLast?: boolean }) {
   const d = typoObj.desktop;
   const scaleLabel = fontSizeLabelFromPx(d.size);
@@ -112,7 +182,7 @@ function TypeScaleRow({ roleKey, roleNameStr, typoObj, isLast }: { roleKey: stri
           <div>
             <div style={{ fontSize: "var(--typography-font-size-xs)", color: "var(--core-color-text-secondary)", marginBottom: 4 }}>Weight</div>
             <div style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 500, color: "var(--core-color-text-primary)" }}>
-              {d.weight === "400" ? "Regular" : d.weight === "500" ? "Medium" : d.weight === "600" ? "Semi-Bold" : d.weight === "700" ? "Bold" : d.weight}
+              {d.weight === "400" ? "Regular" : d.weight === "500" ? "Medium" : d.weight === "600" ? "Semi-Bold" : d.weight === "700" ? "Bold" : d.weight === "800" ? "Extra-Bold" : d.weight}
             </div>
           </div>
           <div>
@@ -146,6 +216,8 @@ function TypeScaleRow({ roleKey, roleNameStr, typoObj, isLast }: { roleKey: stri
           {roleNameStr} - {roleKey === "numericData" ? "1,234,567.89" : "The quick brown fox jumps over the lazy dog."}
         </div>
       </div>
+
+      <TokensAndUsage roleKey={roleKey} desktop={d} />
     </div>
   );
 }
