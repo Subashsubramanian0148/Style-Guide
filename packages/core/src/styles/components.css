@@ -1619,6 +1619,7 @@
   right: var(--core-space-2);
   width: 24px;
   height: 24px;
+  padding: var(--core-space-0) var(--core-space-1);
   background: transparent;
   border: none;
   border-radius: var(--core-radius-sm);
@@ -1860,7 +1861,7 @@
 
 .cds-select {
   height: var(--core-size-control-md);
-  padding: var(--core-space-0) var(--core-space-3);
+  padding: var(--core-space-2) var(--core-space-3);
   width: 100%;
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-primary-default);
@@ -3825,7 +3826,7 @@
 .cds-input-group-addon {
   display: flex;
   align-items: center;
-  padding: var(--core-space-0) var(--core-space-3);
+  padding: var(--core-space-2) var(--core-space-3);
   background: var(--core-color-surface-sunken);
   border: 1px solid var(--theme-neutral-border-primary-default);
   color: var(--theme-neutral-text-subtle);
@@ -4464,6 +4465,7 @@
 .cds-calendar-nav {
   width: 28px;
   height: 28px;
+  padding: var(--core-space-0) var(--core-space-1);
   border-radius: var(--core-radius-sm);
   border: 1px solid var(--theme-neutral-border-primary-default);
   background: var(--core-color-surface-default);
@@ -4491,6 +4493,7 @@
 
 .cds-calendar-day {
   height: 32px;
+  padding: var(--core-space-0) var(--core-space-1);
   border-radius: var(--core-radius-sm);
   border: none;
   background: transparent;
@@ -5625,6 +5628,11 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.cds-visually-hidden th,
+.cds-visually-hidden td {
+  padding: var(--core-space-0);
 }
 
 /* ---------- Chart ---------- */

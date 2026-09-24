@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Preview } from "../Preview";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
+import { AnatomySection } from "../AnatomySection";
+import { TabsAnatomy, SidebarAnatomy } from "../SectionAnatomies";
 import { Tabs, Pagination, AppSidebar, Stepper, defaultStepStatus, type SidebarItem, type StepState, type StepDef } from "../../../../packages/core/src/components/Navigation";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 
@@ -225,7 +227,7 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
       </DocsSection>
 
       <DocsSection anchorId="sidebar" title="Sidebar">
-        <SidebarRailStatesDemo />
+        <AnatomySection anatomy={<SidebarAnatomy />} demo={<SidebarRailStatesDemo />} />
       </DocsSection>
 
       <DocsSection anchorId="stepper" title="Stepper">
@@ -275,6 +277,9 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
       </DocsSection>
 
       <DocsSection anchorId="tabs" title="Tabs">
+        <AnatomySection
+          anatomy={<TabsAnatomy />}
+          demo={<>
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
             <div style={{ width: "100%" }}>
@@ -301,6 +306,8 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
             />
           </Preview>
         </div>
+      </>}
+        />
       </DocsSection>
 
       <style>{`

@@ -17,7 +17,7 @@ export function AnatomySection({ demo, anatomy }: { demo: React.ReactNode; anato
             display: "inline-flex",
             alignItems: "center",
             gap: 8,
-            padding: "6px 12px",
+            padding: "var(--core-space-1) var(--core-space-3)",
             borderRadius: "var(--core-radius-md)",
             border: "1px solid var(--core-color-border-default)",
             background: showAnatomy ? "var(--core-color-bg-selected)" : "var(--core-color-bg-surface)",

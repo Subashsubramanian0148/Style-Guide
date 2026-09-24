@@ -42,7 +42,7 @@ export default function Patterns() {
       <h2 className="site-section-title">Filters + result summary</h2>
       <div className="site-panel site-panel--flush">
         <Preview>
-          <div style={{ display: "flex", gap: 10, alignItems: "center", width: "100%" }}>
+          <div style={{ display: "flex", gap: "var(--core-space-2)", alignItems: "center", width: "100%" }}>
             <Input placeholder="Search transactions" style={{ maxWidth: 220 }} />
             <Badge tone="neutral">Date: Last 90 days</Badge>
             <Badge tone="neutral">Type: All</Badge>

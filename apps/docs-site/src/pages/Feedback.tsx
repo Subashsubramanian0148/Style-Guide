@@ -7,6 +7,8 @@ import { Empty } from "../../../../packages/core/src/components/Primitives";
 import { Button } from "../../../../packages/core/src/components/Button";
 import { AnatomySection } from "../AnatomySection";
 import { AlertAnatomy } from "../AlertAnatomy";
+import { ToastAnatomy } from "../ToastAnatomy";
+import { EmptyAnatomy } from "../SectionAnatomies";
 
 export default function Feedback({ embedded = false }: { embedded?: boolean }) {
   const [dismissed, setDismissed] = React.useState<Set<string>>(new Set());
@@ -71,6 +73,9 @@ export default function Feedback({ embedded = false }: { embedded?: boolean }) {
       title: "Empty State",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<EmptyAnatomy />}
+            demo={<>
           <Preview showModeToggle>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: 220, width: "100%" }}>
               <Empty
@@ -84,6 +89,8 @@ export default function Feedback({ embedded = false }: { embedded?: boolean }) {
               />
             </div>
           </Preview>
+        </>}
+          />
         </div>
       ),
     },
@@ -106,6 +113,9 @@ export default function Feedback({ embedded = false }: { embedded?: boolean }) {
       title: "Toast & Notifications",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<ToastAnatomy />}
+            demo={
           <Preview showModeToggle>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--core-space-4, 16px)", width: "100%" }}>
             {!dismissedToasts.has("success") && (
@@ -141,6 +151,8 @@ export default function Feedback({ embedded = false }: { embedded?: boolean }) {
             )}
             </div>
           </Preview>
+            }
+          />
         </div>
       ),
     },

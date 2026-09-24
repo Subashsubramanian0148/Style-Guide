@@ -8,6 +8,10 @@ import { CheckboxRadioAnatomy } from "../CheckboxRadioAnatomy";
 import { ComboboxAnatomy } from "../ComboboxAnatomy";
 import { DatePickerAnatomy } from "../DatePickerAnatomy";
 import { InputIconAnatomy } from "../InputIconAnatomy";
+import { TextareaAnatomy } from "../TextareaAnatomy";
+import { SwitchAnatomy, SWITCH_CELL_STYLE } from "../SwitchAnatomy";
+import { SelectAnatomy, BankFieldsAnatomy, InputGroupAnatomy } from "../SectionAnatomies";
+import { InputAnatomy } from "../SectionAnatomies";
 import { Field, Input, InputWithIcon } from "../../../../packages/core/src/components/Field";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 import { Switch } from "../../../../packages/core/src/components/Misc";
@@ -116,7 +120,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               {/* Success State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-success-text)", display: "flex", alignItems: "center", gap: 6 }}>
+                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-success-text)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
                     <Icon name="fa-solid fa-circle-check" size="sm" /> Success State
                   </span>
                   <Badge tone="success" variant="soft" size="sm">Complete</Badge>
@@ -139,7 +143,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               {/* Error State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-danger-text)", display: "flex", alignItems: "center", gap: 6 }}>
+                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-danger-text)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
                     <Icon name="fa-solid fa-circle-exclamation" size="sm" /> Error State
                   </span>
                   <Badge tone="danger" variant="soft" size="sm">Failed</Badge>
@@ -162,7 +166,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               {/* Warning State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-warning-text)", display: "flex", alignItems: "center", gap: 6 }}>
+                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-warning-text)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
                     <Icon name="fa-solid fa-triangle-exclamation" size="sm" /> Warning State
                   </span>
                   <Badge tone="warning" variant="soft" size="sm">Warning</Badge>
@@ -185,7 +189,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               {/* Disable State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-tertiary)", display: "flex", alignItems: "center", gap: 6 }}>
+                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-tertiary)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
                     <Icon name="fa-solid fa-lock" size="sm" /> Disable State
                   </span>
                   <Badge tone="neutral" variant="soft" size="sm" disabled>Disabled</Badge>
@@ -394,6 +398,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
           <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<InputAnatomy />}
+            demo={<>
             <Preview showModeToggle>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16 }}>
                 <div className="force-default">
@@ -416,7 +423,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
               </div>
             </Preview>
-          </div>
+          </>}
+          />
+        </div>
         </div>
       )
     },
@@ -537,6 +546,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<InputGroupAnatomy />}
+            demo={<>
             <Preview showModeToggle>
               <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
                 {/* Prefix variant row */}
@@ -604,7 +616,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
               </div>
             </Preview>
-          </div>
+          </>}
+          />
+        </div>
         </div>
       )
     },
@@ -615,6 +629,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<BankFieldsAnatomy />}
+            demo={<>
             <Preview showModeToggle>
               <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
                 {/* Card Number */}
@@ -763,7 +780,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
               </div>
             </Preview>
-          </div>
+          </>}
+          />
+        </div>
         </div>
       )
     },
@@ -773,6 +792,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       title: "Select",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<SelectAnatomy />}
+            demo={<>
           <Preview showModeToggle>
             <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
               <div>
@@ -822,6 +844,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               </div>
             </div>
           </Preview>
+        </>}
+          />
         </div>
       )
     },
@@ -868,30 +892,35 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       title: "Switch",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<SwitchAnatomy />}
+            demo={
           <Preview showModeToggle>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(140px, 1fr))", gap: 32, width: "100%", padding: "16px 8px" }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: 20, alignItems: "flex-start", padding: "8px 12px" }}>
+              <div style={SWITCH_CELL_STYLE}>
                 <StateLabel>DEFAULT</StateLabel>
                 <Switch label="Option" checked={false} onChange={() => { }} />
               </div>
-              <div className="force-hover" style={{ display: "flex", flexDirection: "column", gap: 20, alignItems: "flex-start", padding: "8px 12px" }}>
+              <div className="force-hover" style={SWITCH_CELL_STYLE}>
                 <StateLabel>HOVER</StateLabel>
                 <Switch label="Option" checked={false} onChange={() => { }} />
               </div>
-              <div className="force-focus" style={{ display: "flex", flexDirection: "column", gap: 20, alignItems: "flex-start", padding: "8px 12px" }}>
+              <div className="force-focus" style={SWITCH_CELL_STYLE}>
                 <StateLabel>FOCUS</StateLabel>
                 <Switch label="Option" checked={false} onChange={() => { }} />
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 20, alignItems: "flex-start", padding: "8px 12px" }}>
+              <div style={SWITCH_CELL_STYLE}>
                 <StateLabel>ACTIVE (ON)</StateLabel>
                 <Switch label="Option" checked={true} onChange={() => { }} />
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 20, alignItems: "flex-start", padding: "8px 12px" }}>
+              <div style={SWITCH_CELL_STYLE}>
                 <StateLabel>DISABLED</StateLabel>
                 <Switch label="Option" disabled checked={false} onChange={() => { }} />
               </div>
             </div>
           </Preview>
+            }
+          />
         </div>
       )
     },
@@ -901,6 +930,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       title: "Textarea",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<TextareaAnatomy />}
+            demo={
           <Preview showModeToggle>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
               <div className="force-default">
@@ -920,6 +952,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               </div>
             </div>
           </Preview>
+            }
+          />
         </div>
       )
     },

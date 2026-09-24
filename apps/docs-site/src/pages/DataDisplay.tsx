@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { CardQuickLink } from "../QuickLinkCard";
+import { QuickLinksAnatomy, QUICKLINK_CELL_STYLE } from "../SectionAnatomies";
+import { ProgressAnatomy } from "../SectionAnatomies";
 import { Preview, CodeBlock } from "../Preview";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
@@ -69,23 +72,6 @@ const loanRows = [
  * list; that's a different shape for a different context — a settings
  * sub-nav vs. a dashboard's row of shortcuts).
  */
-function CardQuickLink({ icon, label, selected, disabled }: { icon: string; label: string; selected?: boolean; disabled?: boolean }) {
-  return (
-    <button
-      type="button"
-      className="cds-quicklink"
-      data-selected={selected || undefined}
-      disabled={disabled}
-      aria-pressed={selected || undefined}
-    >
-      <span className="cds-quicklink-icon" aria-hidden="true">
-        <Icon name={icon} size="md" />
-      </span>
-      <span className="cds-quicklink-label">{label}</span>
-    </button>
-  );
-}
-
 const sectionLabelStyle: React.CSSProperties = {
   fontSize: "var(--typography-label-size)",
   lineHeight: "var(--typography-label-line-height)",
@@ -120,7 +106,7 @@ function BadgeMatrixDemo() {
           // hugging its two buttons' content width.
           alignSelf: "flex-start",
           gap: "var(--core-space-1, 4px)",
-          padding: 3,
+          padding: "var(--core-space-1)",
           borderRadius: "var(--core-radius-sm)",
           border: "1px solid var(--theme-neutral-border-primary-default)",
           // Was --theme-colors-neutral-50, a raw (non-mode-aware) primitive
@@ -138,7 +124,7 @@ function BadgeMatrixDemo() {
               background: size === s ? "var(--theme-brand-background-primary-strong)" : "transparent",
               color: size === s ? "var(--theme-brand-text-primary-oncolor)" : "var(--theme-neutral-text-primary-default)",
               borderRadius: "var(--core-radius-sm)",
-              padding: "5px 14px",
+              padding: "var(--core-space-1) var(--core-space-3)",
               fontFamily: "var(--typography-font-family-sans)",
               fontSize: "var(--typography-body-xs-size)",
               lineHeight: "var(--typography-body-xs-line-height)",
@@ -444,6 +430,9 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<ProgressAnatomy />}
+            demo={<>
             <Preview showModeToggle>
               <div style={{ width: 320, display: "flex", flexDirection: "column", gap: 20 }}>
                 <Progress value={68} label="Retirement readiness — 68%" />
@@ -451,7 +440,9 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
               </div>
             </Preview>
 
-          </div>
+          </>}
+          />
+        </div>
         </div>
       ),
     },
@@ -461,6 +452,9 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
       title: "Quick links",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<QuickLinksAnatomy />}
+            demo={<>
           <Preview showModeToggle>
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-8, 32px)", width: "100%", padding: "var(--core-space-2, 8px) 0" }}>
               <div>
@@ -476,23 +470,23 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
               <div style={{ borderTop: "1px solid var(--theme-neutral-border-primary-default)", paddingTop: "var(--core-space-6, 24px)" }}>
                 <div style={sectionLabelStyle}>Interactive states</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(160px, 1fr))", gap: "var(--core-space-4, 16px)" }}>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3, 12px)" }}>
+                  <div style={QUICKLINK_CELL_STYLE}>
                     <StateLabel>DEFAULT</StateLabel>
                     <CardQuickLink icon="fa-solid fa-chart-line" label="Links" />
                   </div>
-                  <div className="force-hover" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3, 12px)" }}>
+                  <div className="force-hover" style={QUICKLINK_CELL_STYLE}>
                     <StateLabel>HOVER</StateLabel>
                     <CardQuickLink icon="fa-solid fa-chart-line" label="Links" />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3, 12px)" }}>
+                  <div style={QUICKLINK_CELL_STYLE}>
                     <StateLabel>SELECTED</StateLabel>
                     <CardQuickLink icon="fa-solid fa-chart-line" label="Links" selected />
                   </div>
-                  <div className="force-focus" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3, 12px)" }}>
+                  <div className="force-focus" style={QUICKLINK_CELL_STYLE}>
                     <StateLabel>FOCUS</StateLabel>
                     <CardQuickLink icon="fa-solid fa-chart-line" label="Links" />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3, 12px)" }}>
+                  <div style={QUICKLINK_CELL_STYLE}>
                     <StateLabel>DISABLED</StateLabel>
                     <CardQuickLink icon="fa-solid fa-chart-line" label="Links" disabled />
                   </div>
@@ -500,6 +494,8 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
               </div>
             </div>
           </Preview>
+        </>}
+          />
         </div>
       ),
     },

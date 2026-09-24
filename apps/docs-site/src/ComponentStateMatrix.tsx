@@ -65,12 +65,12 @@ export function ComponentStateMatrix({
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 14,
+            gap: "var(--core-space-3)",
             flexWrap: "wrap",
             background: "var(--site-bg-elevated)",
             border: "1px solid var(--site-border)",
             borderRadius: 14,
-            padding: "14px 20px",
+            padding: "var(--core-space-3) var(--core-space-5)",
             marginBottom: 18,
             boxShadow: "var(--core-elevation-2)",
           }}
@@ -91,7 +91,7 @@ export function ComponentStateMatrix({
               display: "inline-flex",
               background: "var(--site-bg)",
               borderRadius: 8,
-              padding: 3,
+              padding: "var(--core-space-1)",
               border: "1px solid var(--site-border)",
             }}
           >
@@ -176,7 +176,7 @@ export function ComponentStateMatrix({
           >
             {columns.map((col) => (
               <div key={col.id} style={{ display: "flex", flexDirection: "column" }}>
-                <div style={{ borderBottom: "1px solid var(--site-border)", paddingBottom: 14, marginBottom: 24 }}>
+                <div style={{ borderBottom: "1px solid var(--site-border)", paddingBottom: "var(--core-space-3)", marginBottom: 24 }}>
                   <div style={{ fontSize: 17, fontWeight: 700, letterSpacing: "-0.01em", color: "inherit" }}>{col.label}</div>
                 </div>
 

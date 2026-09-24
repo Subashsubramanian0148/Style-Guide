@@ -96,7 +96,7 @@ const sections = [
               display: "flex",
               flexDirection: "column",
               gap: 8,
-              padding: "22px 24px",
+              padding: "var(--core-space-5) var(--core-space-6)",
               borderRadius: 14,
               border: "1px solid var(--site-border)",
               background: "var(--core-color-surface-default)",
@@ -147,7 +147,7 @@ const sections = [
             to={link.to}
             style={{
               display: "block",
-              padding: "10px 14px",
+              padding: "var(--core-space-2) var(--core-space-3)",
               borderRadius: 8,
               border: "1px solid var(--site-border)",
               background: "var(--core-color-surface-default)",
@@ -183,7 +183,7 @@ const sections = [
           padding: "28px 32px",
         }}
       >
-        <ol style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 14 }}>
+        <ol style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: "var(--core-space-3)"}}>
           <li style={{ fontSize: "var(--typography-body-md-size)", lineHeight: 1.6, color: "var(--core-color-text-secondary)" }}>
             Review{" "}
             <Link to="/foundations/color" style={{ color: "var(--theme-brand-text-primary-default)", fontWeight: 600, textDecoration: "none" }}>

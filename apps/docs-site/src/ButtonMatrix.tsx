@@ -242,11 +242,11 @@ export function ButtonMatrix() {
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
-          gap: 14,
+          gap: "var(--core-space-3)",
           background: "var(--site-bg-elevated)",
           border: "1px solid var(--site-border)",
           borderRadius: 14,
-          padding: "14px 20px",
+          padding: "var(--core-space-3) var(--core-space-5)",
           marginBottom: 18,
           boxShadow: "var(--core-elevation-2)",
         }}
@@ -254,7 +254,7 @@ export function ButtonMatrix() {
         <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--theme-neutral-text-subtle)" }}>
           Size:
         </span>
-        <div style={{ display: "inline-flex", background: "var(--site-bg)", borderRadius: "var(--core-radius-sm)", padding: 3, border: "1px solid var(--site-border)" }}>
+        <div style={{ display: "inline-flex", background: "var(--site-bg)", borderRadius: "var(--core-radius-sm)", padding: "var(--core-space-1)", border: "1px solid var(--site-border)" }}>
           {(["sm", "md", "lg"] as const).map((s) => (
             <button
               key={s}
@@ -287,7 +287,7 @@ export function ButtonMatrix() {
             right: 24,
             background: "var(--theme-semantics-success-strong-background)",
             color: "var(--theme-neutral-text-on-color)",
-            padding: "10px 20px",
+            padding: "var(--core-space-2) var(--core-space-5)",
             borderRadius: "var(--core-radius-sm)",
             fontSize: 12,
             fontWeight: 600,
@@ -328,7 +328,7 @@ export function ButtonMatrix() {
               <div
                 style={{
                   borderBottom: "1px solid var(--site-border)",
-                  paddingBottom: 14,
+                  paddingBottom: "var(--core-space-3)",
                   marginBottom: 24,
                 }}
               >

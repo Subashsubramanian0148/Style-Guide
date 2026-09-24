@@ -388,7 +388,7 @@ export default function ColorExtractionPage() {
                           display: "inline-flex",
                           alignItems: "center",
                           gap: 8,
-                          padding: "7px 13px",
+                          padding: "var(--core-space-2) var(--core-space-3)",
                           borderRadius: 20,
                           border: isActive ? `2px solid ${p.hex}` : "1px solid var(--site-border)",
                           background: isActive ? "rgba(128,128,128,0.1)" : "var(--core-color-surface-default)",
@@ -456,7 +456,7 @@ export default function ColorExtractionPage() {
 
               {/* Uploaded Logo Display Thumbnail */}
               {logoSrc && (
-                <div style={{ padding: "10px 14px", background: "var(--core-color-surface-default)", borderRadius: 8, border: "1px solid var(--site-border)", marginBottom: 16, display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ padding: "var(--core-space-2) var(--core-space-3)", background: "var(--core-color-surface-default)", borderRadius: 8, border: "1px solid var(--site-border)", marginBottom: 16, display: "flex", alignItems: "center", gap: 12 }}>
                   <img src={logoSrc} alt="Active brand logo" style={{ maxHeight: 28, maxWidth: 100, objectFit: "contain" }} />
                   <span style={{ fontSize: 12, fontWeight: 600, color: "var(--core-color-text-secondary)" }}>
                     Active brand logo
@@ -469,7 +469,7 @@ export default function ColorExtractionPage() {
                 <button
                   onClick={handleReset}
                   style={{
-                    padding: "7px 14px",
+                    padding: "var(--core-space-2) var(--core-space-3)",
                     borderRadius: "var(--core-radius-sm)",
                     border: "1px solid var(--site-border)",
                     background: "var(--core-color-surface-default)",
@@ -484,7 +484,7 @@ export default function ColorExtractionPage() {
                 <button
                   onClick={copyThemeJson}
                   style={{
-                    padding: "7px 14px",
+                    padding: "var(--core-space-2) var(--core-space-3)",
                     borderRadius: "var(--core-radius-sm)",
                     border: "none",
                     background: "var(--core-color-action-primary-bg)",
@@ -501,7 +501,7 @@ export default function ColorExtractionPage() {
           </div>
 
           {/* Dynamic Primary Scale Display (50 - 950) */}
-          <div style={{ marginTop: 36, borderTop: "1px solid var(--site-border)", paddingTop: 26 }}>
+          <div style={{ marginTop: 36, borderTop: "1px solid var(--site-border)", paddingTop: "var(--core-space-6)"}}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
               <div style={{ fontSize: "var(--typography-body-lg-size)", fontWeight: 700, color: "var(--core-color-text-primary)" }}>
                 Generated Primary Scale (50 – 950)
@@ -546,10 +546,10 @@ export default function ColorExtractionPage() {
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", gap: "var(--core-space-2)", alignItems: "center", flexWrap: "wrap" }}>
                 <button
                   style={{
-                    padding: "9px 18px",
+                    padding: "var(--core-space-2) var(--core-space-4)",
                     borderRadius: "var(--core-radius-sm)",
                     border: "none",
                     background: "var(--core-color-action-primary-bg)",
@@ -563,7 +563,7 @@ export default function ColorExtractionPage() {
                 </button>
                 <button
                   style={{
-                    padding: "9px 18px",
+                    padding: "var(--core-space-2) var(--core-space-4)",
                     borderRadius: "var(--core-radius-sm)",
                     border: "none",
                     background: "var(--core-color-action-primary-tintBg)",
@@ -577,7 +577,7 @@ export default function ColorExtractionPage() {
                 </button>
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)"}}>
                 <input
                   type="text"
                   defaultValue="Focused brand input"
@@ -598,7 +598,7 @@ export default function ColorExtractionPage() {
                 <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-action-primary-tintText)" }}>
                   Active Theme Accent
                 </span>
-                <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, padding: "2px 8px", borderRadius: 12, background: "var(--core-color-action-primary-bg)", color: "var(--core-color-action-primary-text)" }}>
+                <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, padding: "var(--core-space-1) var(--core-space-2)", borderRadius: 12, background: "var(--core-color-action-primary-bg)", color: "var(--core-color-action-primary-text)" }}>
                   Brand
                 </span>
               </div>
@@ -611,7 +611,7 @@ export default function ColorExtractionPage() {
               <div style={{ fontSize: "var(--typography-body-lg-size)", fontWeight: 700, color: "var(--core-color-text-primary)" }}>
                 Constant Tokens (Untouched)
               </div>
-              <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, color: "var(--core-color-status-success-text)", background: "var(--core-color-status-success-bg)", padding: "2px 8px", borderRadius: 12 }}>
+              <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, color: "var(--core-color-status-success-text)", background: "var(--core-color-status-success-bg)", padding: "var(--core-space-1) var(--core-space-2)", borderRadius: 12 }}>
                 ✓ Constant
               </span>
             </div>
@@ -624,8 +624,8 @@ export default function ColorExtractionPage() {
                 { name: "Danger", token: "--core-color-action-destructive-bg", hex: color.danger["600"], desc: "Destructive actions, error states" },
                 { name: "Info", token: "--core-color-status-info-bgStrong", hex: color.info["600"], desc: "System guidance, notifications" },
               ].map((item) => (
-                <div key={item.name} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px solid var(--site-border)" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div key={item.name} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--core-space-1) 0", borderBottom: "1px solid var(--site-border)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)"}}>
                     <div style={{ width: 18, height: 18, borderRadius: 4, background: item.hex }} />
                     <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-primary)" }}>{item.name}</span>
                   </div>

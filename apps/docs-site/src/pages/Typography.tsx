@@ -176,7 +176,7 @@ function ElevationCard({ elevationKey, shadowVal }: { elevationKey: string; shad
         padding: "24px",
         display: "flex",
         flexDirection: "column",
-        gap: 14,
+        gap: "var(--core-space-3)",
         minHeight: 220,
         justifyContent: "space-between",
       }}
@@ -184,7 +184,7 @@ function ElevationCard({ elevationKey, shadowVal }: { elevationKey: string; shad
       <div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
           <span style={{ fontSize: 16, fontWeight: 700, color: "var(--core-color-text-primary)" }}>Elevation {elevationKey}</span>
-          <code style={{ fontSize: "var(--typography-font-size-xs)", background: "var(--core-color-surface-hover)", padding: "2px 8px", borderRadius: 4, color: "var(--core-color-text-secondary)" }}>
+          <code style={{ fontSize: "var(--typography-font-size-xs)", background: "var(--core-color-surface-hover)", padding: "var(--core-space-1) var(--core-space-2)", borderRadius: 4, color: "var(--core-color-text-secondary)" }}>
             --core-elevation-{elevationKey}
           </code>
         </div>
@@ -210,7 +210,7 @@ function ElevationCard({ elevationKey, shadowVal }: { elevationKey: string; shad
               color: copied ? "var(--theme-semantics-success-text)" : "var(--theme-primitive-color-primary-600)",
               fontSize: "var(--typography-font-size-xs)",
               fontWeight: 600,
-              padding: "3px 8px",
+              padding: "var(--core-space-1) var(--core-space-2)",
               borderRadius: 5,
               cursor: "pointer",
               transition: "all 0.2s ease",
@@ -240,7 +240,7 @@ function ElevationCard({ elevationKey, shadowVal }: { elevationKey: string; shad
             fontFamily: "var(--site-mono)",
             color: "var(--theme-primitive-color-primary-600)",
             background: "var(--core-color-surface-hover)",
-            padding: "8px 10px",
+            padding: "var(--core-space-2) var(--core-space-2)",
             borderRadius: "var(--core-radius-sm)",
             display: "block",
             wordBreak: "break-word",
@@ -341,7 +341,7 @@ export default function Typography() {
           {Object.entries(primitives.space).sort((a, b) => parseInt(a[1], 10) - parseInt(b[1], 10)).map(([key, val], i, arr) => {
             const numVal = parseInt(val, 10);
             return (
-              <div key={key} style={{ display: "flex", alignItems: "center", padding: "14px 0", borderBottom: i === arr.length - 1 ? "none" : "1px solid var(--site-border)", gap: 24 }}>
+              <div key={key} style={{ display: "flex", alignItems: "center", padding: "var(--core-space-3) 0", borderBottom: i === arr.length - 1 ? "none" : "1px solid var(--site-border)", gap: 24 }}>
                 <div style={{ width: 120, fontSize: "var(--typography-body-md-size)", fontWeight: 700, color: "var(--core-color-text-primary)" }}>space.{key}</div>
                 <div style={{ width: 80, fontSize: "var(--typography-font-size-xs)", fontFamily: "var(--site-mono)", color: "var(--core-color-text-secondary)" }}>{val}</div>
                 <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
@@ -465,7 +465,7 @@ export default function Typography() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {Object.entries((primitives as any).motion || {}).filter(([k]) => k.startsWith("easing.")).map(([key, val]) => (
-                <div key={key} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", borderRadius: 8, background: "var(--core-color-surface-hover)", fontSize: "var(--typography-font-size-xs)" }}>
+                <div key={key} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--core-space-2) var(--core-space-3)", borderRadius: 8, background: "var(--core-color-surface-hover)", fontSize: "var(--typography-font-size-xs)" }}>
                   <span style={{ fontWeight: 600, color: "var(--core-color-text-primary)" }}>{key.replace("easing.", "")}</span>
                   <code style={{ fontFamily: "var(--site-mono)", fontSize: 12, color: "var(--core-color-text-secondary)" }}>{val as string}</code>
                 </div>
@@ -508,8 +508,8 @@ export default function Typography() {
             style={{ 
               display: "inline-flex", 
               alignItems: "center", 
-              gap: 10, 
-              padding: "14px 28px", 
+              gap: "var(--core-space-2)", 
+              padding: "var(--core-space-3) 28px", 
               background: "var(--core-color-action-primary-bg)", 
               color: "var(--core-color-action-primary-text)", 
               fontWeight: 600, 

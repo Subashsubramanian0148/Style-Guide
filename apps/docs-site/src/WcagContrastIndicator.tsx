@@ -98,7 +98,7 @@ export function WcagLegend({ style }: { style?: React.CSSProperties }) {
         display: "flex",
         flexWrap: "wrap",
         alignItems: "center",
-        gap: "6px 10px",
+        gap: "var(--core-space-1) var(--core-space-2)",
         fontSize: "var(--typography-font-size-xs)",
         color: "var(--core-color-text-secondary)",
         ...style,
@@ -147,7 +147,7 @@ export function ContrastAgainstControl({
   onChange: (value: ContrastBackground) => void;
 }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)", flexWrap: "wrap" }}>
       <span
         style={{
           fontSize: "var(--typography-font-size-xs)",
@@ -162,7 +162,7 @@ export function ContrastAgainstControl({
           display: "inline-flex",
           alignItems: "center",
           gap: 4,
-          padding: 3,
+          padding: "var(--core-space-1)",
           borderRadius: "var(--core-radius-sm)",
           border: "1px solid var(--site-border)",
           background: "var(--site-bg)",
@@ -177,7 +177,7 @@ export function ContrastAgainstControl({
               onClick={() => onChange(option)}
               aria-pressed={active}
               style={{
-                padding: "5px 12px",
+                padding: "var(--core-space-1) var(--core-space-3)",
                 borderRadius: 4,
                 border: "none",
                 fontSize: "var(--typography-font-size-xs)",
@@ -252,7 +252,7 @@ export function WcagContrastIndicator({
     : status.colorVar;
 
   const ratioLine = (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
+    <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)"}}>
       <StatusIcon kind={status.icon} color={ratioIconColor} />
       <span
         style={{
@@ -282,7 +282,7 @@ export function WcagContrastIndicator({
         display: "flex",
         flexDirection: "column",
         alignItems: onSwatch ? "flex-start" : "center",
-        gap: layout === "stack" ? 2 : 2,
+        gap: "var(--core-space-1)",
         width: layout === "stack" ? "100%" : undefined,
       }}
       title={`${ratio.toFixed(2)}:1 · WCAG ${status.label}`}
@@ -293,7 +293,7 @@ export function WcagContrastIndicator({
             display: "flex",
             flexDirection: "column",
             alignItems: onSwatch ? "flex-start" : "center",
-            gap: onSwatch ? 4 : 2,
+            gap: "var(--core-space-1)",
             width: "100%",
             fontSize: 10,
             lineHeight: 1.3,
@@ -308,7 +308,7 @@ export function WcagContrastIndicator({
               </span>
             </>
           ) : (
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
               {ratioLine}
               {labelLine}
             </div>
@@ -320,7 +320,7 @@ export function WcagContrastIndicator({
             display: "inline-flex",
             alignItems: "center",
             gap: 4,
-            padding: onSwatch ? "2px 6px" : 0,
+            padding: onSwatch ? "var(--core-space-1) var(--core-space-1)" : 0,
             borderRadius: 4,
             background: pillBackground,
             fontSize: "var(--typography-font-size-xs)",

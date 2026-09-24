@@ -145,7 +145,7 @@ function BaselineSwatch({ tokenKey, label }: { tokenKey: string; label: string }
       style={{
         background: `var(${varName})`,
         color: textColor,
-        padding: "16px 14px 12px",
+        padding: "var(--core-space-4) var(--core-space-3) var(--core-space-3)",
         borderRadius: 10,
         minHeight: 100,
         display: "flex",
@@ -178,7 +178,7 @@ function BaselineAccordionGroup({ group, mode }: { group: typeof BASELINE_GROUPS
           alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
-          padding: "14px 20px",
+          padding: "var(--core-space-3) var(--core-space-5)",
           border: "none",
           background: "transparent",
           cursor: "pointer",
@@ -214,7 +214,7 @@ function BaselineTokensSection() {
           value={mode}
           onChange={(e) => setMode(e.target.value as "light" | "dark")}
           style={{
-            padding: "6px 12px",
+            padding: "var(--core-space-1) var(--core-space-3)",
             borderRadius: 20,
             border: "1px solid var(--site-border)",
             background: "var(--site-bg-elevated)",
@@ -259,7 +259,7 @@ function Swatch({ name, hex, token, note, border }: { name: string; hex: string;
       <div className="meta">
         <div className="name">{name}</div>
         <div className="value" style={{ fontFamily: "var(--site-mono)", fontSize: "var(--typography-font-size-xs)", marginBottom: 4 }}>{token}</div>
-        <div style={{ marginTop: 6, display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
+        <div style={{ marginTop: 6, display: "flex", gap: "var(--core-space-1)", alignItems: "center", flexWrap: "wrap" }}>
           <ContrastBadge hex={hex} />
         </div>
         {note && <div className="value" style={{ marginTop: 4 }}>{note}</div>}
@@ -428,7 +428,7 @@ function RampRow({
                   flexDirection: "column",
                   alignItems: "center",
                   gap: 4,
-                  padding: "8px 2px 0",
+                  padding: "var(--core-space-2) var(--core-space-1) 0",
                   textAlign: "center",
                 }}
               >
@@ -459,7 +459,7 @@ function RampRow({
                   style={{
                     border: "none",
                     background: "transparent",
-                    padding: "2px 0 0",
+                    padding: "var(--core-space-1) 0 0",
                     fontSize: 11,
                     fontWeight: 700,
                     color: "var(--core-color-text-primary)",
@@ -1778,7 +1778,7 @@ function BaseColorPillarSegment({
       style={{
         background: currentHex,
         color: textColor,
-        padding: "14px 14px 12px",
+        padding: "var(--core-space-3) var(--core-space-3) var(--core-space-3)",
         minHeight: 108,
         display: "flex",
         flexDirection: "column",
@@ -1861,7 +1861,7 @@ function BaseColorPillarSegment({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: 6,
+            gap: "var(--core-space-1)",
             fontWeight: 700,
             fontSize: 12,
             zIndex: 10,
@@ -2094,7 +2094,7 @@ function BaseColorsRedesignedSection() {
                 type="button"
                 onClick={() => setActiveCategory(cat.id)}
                 style={{
-                  padding: "6px 14px",
+                  padding: "var(--core-space-1) var(--core-space-3)",
                   borderRadius: 20,
                   fontSize: "var(--typography-font-size-xs)",
                   fontWeight: active ? 600 : 500,
@@ -2112,8 +2112,8 @@ function BaseColorsRedesignedSection() {
         </div>
 
         {/* Light / Dark Mode Toggle */}
-        <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, background: "var(--site-bg)", padding: "4px 10px", borderRadius: 24, border: "1px solid var(--site-border)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-3)", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, background: "var(--site-bg)", padding: "var(--core-space-1) var(--core-space-2)", borderRadius: 24, border: "1px solid var(--site-border)" }}>
             <span style={{ fontSize: 12, fontWeight: 600, color: activeMode === "light" ? "var(--site-text)" : "var(--theme-neutral-text-subtle)" }}>Light</span>
             <button
               type="button"
@@ -2210,7 +2210,7 @@ function BaseColorsRedesignedSection() {
                     fontSize: "var(--typography-font-size-xs)",
                     fontFamily: "var(--site-mono)",
                     fontWeight: 600,
-                    padding: "4px 10px",
+                    padding: "var(--core-space-1) var(--core-space-2)",
                     borderRadius: 8,
                     background: "rgba(128,128,128,0.08)",
                     color: "var(--site-text-dim)",
@@ -2258,7 +2258,7 @@ function BaseColorsRedesignedSection() {
             fontWeight: 600,
             display: "flex",
             alignItems: "center",
-            gap: 10,
+            gap: "var(--core-space-2)",
             zIndex: 9999,
           }}
         >
@@ -2368,7 +2368,7 @@ function BrandPaletteOverviewCard({
 
       <div
         style={{
-          padding: "12px 14px 14px",
+          padding: "var(--core-space-3) var(--core-space-3) var(--core-space-3)",
           display: "flex",
           flexDirection: "column",
           gap: 4,
@@ -2578,8 +2578,8 @@ ${semanticPaletteScss.trim()}
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: 10,
-              padding: "14px 28px",
+              gap: "var(--core-space-2)",
+              padding: "var(--core-space-3) 28px",
               background: "var(--core-color-action-primary-bg)",
               color: "var(--core-color-action-primary-text)",
               fontWeight: 600,

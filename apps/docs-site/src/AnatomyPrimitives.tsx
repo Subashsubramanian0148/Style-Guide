@@ -30,7 +30,7 @@ export function AnatomyFrame({ children }: { children: React.ReactNode }) {
 export function SpacingBand({ edge, size, color = PADDING_COLOR }: { edge: "top" | "bottom" | "left" | "right"; size: number; color?: string }) {
   if (size <= 0) return null;
   const band: React.CSSProperties = { position: "absolute", background: fill(color), pointerEvents: "none", zIndex: 1 };
-  const badge: React.CSSProperties = { position: "absolute", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 2, pointerEvents: "none" };
+  const badge: React.CSSProperties = { position: "absolute", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "var(--core-space-1) var(--core-space-1)", borderRadius: 4, zIndex: 2, pointerEvents: "none" };
 
   switch (edge) {
     case "top":
@@ -86,7 +86,7 @@ export function RegionPadding({
   edges?: Array<"top" | "right" | "bottom" | "left">;
 }) {
   const band: React.CSSProperties = { position: "absolute", background: fill(color), pointerEvents: "none", zIndex: 1 };
-  const badge: React.CSSProperties = { position: "absolute", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 2, pointerEvents: "none" };
+  const badge: React.CSSProperties = { position: "absolute", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "var(--core-space-1) var(--core-space-1)", borderRadius: 4, zIndex: 2, pointerEvents: "none" };
 
   return (
     <>
@@ -154,7 +154,7 @@ export function VGapMark({
     <>
       <div style={{ position: "absolute", left: bandLeft, top: y, width: bandWidth, height, background: fillStrong(color), zIndex: 1, pointerEvents: "none" }} />
       <div style={{ position: "absolute", left: x, top, width: 1, height: y + height - top, background: color, zIndex: 2, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", left: x, top: top - 9, transform: "translateX(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
+      <div style={{ position: "absolute", left: x, top: top - 9, transform: "translateX(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "var(--core-space-1) var(--core-space-1)", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
         {value}
       </div>
     </>
@@ -194,7 +194,7 @@ export function HTickMark({
     <>
       <div style={{ position: "absolute", left, top: bandTop, width: x + width - left, height: bandHeight, background: fillStrong(color), zIndex: 1, pointerEvents: "none" }} />
       <div style={{ position: "absolute", left, top: y, width: x + width - left, height: 1, background: color, zIndex: 2, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", left: left - 9, top: y, transform: "translateY(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
+      <div style={{ position: "absolute", left: left - 9, top: y, transform: "translateY(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "var(--core-space-1) var(--core-space-1)", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
         {value}
       </div>
     </>
@@ -208,7 +208,7 @@ export function GapBand({ x, y, width, height, color = GAP_COLOR }: { x: number;
   return (
     <>
       <div style={{ position: "absolute", left: x, top: y, width, height, background: fill(color), pointerEvents: "none", zIndex: 1 }} />
-      <div style={{ position: "absolute", left: x + width / 2, top: y + height, transform: "translate(-50%, -50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 2, pointerEvents: "none" }}>
+      <div style={{ position: "absolute", left: x + width / 2, top: y + height, transform: "translate(-50%, -50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "var(--core-space-1) var(--core-space-1)", borderRadius: 4, zIndex: 2, pointerEvents: "none" }}>
         {width}
       </div>
     </>
@@ -223,7 +223,7 @@ export function AutoBand({ x, y, width, height, color = GAP_COLOR }: { x: number
   return (
     <>
       <div style={{ position: "absolute", left: x, top: y, width, height, background: fill(color), pointerEvents: "none", zIndex: 1 }} />
-      <div style={{ position: "absolute", left: x + width / 2, top: y + height / 2, transform: "translate(-50%, -50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 8px", borderRadius: 4, zIndex: 2, pointerEvents: "none" }}>
+      <div style={{ position: "absolute", left: x + width / 2, top: y + height / 2, transform: "translate(-50%, -50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "var(--core-space-1) var(--core-space-2)", borderRadius: 4, zIndex: 2, pointerEvents: "none" }}>
         Auto
       </div>
     </>
@@ -239,7 +239,7 @@ export function GapCallout({ x, width, value, color = CALLOUT_COLOR }: { x: numb
     <>
       <div style={{ position: "absolute", left: x, top: 0, bottom: 0, width, background: fill(color), pointerEvents: "none", zIndex: 1 }} />
       <div style={{ position: "absolute", left: x + width / 2, top: -34, width: 1, height: 34, background: color, pointerEvents: "none", zIndex: 2 }} />
-      <div style={{ position: "absolute", left: x + width / 2, top: -46, transform: "translateX(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
+      <div style={{ position: "absolute", left: x + width / 2, top: -46, transform: "translateX(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "var(--core-space-1) var(--core-space-1)", borderRadius: 4, zIndex: 3, pointerEvents: "none" }}>
         {value}
       </div>
     </>
@@ -266,7 +266,7 @@ export function HGapCallout({
   side?: "left" | "right";
 }) {
   if (height <= 0) return null;
-  const badge: React.CSSProperties = { position: "absolute", top: y + height / 2, transform: "translateY(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "2px 6px", borderRadius: 4, zIndex: 3, pointerEvents: "none" };
+  const badge: React.CSSProperties = { position: "absolute", top: y + height / 2, transform: "translateY(-50%)", background: color, color: "white", fontSize: 11, fontWeight: 700, lineHeight: 1, padding: "var(--core-space-1) var(--core-space-1)", borderRadius: 4, zIndex: 3, pointerEvents: "none" };
   const line: React.CSSProperties = { position: "absolute", top: y + height / 2, width: 34, height: 1, background: color, pointerEvents: "none", zIndex: 2 };
 
   return (
@@ -319,7 +319,7 @@ export function PaddingRing({
     fontSize: 11,
     fontWeight: 700,
     lineHeight: 1,
-    padding: "2px 5px",
+    padding: "var(--core-space-1) var(--core-space-1)",
     borderRadius: 4,
     zIndex: 2,
     pointerEvents: "none",
@@ -354,7 +354,7 @@ export function GapMark({ value, style, color = DEFAULT_COLOR }: { value: number
         fontSize: 11,
         fontWeight: 700,
         lineHeight: 1,
-        padding: "2px 5px",
+        padding: "var(--core-space-1) var(--core-space-1)",
         borderRadius: 4,
         zIndex: 3,
         pointerEvents: "none",
@@ -363,5 +363,51 @@ export function GapMark({ value, style, color = DEFAULT_COLOR }: { value: number
     >
       {value}
     </div>
+  );
+}
+
+export type Rect = { x: number; y: number; w: number; h: number };
+
+/** A translucent fill at the region's true (scaled) size — unlike the fixed
+ *  8px bands above, the band width here equals the value it marks. */
+export function TrueBand({ r, color }: { r: Rect; color: string }) {
+  if (r.w <= 0 || r.h <= 0) return null;
+  return <div style={{ position: "absolute", left: r.x, top: r.y, width: r.w, height: r.h, background: `${color}40`, pointerEvents: "none", zIndex: 1 }} />;
+}
+
+export function NodeOutline({ r, color = PADDING_COLOR }: { r: Rect; color?: string }) {
+  return <div style={{ position: "absolute", left: r.x, top: r.y, width: r.w, height: r.h, outline: `1px solid ${color}`, pointerEvents: "none", zIndex: 2 }} />;
+}
+
+/** Value badge with a leader line: `axis="v"` draws a vertical line from y=`from`
+ *  to the badge; `axis="h"` draws a horizontal line from x=`from`. */
+export function Callout({ x, y, from, axis, value, color }: { x: number; y: number; from: number; axis: "v" | "h"; value: number; color: string }) {
+  const line: React.CSSProperties =
+    axis === "v"
+      ? { left: x, top: Math.min(y, from), width: 1, height: Math.abs(from - y) }
+      : { left: Math.min(x, from), top: y, width: Math.abs(from - x), height: 1 };
+  return (
+    <>
+      <div style={{ position: "absolute", ...line, background: color, zIndex: 3, pointerEvents: "none" }} />
+      <div
+        style={{
+          position: "absolute",
+          left: x,
+          top: y,
+          transform: "translate(-50%, -50%)",
+          background: color,
+          color: "white",
+          fontSize: 11,
+          fontWeight: 700,
+          lineHeight: 1,
+          padding: "var(--core-space-1) var(--core-space-1)",
+          borderRadius: 4,
+          zIndex: 4,
+          pointerEvents: "none",
+        }}
+      >
+        {value}
+      </div>
+    </>
   );
 }

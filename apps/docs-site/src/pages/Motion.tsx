@@ -25,7 +25,7 @@ export default function Motion() {
               ▶ Replay
             </button>
             {durations.map((d) => (
-              <div key={d.name} style={{ display: "flex", alignItems: "center", gap: 16, padding: "10px 0", borderBottom: "1px solid var(--site-border)" }}>
+              <div key={d.name} style={{ display: "flex", alignItems: "center", gap: 16, padding: "var(--core-space-2) 0", borderBottom: "1px solid var(--site-border)" }}>
                 <div style={{ width: 90, fontFamily: "var(--site-mono)", fontSize: 12 }}>{d.name} · {d.ms}ms</div>
                 <div style={{ width: 200, height: 8, background: "var(--site-bg-hover)", borderRadius: 4, position: "relative", overflow: "hidden" }}>
                   <div

@@ -151,7 +151,7 @@ export function AttachmentAnatomy() {
           className="cds-attachment-anatomy-header"
           style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
         >
-          <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-success-text)" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-success-text)" }}>
             <Icon name="fa-solid fa-circle-check" size="sm" />
             Success State
           </span>

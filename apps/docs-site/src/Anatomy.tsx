@@ -52,7 +52,7 @@ export function Anatomy({ children, points = [], rects = [], height = 120 }: { c
               fontSize: 12,
               fontWeight: "bold",
               borderRadius: "4px",
-              padding: "2px 6px",
+              padding: "var(--core-space-1) var(--core-space-1)",
               lineHeight: 1,
               zIndex: 20,
               pointerEvents: "none"
@@ -78,7 +78,7 @@ export function AnatomyLegend({ points = [] }: { points?: AnatomyPoint[] }) {
             fontSize: 12,
             fontWeight: "bold",
             borderRadius: "4px",
-            padding: "2px 6px",
+            padding: "var(--core-space-1) var(--core-space-1)",
             lineHeight: 1
           }}>{p.n}</span>
           <span style={{ color: "var(--core-color-text-secondary)" }}>{p.label}</span>

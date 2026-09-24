@@ -181,11 +181,11 @@ function GlobalPreviewModeToggle() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 10,
+        gap: "var(--core-space-2)",
         background: "var(--site-bg-elevated)",
         border: "1px solid var(--site-border)",
         borderRadius: "var(--core-radius-lg, 16px)",
-        padding: "16px 10px",
+        padding: "var(--core-space-4) var(--core-space-2)",
         boxShadow: "var(--core-elevation-3)",
       }}
     >
@@ -259,7 +259,7 @@ function LayoutInner() {
       </a>
       <GlobalPreviewModeToggle />
       <aside className="site-sidebar" ref={sidebarRef} aria-label="Site navigation">
-        <div className="site-logo" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 6, padding: "8px 12px 20px" }}>
+        <div className="site-logo" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "var(--core-space-1)", padding: "8px 12px 20px" }}>
           <CoreLogo size={22} />
           <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, color: "var(--site-text-dim)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
             Participant Portal

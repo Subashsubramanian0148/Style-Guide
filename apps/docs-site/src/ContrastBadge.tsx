@@ -23,7 +23,7 @@ export function ContrastBadge({ hex }: { hex: string }) {
       style={{
         fontSize: "var(--typography-font-size-xs)",
         fontWeight: 700,
-        padding: "2px 6px",
+        padding: "var(--core-space-1) var(--core-space-1)",
         borderRadius: 4,
         color: "#0B0C10",
         background: levelColor[best.level],

@@ -8,6 +8,8 @@ import {
 } from "../../../../packages/core/src/components/Disclosure";
 import { AnatomySection } from "../AnatomySection";
 import { AccordionAnatomy } from "../AccordionAnatomy";
+import { SeparatorAnatomy, SeparatorCard } from "../SectionAnatomies";
+import { SkeletonAnatomy, SkeletonCard } from "../SectionAnatomies";
 
 function AccordionVariantsDemo() {
   const [variant, setVariant] = useState<"bordered" | "separated" | "flush">("bordered");
@@ -47,7 +49,7 @@ function AccordionVariantsDemo() {
           background: "var(--site-bg-elevated)",
           border: "1px solid var(--site-border)",
           borderRadius: 12,
-          padding: "12px 18px",
+          padding: "var(--core-space-3) var(--core-space-4)",
           boxShadow: "var(--core-elevation-1)",
         }}
       >
@@ -67,7 +69,7 @@ function AccordionVariantsDemo() {
             display: "inline-flex",
             background: "var(--site-bg)",
             borderRadius: 8,
-            padding: 3,
+            padding: "var(--core-space-1)",
             border: "1px solid var(--site-border)",
           }}
         >
@@ -83,7 +85,7 @@ function AccordionVariantsDemo() {
                   background: variant === v ? "var(--theme-brand-background-primary-strong)" : "transparent",
                   color: variant === v ? "var(--brand-text-primary-oncolor)" : "var(--site-text)",
                   borderRadius: "var(--core-radius-sm)",
-                  padding: "5px 14px",
+                  padding: "var(--core-space-1) var(--core-space-3)",
                   fontSize: "var(--typography-font-size-xs)",
                   fontWeight: 600,
                   cursor: "pointer",
@@ -130,40 +132,15 @@ export default function DisclosurePage({ embedded = false }: { embedded?: boolea
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<SeparatorAnatomy />}
+            demo={<>
             <Preview showModeToggle>
-              <div
-                style={{
-                  background: "var(--core-color-surface-raised)",
-                  border: "1px solid var(--core-color-border-default)",
-                  borderRadius: 8,
-                  padding: "18px 20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 12,
-                  width: "100%",
-                  maxWidth: 480,
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-primary)" }}>
-                    Plan Overview
-                  </div>
-                  <div style={{ fontSize: "var(--typography-body-md-size)", color: "var(--core-color-text-secondary)", marginTop: 4 }}>
-                    Primary account balance and portfolio asset allocations across equities and fixed income.
-                  </div>
-                </div>
-                <Separator />
-                <div>
-                  <div style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-primary)" }}>
-                    Contribution History
-                  </div>
-                  <div style={{ fontSize: "var(--typography-body-md-size)", color: "var(--core-color-text-secondary)", marginTop: 4 }}>
-                    Recent bi-weekly payroll deferrals and employer matching contributions.
-                  </div>
-                </div>
-              </div>
+              <SeparatorCard />
             </Preview>
-          </div>
+          </>}
+          />
+        </div>
         </div>
       ),
     },
@@ -174,36 +151,15 @@ export default function DisclosurePage({ embedded = false }: { embedded?: boolea
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<SkeletonAnatomy />}
+            demo={<>
             <Preview showModeToggle>
-              <div
-                style={{
-                  background: "var(--core-color-surface-raised)",
-                  border: "1px solid var(--core-color-border-default)",
-                  borderRadius: 8,
-                  padding: 24,
-                  width: 340,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                  boxShadow: "var(--core-elevation-1)",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <Skeleton width={44} height={44} radius="50%" />
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
-                    <Skeleton height={14} width="70%" />
-                    <Skeleton height={12} width="45%" />
-                  </div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  <Skeleton height={14} width="95%" />
-                  <Skeleton height={14} width="85%" />
-                  <Skeleton height={14} width="60%" />
-                </div>
-                <Skeleton height={36} width="100%" radius="var(--core-radius-sm)" />
-              </div>
+              <SkeletonCard />
             </Preview>
-          </div>
+          </>}
+          />
+        </div>
         </div>
       ),
     },

@@ -30,6 +30,7 @@ const tooltipStyle: React.CSSProperties = {
   background: "var(--core-card-bg)",
   border: "1px solid var(--core-color-border-default)",
   borderRadius: "var(--core-radius-sm)",
+  padding: "var(--core-space-2)",
   fontSize: "var(--core-font-size-xs, 12px)",
 };
 

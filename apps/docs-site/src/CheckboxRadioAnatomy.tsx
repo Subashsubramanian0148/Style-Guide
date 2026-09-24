@@ -162,13 +162,13 @@ const STATE_MATRIX: { state: string; unchecked: CellSpec; checked: CellSpec }[] 
 
 function MatrixCell({ spec }: { spec: CellSpec }) {
   const line = (label: string, val: string) => (
-    <div style={{ display: "flex", gap: 6, fontSize: 12, lineHeight: 1.5 }}>
+    <div style={{ display: "flex", gap: "var(--core-space-1)", fontSize: 12, lineHeight: 1.5 }}>
       <span style={{ color: "var(--core-color-text-tertiary)", minWidth: 40 }}>{label}</span>
       <span style={{ fontFamily: "var(--typography-font-family-mono, monospace)", color: "var(--core-color-text-secondary)" }}>{val}</span>
     </div>
   );
   return (
-    <td style={{ padding: "10px 16px", borderTop: "1px solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
+    <td style={{ padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
       {line("fill", spec.fill)}
       {line("border", spec.border)}
     </td>
@@ -182,15 +182,15 @@ function StateMatrix() {
     <SpecTableCard>
       <thead>
         <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
-          <th style={{ padding: "10px 16px", fontWeight: 700 }}>State</th>
-          <th style={{ padding: "10px 16px", fontWeight: 700 }}>Unchecked</th>
-          <th style={{ padding: "10px 16px", fontWeight: 700 }}>Checked</th>
+          <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>State</th>
+          <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Unchecked</th>
+          <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Checked</th>
         </tr>
       </thead>
       <tbody>
         {STATE_MATRIX.map((row) => (
           <tr key={row.state} style={{ borderTop: "1px solid var(--core-color-border-subtle)" }}>
-            <td style={{ padding: "10px 16px", fontWeight: 600, color: "var(--core-color-text-primary)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
+            <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--core-color-text-primary)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
             <MatrixCell spec={row.unchecked} />
             <MatrixCell spec={row.checked} />
           </tr>

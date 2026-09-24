@@ -141,7 +141,7 @@ export default function Accessibility() {
                     <td>{c.name}</td>
                     <td>{c.level}</td>
                     <td>
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12 }}>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: 12 }}>
                         <span style={{ width: 8, height: 8, borderRadius: "50%", background: STATUS_COLOR[c.status], display: "inline-block" }} />
                         {STATUS_LABEL[c.status]}
                       </span>
@@ -177,7 +177,7 @@ export default function Accessibility() {
           real NVDA/VoiceOver pass has been run against the live site yet</strong> — that's tracked as an open
           item, not claimed as done. A real screen-reader pass should specifically verify:
         </p>
-        <ul style={{ margin: 0, paddingLeft: 18, color: "var(--site-text-dim)", lineHeight: 1.8, fontSize: 14 }}>
+        <ul style={{ margin: 0, paddingLeft: "var(--core-space-4)", color: "var(--site-text-dim)", lineHeight: 1.8, fontSize: 14 }}>
           <li>Form errors are announced immediately on submit, not just visually shown.</li>
           <li>Modal/Drawer opening is announced and focus lands on the right element.</li>
           <li>Toast notifications are announced without stealing focus from the current task.</li>

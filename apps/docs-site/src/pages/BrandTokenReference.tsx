@@ -68,7 +68,7 @@ function ColorValuePill({
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: 10,
+        gap: "var(--core-space-2)",
         padding: "8px 12px",
         borderRadius: 10,
         border: "1px solid #E8E8EC",
@@ -88,7 +88,7 @@ function ColorValuePill({
           boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.04)",
         }}
       />
-      <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)", minWidth: 0 }}>
         <span style={{ fontSize: 12, fontWeight: 500, color: "#1D1C24", lineHeight: 1.3, whiteSpace: "nowrap" }}>
           {primitive.path}
         </span>
@@ -125,8 +125,8 @@ function TokenRow({
         transition: "background 0.12s ease",
       }}
     >
-      <td style={{ padding: "10px 16px", verticalAlign: "middle", width: "32%" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <td style={{ padding: "var(--core-space-2) var(--core-space-4)", verticalAlign: "middle", width: "32%" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)"}}>
           <TokenIcon />
           <div>
             <div style={{ fontSize: 14, fontWeight: 500, color: "#1D1C24", lineHeight: 1.35 }}>{row.name}</div>
@@ -150,7 +150,7 @@ function TokenRow({
       </td>
       <td
         style={{
-          padding: "10px 16px",
+          padding: "var(--core-space-2) var(--core-space-4)",
           verticalAlign: "middle",
           width: "34%",
           opacity: previewMode === "dark" ? 0.45 : 1,
@@ -161,7 +161,7 @@ function TokenRow({
       </td>
       <td
         style={{
-          padding: "10px 16px",
+          padding: "var(--core-space-2) var(--core-space-4)",
           verticalAlign: "middle",
           width: "34%",
           opacity: previewMode === "light" ? 0.45 : 1,
@@ -227,7 +227,7 @@ export function BrandTokenReference() {
           gap: 16,
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "14px 18px",
+          padding: "var(--core-space-3) var(--core-space-4)",
           background: "#FFFFFF",
           border: "1px solid #EEEEF2",
           borderRadius: 12,
@@ -241,14 +241,14 @@ export function BrandTokenReference() {
           style={{
             flex: "1 1 220px",
             minWidth: 200,
-            padding: "10px 14px",
+            padding: "var(--core-space-2) var(--core-space-3)",
             borderRadius: 8,
             border: "1px solid #DFDFE6",
             fontSize: 14,
             outline: "none",
           }}
         />
-        <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "var(--core-space-1)", alignItems: "center" }}>
           <span style={{ fontSize: 12, fontWeight: 600, color: "#787887", marginRight: 4 }}>Highlight:</span>
           {(["both", "light", "dark"] as const).map((mode) => (
             <button
@@ -256,7 +256,7 @@ export function BrandTokenReference() {
               type="button"
               onClick={() => setPreviewMode(mode)}
               style={{
-                padding: "6px 14px",
+                padding: "var(--core-space-1) var(--core-space-3)",
                 borderRadius: 8,
                 border: previewMode === mode ? "1px solid #1F4F8D" : "1px solid #DFDFE6",
                 background: previewMode === mode ? "#E2E9F3" : "#FFFFFF",
@@ -288,7 +288,7 @@ export function BrandTokenReference() {
                   <th
                     style={{
                       textAlign: "left",
-                      padding: "10px 16px",
+                      padding: "var(--core-space-2) var(--core-space-4)",
                       fontSize: 12,
                       fontWeight: 600,
                       color: "#787887",
@@ -300,7 +300,7 @@ export function BrandTokenReference() {
                   <th
                     style={{
                       textAlign: "left",
-                      padding: "10px 16px",
+                      padding: "var(--core-space-2) var(--core-space-4)",
                       fontSize: 12,
                       fontWeight: 600,
                       color: "#787887",
@@ -312,7 +312,7 @@ export function BrandTokenReference() {
                   <th
                     style={{
                       textAlign: "left",
-                      padding: "10px 16px",
+                      padding: "var(--core-space-2) var(--core-space-4)",
                       fontSize: 12,
                       fontWeight: 600,
                       color: "#787887",
@@ -345,7 +345,7 @@ export function BrandTokenReference() {
             right: 24,
             background: "#1D1C24",
             color: "#FFFFFF",
-            padding: "12px 18px",
+            padding: "var(--core-space-3) var(--core-space-4)",
             borderRadius: 10,
             fontSize: 12,
             fontWeight: 600,

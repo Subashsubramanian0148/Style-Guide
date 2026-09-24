@@ -6,6 +6,8 @@ import { Modal, Drawer, Tooltip } from "../../../../packages/core/src/components
 import { Field, Input } from "../../../../packages/core/src/components/Field";
 import { Select } from "../../../../packages/core/src/components/FormControls";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
+import { AnatomySection } from "../AnatomySection";
+import { TooltipAnatomy } from "../TooltipAnatomy";
 
 export default function OverlaysPage({ embedded = false }: { embedded?: boolean }) {
   const [modal, setModal] = useState(false);
@@ -49,9 +51,10 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
       </DocsSection>
 
       <DocsSection anchorId="tooltip" title="Tooltip">
+        <AnatomySection anatomy={<TooltipAnatomy />} demo={
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14 }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: 14 }}>
               Vested balance
               <Tooltip label="The portion of employer contributions you keep if you leave today.">
                 <IconButton variant="tertiary" size="sm" shape="circle" aria-label="What is vested balance?">
@@ -59,7 +62,7 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
                 </IconButton>
               </Tooltip>
             </span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14 }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: 14 }}>
               Federal tax withholding
               <Tooltip label="20% is the IRS-mandated minimum for most retirement plan distributions.">
                 <IconButton variant="tertiary" size="sm" shape="circle" aria-label="What is federal tax withholding?">
@@ -69,6 +72,7 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
             </span>
           </Preview>
         </div>
+        } />
       </DocsSection>
     </DocsSectionList>
   );
