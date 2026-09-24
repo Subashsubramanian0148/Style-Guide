@@ -538,7 +538,7 @@ table.spec-table code { font-family: var(--site-mono); font-size: 12px; color: v
 
 /* Portal logo lockup: swap to the dark-surface variant inside dark previews. */
 .docs-brand-logo { display: inline-flex; }
-.docs-brand-logo img { display: block; height: 34px; width: auto; }
+.docs-brand-logo img { display: block; height: var(--core-space-8); width: auto; }
 .docs-brand-logo--dark { display: none !important; }
 [data-mode="dark"] .docs-brand-logo--light { display: none !important; }
 [data-mode="dark"] .docs-brand-logo--dark { display: block !important; }
@@ -555,3 +555,25 @@ table.spec-table code { font-family: var(--site-mono); font-size: 12px; color: v
 .docs-spec-card th { padding-left: var(--core-space-3) !important; padding-right: var(--core-space-3) !important; }
 .docs-spec-card td.docs-cls { white-space: normal !important; }
 .docs-spec-card td.docs-cls { padding-left: var(--core-space-2) !important; padding-right: var(--core-space-2) !important; }
+
+/* Tooltip placement demo: always an even 2 x 2, or one row of 4 when the
+   panel is wide enough for side bubbles to fit inside each cell. */
+.site-tooltip-demo {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--core-space-4);
+  width: 100%;
+}
+
+.site-tooltip-demo__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--core-space-4);
+}
+
+@container (min-width: 1120px) {
+  .site-tooltip-demo__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

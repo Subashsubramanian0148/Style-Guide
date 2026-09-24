@@ -192,14 +192,30 @@ export function Drawer({ open, onClose, title, children, side = "right", width =
   );
 }
 
-export function Tooltip({ label, children }: { label: string; children: React.ReactElement }) {
+export type TooltipPlacement = "top" | "right" | "bottom" | "left";
+
+export function Tooltip({
+  label,
+  children,
+  placement = "top",
+  open,
+}: {
+  label: string;
+  children: React.ReactElement;
+  placement?: TooltipPlacement;
+  /** Force the bubble visible (docs/anatomy); omit for hover/focus behavior. */
+  open?: boolean;
+}) {
   const [show, setShow] = useState(false);
+  const visible = open ?? show;
   return (
     <span style={{ position: "relative", display: "inline-block" }} onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)} onFocus={() => setShow(true)} onBlur={() => setShow(false)}>
       {children}
-      {show && (
-        <span className="cds-tooltip" role="tooltip" style={{ bottom: "calc(100% + 10px)", left: "50%", transform: "translateX(-50%)" }}>
-          {label}
+      {visible && (
+        <span className={`cds-tooltip-wrap cds-tooltip-wrap--${placement}`}>
+          <span className="cds-tooltip" role="tooltip">
+            {label}
+          </span>
         </span>
       )}
     </span>

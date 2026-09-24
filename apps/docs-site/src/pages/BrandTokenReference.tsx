@@ -8,7 +8,7 @@ import {
 
 function TokenIcon() {
   return (
-    <svg width={14} height={14} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0, opacity: 0.55 }}>
+    <svg width={14} height={16} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0, opacity: 0.55 }}>
       <path d="M12 2L2 12l10 10 10-10L12 2z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
       <path d="M12 6l-6 6 6 6 6-6-6-6z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
     </svg>

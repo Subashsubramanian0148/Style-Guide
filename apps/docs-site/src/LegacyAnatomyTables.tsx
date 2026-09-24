@@ -25,9 +25,9 @@ function trailingIconSpecs(q: AnatomyQuery): AnatomySpecRow[] {
     iconToEdge === 12
       ? pass("Icon → edge", "core-space-3", `${iconToEdge}px`)
       : warn("Icon → edge", "right: 12px (from outer edge)", `${iconToEdge}px`, "Figma: 12. The icon is offset from the outer edge, so the 1px border eats into it"),
-    textToIcon === 8
-      ? pass("Text → icon", "core-space-2", `${textToIcon}px`)
-      : warn("Text → icon", "padding-right: core-space-8", `${textToIcon}px`, "Figma: 8. Shared by every input with an icon — left as-is pending a decision"),
+    textToIcon === 4
+      ? pass("Text → icon", "core-space-1", `${textToIcon}px`)
+      : warn("Text → icon", "padding-right: core-space-8", `${textToIcon}px`, "Should be 4 (icon gap)"),
     pass("Icon", "size sm", q.size(".cds-input-icon")),
     pass("Height", "core-size-control-md", `${q.el(".cds-input").offsetHeight}px`),
   ];
@@ -131,7 +131,7 @@ export function BadgeAnatomyFull() {
       ]}
       specs={(q) => [
         pass("Padding", "core-space-1 / core-space-3", `${q.px(".cds-badge", "padding-top")}px ${q.px(".cds-badge", "padding-left")}px`),
-        pass("Icon → label", "core-space-2", `${q.px(".cds-badge", "column-gap")}px`),
+        pass("Icon → label", "core-space-1", `${q.px(".cds-badge", "column-gap")}px`),
         pass("Label", "typography-body-md · medium", q.type(".cds-badge")),
         pass("Radius", "core-radius-full", q.css(".cds-badge", "border-top-left-radius")),
       ]}
@@ -273,7 +273,7 @@ export function TooltipAnatomyFull() {
         { node: "Text (row)", cls: "inline-flex row", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 4", sel: "span[style*='inline-flex']" },
         { node: "Label", cls: "span", direction: "—", alignment: "Middle left", spacing: "—", sel: "span[style*='inline-flex'] > span:first-child" },
         { node: "Button (trigger)", cls: ".cds-icon-btn (sm · circle)", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 4", sel: ".cds-icon-btn" },
-        { node: "Tooltip bubble", cls: ".cds-tooltip", direction: "Vertical", alignment: "Top left", spacing: "Shown on hover / focus", sel: ".cds-tooltip", fallback: "sized by text · padding 4 / 8 (on hover / focus)" },
+        { node: "Tooltip bubble", cls: ".cds-tooltip", direction: "Vertical", alignment: "Top left", spacing: "Shown on hover / focus", sel: ".cds-tooltip", fallback: "sized by text · max width 240 · padding 4 / 8 (on hover / focus)" },
       ]}
     >
       <TooltipAnatomy />

@@ -327,7 +327,7 @@ export function AvatarGroup({
 export function Progress({ value, label, indeterminate = false }: { value?: number; label?: string; indeterminate?: boolean }) {
   return (
     <div>
-      {label && <div style={{ fontSize: "var(--core-font-size-xs, 12px)", marginBottom: 4, color: "var(--core-color-text-secondary)" }}>{label}</div>}
+      {label && <div style={{ fontSize: "var(--typography-font-size-xs)", lineHeight: "var(--typography-body-xs-line-height)", marginBottom: "var(--core-space-1)", color: "var(--core-color-text-secondary)" }}>{label}</div>}
       <div
         className={`cds-progress ${indeterminate ? "cds-progress--indeterminate" : ""}`}
         role="progressbar"

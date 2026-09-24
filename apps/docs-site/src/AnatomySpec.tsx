@@ -40,6 +40,22 @@ export function SpecTableHead() {
  *  renders a color chip when the value is a color; `standard` marks whether
  *  the value meets the design/industry standard ("pass") or warrants a
  *  caution ("warn", with a short `note`). */
+/** Computed styles come back as rgb()/rgba(); tokens are authored as hex,
+ *  so show the same #RRGGBB (or #RRGGBBAA when translucent) the design
+ *  system defines. */
+export function toHexColors(value: string): string {
+  return value.replace(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+%?))?\s*\)/g, (_m, r, g, b, a) => {
+    const hex = (n: number) => Math.round(n).toString(16).padStart(2, "0");
+    let out = `#${hex(+r)}${hex(+g)}${hex(+b)}`;
+    if (a !== undefined) {
+      const alpha = a.endsWith("%") ? parseFloat(a) / 100 : parseFloat(a);
+      if (alpha === 0) return "transparent";
+      if (alpha < 1) out += hex(alpha * 255);
+    }
+    return out.toUpperCase();
+  });
+}
+
 export function SpecRow({ label, token, value, swatch, standard, note }: { label: string; token: string; value: string; swatch?: string; standard: "pass" | "warn"; note?: string }) {
   return (
     <tr style={{ borderTop: "1px solid var(--core-color-border-subtle)" }}>
@@ -48,7 +64,7 @@ export function SpecRow({ label, token, value, swatch, standard, note }: { label
       <td style={{ padding: "var(--core-space-2) var(--core-space-4)", color: "var(--core-color-text-secondary)", whiteSpace: "nowrap", verticalAlign: "top" }}>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
           {swatch && <span style={{ width: 14, height: 14, borderRadius: 3, background: swatch, border: "1px solid var(--core-color-border-subtle)", display: "inline-block", flexShrink: 0 }} />}
-          {value}
+          {toHexColors(value)}
         </span>
       </td>
       <td style={{ padding: "var(--core-space-2) var(--core-space-4)", maxWidth: 260, verticalAlign: "top" }}>

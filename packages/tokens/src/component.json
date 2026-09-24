@@ -65,5 +65,8 @@
   "promoCard.bg": "{gradient.brand.subtle}",
   "promoCard.text": "{color.neutral.0}",
   "promoCard.radius": "{radius.sm}",
-  "overlay.scrim": "{color.overlay.scrim}"
+  "overlay.scrim": "{color.overlay.scrim}",
+  "tooltip.maxWidth": "240px",
+  "tooltip.offset": "{space.2}",
+  "input.maxWidth": "320px"
 }

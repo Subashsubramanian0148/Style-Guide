@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Preview } from "../Preview";
-import { DocsSection, DocsSectionList } from "../DocsSection";
+import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { Button, IconButton } from "../../../../packages/core/src/components/Button";
 import { Modal, Drawer, Tooltip } from "../../../../packages/core/src/components/Overlays";
 import { Field, Input } from "../../../../packages/core/src/components/Field";
@@ -10,6 +10,27 @@ import { AnatomySection } from "../AnatomySection";
 import { TooltipAnatomyFull } from "../LegacyAnatomyTables";
 import { DialogAnatomy } from "../SectionAnatomies";
 import { SlideoverAnatomy } from "../SectionAnatomies";
+
+const TOOLTIP_CELL: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "var(--core-space-4)",
+  padding: "var(--core-space-4)",
+  border: "1px solid var(--theme-neutral-border-primary-default)",
+  borderRadius: "var(--core-radius-sm)",
+  background: "var(--core-color-surface-default)",
+};
+
+/* Fixed-height stage with the trigger dead-centre, so every placement's
+   bubble has room on all four sides and triggers line up across cells. */
+const TOOLTIP_STAGE: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  height: 112,
+};
 
 export default function OverlaysPage({ embedded = false }: { embedded?: boolean }) {
   const [modal, setModal] = useState(false);
@@ -66,22 +87,32 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
         <AnatomySection anatomy={<TooltipAnatomyFull />} demo={
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: 14 }}>
-              Vested balance
-              <Tooltip label="The portion of employer contributions you keep if you leave today.">
-                <IconButton variant="tertiary" size="sm" shape="circle" aria-label="What is vested balance?">
-                  <Icon name="fa-solid fa-circle-info" size="sm" />
-                </IconButton>
-              </Tooltip>
-            </span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: 14 }}>
-              Federal tax withholding
-              <Tooltip label="20% is the IRS-mandated minimum for most retirement plan distributions.">
-                <IconButton variant="tertiary" size="sm" shape="circle" aria-label="What is federal tax withholding?">
-                  <Icon name="fa-solid fa-circle-info" size="sm" />
-                </IconButton>
-              </Tooltip>
-            </span>
+            <div className="site-tooltip-demo">
+              <div className="site-tooltip-demo__grid">
+                {(["top", "right", "bottom", "left"] as const).map((placement) => (
+                  <div key={placement} style={TOOLTIP_CELL}>
+                    <StateLabel>{placement[0].toUpperCase() + placement.slice(1)}</StateLabel>
+                    <div style={TOOLTIP_STAGE}>
+                      <Tooltip label="Vested balance" placement={placement} open>
+                        <IconButton variant="tertiary" size="sm" shape="circle" aria-label={`Tooltip ${placement}`}>
+                          <Icon name="fa-solid fa-circle-info" size="sm" />
+                        </IconButton>
+                      </Tooltip>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={TOOLTIP_CELL}>
+                <StateLabel>Long text — truncates at max width (240px)</StateLabel>
+                <div style={TOOLTIP_STAGE}>
+                  <Tooltip label="20% is the IRS-mandated minimum for most retirement plan distributions." open>
+                    <IconButton variant="tertiary" size="sm" shape="circle" aria-label="What is federal tax withholding?">
+                      <Icon name="fa-solid fa-circle-info" size="sm" />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+              </div>
+            </div>
           </Preview>
         </div>
         } />

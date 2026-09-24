@@ -123,7 +123,7 @@ export const SIZING: Record<string, Sizing> = {
   stepper: { responsive: { mobile: "Below 576px the horizontal stepper scrolls sideways; each step keeps ≥96px and connectors ≥24px. Vertical stepper is unchanged.", tablet: SAME, desktop: "Horizontal steps share the width evenly." } },
   modal: { responsive: { mobile: "Width 100% up to 480px, so it spans the phone width inside the overlay padding.", tablet: SAME, desktop: "Max width 480px, centered over the overlay." } },
   slideover: { responsive: { mobile: "Max width 90vw. Below 576px a split body stacks and the aside goes full-width.", tablet: "Max width 90vw.", desktop: "Fixed width (520px here), full height from the right.", motion: "prefers-reduced-motion: no slide animation." } },
-  tooltip: { responsive: { ...FIXED, desktop: "Trigger fixed 32 × 32. The bubble stays on one line (no max width), so long text can run past narrow screens — keep tooltip text short." } },
+  tooltip: { responsive: { ...FIXED, desktop: "Trigger fixed 32 × 32. The bubble stays on one line up to a 240px max width; longer text truncates with an ellipsis. Placement: top, right, bottom or left." } },
   "data-table": { responsive: { mobile: "Below 576px the toolbar stacks and search goes full-width; the table scrolls sideways inside its wrapper.", tablet: "Table scrolls sideways if columns don't fit.", desktop: "Stretches to its container; rows 46px at comfortable density." } },
   table: { responsive: { mobile: "Scrolls sideways inside its wrapper rather than squashing columns.", tablet: SAME, desktop: "Stretches to its container; rows 46px at comfortable density." } },
   "line-chart": { responsive: { mobile: "Plot keeps its 260px height and stretches to the full width (Recharts ResponsiveContainer).", tablet: SAME, desktop: "Plot stretches to its container at a fixed 260px height." } },
@@ -264,7 +264,7 @@ const STATES: Record<string, Variant[]> = {
   tooltip: [
     st("Trigger", "icon button sm", <IconButton size="sm" shape="circle" variant="tertiary" aria-label="Info"><Icon name="fa-solid fa-circle-info" size="sm" /></IconButton>, undefined, false),
     st("Bubble — short text", "shown on hover / focus", <span style={{ position: "relative", display: "block" }}><span className="cds-tooltip" role="tooltip" style={{ position: "static", display: "inline-block", transform: "none" }}>Vested balance</span></span>, ".cds-tooltip", false),
-    st("Bubble — long text", "one line — no max width set", <span style={{ position: "relative", display: "block" }}><span className="cds-tooltip" role="tooltip" style={{ position: "static", display: "inline-block", transform: "none" }}>20% is the IRS-mandated minimum for most retirement plan distributions.</span></span>, ".cds-tooltip", false),
+    st("Bubble — long text", "one line — truncates at 240px max width", <span style={{ position: "relative", display: "block" }}><span className="cds-tooltip" role="tooltip" style={{ position: "static", display: "inline-block", transform: "none" }}>20% is the IRS-mandated minimum for most retirement plan distributions.</span></span>, ".cds-tooltip", false),
   ],
   "line-chart": [
     st("With description", "title + plot + text", <LineChartCard title="Balance" description="Account balance has tracked closely with contributions." data={[{ m: "Mar", v: 1 }, { m: "Apr", v: 2 }]} xKey="m" series={[{ key: "v", label: "Balance" }]} />, ".cds-chart"),

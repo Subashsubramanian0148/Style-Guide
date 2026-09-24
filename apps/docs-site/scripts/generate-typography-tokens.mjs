@@ -79,10 +79,10 @@ for (const [key, spec] of Object.entries(data.button ?? {})) {
 
 /* Legacy aliases used across component CSS */
 add("text14-regular-size", data.body?.md?.fontSize?.rem ?? "0.875rem");
-add("text14-regular-line-height", data.body?.md?.lineHeight?.rem ?? "1.3125rem");
+add("text14-regular-line-height", data.body?.md?.lineHeight?.rem ?? "1.25rem");
 add("text14-regular-weight", String(data.body?.md?.fontWeight ?? 400));
 add("text14-semibold-size", data.button?.md?.fontSize?.rem ?? "0.875rem");
-add("text14-semibold-line-height", data.button?.md?.lineHeight?.rem ?? "1.3125rem");
+add("text14-semibold-line-height", data.button?.md?.lineHeight?.rem ?? "1.25rem");
 add("text14-semibold-weight", String(data.button?.md?.fontWeight ?? 700));
 add("text16-regular-size", data.body?.lg?.fontSize?.rem ?? "1rem");
 add("text16-regular-line-height", data.body?.lg?.lineHeight?.rem ?? "1.5rem");
@@ -91,7 +91,7 @@ add("text16-semibold-size", data.button?.lg?.fontSize?.rem ?? "1rem");
 add("text16-semibold-line-height", data.button?.lg?.lineHeight?.rem ?? "1.5rem");
 add("text16-semibold-weight", String(data.button?.lg?.fontWeight ?? 700));
 add("text12-semibold-size", data.fontSize?.xs?.rem ?? "0.75rem");
-add("text12-semibold-line-height", data.body?.xs?.lineHeight?.rem ?? "1.125rem");
+add("text12-semibold-line-height", data.body?.xs?.lineHeight?.rem ?? "1rem");
 add("text12-semibold-weight", String(data.fontWeight?.semibold ?? 600));
 
 lines.push("}");

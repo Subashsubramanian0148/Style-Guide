@@ -38,7 +38,7 @@ const GREEN = "#118D57";
  *   padding      core-space-2 core-space-3 (8px / 12px)
  *   min-height   core-size-control-md (40px)
  *   gap          core-space-2 (8px)
- *   font         typography-text14-semibold (14px / 700 / 21px)
+ *   font         typography-text14-semibold (14px / 700 / 20px)
  *   background   brand-background-primary-strong
  *   color        brand-text-primary-oncolor
  *   border       1px solid brand-border-primary-default
@@ -102,7 +102,7 @@ export function ButtonAnatomy() {
               <tbody>
                 <SpecRow label="Size" token="core-size-control-md" value={`Medium · min-height ${spec.minHeight}`} standard="warn" note="40px < 44px touch-target guideline (fine for desktop)" />
                 <SpecRow label="Padding" token="core-space-2 / core-space-3" value={`${spec.paddingY} ${spec.paddingX}`} standard="pass" />
-                <SpecRow label="Icon gap" token="core-space-2" value={spec.gap} standard="pass" />
+                <SpecRow label="Icon gap" token="core-space-1" value={spec.gap} standard="pass" />
                 <SpecRow label="Font family" token="typography-font-family-sans" value={spec.fontFamily} standard="pass" />
                 <SpecRow label="Font size" token="typography-text14-semibold-size" value={spec.fontSize} standard="pass" />
                 <SpecRow label="Font weight" token="typography-text14-semibold-weight" value={spec.fontWeight} standard="warn" note="700 is Bold; “semibold” usually means 600" />

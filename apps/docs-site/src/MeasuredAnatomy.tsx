@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { TrueBand, NodeOutline, SizeTag, type Rect } from "./AnatomyPrimitives";
 import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
+import { ColorTable } from "./AnatomyColors";
 
 export const ANATOMY_GREEN = "#118D57";
 export const ANATOMY_ORANGE = "#C2410C";
@@ -390,7 +391,11 @@ export function LayerTable({ layers, root }: { layers: AnatomyLayer[]; root?: Re
             const range = document.createRange();
             range.selectNodeContents(node);
             const tr = range.getBoundingClientRect();
-            return { size: px(tr.width / scale, tr.height / scale), radius: "— (text)" };
+            // Report the line box (lines × line-height), not the glyph box.
+            const lh = parseFloat(getComputedStyle(host as Element).lineHeight);
+            const h = tr.height / scale;
+            const lineBox = Number.isFinite(lh) ? Math.max(1, Math.round(h / lh)) * lh : h;
+            return { size: px(tr.width / scale, lineBox), radius: "— (text)" };
           }
           const e = l.sel === "" ? r : r.querySelector(l.sel);
           if (!e) return none;
@@ -437,6 +442,9 @@ export function LayerTable({ layers, root }: { layers: AnatomyLayer[]; root?: Re
           ))}
         </tbody>
       </SpecTableCard>
+      <div style={{ marginTop: "var(--core-space-10)" }}>
+        <ColorTable layers={layers} root={root} />
+      </div>
     </div>
   );
 }

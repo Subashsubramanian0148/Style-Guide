@@ -22,8 +22,8 @@ const warn = (label: string, token: string, value: string, note: string): Anatom
 
 /* ---------- Separator ---------- */
 
-const titleStyle: React.CSSProperties = { fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-primary)" };
-const bodyStyle: React.CSSProperties = { fontSize: "var(--typography-body-md-size)", color: "var(--core-color-text-secondary)", marginTop: "var(--core-space-1)" };
+const titleStyle: React.CSSProperties = { fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", fontWeight: 600, color: "var(--core-color-text-primary)" };
+const bodyStyle: React.CSSProperties = { fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", color: "var(--core-color-text-secondary)", marginTop: "var(--core-space-1)" };
 
 /** Shared by the Separator demo and its anatomy. */
 export function SeparatorCard() {
@@ -32,7 +32,7 @@ export function SeparatorCard() {
       data-a="card"
       style={{
         background: "var(--core-color-surface-raised)",
-        border: "1px solid var(--core-color-border-default)",
+        boxShadow: "inset 0 0 0 1px var(--core-color-border-default)",
         borderRadius: 8,
         padding: "var(--core-space-4)",
         display: "flex",
@@ -81,7 +81,7 @@ export function SeparatorAnatomy() {
         pass("Card padding", "core-space-4", `${q.px("[data-a=card]", "padding-top")}px`),
         pass("Separator margin", "core-space-4", `${q.px(".cds-separator", "margin-top")}px / ${q.px(".cds-separator", "margin-bottom")}px`, "Spacing above and below lives on the separator; the card adds no extra gap"),
         pass("Title → body", "core-space-1", `${q.gap("[data-a=t1]", "[data-a=b1]", "y")}px`),
-        pass("Separator", "1px · border-default", `${q.el(".cds-separator").offsetHeight}px · ${q.css(".cds-separator", "background-color")}`),
+        pass("Separator", "1px line · border-default", `1px line, 0px layout height · ${q.css(".cds-separator", "box-shadow").match(/rgba?\([^)]*\)/)?.[0] ?? ""}`),
         pass("Title", "typography-body-md · 600", q.type("[data-a=t1]")),
         pass("Body", "typography-body-md", q.type("[data-a=b1]")),
       ]}
@@ -162,7 +162,7 @@ export function QuickLinksAnatomy() {
       specs={(q) => [
         pass("State label → card", "core-space-2", `${q.gap(".docs-state-label", ".cds-quicklink", "y")}px`),
         pass("Card padding", "core-space-4", `${q.px(".cds-quicklink", "padding-top")}px`),
-        pass("Icon → label", "core-space-3", `${q.px(".cds-quicklink", "column-gap")}px`),
+        pass("Icon → label", "core-space-1", `${q.px(".cds-quicklink", "column-gap")}px`),
         pass("Icon tile", "40px", q.size(".cds-quicklink-icon")),
         pass("Label", "typography-body-md", q.type(".cds-quicklink-label")),
         pass("Border radius", "core-radius", q.css(".cds-quicklink", "border-top-left-radius")),
@@ -210,8 +210,8 @@ export function BankFieldsAnatomy() {
           iconToEdge === 12
             ? pass("Icon → edge", "core-space-3", `${iconToEdge}px`)
             : warn("Icon → edge", "right: 12px (from outer edge)", `${iconToEdge}px`, "Figma: 12. The icon is offset from the outer edge, so the 1px border eats into it"),
-          textToIcon === 8
-            ? pass("Text → icon", "core-space-2", `${textToIcon}px`)
+          textToIcon === 4
+            ? pass("Text → icon", "core-space-1", `${textToIcon}px`)
             : warn("Text → icon", "padding-right: core-space-8", `${textToIcon}px`, "Figma: 8 (Frame 5 item spacing). Shared by every input with an icon — left as-is pending a decision"),
           pass("Icon", "fa-credit-card · sm", q.size(".cds-input-icon")),
           pass("Height", "core-size-control-md", `${q.el(".cds-input").offsetHeight}px`),
@@ -353,7 +353,7 @@ export function SkeletonCard() {
       data-a="card"
       style={{
         background: "var(--core-color-surface-raised)",
-        border: "1px solid var(--core-color-border-default)",
+        boxShadow: "inset 0 0 0 1px var(--core-color-border-default)",
         borderRadius: 8,
         padding: "var(--core-space-6)",
         width: 340,
@@ -366,14 +366,14 @@ export function SkeletonCard() {
       <div data-a="head" style={{ display: "flex", alignItems: "center", gap: "var(--core-space-3)" }}>
         <div data-a="avatar"><Skeleton width={44} height={44} radius="50%" /></div>
         <div data-a="meta" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)", flex: 1 }}>
-          <div data-a="m1"><Skeleton height={14} width="70%" /></div>
+          <div data-a="m1"><Skeleton height={16} width="70%" /></div>
           <div data-a="m2"><Skeleton height={12} width="45%" /></div>
         </div>
       </div>
       <div data-a="lines" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
-        <div data-a="l1"><Skeleton height={14} width="95%" /></div>
-        <div data-a="l2"><Skeleton height={14} width="85%" /></div>
-        <div data-a="l3"><Skeleton height={14} width="60%" /></div>
+        <div data-a="l1"><Skeleton height={16} width="95%" /></div>
+        <div data-a="l2"><Skeleton height={16} width="85%" /></div>
+        <div data-a="l3"><Skeleton height={16} width="60%" /></div>
       </div>
       <div data-a="cta"><Skeleton height={36} width="100%" radius="var(--core-radius-sm)" /></div>
     </div>
@@ -821,11 +821,12 @@ export function SlideoverAnatomy() {
         pass("Close button", "28 × 28 · padding 0 / 4", `${q.size(".cds-drawer-close")} · ${q.px(".cds-drawer-close", "padding-top")}px ${q.px(".cds-drawer-close", "padding-left")}px`),
         pass("Body padding", "core-space-4", `${q.px(".cds-drawer-body", "padding-top")}px`),
         pass("Field spacing", "core-space-4", `${q.gap("[data-a=f1]", "[data-a=f2]", "y")}px`),
-        pass("Header divider", "1px · border-default", `${q.px(".cds-drawer-header", "border-bottom-width")}px`),
+        pass("Field max width", "core-input-maxWidth", `${q.css("[data-a=f1] .cds-field", "max-width")} (field ${q.el("[data-a=f1] .cds-field").offsetWidth}px)`),
+        pass("Header divider", "1px inset stroke · border-default", q.css(".cds-drawer-header", "box-shadow").includes("inset") ? "1px (inside, adds no height)" : `${q.px(".cds-drawer-header", "border-bottom-width")}px`),
       ]}
       note="Shown without the scrim and slide-in animation; the live panel is full-height, slides in from the right and closes on Escape."
     >
-      <div className="cds-drawer cds-drawer--from-right cds-drawer--visible" role="presentation" style={{ position: "static", transform: "none", width: 520, height: "auto", minHeight: 0, maxWidth: "none", boxShadow: "none", border: "1px solid var(--core-color-border-default)" }}>
+      <div className="cds-drawer cds-drawer--from-right cds-drawer--visible" role="presentation" style={{ position: "static", transform: "none", width: 520, height: "auto", minHeight: 0, maxWidth: "none", boxShadow: "inset 0 0 0 1px var(--core-color-border-default)" }}>
         <div className="cds-drawer-header">
           <h2 className="cds-modal-title" style={{ margin: 0 }}>Add Allocation</h2>
           <div className="cds-drawer-header-actions">
@@ -886,13 +887,13 @@ export function SpinnerAnatomy() {
           alignItems: "center",
           gap: "var(--core-space-4)",
           padding: "var(--core-space-8)",
-          border: "1px solid var(--core-color-border-default)",
+          boxShadow: "inset 0 0 0 1px var(--core-color-border-default)",
           borderRadius: 12,
           background: "var(--core-color-surface-default)",
         }}
       >
         <Spinner />
-        <span data-a="text" style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Saving your changes…</span>
+        <span data-a="text" style={{ fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", color: "var(--core-color-text-secondary)" }}>Saving your changes…</span>
       </div>
     </MeasuredAnatomy>
   );
