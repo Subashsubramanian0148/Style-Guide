@@ -66,6 +66,14 @@
   --typography-body-xs-line-height: 1rem;
   --typography-body-xs-letter-spacing: 0;
   --typography-body-xs-weight: 400;
+  --typography-body-md-relaxed-size: 0.875rem;
+  --typography-body-md-relaxed-line-height: 1.5rem;
+  --typography-body-md-relaxed-letter-spacing: 0;
+  --typography-body-md-relaxed-weight: 400;
+  --typography-body-xs-relaxed-size: 0.75rem;
+  --typography-body-xs-relaxed-line-height: 1.25rem;
+  --typography-body-xs-relaxed-letter-spacing: 0;
+  --typography-body-xs-relaxed-weight: 400;
   --typography-label-size: 0.875rem;
   --typography-label-line-height: 1.25rem;
   --typography-label-letter-spacing: 0;

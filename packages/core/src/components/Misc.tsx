@@ -124,7 +124,7 @@ export function Alert({ tone = "info", title, children, onDismiss }: { tone?: Al
       <Icon name={ALERT_ICON[tone]} size="md" className="cds-alert__icon" />
       <div>
         <strong style={{ display: "block", marginBottom: children ? "var(--core-space-1)" : 0 }}>{title}</strong>
-        {children}
+        {children && <div className="cds-alert__body">{children}</div>}
       </div>
       {onDismiss && (
         <button type="button" className="cds-alert__dismiss" onClick={onDismiss} aria-label="Dismiss">

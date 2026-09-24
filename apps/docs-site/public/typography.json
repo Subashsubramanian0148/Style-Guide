@@ -219,6 +219,36 @@
         "px": 0
       },
       "fontWeight": 400
+    },
+    "md-relaxed": {
+      "fontSize": {
+        "px": 14,
+        "rem": "0.875rem"
+      },
+      "lineHeight": {
+        "px": 24,
+        "rem": "1.5rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 400
+    },
+    "xs-relaxed": {
+      "fontSize": {
+        "px": 12,
+        "rem": "0.75rem"
+      },
+      "lineHeight": {
+        "px": 20,
+        "rem": "1.25rem"
+      },
+      "letterSpacing": {
+        "rem": "0",
+        "px": 0
+      },
+      "fontWeight": 400
     }
   },
   "label": {

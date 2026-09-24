@@ -1013,7 +1013,7 @@
 
 .cds-hint {
   font-size: var(--typography-body-xs-size);
-  line-height: var(--typography-body-xs-line-height);
+  line-height: var(--typography-body-xs-relaxed-line-height);
   font-weight: var(--typography-body-xs-weight);
   letter-spacing: var(--typography-body-xs-letter-spacing);
   color: var(--theme-neutral-text-subtle-least);
@@ -1021,7 +1021,7 @@
 
 .cds-error-text {
   font-size: var(--typography-font-size-xs);
-  line-height: var(--typography-body-xs-line-height);
+  line-height: var(--typography-body-xs-relaxed-line-height);
   color: var(--theme-semantics-critical-text);
 }
 
@@ -1579,6 +1579,10 @@
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
   box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color);
+}
+
+.cds-alert__body {
+  line-height: var(--typography-body-md-relaxed-line-height);
 }
 
 .cds-alert__icon {
@@ -2328,7 +2332,7 @@
   margin-top: var(--core-space-1);
   font-family: var(--typography-font-family-sans);
   font-size: var(--typography-body-md-size);
-  line-height: var(--typography-body-md-line-height);
+  line-height: var(--typography-body-md-relaxed-line-height);
   letter-spacing: var(--typography-body-md-letter-spacing);
   font-weight: var(--typography-body-md-weight);
   color: var(--theme-neutral-text-subtle);
@@ -3347,7 +3351,7 @@
 .cds-drawer-body {
   padding: var(--core-space-4);
   font-size: var(--typography-body-md-size);
-  line-height: var(--typography-body-md-line-height);
+  line-height: var(--typography-body-md-relaxed-line-height);
   overflow-y: auto;
   flex: 1;
 }
@@ -3447,7 +3451,7 @@
 .cds-accordion-panel {
   padding: var(--core-space-4);
   font-size: var(--typography-body-md-size);
-  line-height: var(--typography-body-md-line-height);
+  line-height: var(--typography-body-md-relaxed-line-height);
   color: var(--theme-neutral-text-subtle);
   background: var(--core-color-surface-default);
 }
@@ -3584,7 +3588,7 @@
 .cds-collapsible-content {
   padding: var(--core-space-4);
   font-size: var(--typography-body-md-size);
-  line-height: var(--typography-body-md-line-height);
+  line-height: var(--typography-body-md-relaxed-line-height);
   color: var(--theme-neutral-text-subtle);
   border-top: 1px solid var(--theme-neutral-border-primary-default);
   background: var(--core-color-surface-default);
@@ -4426,7 +4430,7 @@
 
 .cds-empty-desc {
   font-size: var(--typography-body-md-size);
-  line-height: var(--typography-body-md-line-height);
+  line-height: var(--typography-body-md-relaxed-line-height);
   max-width: 320px;
 }
 
@@ -4461,7 +4465,7 @@
 
 .cds-item-desc {
   font-size: var(--typography-body-md-size);
-  line-height: var(--typography-body-md-line-height);
+  line-height: var(--typography-body-md-relaxed-line-height);
   color: var(--theme-neutral-text-subtle);
 }
 
@@ -4478,7 +4482,7 @@
   padding: var(--core-space-4) var(--core-space-4);
   min-width: 240px;
   font-size: var(--typography-body-md-size);
-  line-height: var(--typography-body-md-line-height);
+  line-height: var(--typography-body-md-relaxed-line-height);
   color: var(--theme-neutral-text-subtle);
 }
 
@@ -6041,7 +6045,7 @@
 
 .cds-questionnaire-desc {
   font-size: var(--typography-body-md-size);
-  line-height: var(--typography-body-md-line-height);
+  line-height: var(--typography-body-md-relaxed-line-height);
   color: var(--theme-neutral-text-subtle);
   margin: 0 0 var(--core-space-4);
 }
