@@ -9,6 +9,7 @@ import { AnatomySection } from "../AnatomySection";
 import { AlertAnatomy } from "../AlertAnatomy";
 import { ToastAnatomy } from "../ToastAnatomy";
 import { EmptyAnatomy } from "../SectionAnatomies";
+import { SpinnerAnatomy } from "../SectionAnatomies";
 
 export default function Feedback({ embedded = false }: { embedded?: boolean }) {
   const [dismissed, setDismissed] = React.useState<Set<string>>(new Set());
@@ -100,10 +101,15 @@ export default function Feedback({ embedded = false }: { embedded?: boolean }) {
       title: "Loading Spinner",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<SpinnerAnatomy />}
+            demo={<>
           <Preview showModeToggle>
             <Spinner />
             <span style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Saving your changes…</span>
           </Preview>
+        </>}
+          />
         </div>
       ),
     },

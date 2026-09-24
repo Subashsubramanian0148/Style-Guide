@@ -221,7 +221,6 @@ export function ButtonMatrix() {
       border: `1px solid ${tok.border ?? "transparent"}`,
       background: tok.bg,
       color: tok.text,
-      boxSizing: "border-box",
       transition: "all 140ms ease",
       userSelect: "none",
       textDecoration: isTertiaryLinkState ? "underline" : "none",

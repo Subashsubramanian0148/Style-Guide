@@ -3,12 +3,13 @@ import { MeasuredAnatomy, type AnatomySpecRow } from "./MeasuredAnatomy";
 import { StateLabel } from "./DocsSection";
 import { CardQuickLink } from "./QuickLinkCard";
 import { Separator, Skeleton } from "../../../packages/core/src/components/Disclosure";
-import { Tabs, AppSidebar } from "../../../packages/core/src/components/Navigation";
-import { Progress } from "../../../packages/core/src/components/DataDisplay";
-import { Empty } from "../../../packages/core/src/components/Primitives";
+import { Tabs, AppSidebar, Pagination } from "../../../packages/core/src/components/Navigation";
+import { Progress, Table } from "../../../packages/core/src/components/DataDisplay";
+import { Empty, Slider } from "../../../packages/core/src/components/Primitives";
 import { Button } from "../../../packages/core/src/components/Button";
 import { Field, Input, InputWithIcon } from "../../../packages/core/src/components/Field";
 import { Select } from "../../../packages/core/src/components/FormControls";
+import { Spinner } from "../../../packages/core/src/components/Overlays";
 import { InputGroup } from "../../../packages/core/src/components/ToggleInputs";
 import { Icon } from "../../../packages/core/src/components/Primitives";
 
@@ -568,6 +569,304 @@ export function EmptyAnatomy() {
         description="Once you make your first contribution, it will show up here."
         action={<Button variant="primary" size="sm">Learn how contributions work</Button>}
       />
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Slider ---------- */
+
+export function SliderAnatomy() {
+  const input = ".cds-slider > input";
+  return (
+    <MeasuredAnatomy
+      heading="Structure — label, control & value"
+      width={240}
+      marks={[
+        { kind: "gap", a: ".cds-label", b: ".cds-slider", axis: "y" },
+        { kind: "gap", a: input, b: ".cds-slider-value", axis: "x", span: ".cds-slider" },
+        { kind: "outline", sel: ".cds-label" },
+        { kind: "outline", sel: input },
+        { kind: "outline", sel: ".cds-slider-value" },
+      ]}
+      layers={[
+        { node: "Slider (field)", cls: ".cds-field", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 8" },
+        { node: "Label", cls: ".cds-label", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Container", cls: ".cds-slider", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 12" },
+        { node: "Input (track + thumb)", cls: ".cds-slider > input[type=range]", direction: "Vertical", alignment: "Middle center", resizing: "Fill × Fixed 32", spacing: "—" },
+        { node: "Container (value)", cls: ".cds-slider-value", direction: "Vertical", alignment: "Top right", resizing: "Hug × Hug", spacing: "—" },
+      ]}
+      specs={(q) => [
+        pass("Label → control", "core-space-2", `${q.px(".cds-field", "row-gap")}px`),
+        pass("Control → value", "core-space-3", `${q.px(".cds-slider", "column-gap")}px`),
+        pass(
+          "Control height",
+          "core-size-control-sm",
+          `${q.el(input).offsetHeight}px`,
+          "Figma: track frame padding 14 / 14 and value padding 12.05 — both off the 4-point grid; code uses a fixed 32px control with the track centered instead",
+        ),
+        pass("Value", "typography-body-md · bold", q.type(".cds-slider-value")),
+        pass("Label", "typography-label", q.type(".cds-label")),
+      ]}
+    >
+      <Field label="Contribution rate">{() => <Slider value={12} min={0} max={25} onChange={() => {}} formatValue={(v) => `${v}%`} />}</Field>
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Dialog (modal) ---------- */
+
+export function DialogAnatomy() {
+  return (
+    <MeasuredAnatomy
+      heading="Structure — dialog padding, text stack & actions"
+      width={480}
+      maxScale={1.5}
+      marks={[
+        { kind: "padding", sel: ".cds-modal" },
+        { kind: "gap", a: ".cds-modal-title", b: ".cds-modal-body", axis: "y" },
+        { kind: "gap", a: ".cds-modal-body", b: ".cds-modal-actions", axis: "y" },
+        { kind: "gap", a: ".cds-modal-actions .cds-btn:nth-child(1)", b: ".cds-modal-actions .cds-btn:nth-child(2)", axis: "x" },
+        { kind: "padding", sel: ".cds-modal-actions .cds-btn:nth-child(1)" },
+        { kind: "padding", sel: ".cds-modal-actions .cds-btn:nth-child(2)" },
+        { kind: "outline", sel: ".cds-modal-title" },
+        { kind: "outline", sel: ".cds-modal-body" },
+      ]}
+      layers={[
+        { node: "Dialog", cls: ".cds-modal", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Hug", spacing: "Gap 16 · Padding 16" },
+        { node: "Frame 10 (text)", cls: "title + body", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 4" },
+        { node: "Heading 2", cls: ".cds-modal-title", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Container (body)", cls: ".cds-modal-body", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Container (actions)", cls: ".cds-modal-actions", direction: "Horizontal", alignment: "Top right", resizing: "Fill × Hug", spacing: "Gap 8" },
+        { node: "Button", cls: ".cds-btn--sm", direction: "Horizontal", alignment: "Middle center", resizing: "Hug × Hug", spacing: "Gap 8 · Padding 8 / 12" },
+      ]}
+      specs={(q) => {
+        const titleBody = q.gap(".cds-modal-title", ".cds-modal-body", "y");
+        return [
+          pass("Dialog padding", "core-space-4", `${q.px(".cds-modal", "padding-top")}px`),
+          titleBody === 4
+            ? pass("Title → body", "core-space-1", `${titleBody}px`)
+            : warn("Title → body", "margin-bottom core-space-2", `${titleBody}px`, "Figma: 4 (Frame 10 item spacing). Core .cds-modal-title has an 8px bottom margin — left as-is pending a decision"),
+          pass("Body → actions", "core-space-4", `${q.gap(".cds-modal-body", ".cds-modal-actions", "y")}px`),
+          pass("Button spacing", "core-space-2", `${q.px(".cds-modal-actions", "column-gap")}px`),
+          pass("Button padding", "core-space-2 / core-space-3", `${q.px(".cds-modal-actions .cds-btn", "padding-top")}px ${q.px(".cds-modal-actions .cds-btn", "padding-left")}px`),
+          pass("Title", "typography-heading", q.type(".cds-modal-title")),
+          pass("Body", "typography-body-md", q.type(".cds-modal-body")),
+          pass("Width", "480px", `${q.el(".cds-modal").offsetWidth}px`),
+        ];
+      }}
+      note="Shown without the scrim; the live dialog is centered over a full-screen overlay and closes on Escape."
+    >
+      <div className="cds-modal" role="presentation" style={{ position: "static", margin: 0, maxWidth: "none" }}>
+        <h2 className="cds-modal-title">Update beneficiary</h2>
+        <div className="cds-modal-body">This will replace your current primary beneficiary on file.</div>
+        <div className="cds-modal-actions">
+          <Button variant="secondary" size="sm">Cancel</Button>
+          <Button size="sm">Save</Button>
+        </div>
+      </div>
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Table ---------- */
+
+const tableRows = [
+  { id: 1, date: "Mar 14, 2026", type: "Contribution", amount: "$450.00" },
+  { id: 2, date: "Feb 28, 2026", type: "Employer match", amount: "$225.00" },
+  { id: 3, date: "Feb 14, 2026", type: "Contribution", amount: "$450.00" },
+];
+
+export function TableAnatomy() {
+  return (
+    <MeasuredAnatomy
+      heading="Structure — header & body cell padding"
+      width={480}
+      maxScale={1.5}
+      marks={[
+        { kind: "padding", sel: "thead th:nth-child(1)" },
+        { kind: "padding", sel: "tbody tr:nth-child(1) td:nth-child(3)" },
+        { kind: "outline", sel: "thead tr" },
+        { kind: "outline", sel: "tbody tr:nth-child(1)" },
+      ]}
+      layers={[
+        { node: "Table", cls: ".cds-table-wrap > .cds-table", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Header row", cls: "thead tr", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Header cell", cls: "th", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Padding 12 / 16" },
+        { node: "Body row", cls: "tbody tr", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Body cell", cls: "td", direction: "Horizontal", alignment: "Middle left (numbers right)", resizing: "Fill × Hug", spacing: "Padding 12 / 16" },
+      ]}
+      specs={(q) => [
+        pass("Header cell padding", "core-space-3 / core-space-4", `${q.px("thead th", "padding-top")}px ${q.px("thead th", "padding-left")}px`),
+        pass("Body cell padding", "core-space-3 / core-space-4", `${q.px("tbody td", "padding-top")}px ${q.px("tbody td", "padding-left")}px`),
+        pass("Row height", "comfortable density", `${q.el("tbody tr").offsetHeight}px`),
+        pass("Header text", "typography-body-md · semibold", q.type("thead th")),
+        pass("Body text", "typography-body-md", q.type("tbody td")),
+      ]}
+      note="Every cell in a row shares the padding marked here; zebra striping and hover only change the row background."
+    >
+      <Table
+        columns={[
+          { key: "date", header: "Date" },
+          { key: "type", header: "Type" },
+          { key: "amount", header: "Amount", align: "right" },
+        ]}
+        rows={tableRows}
+      />
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Pagination ---------- */
+
+export function PaginationAnatomy() {
+  const btn = (n: number) => `.cds-page-btn:nth-child(${n})`;
+  const gaps = Array.from({ length: 9 }, (_, i) => ({ kind: "gap" as const, a: btn(i + 1), b: btn(i + 2), axis: "x" as const }));
+  return (
+    <MeasuredAnatomy
+      heading="Structure — item spacing & button padding"
+      width={360}
+      maxScale={1.5}
+      marks={[
+        ...gaps,
+        { kind: "padding", sel: btn(1), edges: ["left", "right"] },
+        { kind: "padding", sel: btn(4), edges: ["left", "right"] },
+        { kind: "padding", sel: btn(10), edges: ["left", "right"] },
+        { kind: "outline", sel: ".cds-pagination" },
+      ]}
+      layers={[
+        { node: "Navigation - Pagination", cls: ".cds-pagination", direction: "Horizontal", alignment: "Middle left", resizing: "Hug × Hug", spacing: "Gap 4" },
+        { node: "Button - Previous / Next page", cls: ".cds-page-btn (‹ ›)", direction: "Vertical", alignment: "Middle center", resizing: "Hug × Fixed 32", spacing: "Padding left/right 8" },
+        { node: "Button (page)", cls: ".cds-page-btn", direction: "Vertical", alignment: "Middle center", resizing: "Hug × Fixed 32", spacing: "Padding 8" },
+      ]}
+      specs={(q) => [
+        pass("Item spacing", "core-space-1", `${q.px(".cds-pagination", "column-gap")}px`),
+        pass("Button padding left/right", "core-space-2", `${q.px(".cds-page-btn", "padding-left")}px`),
+        pass(
+          "Button size",
+          "core-size-control-sm",
+          `${q.el(btn(2)).offsetWidth} × ${q.el(btn(2)).offsetHeight}px`,
+          "Figma: padding 8 on all sides. Code fixes the height at 32px and centers the label, which gives the same result without vertical padding",
+        ),
+        pass("Label", "typography-body-md · medium", q.type(btn(2))),
+        pass("Border radius", "core-radius-sm", q.css(".cds-page-btn", "border-top-left-radius")),
+      ]}
+      note="Every page button shares the padding marked here; only the current page changes background and text color."
+    >
+      <Pagination page={3} pageCount={8} onChange={() => {}} />
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Slideover (drawer) ---------- */
+
+export function SlideoverAnatomy() {
+  const act = (n: number) => `.cds-drawer-header-actions > :nth-child(${n})`;
+  return (
+    <MeasuredAnatomy
+      heading="Structure — header, actions & form body"
+      width={520}
+      maxScale={1.25}
+      marks={[
+        { kind: "padding", sel: ".cds-drawer-header" },
+        { kind: "gap", a: ".cds-modal-title", b: ".cds-drawer-header-actions", axis: "x", label: "Auto", span: ".cds-drawer-header-actions" },
+        { kind: "gap", a: act(1), b: act(2), axis: "x" },
+        { kind: "gap", a: act(2), b: act(3), axis: "x" },
+        { kind: "padding", sel: act(2) },
+        { kind: "padding", sel: ".cds-drawer-body" },
+        { kind: "gap", a: "[data-a=f1]", b: "[data-a=f2]", axis: "y" },
+        { kind: "gap", a: "[data-a=f2]", b: "[data-a=f3]", axis: "y" },
+        { kind: "outline", sel: ".cds-modal-title" },
+        { kind: "outline", sel: ".cds-drawer-header-actions" },
+      ]}
+      layers={[
+        { node: "Slideover", cls: ".cds-drawer", direction: "Vertical", alignment: "Top left", resizing: "Fixed 520 × Fill", spacing: "—" },
+        { node: "Header", cls: ".cds-drawer-header", direction: "Horizontal", alignment: "Middle, space between", resizing: "Fill × Hug", spacing: "Gap 16 · Padding 16" },
+        { node: "Heading", cls: ".cds-modal-title", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug", spacing: "—" },
+        { node: "Actions", cls: ".cds-drawer-header-actions", direction: "Horizontal", alignment: "Middle right", resizing: "Hug × Hug", spacing: "Gap 8" },
+        { node: "Button", cls: ".cds-btn--sm", direction: "Horizontal", alignment: "Middle center", resizing: "Hug × Hug", spacing: "Padding 8 / 12" },
+        { node: "Body", cls: ".cds-drawer-body", direction: "Vertical", alignment: "Top left", resizing: "Fill × Fill", spacing: "Padding 16" },
+        { node: "Form fields", cls: ".cds-field stack", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "Gap 16" },
+      ]}
+      specs={(q) => [
+        pass("Header padding", "core-space-4", `${q.px(".cds-drawer-header", "padding-top")}px`),
+        pass("Title ↔ actions", "space-between (min core-space-4)", `Auto · min ${q.px(".cds-drawer-header", "column-gap")}px`),
+        pass("Action spacing", "core-space-2", `${q.px(".cds-drawer-header-actions", "column-gap")}px`),
+        pass("Button padding", "core-space-2 / core-space-3", `${q.px(act(1), "padding-top")}px ${q.px(act(1), "padding-left")}px`),
+        pass("Close button", "28 × 28 · padding 0 / 4", `${q.size(".cds-drawer-close")} · ${q.px(".cds-drawer-close", "padding-top")}px ${q.px(".cds-drawer-close", "padding-left")}px`),
+        pass("Body padding", "core-space-4", `${q.px(".cds-drawer-body", "padding-top")}px`),
+        pass("Field spacing", "core-space-4", `${q.gap("[data-a=f1]", "[data-a=f2]", "y")}px`),
+        pass("Header divider", "1px · border-default", `${q.px(".cds-drawer-header", "border-bottom-width")}px`),
+      ]}
+      note="Shown without the scrim and slide-in animation; the live panel is full-height, slides in from the right and closes on Escape."
+    >
+      <div className="cds-drawer cds-drawer--from-right cds-drawer--visible" role="presentation" style={{ position: "static", transform: "none", width: 520, height: "auto", minHeight: 0, maxWidth: "none", boxShadow: "none", border: "1px solid var(--core-color-border-default)" }}>
+        <div className="cds-drawer-header">
+          <h2 className="cds-modal-title" style={{ margin: 0 }}>Add Allocation</h2>
+          <div className="cds-drawer-header-actions">
+            <Button variant="secondary" size="sm">Cancel</Button>
+            <Button size="sm">Save</Button>
+            <button type="button" className="cds-drawer-close" aria-label="Close" tabIndex={-1}>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 1L11 11M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+            </button>
+          </div>
+        </div>
+        <div className="cds-drawer-body">
+          <div className="cds-drawer-main">
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
+              <div data-a="f1"><Field label="Recipient name">{(p) => <Input {...p} placeholder="e.g. Taylor Hale" />}</Field></div>
+              <div data-a="f2"><Field label="Distribution mode">{(p) => <Select {...p} options={[{ value: "lump", label: "Lump sum" }]} placeholder="Select" />}</Field></div>
+              <div data-a="f3"><Field label="Withdrawal amount">{(p) => <Input {...p} placeholder="$0.00" />}</Field></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </MeasuredAnatomy>
+  );
+}
+
+/* ---------- Loading spinner ---------- */
+
+export function SpinnerAnatomy() {
+  return (
+    <MeasuredAnatomy
+      heading="Structure — container padding & spinner spacing"
+      width={420}
+      maxScale={1.5}
+      marks={[
+        { kind: "padding", sel: "[data-a=box]" },
+        { kind: "gap", a: ".cds-spinner", b: "[data-a=text]", axis: "x", span: "[data-a=text]" },
+        { kind: "outline", sel: "[data-a=text]" },
+      ]}
+      layers={[
+        { node: "Container (section)", cls: ".docs-section__content", direction: "Vertical", alignment: "Top left", resizing: "Fixed × Fixed", spacing: "Gap 20" },
+        { node: "Container (panel)", cls: ".site-panel", direction: "Vertical", alignment: "Top left", resizing: "Fill × Hug", spacing: "—" },
+        { node: "Container (row)", cls: ".preview-surface", direction: "Horizontal", alignment: "Middle left", resizing: "Fill × Hug", spacing: "Gap 16 · Padding 32" },
+        { node: "Spinner", cls: ".cds-spinner", direction: "—", alignment: "—", resizing: "Fixed (icon-md)", spacing: "—" },
+        { node: "Text", cls: "span", direction: "Vertical", alignment: "Top left", resizing: "Hug × Hug", spacing: "—" },
+      ]}
+      specs={(q) => [
+        pass("Container padding", "core-space-8", `${q.px("[data-a=box]", "padding-top")}px`),
+        pass("Spinner → text", "core-space-4", `${q.px("[data-a=box]", "column-gap")}px`),
+        pass("Spinner", "core-size-icon-md · 2px ring", q.size(".cds-spinner")),
+        pass("Text", "typography-body-md", q.type("[data-a=text]")),
+      ]}
+      note="The spinner itself has no padding; spacing comes from the container around it. Section-level spacing (20) sits between the panel and neighbouring content."
+    >
+      <div
+        data-a="box"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "var(--core-space-4)",
+          padding: "var(--core-space-8)",
+          border: "1px solid var(--core-color-border-default)",
+          borderRadius: 12,
+          background: "var(--core-color-surface-default)",
+        }}
+      >
+        <Spinner />
+        <span data-a="text" style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Saving your changes…</span>
+      </div>
     </MeasuredAnatomy>
   );
 }

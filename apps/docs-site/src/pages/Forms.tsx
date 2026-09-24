@@ -12,6 +12,7 @@ import { TextareaAnatomy } from "../TextareaAnatomy";
 import { SwitchAnatomy, SWITCH_CELL_STYLE } from "../SwitchAnatomy";
 import { SelectAnatomy, BankFieldsAnatomy, InputGroupAnatomy } from "../SectionAnatomies";
 import { InputAnatomy } from "../SectionAnatomies";
+import { SliderAnatomy } from "../SectionAnatomies";
 import { Field, Input, InputWithIcon } from "../../../../packages/core/src/components/Field";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 import { Switch } from "../../../../packages/core/src/components/Misc";
@@ -855,6 +856,9 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
       title: "Slider",
       content: (
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<SliderAnatomy />}
+            demo={<>
           <Preview showModeToggle>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(180px, 1fr))", gap: 24, width: "100%", padding: "8px 0" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 20, alignItems: "stretch", padding: "8px 12px" }}>
@@ -883,6 +887,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               </div>
             </div>
           </Preview>
+        </>}
+          />
         </div>
       )
     },

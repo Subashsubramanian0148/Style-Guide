@@ -8,6 +8,8 @@ import { Select } from "../../../../packages/core/src/components/FormControls";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 import { AnatomySection } from "../AnatomySection";
 import { TooltipAnatomy } from "../TooltipAnatomy";
+import { DialogAnatomy } from "../SectionAnatomies";
+import { SlideoverAnatomy } from "../SectionAnatomies";
 
 export default function OverlaysPage({ embedded = false }: { embedded?: boolean }) {
   const [modal, setModal] = useState(false);
@@ -17,9 +19,14 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
     <DocsSectionList flat={embedded}>
       <DocsSection anchorId="modal" title="Modal">
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<DialogAnatomy />}
+            demo={
           <Preview showModeToggle>
             <Button onClick={() => setModal(true)}>Open modal</Button>
           </Preview>
+            }
+          />
         </div>
         <Modal open={modal} onClose={() => setModal(false)} title="Update beneficiary" actions={<><Button variant="secondary" onClick={() => setModal(false)}>Cancel</Button><Button onClick={() => setModal(false)}>Save</Button></>}>
           This will replace your current primary beneficiary on file.
@@ -28,9 +35,14 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
 
       <DocsSection anchorId="slideover" title="Slideover (form panel)">
         <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<SlideoverAnatomy />}
+            demo={
           <Preview showModeToggle>
             <Button onClick={() => setSlideover(true)}>Open "Add Allocation"</Button>
           </Preview>
+            }
+          />
         </div>
         <Drawer
           open={slideover}

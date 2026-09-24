@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Preview } from "../Preview";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { AnatomySection } from "../AnatomySection";
-import { TabsAnatomy, SidebarAnatomy } from "../SectionAnatomies";
+import { TabsAnatomy, SidebarAnatomy, PaginationAnatomy } from "../SectionAnatomies";
 import { Tabs, Pagination, AppSidebar, Stepper, defaultStepStatus, type SidebarItem, type StepState, type StepDef } from "../../../../packages/core/src/components/Navigation";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 
@@ -219,11 +219,16 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
   const sections = (
     <DocsSectionList flat={embedded}>
       <DocsSection anchorId="pagination" title="Pagination">
+        <AnatomySection
+          anatomy={<PaginationAnatomy />}
+          demo={<>
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
             <Pagination page={page} pageCount={8} onChange={setPage} />
           </Preview>
         </div>
+      </>}
+        />
       </DocsSection>
 
       <DocsSection anchorId="sidebar" title="Sidebar">

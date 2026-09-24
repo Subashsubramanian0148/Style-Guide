@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { CardQuickLink } from "../QuickLinkCard";
 import { QuickLinksAnatomy, QUICKLINK_CELL_STYLE } from "../SectionAnatomies";
 import { ProgressAnatomy } from "../SectionAnatomies";
+import { TableAnatomy } from "../SectionAnatomies";
 import { Preview, CodeBlock } from "../Preview";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { Anatomy, AnatomyLegend } from "../Anatomy";
@@ -245,6 +246,9 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
               Four table patterns for the most common data shapes — transaction history, investment options, benchmark comparisons, and actionable items.
             </div>
             <div className="site-panel site-panel--flush site-panel--demo">
+          <AnatomySection
+            anatomy={<TableAnatomy />}
+            demo={<>
               <Preview showModeToggle>
                 <div style={{ display: "flex", flexDirection: "column", gap: 32, width: "100%" }}>
                   <div>
@@ -373,7 +377,9 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
                   </div>
                 </div>
               </Preview>
-            </div>
+            </>}
+          />
+        </div>
           </div>
 
           {/* ---------- Column Content Types legend ---------- */}
