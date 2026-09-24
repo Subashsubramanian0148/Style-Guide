@@ -133,11 +133,19 @@ export function ColorTable({ layers, root }: { layers: ColorLayer[]; root?: Reac
           const value = cs.getPropertyValue(p.key);
           if (p.key === "color" && !hasOwnText(el) && !(l.sel ?? "").startsWith("text:") && el.tagName !== "I" && el.tagName !== "svg") continue;
           if (p.key !== "color" && isTransparent(value)) continue;
-          if (p.key === "border-top-color" && parseFloat(cs.borderTopWidth) === 0) continue;
+          let shown = value;
+          let lookup = p;
+          if (p.key === "border-top-color" && parseFloat(cs.borderTopWidth) === 0) {
+            // Inside strokes are drawn with an inset box-shadow (no layout size).
+            const inset = cs.boxShadow.includes("inset") ? cs.boxShadow.match(/rgba?\([^)]*\)/)?.[0] : undefined;
+            if (!inset || isTransparent(inset)) continue;
+            shown = inset;
+            lookup = { ...p, shorthands: ["--cds-stroke-color", "box-shadow"] };
+          }
           const key = `${l.node}|${p.key}`;
           if (seen.has(key)) continue;
           seen.add(key);
-          out.push({ label: `${l.node} — ${p.name}`, token: tokenFor(el, p, value), value });
+          out.push({ label: `${l.node} — ${p.name}`, token: tokenFor(el, lookup, shown), value: shown });
         }
       }
       setRows(out);

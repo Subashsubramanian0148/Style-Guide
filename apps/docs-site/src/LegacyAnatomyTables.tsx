@@ -25,9 +25,9 @@ function trailingIconSpecs(q: AnatomyQuery): AnatomySpecRow[] {
     iconToEdge === 12
       ? pass("Icon → edge", "core-space-3", `${iconToEdge}px`)
       : warn("Icon → edge", "right: 12px (from outer edge)", `${iconToEdge}px`, "Figma: 12. The icon is offset from the outer edge, so the 1px border eats into it"),
-    textToIcon === 8
-      ? pass("Text → icon", "core-space-2", `${textToIcon}px`)
-      : warn("Text → icon", "padding-right: core-space-8", `${textToIcon}px`, "Figma: 8. Shared by every input with an icon — left as-is pending a decision"),
+    textToIcon === 4
+      ? pass("Text → icon", "core-space-1", `${textToIcon}px`)
+      : warn("Text → icon", "padding-right: core-space-8", `${textToIcon}px`, "Should be 4 (icon gap)"),
     pass("Icon", "size sm", q.size(".cds-input-icon")),
     pass("Height", "core-size-control-md", `${q.el(".cds-input").offsetHeight}px`),
   ];

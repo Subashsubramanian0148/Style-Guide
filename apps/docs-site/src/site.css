@@ -538,7 +538,7 @@ table.spec-table code { font-family: var(--site-mono); font-size: 12px; color: v
 
 /* Portal logo lockup: swap to the dark-surface variant inside dark previews. */
 .docs-brand-logo { display: inline-flex; }
-.docs-brand-logo img { display: block; height: 34px; width: auto; }
+.docs-brand-logo img { display: block; height: var(--core-space-8); width: auto; }
 .docs-brand-logo--dark { display: none !important; }
 [data-mode="dark"] .docs-brand-logo--light { display: none !important; }
 [data-mode="dark"] .docs-brand-logo--dark { display: block !important; }

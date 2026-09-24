@@ -67,7 +67,7 @@ export function TooltipAnatomy() {
           <div style={{ maxWidth: "100%", overflowX: "auto" }}>
           <AnatomyFrame>
             <div ref={boxRef} style={{ position: "relative", width: 200 * SCALE, height: 32 * SCALE, marginTop: 72, marginLeft: 48, marginRight: 48, marginBottom: 84 }}>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: 14, transform: `scale(${SCALE})`, transformOrigin: "0 0" }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)", fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", transform: `scale(${SCALE})`, transformOrigin: "0 0" }}>
                 <span ref={textRef} style={{ opacity: 0.55 }}>Federal tax withholding</span>
                 <Tooltip label="20% is the IRS-mandated minimum for most retirement plan distributions.">
                   <IconButton variant="tertiary" size="sm" shape="circle" aria-label="What is federal tax withholding?">

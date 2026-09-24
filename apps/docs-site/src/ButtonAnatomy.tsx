@@ -38,7 +38,7 @@ const GREEN = "#118D57";
  *   padding      core-space-2 core-space-3 (8px / 12px)
  *   min-height   core-size-control-md (40px)
  *   gap          core-space-2 (8px)
- *   font         typography-text14-semibold (14px / 700 / 21px)
+ *   font         typography-text14-semibold (14px / 700 / 20px)
  *   background   brand-background-primary-strong
  *   color        brand-text-primary-oncolor
  *   border       1px solid brand-border-primary-default
