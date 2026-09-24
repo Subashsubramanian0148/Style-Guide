@@ -102,7 +102,7 @@ export function ButtonAnatomy() {
               <tbody>
                 <SpecRow label="Size" token="core-size-control-md" value={`Medium · min-height ${spec.minHeight}`} standard="warn" note="40px < 44px touch-target guideline (fine for desktop)" />
                 <SpecRow label="Padding" token="core-space-2 / core-space-3" value={`${spec.paddingY} ${spec.paddingX}`} standard="pass" />
-                <SpecRow label="Icon gap" token="core-space-2" value={spec.gap} standard="pass" />
+                <SpecRow label="Icon gap" token="core-space-1" value={spec.gap} standard="pass" />
                 <SpecRow label="Font family" token="typography-font-family-sans" value={spec.fontFamily} standard="pass" />
                 <SpecRow label="Font size" token="typography-text14-semibold-size" value={spec.fontSize} standard="pass" />
                 <SpecRow label="Font weight" token="typography-text14-semibold-weight" value={spec.fontWeight} standard="warn" note="700 is Bold; “semibold” usually means 600" />

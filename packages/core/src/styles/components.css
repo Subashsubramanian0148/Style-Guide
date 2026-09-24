@@ -105,7 +105,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   padding: var(--core-space-2) var(--core-space-3);
   min-height: var(--core-size-control-md);
   font-weight: var(--typography-text14-semibold-weight);
@@ -1168,7 +1168,7 @@
 .cds-quicklink {
   display: inline-flex;
   align-items: center;
-  gap: var(--core-space-3);
+  gap: var(--core-space-1);
   padding: var(--core-space-4) var(--core-space-4);
   border: 1px solid var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
@@ -1244,7 +1244,7 @@
 .cds-badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   border-radius: var(--core-badge-radius);
   font-family: var(--typography-font-family-sans);
   font-weight: var(--typography-font-weight-medium);
@@ -1941,7 +1941,7 @@
 .cds-select-option {
   display: flex;
   align-items: center;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   padding: var(--core-space-2) var(--core-space-3);
   border-radius: var(--core-radius-sm);
   font-size: var(--typography-body-lg-size);
@@ -2575,7 +2575,7 @@
 .cds-th-sortable--disabled {
   display: inline-flex;
   align-items: center;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   color: var(--theme-semantics-disabled-text);
   cursor: not-allowed;
 }
@@ -2629,7 +2629,7 @@
 .cds-table-view-badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   font-family: var(--typography-font-family-sans);
   font-size: var(--typography-body-xs-size);
   line-height: var(--typography-body-xs-line-height);
@@ -3264,6 +3264,12 @@
   }
 }
 
+/* Form fields in a slideover cap at the input max width instead of
+   stretching across a wide (520px+) panel. */
+.cds-drawer-body .cds-field {
+  max-width: var(--core-input-maxWidth);
+}
+
 .cds-drawer-header {
   display: flex;
   align-items: center;
@@ -3663,7 +3669,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   padding: var(--core-space-2) var(--core-space-3);
   font-size: var(--typography-button-md-size);
   line-height: var(--typography-button-md-line-height);
@@ -3771,7 +3777,7 @@
 .cds-toggle-group__item {
   display: inline-flex;
   align-items: center;
-  gap: var(--core-space-3);
+  gap: var(--core-space-1);
   padding: var(--core-space-3) var(--core-space-4);
   border: none;
   border-radius: var(--core-radius-sm);
@@ -3787,7 +3793,7 @@
 }
 
 .cds-toggle-group__item--sm {
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   padding: var(--core-space-2) var(--core-space-3);
   font-size: var(--typography-button-sm-size);
   line-height: var(--typography-button-sm-line-height);
@@ -3796,7 +3802,7 @@
 }
 
 .cds-toggle-group__item--lg {
-  gap: var(--core-space-3);
+  gap: var(--core-space-1);
   padding: var(--core-space-3) var(--core-space-4);
   font-size: var(--typography-button-lg-size);
   line-height: var(--typography-button-lg-line-height);
@@ -4170,7 +4176,7 @@
 .cds-menu-item {
   display: flex;
   align-items: center;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   width: 100%;
   padding: var(--core-space-2) var(--core-space-3);
   border-radius: var(--core-radius-sm);
@@ -5616,7 +5622,7 @@
 .cds-account-util {
   display: inline-flex;
   align-items: center;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   padding: var(--core-space-1) var(--core-space-2);
   border: none;
   border-radius: var(--core-radius-sm);
@@ -5653,7 +5659,7 @@
 .cds-account-option {
   display: flex;
   align-items: center;
-  gap: var(--core-space-2);
+  gap: var(--core-space-1);
   width: 100%;
   padding: var(--core-space-2);
   border: none;

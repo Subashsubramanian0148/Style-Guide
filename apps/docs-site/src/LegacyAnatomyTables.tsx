@@ -131,7 +131,7 @@ export function BadgeAnatomyFull() {
       ]}
       specs={(q) => [
         pass("Padding", "core-space-1 / core-space-3", `${q.px(".cds-badge", "padding-top")}px ${q.px(".cds-badge", "padding-left")}px`),
-        pass("Icon → label", "core-space-2", `${q.px(".cds-badge", "column-gap")}px`),
+        pass("Icon → label", "core-space-1", `${q.px(".cds-badge", "column-gap")}px`),
         pass("Label", "typography-body-md · medium", q.type(".cds-badge")),
         pass("Radius", "core-radius-full", q.css(".cds-badge", "border-top-left-radius")),
       ]}

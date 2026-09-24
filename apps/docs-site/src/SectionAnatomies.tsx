@@ -162,7 +162,7 @@ export function QuickLinksAnatomy() {
       specs={(q) => [
         pass("State label → card", "core-space-2", `${q.gap(".docs-state-label", ".cds-quicklink", "y")}px`),
         pass("Card padding", "core-space-4", `${q.px(".cds-quicklink", "padding-top")}px`),
-        pass("Icon → label", "core-space-3", `${q.px(".cds-quicklink", "column-gap")}px`),
+        pass("Icon → label", "core-space-1", `${q.px(".cds-quicklink", "column-gap")}px`),
         pass("Icon tile", "40px", q.size(".cds-quicklink-icon")),
         pass("Label", "typography-body-md", q.type(".cds-quicklink-label")),
         pass("Border radius", "core-radius", q.css(".cds-quicklink", "border-top-left-radius")),
@@ -821,6 +821,7 @@ export function SlideoverAnatomy() {
         pass("Close button", "28 × 28 · padding 0 / 4", `${q.size(".cds-drawer-close")} · ${q.px(".cds-drawer-close", "padding-top")}px ${q.px(".cds-drawer-close", "padding-left")}px`),
         pass("Body padding", "core-space-4", `${q.px(".cds-drawer-body", "padding-top")}px`),
         pass("Field spacing", "core-space-4", `${q.gap("[data-a=f1]", "[data-a=f2]", "y")}px`),
+        pass("Field max width", "core-input-maxWidth", `${q.css("[data-a=f1] .cds-field", "max-width")} (field ${q.el("[data-a=f1] .cds-field").offsetWidth}px)`),
         pass("Header divider", "1px · border-default", `${q.px(".cds-drawer-header", "border-bottom-width")}px`),
       ]}
       note="Shown without the scrim and slide-in animation; the live panel is full-height, slides in from the right and closes on Escape."

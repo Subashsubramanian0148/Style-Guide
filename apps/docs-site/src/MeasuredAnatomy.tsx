@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { TrueBand, NodeOutline, SizeTag, type Rect } from "./AnatomyPrimitives";
 import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, SpecNote } from "./AnatomySpec";
+import { ColorTable } from "./AnatomyColors";
 
 export const ANATOMY_GREEN = "#118D57";
 export const ANATOMY_ORANGE = "#C2410C";
@@ -437,6 +438,9 @@ export function LayerTable({ layers, root }: { layers: AnatomyLayer[]; root?: Re
           ))}
         </tbody>
       </SpecTableCard>
+      <div style={{ marginTop: "var(--core-space-10)" }}>
+        <ColorTable layers={layers} root={root} />
+      </div>
     </div>
   );
 }
