@@ -1036,6 +1036,7 @@
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
   letter-spacing: 0;
+  text-overflow: ellipsis;
   transition: border-color var(--core-motion-duration-fast) ease, box-shadow var(--core-motion-duration-fast) ease;
 }
 

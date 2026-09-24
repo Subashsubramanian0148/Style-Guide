@@ -11,6 +11,27 @@ import { TooltipAnatomyFull } from "../LegacyAnatomyTables";
 import { DialogAnatomy } from "../SectionAnatomies";
 import { SlideoverAnatomy } from "../SectionAnatomies";
 
+const TOOLTIP_CELL: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "var(--core-space-4)",
+  padding: "var(--core-space-4)",
+  border: "1px solid var(--theme-neutral-border-primary-default)",
+  borderRadius: "var(--core-radius-sm)",
+  background: "var(--core-color-surface-default)",
+};
+
+/* Fixed-height stage with the trigger dead-centre, so every placement's
+   bubble has room on all four sides and triggers line up across cells. */
+const TOOLTIP_STAGE: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  height: 112,
+};
+
 export default function OverlaysPage({ embedded = false }: { embedded?: boolean }) {
   const [modal, setModal] = useState(false);
   const [slideover, setSlideover] = useState(false);
@@ -66,22 +87,24 @@ export default function OverlaysPage({ embedded = false }: { embedded?: boolean 
         <AnatomySection anatomy={<TooltipAnatomyFull />} demo={
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "var(--core-space-12)", width: "100%", padding: "var(--core-space-12) var(--core-space-4)" }}>
-              {(["top", "right", "bottom", "left"] as const).map((placement) => (
-                <div key={placement} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--core-space-2)" }}>
-                  <StateLabel>{placement[0].toUpperCase() + placement.slice(1)}</StateLabel>
-                  <div style={{ padding: "var(--core-space-10) var(--core-space-16)" }}>
-                    <Tooltip label="Vested balance" placement={placement} open>
-                      <IconButton variant="tertiary" size="sm" shape="circle" aria-label={`Tooltip ${placement}`}>
-                        <Icon name="fa-solid fa-circle-info" size="sm" />
-                      </IconButton>
-                    </Tooltip>
+            <div className="site-tooltip-demo">
+              <div className="site-tooltip-demo__grid">
+                {(["top", "right", "bottom", "left"] as const).map((placement) => (
+                  <div key={placement} style={TOOLTIP_CELL}>
+                    <StateLabel>{placement[0].toUpperCase() + placement.slice(1)}</StateLabel>
+                    <div style={TOOLTIP_STAGE}>
+                      <Tooltip label="Vested balance" placement={placement} open>
+                        <IconButton variant="tertiary" size="sm" shape="circle" aria-label={`Tooltip ${placement}`}>
+                          <Icon name="fa-solid fa-circle-info" size="sm" />
+                        </IconButton>
+                      </Tooltip>
+                    </div>
                   </div>
-                </div>
-              ))}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--core-space-2)", gridColumn: "1 / -1" }}>
+                ))}
+              </div>
+              <div style={TOOLTIP_CELL}>
                 <StateLabel>Long text — truncates at max width (240px)</StateLabel>
-                <div style={{ padding: "var(--core-space-10) 0 0" }}>
+                <div style={TOOLTIP_STAGE}>
                   <Tooltip label="20% is the IRS-mandated minimum for most retirement plan distributions." open>
                     <IconButton variant="tertiary" size="sm" shape="circle" aria-label="What is federal tax withholding?">
                       <Icon name="fa-solid fa-circle-info" size="sm" />
