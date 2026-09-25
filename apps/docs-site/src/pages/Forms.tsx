@@ -935,7 +935,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                   <h3 style={{ margin: "0 0 24px 0", fontSize: 18, fontWeight: 600 }}>Profile Settings</h3>
                   <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                     <Field label="Display name">
-                      {(p) => <Input {...p} defaultValue="Jordan Lee" variant="solid" />}
+                      {(p) => <Input {...p} defaultValue="Jordan Lee" />}
                     </Field>
 
                     <Field label="Department">
