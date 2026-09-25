@@ -160,10 +160,6 @@ function LogoAnatomy() {
           <div style={{ position: "absolute", bottom: 2, left: -9, width: 8, height: 1, background: "#118D57" }}></div>
           <div style={{ position: "absolute", bottom: -30, left: -2, width: 1, height: 32, background: "#118D57", opacity: 0.5 }}></div>
 
-          {/* Center gap label (8) */}
-          <div style={{ position: "absolute", top: 56, right: -24, background: "#118D57", color: "white", fontSize: "var(--typography-font-size-xs)", fontWeight: "bold", padding: "var(--core-space-1) var(--core-space-1)", borderRadius: 4, lineHeight: 1 }}>8</div>
-          <div style={{ position: "absolute", top: 64, right: -8, width: 8, height: 1, background: "#118D57" }}></div>
-
           {/* Vertical Stacked Logo Content */}
           <div style={{ padding: "4px 16px", display: "flex", flexDirection: "column", alignItems: "center", minWidth: 110 }}>
             {/* Symbol on Top */}
@@ -175,9 +171,6 @@ function LogoAnatomy() {
               <path d="M139.226 69.9547V74.9609H147.415V69.9547H139.226Z" fill="#BA141A"/>
               <path d="M0 69.9547V74.9609H8.19V69.9547H0Z" fill="#BA141A"/>
             </svg>
-
-            {/* Inter-element 8px gap indicator */}
-            <div style={{ width: "100%", height: 8, margin: 0, background: "rgba(17, 141, 87, 0.3)", borderTop: "1px dashed rgba(17, 141, 87, 0.8)", borderBottom: "1px dashed rgba(17, 141, 87, 0.8)", position: "relative" }}></div>
 
             {/* Wordmark beneath */}
             <span style={{ display: "block", fontSize: 18, fontWeight: 700, letterSpacing: "0.08em", color: "#292670", lineHeight: 1, margin: 0 }}>
