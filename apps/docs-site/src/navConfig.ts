@@ -116,11 +116,18 @@ export function flatOrderForAnchor(anchorId: string): number {
   return flatAnchorOrder.get(anchorId) ?? 999;
 }
 
+/** Anchors that live inside another component's section (Calendar inside
+ *  Date Selection, Table inside Table & Data Table). They stay in the sidebar
+ *  but don't take a section number, so the numbered sections run without gaps. */
+const NESTED_ANCHORS = new Set(["calendar", "table"]);
+
 const componentAnchorSectionIds = new Map<string, string>();
-flatComponentLinks.forEach((link, index) => {
+let sectionNumber = 0;
+flatComponentLinks.forEach((link) => {
   const anchor = link.to.split("#")[1];
-  if (anchor && !componentAnchorSectionIds.has(anchor)) {
-    componentAnchorSectionIds.set(anchor, String(index + 1).padStart(2, "0"));
+  if (anchor && !NESTED_ANCHORS.has(anchor) && !componentAnchorSectionIds.has(anchor)) {
+    sectionNumber += 1;
+    componentAnchorSectionIds.set(anchor, String(sectionNumber).padStart(2, "0"));
   }
 });
 

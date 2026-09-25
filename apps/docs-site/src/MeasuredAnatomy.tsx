@@ -165,7 +165,15 @@ export function MeasuredAnatomy({
 
     const sizeBadges: Badge[] = [];
     const sizeRows: AnatomySpecRow[] = [];
+    // Parts hidden at the current width (e.g. mobile-only rules) are skipped
+    // rather than measured as 0 × 0, which would draw bogus gaps and sizes.
+    const shown = (sel: string) => {
+      const e = el(sel);
+      return !!e && e.getClientRects().length > 0 && getComputedStyle(e).display !== "none";
+    };
+    const targetShown = (t: Target) => shown(typeof t === "string" ? t : "inner" in t ? t.inner : t.content);
     for (const mk of marks) {
+      if (mk.kind === "gap" ? !targetShown(mk.a) || !targetShown(mk.b) || (mk.span !== undefined && !shown(mk.span)) : !shown(mk.sel)) continue;
       if (mk.kind === "size") {
         const e = el(mk.sel);
         let r = rectOf(e);

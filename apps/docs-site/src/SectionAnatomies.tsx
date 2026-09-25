@@ -1239,7 +1239,7 @@ export function AppHeaderAnatomy() {
         <AppHeaderDemo />
         <div data-a="menu" style={{ position: "relative", height: 232 }}>
           <div style={{ position: "absolute", left: 226, top: -8 }}>
-            <AccountMenu account={headerAccount} utilities={headerUtilities} defaultOpen />
+            <AccountMenu account={headerAccount} utilities={headerUtilities} staticOpen />
           </div>
         </div>
       </div>

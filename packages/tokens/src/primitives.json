@@ -139,7 +139,7 @@
     "brand.vivid": "linear-gradient(135deg, {color.brand.400} 0%, {color.brand.600} 55%, {color.brand.900} 100%)",
     "secondary.subtle": "linear-gradient(135deg, {color.secondary.400} 0%, {color.secondary.600} 100%)",
     "tertiary.subtle": "linear-gradient(135deg, {color.tertiary.400} 0%, {color.tertiary.600} 100%)",
-    "overlay.scrim": "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)"
+    "overlay.scrim": "linear-gradient(180deg, #00000000 0%, #0000008C 100%)"
   },
   "space": {
     "0": "0px",
@@ -191,10 +191,10 @@
   },
   "elevation": {
     "0": "none",
-    "1": "0 1px 2px rgba(17,16,23,0.06), 0 1px 1px rgba(17,16,23,0.04)",
-    "2": "0 2px 6px rgba(17,16,23,0.08), 0 1px 2px rgba(17,16,23,0.05)",
-    "3": "0 8px 16px rgba(17,16,23,0.10), 0 2px 4px rgba(17,16,23,0.06)",
-    "4": "0 16px 32px rgba(17,16,23,0.14), 0 4px 8px rgba(17,16,23,0.08)"
+    "1": "0 1px 2px #1110170F, 0 1px 1px #1110170A",
+    "2": "0 2px 6px #11101714, 0 1px 2px #1110170D",
+    "3": "0 8px 16px #1110171A, 0 2px 4px #1110170F",
+    "4": "0 16px 32px #11101724, 0 4px 8px #11101714"
   },
   "border": {
     "width.hairline": "1px",

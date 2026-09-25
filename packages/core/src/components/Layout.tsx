@@ -52,13 +52,25 @@ export interface HeaderAccount {
 
 /** Avatar trigger + account dropdown. `utilities` repeat inside the menu on
  *  narrow screens, where the header hides its icon buttons. */
-export function AccountMenu({ account, utilities = [], defaultOpen = false }: { account: HeaderAccount; utilities?: HeaderUtility[]; defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(defaultOpen);
+export function AccountMenu({
+  account,
+  utilities = [],
+  defaultOpen = false,
+  staticOpen = false,
+}: {
+  account: HeaderAccount;
+  utilities?: HeaderUtility[];
+  defaultOpen?: boolean;
+  /** Always open and non-dismissible — for documentation diagrams. */
+  staticOpen?: boolean;
+}) {
+  const [openState, setOpen] = useState(defaultOpen);
+  const open = staticOpen || openState;
   const rootRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || staticOpen) return;
     const onDown = (e: MouseEvent) => {
       if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
     };
@@ -69,7 +81,7 @@ export function AccountMenu({ account, utilities = [], defaultOpen = false }: { 
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [open]);
+  }, [open, staticOpen]);
 
   const initials = account.name
     .split(" ")
@@ -86,7 +98,7 @@ export function AccountMenu({ account, utilities = [], defaultOpen = false }: { 
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={menuId}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => !staticOpen && setOpen((v) => !v)}
       >
         {account.avatarSrc ? <img src={account.avatarSrc} alt="" /> : <span className="cds-account-initials">{initials}</span>}
       </button>

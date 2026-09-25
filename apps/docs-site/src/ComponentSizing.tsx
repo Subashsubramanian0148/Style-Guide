@@ -240,7 +240,7 @@ const STATES: Record<string, Variant[]> = {
   ],
   "app-header": [
     st("Account menu — closed", "trigger", <AccountMenu account={{ name: "Ava Sullivan", email: "ava.sullivan@email.com", items: [] }} />, ".cds-account-trigger", false),
-    st("Account menu — open", "dropdown", <div style={{ position: "relative", height: 240 }}><div style={{ position: "absolute", left: 240 }}><AccountMenu defaultOpen account={{ name: "Ava Sullivan", email: "ava.sullivan@email.com", items: [{ label: "Change Password", icon: edit }, { label: "Log out", icon: edit, tone: "danger" }] }} /></div></div>, ".cds-account-dropdown", false),
+    st("Account menu — open", "dropdown", <div style={{ position: "relative", height: 240 }}><div style={{ position: "absolute", left: 240 }}><AccountMenu staticOpen account={{ name: "Ava Sullivan", email: "ava.sullivan@email.com", items: [{ label: "Change Password", icon: edit }, { label: "Log out", icon: edit, tone: "danger" }] }} /></div></div>, ".cds-account-dropdown", false),
   ],
   spinner: [st("Default", "icon-md", <Spinner />, undefined, false)],
   badge: [
