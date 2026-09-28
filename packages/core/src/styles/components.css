@@ -1167,10 +1167,13 @@
  * shifting the card's position).
  */
 .cds-quicklink {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: var(--core-space-1);
-  padding: var(--core-space-4) var(--core-space-4);
+  gap: var(--core-space-3);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: var(--core-space-4);
   border: 0;
   --cds-stroke-color: var(--theme-neutral-border-primary-default);
   box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color);
@@ -1179,7 +1182,7 @@
   cursor: pointer;
   text-align: left;
   font-family: var(--typography-font-family-sans);
-  transition: border-color var(--core-motion-duration-fast) ease, box-shadow var(--core-motion-duration-fast) ease, background-color var(--core-motion-duration-fast) ease;
+  transition: box-shadow var(--core-motion-duration-fast) ease, background-color var(--core-motion-duration-fast) ease;
 }
 
 .cds-quicklink-icon {
@@ -1195,17 +1198,52 @@
   transition: background-color var(--core-motion-duration-fast) ease, color var(--core-motion-duration-fast) ease;
 }
 
+.cds-quicklink-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cds-quicklink-label,
+.cds-quicklink-description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .cds-quicklink-label {
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
   font-weight: var(--typography-font-weight-semibold);
   color: var(--theme-neutral-text-primary-default);
-  white-space: nowrap;
+}
+
+.cds-quicklink-description {
+  font-size: var(--typography-body-sm-size);
+  line-height: var(--typography-body-sm-line-height);
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--core-color-text-secondary);
+}
+
+.cds-quicklink-arrow {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--core-color-text-secondary);
+  transition: color var(--core-motion-duration-fast) ease;
 }
 
 .cds-quicklink:hover:not(:disabled) {
-  --cds-stroke-color: var(--theme-neutral-border-strong);
+  --cds-stroke-color: var(--theme-colors-neutral-300);
   box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--core-elevation-2);
+}
+
+.cds-quicklink:hover:not(:disabled) .cds-quicklink-arrow {
+  color: var(--brand-text-primary-default);
+}
+
+.cds-quicklink:active:not(:disabled) {
+  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--core-elevation-1);
 }
 
 .cds-quicklink:focus-visible {
@@ -1224,7 +1262,8 @@
   color: var(--brand-text-primary-oncolor);
 }
 
-.cds-quicklink[data-selected="true"] .cds-quicklink-label {
+.cds-quicklink[data-selected="true"] .cds-quicklink-label,
+.cds-quicklink[data-selected="true"] .cds-quicklink-arrow {
   color: var(--brand-text-primary-default);
 }
 
@@ -1240,7 +1279,9 @@
   color: var(--theme-semantics-disabled-text);
 }
 
-.cds-quicklink:disabled .cds-quicklink-label {
+.cds-quicklink:disabled .cds-quicklink-label,
+.cds-quicklink:disabled .cds-quicklink-description,
+.cds-quicklink:disabled .cds-quicklink-arrow {
   color: var(--theme-semantics-disabled-text);
 }
 

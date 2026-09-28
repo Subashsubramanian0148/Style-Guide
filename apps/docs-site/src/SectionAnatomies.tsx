@@ -151,6 +151,7 @@ export function QuickLinksAnatomy() {
         { kind: "gap", a: ".cds-quicklink-icon", b: ".cds-quicklink-label", axis: "x", span: ".cds-quicklink-icon" },
         { kind: "outline", sel: ".cds-quicklink-icon" },
         { kind: "outline", sel: ".cds-quicklink-label" },
+        { kind: "size", sel: ".cds-quicklink-arrow", name: "Arrow" },
       ]}
       layers={[
         { node: "Container", cls: "demo cell", direction: "Vertical", alignment: "Top left", spacing: "Gap 8", sel: ":scope > div" },
@@ -158,11 +159,12 @@ export function QuickLinksAnatomy() {
         { node: "Icon tile", cls: ".cds-quicklink-icon", direction: "Horizontal", alignment: "Middle center", spacing: "—", sel: ".cds-quicklink-icon" },
         { node: "Icon", cls: ".cds-icon", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-quicklink-icon .cds-icon" },
         { node: "Text", cls: ".cds-quicklink-label", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-quicklink-label" },
+        { node: "Arrow", cls: ".cds-quicklink-arrow", direction: "Horizontal", alignment: "Middle right", spacing: "—", sel: ".cds-quicklink-arrow" },
       ]}
       specs={(q) => [
         pass("State label → card", "core-space-2", `${q.gap(".docs-state-label", ".cds-quicklink", "y")}px`),
         pass("Card padding", "core-space-4", `${q.px(".cds-quicklink", "padding-top")}px`),
-        pass("Icon → label", "core-space-1", `${q.px(".cds-quicklink", "column-gap")}px`),
+        pass("Icon → text", "core-space-3", `${q.px(".cds-quicklink", "column-gap")}px`),
         pass("Icon tile", "40px", q.size(".cds-quicklink-icon")),
         pass("Label", "typography-body-md", q.type(".cds-quicklink-label")),
         pass("Border radius", "core-radius", q.css(".cds-quicklink", "border-top-left-radius")),

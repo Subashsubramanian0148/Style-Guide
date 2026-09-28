@@ -466,17 +466,17 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-8, 32px)", width: "100%", padding: "var(--core-space-2, 8px) 0" }}>
               <div>
                 <div style={sectionLabelStyle}>Variants</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--core-space-3, 12px)" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "var(--core-space-4)" }}>
                   <CardQuickLink icon="fa-solid fa-user-group" label="Add beneficiary" />
                   <CardQuickLink icon="fa-solid fa-file-lines" label="My documents" />
-                  <CardQuickLink icon="fa-solid fa-chart-line" label="My portfolio" />
-                  <CardQuickLink icon="fa-solid fa-file-invoice-dollar" label="Generate statement" />
+                  <CardQuickLink icon="fa-solid fa-chart-line" label="My portfolio" description="Balance and allocations" />
+                  <CardQuickLink icon="fa-solid fa-file-invoice-dollar" label="Generate statement" description="Download a PDF statement" />
                 </div>
               </div>
 
-              <div style={{ borderTop: "1px solid var(--theme-neutral-border-primary-default)", paddingTop: "var(--core-space-6, 24px)" }}>
+              <div style={{ boxShadow: "inset 0 var(--core-border-width-default) 0 var(--theme-neutral-border-primary-default)", paddingTop: "var(--core-space-6)" }}>
                 <div style={sectionLabelStyle}>Interactive states</div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(160px, 1fr))", gap: "var(--core-space-4, 16px)" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "var(--core-space-4)" }}>
                   <div style={QUICKLINK_CELL_STYLE}>
                     <StateLabel>DEFAULT</StateLabel>
                     <CardQuickLink icon="fa-solid fa-chart-line" label="Links" />
@@ -521,13 +521,16 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
   const cardStateStyles = (
     <style>{`
       .force-hover .cds-quicklink:not(:disabled) {
-        border-color: var(--theme-neutral-border-strong) !important;
-        box-shadow: var(--core-elevation-1) !important;
+        --cds-stroke-color: var(--theme-colors-neutral-300);
+        box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--core-elevation-2) !important;
+      }
+      .force-hover .cds-quicklink:not(:disabled) .cds-quicklink-arrow {
+        color: var(--brand-text-primary-default);
       }
       .force-focus .cds-quicklink:not(:disabled) {
         outline: none !important;
-        border-color: var(--theme-primitive-color-primary-400) !important;
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent) !important;
+        --cds-stroke-color: var(--theme-primitive-color-primary-400);
+        box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--cds-focus-glow) !important;
       }
     `}</style>
   );
