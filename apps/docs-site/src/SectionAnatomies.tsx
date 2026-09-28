@@ -283,6 +283,7 @@ export function TabsAnatomy() {
   const h = "[data-a=h] .cds-tab";
   const v = "[data-a=v] .cds-tab";
   return (
+    <>
     <MeasuredAnatomy
       heading="Structure — horizontal & vertical tab lists"
       width={440}
@@ -315,7 +316,7 @@ export function TabsAnatomy() {
           pass("Horizontal tab padding", "core-space-3", `${q.px(`${h}:nth-child(1)`, "padding-top")}px`),
           pass("Vertical tab spacing", "core-space-1", `${q.gap(`${v}:nth-child(1)`, `${v}:nth-child(2)`, "y")}px`),
           pass("Vertical tab padding", "core-space-2 / core-space-4", `${q.px(`${v}:nth-child(1)`, "padding-top")}px ${q.px(`${v}:nth-child(1)`, "padding-left")}px`),
-          pass("Tab label", "typography-body-md", q.type(`${h}:nth-child(1)`)),
+          pass("Tab label", "typography-body-lg", q.type(`${h}:nth-child(1)`)),
         ];
       }}
       note="Every tab in a list shares the padding marked on one tab; only color and the active indicator change per state."
@@ -343,8 +344,62 @@ export function TabsAnatomy() {
         </div>
       </div>
     </MeasuredAnatomy>
+    <PillTabsAnatomy />
+    </>
   );
 }
+
+/** Pill (segmented) tabs: a 4px-padded track holding hug-width tabs 4px
+ *  apart, each padded 8 / 16. */
+function PillTabsAnatomy() {
+  const t = "[data-a=p] .cds-tab";
+  return (
+    <MeasuredAnatomy
+      heading="Structure — pill (segmented) tab list"
+      width={440}
+      maxScale={1.5}
+      marks={[
+        { kind: "padding", sel: "[data-a=p] .cds-tabs" },
+        { kind: "gap", a: `${t}:nth-child(1)`, b: `${t}:nth-child(2)`, axis: "x" },
+        { kind: "gap", a: `${t}:nth-child(2)`, b: `${t}:nth-child(3)`, axis: "x" },
+        { kind: "gap", a: `${t}:nth-child(3)`, b: `${t}:nth-child(4)`, axis: "x" },
+        { kind: "padding", sel: `${t}:nth-child(1)` },
+        { kind: "size", sel: `${t}:nth-child(2)`, name: "Tab (pill)" },
+        { kind: "outline", sel: `${t}:nth-child(1) .cds-tab-label` },
+      ]}
+      layers={[
+        { node: "Tab List (pill)", cls: ".cds-tabs--pill", direction: "Horizontal", alignment: "Top left", spacing: "Gap 4 · Padding 4", sel: "[data-a=p] .cds-tabs" },
+        { node: "Tab (selected)", cls: ".cds-tab--pill[aria-selected=true]", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 4 · Padding 8 / 16", sel: `${t}:nth-child(1)` },
+        { node: "Tab", cls: ".cds-tab--pill", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 4 · Padding 8 / 16", sel: `${t}:nth-child(2)` },
+        { node: "Tab (disabled)", cls: ".cds-tab--pill:disabled", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 4 · Padding 8 / 16", sel: `${t}:nth-child(4)` },
+        { node: "Text", cls: ".cds-tab-label", direction: "Vertical", alignment: "Top center", spacing: "—", sel: `${t}:nth-child(1) .cds-tab-label` },
+      ]}
+      specs={(q) => [
+        pass("List padding", "core-space-1", `${q.px("[data-a=p] .cds-tabs", "padding-top")}px`),
+        pass("Tab → tab", "core-space-1", `${q.gap(`${t}:nth-child(1)`, `${t}:nth-child(2)`, "x")}px`),
+        pass("Tab padding", "core-space-2 / core-space-4", `${q.px(`${t}:nth-child(1)`, "padding-top")}px ${q.px(`${t}:nth-child(1)`, "padding-left")}px`),
+        pass("Tab height", "36px (20 line + 8 + 8)", `${q.el(`${t}:nth-child(1)`).offsetHeight}px`),
+        pass("List radius", "core-radius-sm", q.css("[data-a=p] .cds-tabs", "border-top-left-radius")),
+        pass("Tab radius", "core-radius-xs", q.css(`${t}:nth-child(1)`, "border-top-left-radius")),
+        pass("Tab label", "typography-body-md", q.type(`${t}:nth-child(1)`)),
+      ]}
+      note="Tabs hug their label; the track hugs the tabs. Only the selected tab gets the white chip and core-elevation-1."
+    >
+      <div data-a="p">
+        <Tabs
+          variant="pill"
+          items={[
+            { id: "monthly", label: "Monthly", content: tabP("Monthly contributions.") },
+            { id: "quarterly", label: "Quarterly", content: tabP("Quarterly contributions.") },
+            { id: "yearly", label: "Yearly", content: tabP("Yearly contributions.") },
+            { id: "custom", label: "Custom", disabled: true },
+          ]}
+        />
+      </div>
+    </MeasuredAnatomy>
+  );
+}
+
 
 /* ---------- Skeleton ---------- */
 
@@ -626,6 +681,7 @@ export function SliderAnatomy() {
           `${q.el(input).offsetHeight}px`,
           "Figma: track frame padding 14 / 14 and value padding 12.05 — both off the 4-point grid; code uses a fixed 32px control with the track centered instead",
         ),
+        pass("Track height", "core-space-2", getComputedStyle(q.el(".cds-slider")).getPropertyValue("--cds-slider-track-height").trim()),
         pass("Value", "typography-body-md · bold", q.type(".cds-slider-value")),
         pass("Label", "typography-label", q.type(".cds-label")),
       ]}

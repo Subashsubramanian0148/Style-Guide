@@ -4424,7 +4424,7 @@
   display: flex;
   align-items: center;
   gap: var(--core-space-3);
-  --cds-slider-track-height: var(--core-space-1);
+  --cds-slider-track-height: var(--core-space-2);
   --cds-slider-track-fill: var(--brand-background-primary-strong);
   --cds-slider-track-bg: var(--theme-colors-neutral-100);
   --cds-slider-thumb-size: var(--core-size-icon-md);
