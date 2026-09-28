@@ -136,7 +136,7 @@ export function CheckboxRadioAnatomy() {
               <tbody>
                 <SpecRow label="Checkbox box (W × H)" token="core-size-icon-md" value={spec.boxSize} standard="pass" />
                 <SpecRow label="Radio circle (W × H)" token="core-size-icon-md" value={spec.radioSize} standard="pass" />
-                <SpecRow label="Border" token="theme-neutral-border-primary-default" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
+                <SpecRow label="Border" token="core-color-border-control" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
                 <SpecRow label="Radius — Checkbox" token="core-radius-xs" value={spec.checkboxRadius} standard="pass" />
                 <SpecRow label="Radius — Radio" token="(circle)" value={spec.radioRadius} standard="pass" />
                 <SpecRow label="Background (unchecked)" token="core-color-surface-default" value={spec.fill} swatch={spec.fill} standard="pass" />
@@ -173,7 +173,7 @@ interface CellSpec {
 const STATE_MATRIX: { state: string; unchecked: CellSpec; checked: CellSpec }[] = [
   {
     state: "Default",
-    unchecked: { fill: "core-color-surface-default", border: "neutral-border-primary-default" },
+    unchecked: { fill: "core-color-surface-default", border: "core-color-border-control" },
     checked: { fill: "background-primary-strong", border: "background-primary-strong" },
   },
   {
@@ -193,7 +193,7 @@ const STATE_MATRIX: { state: string; unchecked: CellSpec; checked: CellSpec }[] 
   },
   {
     state: "Disabled",
-    unchecked: { fill: "semantics-disabled-background", border: "neutral-border-primary-default" },
+    unchecked: { fill: "semantics-disabled-background", border: "semantics-disabled-border" },
     checked: { fill: "neutral-500", border: "neutral-500" },
   },
 ];

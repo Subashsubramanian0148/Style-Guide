@@ -1039,7 +1039,7 @@
   padding: var(--core-space-2) var(--core-space-3);
   min-height: var(--core-size-control-md);
   border-radius: var(--core-radius-sm);
-  border: 1px solid var(--theme-neutral-border-primary-default);
+  border: 1px solid var(--core-color-border-control);
   background: var(--core-color-surface-default);
   color: var(--theme-neutral-text-primary-default);
   font-size: var(--typography-text14-regular-size);
@@ -1881,7 +1881,7 @@
   min-height: 88px;
   padding: var(--core-space-3) var(--core-space-3);
   border-radius: var(--core-radius-sm);
-  border: 1px solid var(--theme-neutral-border-primary-default);
+  border: 1px solid var(--core-color-border-control);
   background: var(--core-color-surface-default);
   color: var(--theme-neutral-text-primary-default);
   font-size: var(--typography-text14-regular-size);
@@ -1927,7 +1927,7 @@
   padding: var(--core-space-2) var(--core-space-3);
   width: 100%;
   border-radius: var(--core-radius-sm);
-  border: 1px solid var(--theme-neutral-border-primary-default);
+  border: 1px solid var(--core-color-border-control);
   background: var(--core-color-surface-default);
   color: var(--theme-neutral-text-primary-default);
   font-size: var(--typography-text14-regular-size);
@@ -2064,7 +2064,7 @@
   height: 16px;
   flex-shrink: 0;
   border-radius: var(--core-radius-xs);
-  border: 1px solid var(--theme-neutral-border-primary-default);
+  border: 1px solid var(--core-color-border-control);
   background: var(--core-color-surface-default);
   color: var(--theme-colors-neutral-0);
   transition: background var(--core-motion-duration-fast) ease, border-color var(--core-motion-duration-fast) ease;
@@ -2103,7 +2103,7 @@
 .cds-radio-box {
   width: var(--core-size-icon-md);
   height: var(--core-size-icon-md);
-  border: var(--core-border-width-default) solid var(--theme-neutral-border-primary-default);
+  border: var(--core-border-width-default) solid var(--core-color-border-control);
   background: var(--core-color-surface-default);
   display: inline-flex;
   align-items: center;
@@ -2298,7 +2298,7 @@
 .cds-field-style--flush {
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--theme-neutral-border-primary-default);
+  border-bottom: 1px solid var(--core-color-border-control);
   border-radius: 0;
   padding-left: 0;
   padding-right: 0;
@@ -4109,7 +4109,7 @@
   align-items: center;
   padding: var(--core-space-2) var(--core-space-3);
   background: var(--core-color-surface-sunken);
-  border: 1px solid var(--theme-neutral-border-primary-default);
+  border: 1px solid var(--core-color-border-control);
   color: var(--theme-neutral-text-subtle);
   font-size: var(--typography-text14-regular-size);
   line-height: var(--typography-text14-regular-line-height);
@@ -4181,7 +4181,7 @@
   align-items: stretch;
   width: 100%;
   max-width: 160px;
-  border: 1px solid var(--theme-neutral-border-primary-default);
+  border: 1px solid var(--core-color-border-control);
   border-radius: var(--core-input-radius);
   background: var(--core-color-surface-default);
   overflow: hidden;
@@ -4332,7 +4332,7 @@
   font-size: var(--core-font-size-lg);
   line-height: var(--typography-heading-h4-line-height);
   font-weight: var(--typography-font-weight-semibold);
-  border: 1px solid var(--theme-neutral-border-primary-default);
+  border: 1px solid var(--core-color-border-control);
   border-radius: var(--core-input-radius);
   background: var(--core-color-surface-default);
   color: var(--theme-neutral-text-primary-default);
