@@ -72,7 +72,7 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
             .force-hover .cds-icon-btn--tertiary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 8%, transparent); color: var(--theme-brand-text-primary-hover); }
             .force-active .cds-icon-btn--secondary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 24%, transparent); color: var(--theme-brand-text-primary-active); border-color: var(--theme-brand-border-primary-hover); transform: translateY(1px); }
             .force-active .cds-icon-btn--tertiary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 16%, transparent); color: var(--theme-brand-text-primary-active); transform: translateY(1px); }
-            .force-focus .cds-icon-btn { outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400); outline-offset: 2px; }
+            .force-focus .cds-icon-btn { outline: var(--core-focusRing-width) solid var(--cds-focus-color); outline-offset: 2px; }
           `}</style>
         </div>
           }

@@ -285,7 +285,7 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
           background: var(--theme-brand-background-primary-subtle) !important;
         }
         .sidebar-state-focus .cds-app-sidebar--rail .cds-app-sidebar-link:nth-child(3):not([aria-current="page"]) {
-          outline: var(--core-focusRing-width, 2px) solid var(--theme-primitive-color-primary-400) !important;
+          outline: var(--core-focusRing-width, 2px) solid var(--cds-focus-color) !important;
           outline-offset: -2px;
         }
       `}</style>

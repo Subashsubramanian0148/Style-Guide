@@ -1011,7 +1011,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
         }
         .force-hover .cds-checkbox input:not(:checked):not(:disabled) + .cds-checkbox-box,
         .force-hover .cds-radio input:not(:checked):not(:disabled) + .cds-radio-box {
-          border-color: var(--theme-primitive-color-primary-400) !important;
+          border-color: var(--cds-focus-color) !important;
           background: var(--theme-brand-background-primary-subtle) !important;
         }
         .force-hover .cds-checkbox input:checked:not(:disabled) + .cds-checkbox-box,
@@ -1035,19 +1035,19 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
         .force-focus .cds-date-picker .cds-input,
         .force-focus .cds-date-picker .cds-input-affix-wrap .cds-input,
         .force-focus .cds-input-affix-wrap .cds-input {
-          border-color: var(--theme-primitive-color-primary-400) !important;
-          box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent) !important;
+          border-color: var(--cds-focus-color) !important;
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--cds-focus-color) 25%, transparent) !important;
         }
         .force-focus .cds-input-affix-wrap .cds-input-icon {
           color: var(--theme-neutral-text-subtle) !important;
         }
         .force-focus .cds-input-group {
           border-radius: var(--core-input-radius) !important;
-          box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent) !important;
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--cds-focus-color) 25%, transparent) !important;
         }
         .force-focus .cds-input-group .cds-input,
         .force-focus .cds-input-group-addon {
-          border-color: var(--theme-primitive-color-primary-400) !important;
+          border-color: var(--cds-focus-color) !important;
         }
         .force-focus .cds-input-group .cds-input {
           box-shadow: none !important;
@@ -1060,8 +1060,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
           color: var(--theme-neutral-text-primary-default) !important;
         }
         .force-focus .cds-incremental-selector {
-          border-color: var(--theme-primitive-color-primary-400) !important;
-          box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent) !important;
+          border-color: var(--cds-focus-color) !important;
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--cds-focus-color) 25%, transparent) !important;
         }
         .force-hover .cds-btn--tertiary:not(:disabled) .cds-btn__text {
           color: var(--theme-brand-text-primary-hover) !important;
@@ -1077,25 +1077,25 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
           transform: translateY(1px);
         }
         .force-focus .cds-btn--tertiary:not(:disabled) {
-          outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400) !important;
+          outline: var(--core-focusRing-width) solid var(--cds-focus-color) !important;
           outline-offset: 2px;
         }
         .force-focus .cds-checkbox input:not(:checked):not(:disabled) + .cds-checkbox-box,
         .force-focus .cds-radio input:not(:checked):not(:disabled) + .cds-radio-box {
-          border-color: var(--theme-primitive-color-primary-400) !important;
+          border-color: var(--cds-focus-color) !important;
           background: var(--core-color-surface-default) !important;
-          outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400) !important;
+          outline: var(--core-focusRing-width) solid var(--cds-focus-color) !important;
           outline-offset: 2px !important;
         }
         .force-focus .cds-switch-track {
           outline: none !important;
           box-shadow:
             0 0 0 2px var(--core-color-surface-default),
-            0 0 0 calc(2px + var(--core-focusRing-width)) var(--theme-primitive-color-primary-400) !important;
+            0 0 0 calc(2px + var(--core-focusRing-width)) var(--cds-focus-color) !important;
         }
         .force-active .cds-textarea, .force-active .cds-select {
-          border-color: var(--theme-primitive-color-primary-400) !important;
-          box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent) !important;
+          border-color: var(--cds-focus-color) !important;
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--cds-focus-color) 25%, transparent) !important;
           background: var(--theme-brand-background-primary-subtle) !important;
         }
         .force-active .cds-checkbox input:checked:not(:disabled) + .cds-checkbox-box,

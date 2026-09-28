@@ -110,9 +110,10 @@ $accent-border-primary-light: (
 $accent-border-primary-dark: (
   // 500 only reached 2.31:1 against the dark canvas, failing WCAG 1.4.11 (3:1)
   // for controls identified by their outline — checkbox, radio, toggle. 400
-  // reaches 4.11:1. Borders carry no text, so this can't regress 1.4.3.
-  default: 400,
-  hover: 300,
+  // still measured 2.95:1 on the dark surface; 300 clears 3:1. Borders carry
+  // no text, so this can't regress 1.4.3.
+  default: 300,
+  hover: 200,
   // Was 500 — identical to `default`, so a disabled bordered control (Icon
   // Button, Button secondary) had the exact same border as an enabled one
   // in dark mode. 700 reads as clearly receded/muted.
@@ -172,8 +173,10 @@ $neutral-border-light: (
 );
 
 $neutral-border-dark: (
-  subtle: 700,
-  light: 700,
+  // Dark surfaces need a lighter step to keep control outlines at 3:1
+  // (WCAG 1.4.11): 700 only reached ~1.9:1, 500 reaches ~3.9:1.
+  subtle: 500,
+  light: 500,
   strong: 400,
   inverse: 900,
 );

@@ -529,7 +529,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
       }
       .force-focus .cds-quicklink:not(:disabled) {
         outline: none !important;
-        --cds-stroke-color: var(--theme-primitive-color-primary-400);
+        --cds-stroke-color: var(--cds-focus-color);
         box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--cds-focus-glow) !important;
       }
     `}</style>

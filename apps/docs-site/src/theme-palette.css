@@ -274,8 +274,8 @@ html[data-site-mode=dark],
   --brand-background-primary-disabled-light: var(--theme-colors-neutral-800);
   --brand-background-primary-disabled: var(--theme-primitive-color-primary-800);
   /* brand-border-primary */
-  --brand-border-primary-default: var(--theme-primitive-color-primary-400);
-  --brand-border-primary-hover: var(--theme-primitive-color-primary-300);
+  --brand-border-primary-default: var(--theme-primitive-color-primary-300);
+  --brand-border-primary-hover: var(--theme-primitive-color-primary-200);
   --brand-border-primary-disabled: var(--theme-primitive-color-primary-700);
   /* secondary-text-primary */
   --secondary-text-primary-default: var(--theme-primitive-color-secondary-300);
@@ -293,8 +293,8 @@ html[data-site-mode=dark],
   --secondary-background-primary-disabled-light: var(--theme-colors-neutral-800);
   --secondary-background-primary-disabled: var(--theme-primitive-color-secondary-800);
   /* secondary-border-primary */
-  --secondary-border-primary-default: var(--theme-primitive-color-secondary-400);
-  --secondary-border-primary-hover: var(--theme-primitive-color-secondary-300);
+  --secondary-border-primary-default: var(--theme-primitive-color-secondary-300);
+  --secondary-border-primary-hover: var(--theme-primitive-color-secondary-200);
   --secondary-border-primary-disabled: var(--theme-primitive-color-secondary-700);
   /* tertiary-text-primary */
   --tertiary-text-primary-default: var(--theme-primitive-color-tertiary-300);
@@ -312,8 +312,8 @@ html[data-site-mode=dark],
   --tertiary-background-primary-disabled-light: var(--theme-colors-neutral-800);
   --tertiary-background-primary-disabled: var(--theme-primitive-color-tertiary-800);
   /* tertiary-border-primary */
-  --tertiary-border-primary-default: var(--theme-primitive-color-tertiary-400);
-  --tertiary-border-primary-hover: var(--theme-primitive-color-tertiary-300);
+  --tertiary-border-primary-default: var(--theme-primitive-color-tertiary-300);
+  --tertiary-border-primary-hover: var(--theme-primitive-color-tertiary-200);
   --tertiary-border-primary-disabled: var(--theme-primitive-color-tertiary-700);
   /* neutral-text */
   --neutral-text-default: var(--theme-colors-neutral-50);
@@ -321,8 +321,8 @@ html[data-site-mode=dark],
   --neutral-text-subtle-light: var(--theme-colors-neutral-400);
   --neutral-text-on-color: var(--theme-colors-neutral-white);
   /* neutral-border */
-  --neutral-border-subtle: var(--theme-colors-neutral-700);
-  --neutral-border-light: var(--theme-colors-neutral-700);
+  --neutral-border-subtle: var(--theme-colors-neutral-500);
+  --neutral-border-light: var(--theme-colors-neutral-500);
   --neutral-border-strong: var(--theme-colors-neutral-400);
   --neutral-border-inverse: var(--theme-colors-neutral-900);
   /* semantics-critical */

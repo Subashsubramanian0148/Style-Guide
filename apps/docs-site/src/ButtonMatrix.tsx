@@ -24,7 +24,7 @@ interface VariantConfig {
    component patched dark mode in JS — which is why Tertiary's text stayed
    primary-500 (2.3:1) on the dark canvas. */
 const FOCUS_RING: React.CSSProperties = {
-  outline: "var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400)",
+  outline: "var(--core-focusRing-width) solid var(--cds-focus-color)",
   outlineOffset: "var(--core-focusRing-offset)",
 };
 

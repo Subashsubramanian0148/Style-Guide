@@ -17,8 +17,16 @@
       visually continuous with the border-radius. `--cds-focus-glow` is the
       single source for that box-shadow so every field-style component
       stays in sync instead of re-deriving the same value. */
-:root {
-  --cds-focus-glow: 0 0 0 3px color-mix(in srgb, var(--theme-primitive-color-primary-400) 25%, transparent);
+:root,
+[data-mode] {
+  --cds-focus-color: var(--theme-primitive-color-primary-400);
+  --cds-focus-glow: 0 0 0 3px color-mix(in srgb, var(--cds-focus-color) 25%, transparent);
+}
+
+/* primary-400 is 2.95:1 on the dark surface; 300 keeps focus rings and
+   focused outlines at 3:1 (WCAG 1.4.11 / 2.4.11). */
+[data-mode="dark"] {
+  --cds-focus-color: var(--theme-primitive-color-primary-300);
 }
 
 /* ── Semantic tone utilities (token-driven) ──
@@ -123,7 +131,7 @@
 }
 
 .cds-btn:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
 }
 
@@ -464,7 +472,7 @@
 }
 
 .cds-icon-btn:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
 }
 
@@ -637,7 +645,7 @@
 }
 
 .cds-link:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
   border-radius: var(--core-radius-sm);
   color: var(--brand-text-primary-default);
@@ -1085,7 +1093,7 @@
 .cds-input:focus-visible,
 .cds-input:focus {
   outline: none;
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
   box-shadow: var(--cds-focus-glow);
 }
 
@@ -1143,7 +1151,7 @@
 
 .cds-card--interactive:focus-visible {
   outline: none;
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
   box-shadow: var(--cds-focus-glow);
 }
 
@@ -1248,7 +1256,7 @@
 
 .cds-quicklink:focus-visible {
   outline: none;
-  --cds-stroke-color: var(--theme-primitive-color-primary-400);
+  --cds-stroke-color: var(--cds-focus-color);
   box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--cds-focus-glow);
 }
 
@@ -1540,7 +1548,7 @@
 
 .cds-badge--interactive:focus-visible:not(.cds-badge--disabled),
 .force-focus .cds-badge--interactive {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400) !important;
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color) !important;
   outline-offset: var(--core-focusRing-offset) !important;
 }
 
@@ -1607,7 +1615,7 @@
 }
 
 .cds-badge-remove:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: 1px;
 }
 
@@ -1690,7 +1698,7 @@
 }
 
 .cds-alert__dismiss:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: 1px;
 }
 
@@ -1823,7 +1831,7 @@
      used for this exact purpose on Checkbox/Radio's focus ring. */
   box-shadow:
     0 0 0 2px var(--core-color-surface-default),
-    0 0 0 calc(2px + var(--core-focusRing-width)) var(--theme-primitive-color-primary-400);
+    0 0 0 calc(2px + var(--core-focusRing-width)) var(--cds-focus-color);
 }
 
 .cds-switch--disabled {
@@ -1891,7 +1899,7 @@
 .cds-textarea:focus-visible,
 .cds-textarea:focus {
   outline: none;
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
   box-shadow: var(--cds-focus-glow);
 }
 
@@ -1958,7 +1966,7 @@
 
 .cds-select:focus-visible {
   outline: none;
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
   box-shadow: var(--cds-focus-glow);
 }
 
@@ -2117,7 +2125,7 @@
 
 .cds-checkbox:hover input:not(:disabled):not(:checked) + .cds-checkbox-box,
 .cds-radio:hover input:not(:disabled):not(:checked) + .cds-radio-box {
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
   background: var(--brand-background-primary-subtle);
 }
 
@@ -2182,13 +2190,13 @@
 
 .cds-checkbox input:focus-visible:not(:checked) + .cds-checkbox-box,
 .cds-radio input:focus-visible:not(:checked) + .cds-radio-box {
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
   background: var(--core-color-surface-default);
 }
 
 .cds-checkbox input:focus-visible + .cds-checkbox-box,
 .cds-radio input:focus-visible + .cds-radio-box {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
 }
 
@@ -2366,7 +2374,7 @@
 }
 
 .cds-toast-close:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
 }
 
@@ -2914,12 +2922,12 @@
 }
 
 .cds-tab:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
 }
 
 [role="tabpanel"]:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
   border-radius: var(--core-radius-sm);
 }
@@ -3072,7 +3080,7 @@
 }
 
 .cds-page-btn:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: 1px;
 }
 
@@ -3386,7 +3394,7 @@
 }
 
 .cds-drawer-close:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
 }
 
@@ -3475,7 +3483,7 @@
 }
 
 .cds-accordion-trigger:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: -2px;
 }
 
@@ -3858,7 +3866,7 @@
 }
 
 .cds-toggle:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
 }
 
@@ -3972,7 +3980,7 @@
 }
 
 .cds-toggle-group__item:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
   z-index: 1;
 }
@@ -4072,7 +4080,7 @@
 
 .cds-input-group:focus-within .cds-input,
 .cds-input-group:focus-within .cds-input-group-addon {
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
 }
 
 .cds-input-group:has(.cds-input:disabled) .cds-input-group-addon {
@@ -4196,7 +4204,7 @@
 }
 
 .cds-incremental-selector:focus-within {
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
   box-shadow: var(--cds-focus-glow);
 }
 
@@ -4412,11 +4420,11 @@
 }
 
 .cds-slider input[type="range"]:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 var(--core-focusRing-width) var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 var(--core-focusRing-width) var(--cds-focus-color);
 }
 
 .cds-slider input[type="range"]:focus-visible::-moz-range-thumb {
-  box-shadow: 0 0 0 var(--core-focusRing-width) var(--theme-primitive-color-primary-400);
+  box-shadow: 0 0 0 var(--core-focusRing-width) var(--cds-focus-color);
 }
 
 .cds-slider--disabled,
@@ -4644,7 +4652,7 @@
 .cds-date-picker .cds-input-affix-wrap:focus-within .cds-input,
 .cds-date-picker .cds-input:focus,
 .cds-date-picker .cds-input:focus-visible {
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
   box-shadow: var(--cds-focus-glow);
 }
 
@@ -4728,7 +4736,7 @@
 }
 
 .cds-calendar-day:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: 1px;
 }
 
@@ -4830,7 +4838,7 @@
 }
 
 .cds-table-link:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
   border-radius: var(--core-radius-xs);
 }
@@ -4932,7 +4940,7 @@
 }
 
 .cds-dropzone-trigger:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
 }
 
@@ -5092,7 +5100,7 @@
 }
 
 .cds-attachment-remove:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: 1px;
 }
 
@@ -5188,7 +5196,7 @@
 }
 
 .cds-navmenu-link:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset);
   border-radius: var(--core-radius-sm);
 }
@@ -5333,7 +5341,7 @@
 .cds-app-sidebar--rail .cds-app-sidebar-link[aria-current="page"] {
   background: var(--brand-background-primary-subtle);
   color: var(--brand-text-primary-default);
-  box-shadow: inset 3px 0 0 0 var(--brand-background-primary-strong);
+  box-shadow: inset 3px 0 0 0 var(--brand-border-primary-default);
   font-weight: var(--typography-font-weight-bold);
 }
 
@@ -5352,7 +5360,7 @@
 }
 
 .cds-app-sidebar--rail .cds-app-sidebar-link:focus-visible {
-  outline: var(--core-focusRing-width, 2px) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width, 2px) solid var(--cds-focus-color);
   outline-offset: -2px;
 }
 
@@ -5434,7 +5442,7 @@
 
 .cds-app-sidebar-link:focus-visible,
 .cds-sidenav-item:focus-visible {
-  outline: var(--core-focusRing-width, 2px) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width, 2px) solid var(--cds-focus-color);
   outline-offset: -2px;
 }
 
@@ -5499,7 +5507,7 @@
 }
 
 .cds-icon--interactive:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: 1px;
 }
 
@@ -5559,7 +5567,7 @@
 }
 
 .cds-input-affix-wrap:focus-within .cds-input {
-  border-color: var(--theme-primitive-color-primary-400);
+  border-color: var(--cds-focus-color);
   box-shadow: var(--cds-focus-glow);
 }
 
@@ -5715,7 +5723,7 @@
 
 .cds-app-header-icon-btn:focus-visible,
 .cds-account-trigger:focus-visible {
-  outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset: var(--core-focusRing-offset, 2px);
 }
 
