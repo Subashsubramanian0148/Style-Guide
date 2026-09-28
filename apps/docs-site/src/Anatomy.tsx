@@ -19,7 +19,7 @@ export interface AnatomyRect {
 
 export function Anatomy({ children, points = [], rects = [], height = 120 }: { children?: React.ReactNode; points?: AnatomyPoint[]; rects?: AnatomyRect[]; height?: number }) {
   return (
-    <div style={{ position: "relative", minHeight: height, background: "var(--core-color-bg-page)", border: "1px solid var(--core-color-border-subtle)", borderRadius: "var(--core-radius-md)", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", margin: "16px 0" }}>
+    <div style={{ position: "relative", minHeight: height, background: "var(--core-color-surface-default)", border: "1px solid var(--core-color-border-subtle)", borderRadius: "var(--core-radius-md)", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", margin: "16px 0" }}>
       <div style={{ position: "relative", display: "inline-block" }}>
         {children}
         {rects.map((r, i) => (

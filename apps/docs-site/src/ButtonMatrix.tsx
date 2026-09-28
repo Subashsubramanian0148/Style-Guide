@@ -303,7 +303,7 @@ export function ButtonMatrix() {
         data-theme="core"
         data-mode={canvasBg}
         style={{
-          background: "var(--core-color-bg-page)",
+          background: "var(--core-color-surface-default)",
           color: "var(--core-color-text-primary)",
           borderRadius: 16,
           padding: "36px 32px",

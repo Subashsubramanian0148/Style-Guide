@@ -202,8 +202,8 @@ html[data-site-mode=light],
   --neutral-text-subtle-light: var(--theme-colors-neutral-600);
   --neutral-text-on-color: var(--theme-colors-neutral-white);
   /* neutral-border */
-  --neutral-border-subtle: var(--theme-colors-neutral-500);
-  --neutral-border-light: var(--theme-colors-neutral-500);
+  --neutral-border-subtle: var(--theme-colors-neutral-200);
+  --neutral-border-light: var(--theme-colors-neutral-200);
   --neutral-border-strong: var(--theme-colors-neutral-600);
   --neutral-border-inverse: var(--theme-colors-neutral-white);
   /* semantics-critical */
@@ -228,7 +228,7 @@ html[data-site-mode=light],
   --semantics-warning-background-strong: var(--theme-colors-warning-700);
   /* semantics-disabled */
   --semantics-disabled-background: var(--theme-colors-neutral-100);
-  --semantics-disabled-border: var(--theme-colors-neutral-500);
+  --semantics-disabled-border: var(--theme-colors-neutral-200);
   --semantics-disabled-text: var(--theme-colors-neutral-600);
   /* semantics-critical-disabled */
   --semantics-critical-disabled-background: var(--theme-colors-red-50);
@@ -321,8 +321,8 @@ html[data-site-mode=dark],
   --neutral-text-subtle-light: var(--theme-colors-neutral-400);
   --neutral-text-on-color: var(--theme-colors-neutral-white);
   /* neutral-border */
-  --neutral-border-subtle: var(--theme-colors-neutral-500);
-  --neutral-border-light: var(--theme-colors-neutral-500);
+  --neutral-border-subtle: var(--theme-colors-neutral-700);
+  --neutral-border-light: var(--theme-colors-neutral-700);
   --neutral-border-strong: var(--theme-colors-neutral-400);
   --neutral-border-inverse: var(--theme-colors-neutral-900);
   /* semantics-critical */
@@ -347,7 +347,7 @@ html[data-site-mode=dark],
   --semantics-warning-background-strong: var(--theme-colors-warning-700);
   /* semantics-disabled */
   --semantics-disabled-background: var(--theme-colors-neutral-800);
-  --semantics-disabled-border: var(--theme-colors-neutral-500);
+  --semantics-disabled-border: var(--theme-colors-neutral-700);
   --semantics-disabled-text: var(--theme-colors-neutral-400);
   /* semantics-critical-disabled */
   --semantics-critical-disabled-background: var(--theme-colors-red-900);

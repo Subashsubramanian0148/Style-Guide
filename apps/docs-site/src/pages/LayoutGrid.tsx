@@ -49,7 +49,7 @@ function GridPlayground() {
   const spanPerCol = 12 / cols;
 
   return (
-    <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+    <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
       <div style={{ display: "flex", gap: "var(--core-space-6)", flexWrap: "wrap", marginBottom: "var(--core-space-4)" }}>
         <label style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", fontWeight: 500 }}>
           Columns
@@ -114,7 +114,7 @@ export default function LayoutGrid() {
       <DocsSectionList>
       <DocsSection anchorId="header" title="App header">
       <div className="site-panel site-panel--flush">
-        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", padding: 24 }}>
+        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", padding: 24 }}>
           <div style={{ width: "100%", maxWidth: 640, border: "1px solid var(--core-color-border-subtle)", borderRadius: "var(--core-card-radius)", overflow: "hidden" }}>
             <div className="cds-app-header">
               <AppHeader
@@ -132,7 +132,7 @@ export default function LayoutGrid() {
       </DocsSection>
       <DocsSection anchorId="footer" title="App footer">
       <div className="site-panel site-panel--flush">
-        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", padding: 24 }}>
+        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", padding: 24 }}>
           <div style={{ width: "100%", maxWidth: 640, border: "1px solid var(--core-color-border-subtle)", borderRadius: "var(--core-card-radius)", overflow: "hidden" }}>
             <div className="cds-app-footer">
               <AppFooter copyright="© 2026 Meridian." links={<><a href="#">Privacy</a><a href="#">Terms</a></>} />
@@ -160,7 +160,7 @@ export default function LayoutGrid() {
       {/* ── Basic grid ──────────────────────────────────────────── */}
       </DocsSection>
       <DocsSection anchorId="basic-grid" title="Basic grid">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
         {/* Row 1 — full width */}
         <Grid columns={12} gap="4">
           <GridCol span={12}><div style={demoBlockStyle(0)}>col-12</div></GridCol>
@@ -204,7 +204,7 @@ export default function LayoutGrid() {
       {/* ── 2. Grid gutter ────────────────────────────────────────── */}
       </DocsSection>
       <DocsSection anchorId="grid-gutter" title="Grid gutter">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", display: "flex", flexDirection: "column", gap: "var(--core-space-6)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", display: "flex", flexDirection: "column", gap: "var(--core-space-6)" }}>
         {(["2", "4", "6", "8"] as GridGap[]).map((g) => (
           <div key={g}>
             <p style={{ margin: 0, marginBottom: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", fontWeight: 600 }}>
@@ -222,7 +222,7 @@ export default function LayoutGrid() {
       {/* ── 3. Column offset ──────────────────────────────────────── */}
       </DocsSection>
       <DocsSection anchorId="column-offset" title="Column offset">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
         {/* span 6, offset 6 */}
         <div>
           <p style={{ margin: 0, marginBottom: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", fontWeight: 600 }}>
@@ -261,7 +261,7 @@ export default function LayoutGrid() {
       {/* ── 4. Responsive behavior ────────────────────────────────── */}
       </DocsSection>
       <DocsSection anchorId="responsive-behavior" title="Responsive behavior">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
         <div>
           <p style={{ margin: 0, marginBottom: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", fontWeight: 600 }}>
             span=12 spanMd=6 — full-width → halves
@@ -302,7 +302,7 @@ export default function LayoutGrid() {
            ═══════════════════════════════════════════════════════════════ */}
       </DocsSection>
       <DocsSection anchorId="layout-login" title="Login / Onboarding — 50 · 50">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", padding: 0, overflow: "hidden", borderRadius: "var(--core-radius-md)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", padding: 0, overflow: "hidden", borderRadius: "var(--core-radius-md)" }}>
         <Grid columns={12} gap="2" style={{ gap: 0 }}>
           <GridCol span={12} spanMd={6}>
             <div style={{
@@ -352,7 +352,7 @@ export default function LayoutGrid() {
       {/* ── Pattern 2: Dashboard — 8/4 main + sidebar ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-dashboard-summary" title="Dashboard summary — 8 · 4">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
         <Grid columns={12} gap="4">
           <GridCol span={12} spanMd={8}>
             <div style={{
@@ -403,7 +403,7 @@ export default function LayoutGrid() {
       {/* ── Pattern 3: Dashboard plans — 4/4/4 ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-dashboard-plans" title="Dashboard plans — 4 · 4 · 4">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
         <Grid columns={12} gap="4">
           {["401(k) Plan", "Roth 401(k) Plan", "Financial Wellness"].map((name, i) => (
             <GridCol key={name} span={12} spanMd={4}>
@@ -427,7 +427,7 @@ export default function LayoutGrid() {
       {/* ── Pattern 4: Dashboard — 6/6 halves ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-dashboard-halves" title="Dashboard cards — 6 · 6">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
         <Grid columns={12} gap="4">
           {["Deferred Comp Plan", "Cash Balance Plan"].map((name) => (
             <GridCol key={name} span={12} spanMd={6}>
@@ -450,7 +450,7 @@ export default function LayoutGrid() {
       {/* ── Pattern 5: Multi-step form — 3/9 ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-form-stepper" title="Multi-step form — 3 · 9">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
         <Grid columns={12} gap="4">
           <GridCol span={12} spanMd={3}>
             <div style={{
@@ -515,7 +515,7 @@ export default function LayoutGrid() {
       {/* ── Pattern 6: Form fields — nested 6/6 ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-form-fields" title="Form fields — 6 · 6 (nested)">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
         <div style={{ background: "var(--core-color-surface-raised)", borderRadius: "var(--core-radius-md)", padding: "var(--core-space-6)", border: "1px solid var(--core-color-border-subtle)" }}>
           <Grid columns={12} gap="4">
             <GridCol span={12} spanMd={6}>

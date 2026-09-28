@@ -56,7 +56,7 @@ export default function Icons() {
 
         <DocsSection anchorId="sizing" title="Sizing">
           <div className="site-panel site-panel--flush">
-            <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+            <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
               <div style={{ textAlign: "center" }}><Icon name="fa-solid fa-piggy-bank" size="sm" /><div style={{ fontSize: "var(--typography-font-size-xs)", marginTop: 6, color: "var(--core-color-text-tertiary)" }}>sm · 16px</div></div>
               <div style={{ textAlign: "center" }}><Icon name="fa-solid fa-piggy-bank" size="md" /><div style={{ fontSize: "var(--typography-font-size-xs)", marginTop: 6, color: "var(--core-color-text-tertiary)" }}>md · 20px</div></div>
               <div style={{ textAlign: "center" }}><Icon name="fa-solid fa-piggy-bank" size="lg" /><div style={{ fontSize: "var(--typography-font-size-xs)", marginTop: 6, color: "var(--core-color-text-tertiary)" }}>lg · 24px</div></div>
@@ -66,7 +66,7 @@ export default function Icons() {
 
         <DocsSection anchorId="style-convention" title="Style convention: Solid vs Regular">
           <div className="site-panel site-panel--flush">
-            <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+            <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
               {sampleIcons.map((cls) => (
                 <div key={cls} style={{ textAlign: "center", width: 64 }}>
                   <Icon name={cls} size="lg" />
@@ -78,7 +78,7 @@ export default function Icons() {
 
         <DocsSection anchorId="interactive-icons" title="Interactive icons">
           <div className="site-panel site-panel--flush">
-            <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+            <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
               <IconButton variant="secondary" size="md" aria-label="Notifications"><Icon name="fa-regular fa-bell" size="sm" /></IconButton>
               <span style={{ fontSize: 14, color: "var(--core-color-text-primary)" }}>
                 <Icon name="fa-solid fa-circle-check" size="sm" label="Verified" style={{ color: "var(--core-color-status-success-text)", marginRight: 4 }} />
@@ -90,7 +90,7 @@ export default function Icons() {
 
         <DocsSection anchorId="kbd" title="Kbd (keyboard shortcut hint)">
           <div className="site-panel site-panel--flush">
-            <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+            <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
               <span style={{ fontSize: 14, color: "var(--core-color-text-primary)" }}>
                 Press <Kbd>⌘</Kbd> + <Kbd>K</Kbd> to search
               </span>

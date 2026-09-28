@@ -357,7 +357,7 @@ export default function ColorExtractionPage() {
                   padding: "32px 20px",
                   textAlign: "center",
                   cursor: "pointer",
-                  background: isDragging ? "rgba(2, 112, 169, 0.05)" : "var(--core-color-bg-page)",
+                  background: isDragging ? "rgba(2, 112, 169, 0.05)" : "var(--core-color-surface-default)",
                   transition: "all 0.2s",
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.borderColor = "var(--core-color-action-primary-bg)"}
@@ -411,7 +411,7 @@ export default function ColorExtractionPage() {
             </div>
 
             {/* Right: Extracted Primary Color & Preview Box */}
-            <div style={{ flex: "1 1 300px", background: "var(--core-color-bg-page)", borderRadius: 12, padding: "24px", border: "1px solid var(--site-border)" }}>
+            <div style={{ flex: "1 1 300px", background: "var(--core-color-surface-default)", borderRadius: 12, padding: "24px", border: "1px solid var(--site-border)" }}>
               <div style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-tertiary)", marginBottom: 14 }}>
                 Extracted Primary Color
               </div>

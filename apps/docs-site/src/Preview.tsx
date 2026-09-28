@@ -22,7 +22,7 @@ export function Preview({
         data-mode={resolvedMode}
         className="preview-surface"
         style={{
-          background: "var(--core-color-bg-page)",
+          background: "var(--core-color-surface-default)",
           color: "var(--core-color-text-primary)",
           fontFamily: "var(--typography-font-family-sans)",
         }}

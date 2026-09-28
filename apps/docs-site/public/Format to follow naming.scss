@@ -165,15 +165,15 @@ $neutral-text-dark: (
 );
 
 $neutral-border-light: (
-  subtle: 500,
-  light: 500,
+  subtle: 200,
+  light: 200,
   strong: 600,
   inverse: white,
 );
 
 $neutral-border-dark: (
-  subtle: 500,
-  light: 500,
+  subtle: 700,
+  light: 700,
   strong: 400,
   inverse: 900,
 );
@@ -264,13 +264,13 @@ $semantics-disabled-border: (
 
 $semantics-disabled-neutral-light: (
   background: 100,
-  border: 500,
+  border: 200,
   text: 600,
 );
 
 $semantics-disabled-neutral-dark: (
   background: 800,
-  border: 500,
+  border: 700,
   text: 400,
 );
 

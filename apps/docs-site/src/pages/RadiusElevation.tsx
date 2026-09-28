@@ -26,7 +26,7 @@ export default function RadiusElevation() {
         </DocsSection>
 
         <DocsSection anchorId="elevation" title="Elevation">
-          <div className="site-panel site-grid cols-4" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+          <div className="site-panel site-grid cols-4" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
             {Object.entries(elevation).filter(([k]) => k !== "0").map(([step, val]) => (
               <div key={step} style={{ textAlign: "center" }}>
                 <div style={{ height: 70, background: "var(--core-color-bg-canvas)", borderRadius: "var(--core-radius-md)", boxShadow: val, border: "1px solid var(--core-color-border-subtle)" }} />

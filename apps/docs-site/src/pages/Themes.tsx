@@ -27,7 +27,7 @@ export default function Themes() {
         {themes.map((t) => (
           <DocsSection key={t.id} anchorId={t.id} title={t.label}>
             <div className="site-panel site-panel--flush">
-              <div className="preview-surface" data-theme={t.id} data-mode="light" style={{ background: "var(--core-color-bg-page)" }}>
+              <div className="preview-surface" data-theme={t.id} data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
                 {t.logo && <img src={t.logo} alt={`${t.label} logo`} style={{ height: 28, marginRight: 8 }} />}
                 <Button>Primary action</Button>
                 <Button variant="secondary">Secondary</Button>

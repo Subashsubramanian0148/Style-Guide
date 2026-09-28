@@ -62,7 +62,7 @@ export default function Screens() {
       <DocsSectionList>
       {/* ============================= LOGIN ============================= */}
       <DocsSection anchorId="login" title="Login">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", overflowX: "auto" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", overflowX: "auto" }}>
           <Grid columns={2} gap="4" style={{ width: 720, minHeight: 380, borderRadius: "var(--core-card-radius)", overflow: "hidden", border: "1px solid var(--core-color-border-subtle)" }}>
             <div style={{ background: "var(--core-color-brand-600, var(--core-card-bg))", color: "white", display: "flex", flexDirection: "column", justifyContent: "center", padding: "var(--core-space-8)", gridColumn: "span 1" }}>
               <div style={{ fontWeight: 700, fontSize: "var(--core-font-size-xl)", marginBottom: "var(--core-space-3)" }}>Meridian</div>
@@ -84,7 +84,7 @@ export default function Screens() {
       {/* ============================= DASHBOARD ============================= */}
       </DocsSection>
       <DocsSection anchorId="dashboard" title="Dashboard">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", overflowX: "auto" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", overflowX: "auto" }}>
         <div style={{ width: 860 }}>
             <AppShell
               header={<ScreenHeader userName="Taylor Hale" />}
@@ -168,7 +168,7 @@ export default function Screens() {
       {/* ============================= TABLE SCREEN ============================= */}
       </DocsSection>
       <DocsSection anchorId="table-screen" title="Transactions (table screen)">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", overflowX: "auto" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", overflowX: "auto" }}>
         <div style={{ width: 860 }}>
             <AppShell header={<ScreenHeader userName="Taylor Hale" />} sidebar={<AppSidebar items={[{ ...NAV_ITEMS[0], current: false }, NAV_ITEMS[1], { ...NAV_ITEMS[2], current: true }, NAV_ITEMS[3], NAV_ITEMS[4]]} variant="rail" />} footer={<ScreenFooter />}>
               <Breadcrumb items={[{ label: "Home", href: "#" }, { label: "Transactions" }]} />
@@ -194,7 +194,7 @@ export default function Screens() {
       {/* ============================= STEPPER SCREEN ============================= */}
       </DocsSection>
       <DocsSection anchorId="stepper-screen" title="Withdrawal request (stepper screen)">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", overflowX: "auto" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", overflowX: "auto" }}>
         <div style={{ width: 860 }}>
             <AppShell header={<ScreenHeader userName="Taylor Hale" />} sidebar={<AppSidebar items={NAV_ITEMS} variant="rail" />} footer={<ScreenFooter />}>
               <Card>
@@ -234,7 +234,7 @@ export default function Screens() {
       {/* ============================= SLIDEOVER SCREEN ============================= */}
       </DocsSection>
       <DocsSection anchorId="slideover-screen" title="Add allocation (slideover open)">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", overflowX: "auto" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", overflowX: "auto" }}>
         <div style={{ width: 860, position: "relative" }}>
             <AppShell header={<ScreenHeader userName="Taylor Hale" />} sidebar={<AppSidebar items={NAV_ITEMS} variant="rail" />} footer={<ScreenFooter />}>
               <div style={{ fontSize: "var(--core-font-size-lg)", fontWeight: 700, marginBottom: "var(--core-space-4)" }}>Hi Taylor 👋</div>
@@ -267,7 +267,7 @@ export default function Screens() {
       {/* ============================= BUTTON SCREEN ============================= */}
       </DocsSection>
       <DocsSection anchorId="buttons-screen" title="Account actions (buttons screen)">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-bg-page)", overflowX: "auto" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", overflowX: "auto" }}>
         <div style={{ width: 860 }}>
             <AppShell header={<ScreenHeader userName="Taylor Hale" />} sidebar={<AppSidebar items={NAV_ITEMS} variant="rail" />} footer={<ScreenFooter />}>
               <Card>
