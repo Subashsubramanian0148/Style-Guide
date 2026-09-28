@@ -170,3 +170,97 @@ export function ColorTable({ layers, root }: { layers: ColorLayer[]; root?: Reac
     </div>
   );
 }
+
+const splitShadows = (v: string): string[] => {
+  const out: string[] = [];
+  let depth = 0;
+  let cur = "";
+  for (const ch of v) {
+    if (ch === "(") depth++;
+    if (ch === ")") depth--;
+    if (ch === "," && depth === 0) {
+      out.push(cur.trim());
+      cur = "";
+    } else cur += ch;
+  }
+  if (cur.trim()) out.push(cur.trim());
+  return out;
+};
+
+const ELEVATIONS = ["1", "2", "3", "4"];
+
+/** Resolves each elevation token to its computed shadow string, so a
+ *  rendered drop shadow can be matched back to the level it came from. */
+function elevationMap(host: HTMLElement): Record<string, string> {
+  const probe = document.createElement("span");
+  probe.style.display = "none";
+  host.appendChild(probe);
+  const map: Record<string, string> = {};
+  for (const n of ELEVATIONS) {
+    probe.style.boxShadow = `var(--core-elevation-${n})`;
+    map[getComputedStyle(probe).boxShadow] = `core-elevation-${n}`;
+  }
+  probe.style.boxShadow = "var(--cds-focus-glow)";
+  const glow = getComputedStyle(probe).boxShadow;
+  if (glow && glow !== "none") map[glow] = "cds-focus-glow";
+  probe.remove();
+  return map;
+}
+
+interface ShadowRow {
+  label: string;
+  token: string;
+  value: string;
+}
+
+/** Shadow table generated from an anatomy's layers: reports the drop shadow
+ *  (elevation level) each layer renders, ignoring 1px inset strokes, which
+ *  the color table already covers as borders. The root layer always gets a
+ *  row, so flat components state "none" explicitly. */
+export function ShadowTable({ layers, root }: { layers: ColorLayer[]; root?: React.RefObject<HTMLElement> }) {
+  const [rows, setRows] = useState<ShadowRow[]>([]);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const r = root?.current;
+      if (!r) return;
+      const map = elevationMap(r);
+      const out: ShadowRow[] = [];
+      const seen = new Set<string>();
+      layers.forEach((l, i) => {
+        const el = resolve(r, l.sel);
+        if (!el || getComputedStyle(el).display === "none" || seen.has(l.node)) return;
+        const drop = splitShadows(getComputedStyle(el).boxShadow).filter((s) => s !== "none" && !s.includes("inset"));
+        if (!drop.length) {
+          if (i === 0) {
+            seen.add(l.node);
+            out.push({ label: `${l.node} — Shadow`, token: "none (flat)", value: "none" });
+          }
+          return;
+        }
+        const joined = drop.join(", ");
+        seen.add(l.node);
+        out.push({ label: `${l.node} — Shadow`, token: map[joined] ?? "custom (not a token)", value: joined });
+      });
+      setRows(out);
+    };
+    measure();
+    const t = window.setTimeout(measure, 400);
+    return () => window.clearTimeout(t);
+  }, [layers, root]);
+
+  if (!rows.length) return null;
+  return (
+    <div>
+      <SectionHeading>Shadow — elevation level from the live component</SectionHeading>
+      <SpecTableCard>
+        <SpecTableHead />
+        <tbody>
+          {rows.map((s) => (
+            <SpecRow key={s.label} label={s.label} token={s.token} value={s.value} standard={s.token.startsWith("custom") ? "warn" : "pass"} />
+          ))}
+        </tbody>
+      </SpecTableCard>
+    </div>
+  );
+}

@@ -81,7 +81,7 @@ export function SeparatorAnatomy() {
         pass("Card padding", "core-space-4", `${q.px("[data-a=card]", "padding-top")}px`),
         pass("Separator margin", "core-space-4", `${q.px(".cds-separator", "margin-top")}px / ${q.px(".cds-separator", "margin-bottom")}px`, "Spacing above and below lives on the separator; the card adds no extra gap"),
         pass("Title → body", "core-space-1", `${q.gap("[data-a=t1]", "[data-a=b1]", "y")}px`),
-        pass("Separator", "1px line · border-default", `1px line, 0px layout height · ${q.css(".cds-separator", "box-shadow").match(/rgba?\([^)]*\)/)?.[0] ?? ""}`),
+        pass("Separator", "1px line · theme-colors-neutral-300", `1px line, 0px layout height · ${getComputedStyle(document.querySelector(".cds-separator--h") ?? document.body, "::before").backgroundColor}`),
         pass("Title", "typography-body-md · 600", q.type("[data-a=t1]")),
         pass("Body", "typography-body-md", q.type("[data-a=b1]")),
       ]}
