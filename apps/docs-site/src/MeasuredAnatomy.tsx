@@ -452,6 +452,8 @@ export function LayerTable({ layers, root }: { layers: AnatomyLayer[]; root?: Re
       </SpecTableCard>
       <div style={{ marginTop: "var(--core-space-10)" }}>
         <ColorTable layers={layers} root={root} />
+      </div>
+      <div style={{ marginTop: "var(--core-space-10)" }}>
         <ShadowTable layers={layers} root={root} />
       </div>
     </div>

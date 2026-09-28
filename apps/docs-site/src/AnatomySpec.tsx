@@ -26,10 +26,10 @@ export function SpecTableHead() {
   return (
     <thead>
       <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
-        <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Property</th>
-        <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Token</th>
-        <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Value</th>
-        <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Standards</th>
+        <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "32%" }}>Property</th>
+        <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "28%" }}>Token</th>
+        <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "28%" }}>Value</th>
+        <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "12%" }}>Standards</th>
       </tr>
     </thead>
   );
