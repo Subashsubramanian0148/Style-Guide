@@ -1173,6 +1173,7 @@
   padding: var(--core-space-4) var(--core-space-4);
   border: 0;
   --cds-stroke-color: var(--theme-neutral-border-primary-default);
+  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color);
   border-radius: var(--core-radius-sm);
   background: var(--core-color-surface-default);
   cursor: pointer;
@@ -1204,13 +1205,13 @@
 
 .cds-quicklink:hover:not(:disabled) {
   --cds-stroke-color: var(--theme-neutral-border-strong);
-  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--core-elevation-1)None;
+  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--core-elevation-2);
 }
 
 .cds-quicklink:focus-visible {
   outline: none;
   --cds-stroke-color: var(--theme-primitive-color-primary-400);
-  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--cds-focus-glow)None;
+  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--cds-focus-glow);
 }
 
 .cds-quicklink[data-selected="true"] {
@@ -1231,7 +1232,7 @@
   cursor: not-allowed;
   background: var(--theme-semantics-disabled-background);
   --cds-stroke-color: var(--theme-semantics-disabled-border);
-  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color)None;
+  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color);
 }
 
 .cds-quicklink:disabled .cds-quicklink-icon {
@@ -3049,7 +3050,7 @@
   text-overflow: ellipsis;
   pointer-events: none;
   z-index: 20;
-  box-shadow: var(--core-card-shadow);
+  box-shadow: var(--core-elevation-2);
 }
 
 /* Label lives in an inner span so the bubble can clip it with an ellipsis
@@ -3152,7 +3153,7 @@
   --cds-stroke-color: var(--theme-neutral-border-primary-default);
   border-radius: var(--core-radius-sm);
   padding: var(--core-space-4);
-  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--core-elevation-3)None;
+  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--core-elevation-3);
   min-width: 280px;
 }
 
@@ -3394,7 +3395,11 @@
   border: 0;
   border-radius: var(--core-radius-sm);
   overflow: hidden;
-  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--theme-neutral-border-primary-default), var(--core-elevation-1);
+  /* Items paint over an inset shadow on the parent, so the 1px stroke is an
+     inside outline instead; it draws above the children and adds no size. */
+  outline: var(--core-border-width-default) solid var(--theme-neutral-border-primary-default);
+  outline-offset: calc(var(--core-border-width-default) * -1);
+  box-shadow: var(--core-elevation-1);
 }
 
 .cds-accordion-item {
@@ -3480,6 +3485,7 @@
 
 /* Separated / Card variant */
 .cds-accordion--separated {
+  outline: none;
   border: none;
   background: transparent;
   box-shadow: none;
@@ -3501,6 +3507,7 @@
 
 /* Flush variant — no outer border/radius */
 .cds-accordion--flush {
+  outline: none;
   border: none;
   background: transparent;
   border-radius: 0;
@@ -3639,24 +3646,54 @@
 }
 
 .cds-separator {
+  --cds-separator-color: var(--theme-colors-neutral-300);
   border: none;
   background: none;
 }
 
-/* A zero-height rule with the 1px line painted as a shadow: crisp, but it
-   adds no layout height, so the spacing around it stays on the 4px grid. */
+[data-mode="dark"] .cds-separator {
+  --cds-separator-color: var(--theme-colors-neutral-600);
+}
+
+/* A zero-size rule; the 1px line is an absolutely positioned pseudo-element,
+   so it adds no layout size and the spacing stays on the 4px grid. (A shadow
+   cast by a zero-height box paints nothing, so it can't carry the line.) */
+.cds-separator--h,
+.cds-separator--v {
+  position: relative;
+}
+
+.cds-separator--h::before,
+.cds-separator--v::before {
+  content: "";
+  position: absolute;
+  background: var(--cds-separator-color);
+}
+
 .cds-separator--h {
   height: 0;
-  box-shadow: 0 var(--core-border-width-default) 0 var(--theme-neutral-border-primary-default);
   width: 100%;
   margin: var(--core-space-4) var(--core-space-0);
 }
 
+.cds-separator--h::before {
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--core-border-width-default);
+}
+
 .cds-separator--v {
   width: 0;
-  box-shadow: var(--core-border-width-default) 0 0 var(--theme-neutral-border-primary-default);
   align-self: stretch;
   margin: var(--core-space-0) var(--core-space-3);
+}
+
+.cds-separator--v::before {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--core-border-width-default);
 }
 
 /* ---------- Skeleton ---------- */
@@ -4572,6 +4609,11 @@
 
 .cds-calendar {
   width: 280px;
+  box-sizing: border-box;
+  padding: var(--core-space-3);
+  background: var(--core-color-surface-default);
+  border-radius: var(--core-radius-sm);
+  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--theme-neutral-border-primary-default), var(--core-elevation-1);
 }
 
 .cds-calendar--disabled {
@@ -5683,7 +5725,7 @@
   background: var(--core-color-surface-default);
   border: 0;
   border-radius: var(--core-radius-sm);
-  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--core-color-border-default), var(--core-elevation-2);
+  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--core-color-border-default), var(--core-elevation-3);
   box-sizing: border-box;
 }
 
