@@ -4665,6 +4665,15 @@
   box-shadow: inset 0 0 0 var(--core-border-width-default) var(--theme-neutral-border-primary-default), var(--core-elevation-1);
 }
 
+/* Inside the date picker the popover already draws the border, radius and
+   shadow, so the calendar drops its own to avoid a doubled frame. */
+.cds-popover .cds-calendar {
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
 .cds-calendar--disabled {
   pointer-events: none;
 }
