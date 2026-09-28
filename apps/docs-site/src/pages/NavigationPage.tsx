@@ -190,7 +190,7 @@ const MOBILE_NAV_STATES: MobileNavState[] = ["Default", "Hover", "Active", "Focu
 const MOBILE_LINK_STATES: MobileNavState[] = ["Default", "Hover", "Active", "Focus", "Disabled"];
 
 /** Every variant in its own phone frame, then each bar item and menu link
- *  frozen in every state (hover / pressed / focus forced with a class). */
+ *  frozen in every state (hover / focus forced with a class). */
 function MobileNavDemo() {
   const [active, setActive] = useState("dashboard");
   const [link, setLink] = useState("portfolio");
