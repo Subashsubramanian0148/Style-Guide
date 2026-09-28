@@ -2888,6 +2888,11 @@
 }
 
 .cds-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--core-space-1);
+  font-family: var(--typography-font-family-sans);
+  transition: color var(--core-motion-duration-fast) ease, background-color var(--core-motion-duration-fast) ease, box-shadow var(--core-motion-duration-fast) ease;
   padding: var(--core-space-3) var(--core-space-3);
   margin-right: var(--core-space-4);
   background: none;
@@ -2903,8 +2908,50 @@
      indicator overlays the separator and neither adds to the tab height. */
 }
 
-.cds-tab:hover {
+.cds-tab:hover:not(:disabled):not([aria-selected="true"]) {
   color: var(--theme-neutral-text-primary-default);
+  --cds-tab-indicator: var(--theme-neutral-border-strong);
+}
+
+.cds-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--core-size-icon-md);
+  height: var(--core-size-icon-md);
+  padding: 0 var(--core-space-1);
+  box-sizing: border-box;
+  border-radius: var(--core-radius-full);
+  background: var(--core-color-surface-sunken);
+  color: var(--theme-neutral-text-subtle);
+  font-size: var(--typography-font-size-xs);
+  line-height: var(--typography-body-xs-line-height);
+  font-weight: var(--typography-font-weight-semibold);
+}
+
+.cds-tab[aria-selected="true"] .cds-tab-count {
+  background: var(--brand-background-primary-subtle);
+  color: var(--brand-text-primary-default);
+}
+
+/* The shared disabled text step equals a resting tab's grey, so a disabled
+   tab would be indistinguishable; tabs recede one step further. */
+.cds-tab {
+  --cds-tab-disabled-text: var(--theme-colors-neutral-400);
+}
+
+[data-mode="dark"] .cds-tab {
+  --cds-tab-disabled-text: var(--theme-colors-neutral-600);
+}
+
+.cds-tab:disabled {
+  cursor: not-allowed;
+  color: var(--cds-tab-disabled-text);
+}
+
+.cds-tab:disabled .cds-tab-count {
+  background: var(--theme-semantics-disabled-background);
+  color: var(--cds-tab-disabled-text);
 }
 
 .cds-tab[aria-selected="true"] {
@@ -2957,8 +3004,37 @@
   transform: none;
 }
 
-.cds-tab--vertical:hover {
+.cds-tab--vertical:hover:not(:disabled):not([aria-selected="true"]) {
   background: var(--core-color-surface-sunken);
+}
+
+/* Tabs: pill (segmented) variant */
+.cds-tabs--pill {
+  display: inline-flex;
+  gap: var(--core-space-1);
+  padding: var(--core-space-1);
+  border-radius: var(--core-radius-sm);
+  background: var(--core-color-surface-sunken);
+  box-shadow: none;
+}
+
+.cds-tab--pill {
+  margin-right: 0;
+  padding: var(--core-space-2) var(--core-space-4);
+  border-radius: var(--core-radius-xs);
+  font-size: var(--typography-body-md-size);
+  line-height: var(--typography-body-md-line-height);
+  box-shadow: none;
+}
+
+.cds-tab--pill:hover:not(:disabled):not([aria-selected="true"]) {
+  background: color-mix(in srgb, var(--core-color-surface-default) 60%, transparent);
+}
+
+.cds-tab--pill[aria-selected="true"] {
+  background: var(--core-color-surface-default);
+  color: var(--theme-neutral-text-primary-default);
+  box-shadow: var(--core-elevation-1);
 }
 
 .cds-tab--vertical[aria-selected="true"] {

@@ -87,6 +87,58 @@ const variantLabelStyle: React.CSSProperties = {
   marginBottom: 2,
 };
 
+type TabDemoState = "Default" | "Hover" | "Selected" | "Focus" | "Disabled";
+type TabDemoKind = "underline" | "pill" | "vertical";
+
+const TAB_STATES: TabDemoState[] = ["Default", "Hover", "Selected", "Focus", "Disabled"];
+
+const panelText: React.CSSProperties = {
+  margin: 0,
+  fontSize: "var(--typography-body-md-size)",
+  lineHeight: "var(--typography-body-md-line-height)",
+  color: "var(--core-color-text-secondary)",
+};
+
+/** One static tab frozen in a given state, so every state is visible at once
+ *  (hover and focus are forced with a class instead of real pointer/keyboard). */
+function TabStateCell({ kind, state }: { kind: TabDemoKind; state: TabDemoState }) {
+  const vertical = kind === "vertical";
+  const pill = kind === "pill";
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "var(--core-space-2)" }}>
+      <StateLabel>{state.toUpperCase()}</StateLabel>
+      <div
+        role="tablist"
+        aria-orientation={vertical ? "vertical" : "horizontal"}
+        className={`cds-tabs ${vertical ? "cds-tabs--vertical" : ""} ${pill ? "cds-tabs--pill" : ""} ${state === "Hover" ? "tab-force-hover" : ""} ${state === "Focus" ? "tab-force-focus" : ""}`}
+        style={vertical ? { minWidth: 0 } : undefined}
+      >
+        <button
+          type="button"
+          role="tab"
+          tabIndex={-1}
+          aria-selected={state === "Selected"}
+          disabled={state === "Disabled"}
+          className={`cds-tab ${vertical ? "cds-tab--vertical" : ""} ${pill ? "cds-tab--pill" : ""}`}
+        >
+          <span className="cds-tab-label">Overview</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function TabStatesRow({ kind, title }: { kind: TabDemoKind; title: string }) {
+  return (
+    <div>
+      <div style={{ ...variantLabelStyle, marginBottom: "var(--core-space-3)" }}>{title}</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: "var(--core-space-4)", alignItems: "start" }}>
+        {TAB_STATES.map((st) => <TabStateCell key={st} kind={kind} state={st} />)}
+      </div>
+    </div>
+  );
+}
+
 /** Mobile stepper — a compact segmented progress bar for the whole flow
  *  plus a focused card for just the current step, at realistic phone
  *  width. Shown once per state so every state's marker/border/status
@@ -251,32 +303,82 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
           demo={<>
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
-            <div style={{ width: "100%" }}>
-              <Tabs
-                items={[
-                  { id: "overview", label: "Overview", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Account overview content.</p> },
-                  { id: "transactions", label: "Transactions", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Transaction history content.</p> },
-                  { id: "documents", label: "Documents", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)" }}>Statements & tax forms content.</p> },
-                ]}
-              />
+            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "var(--core-space-10)" }}>
+              <div>
+                <div style={{ ...variantLabelStyle, marginBottom: "var(--core-space-3)" }}>Underline (default)</div>
+                <Tabs
+                  items={[
+                    { id: "overview", label: "Overview", content: <p style={panelText}>Account overview content.</p> },
+                    { id: "transactions", label: "Transactions", content: <p style={panelText}>Transaction history content.</p> },
+                    { id: "documents", label: "Documents", content: <p style={panelText}>Statements & tax forms content.</p> },
+                    { id: "archived", label: "Archived", disabled: true },
+                  ]}
+                />
+              </div>
+
+              <div>
+                <div style={{ ...variantLabelStyle, marginBottom: "var(--core-space-3)" }}>Underline with icon &amp; count</div>
+                <Tabs
+                  items={[
+                    { id: "overview", label: "Overview", icon: "fa-solid fa-chart-line", content: <p style={panelText}>Account overview content.</p> },
+                    { id: "transactions", label: "Transactions", icon: "fa-solid fa-right-left", count: 12, content: <p style={panelText}>Transaction history content.</p> },
+                    { id: "documents", label: "Documents", icon: "fa-solid fa-file-lines", count: 3, content: <p style={panelText}>Statements & tax forms content.</p> },
+                  ]}
+                />
+              </div>
+
+              <div>
+                <div style={{ ...variantLabelStyle, marginBottom: "var(--core-space-3)" }}>Pill (segmented)</div>
+                <Tabs
+                  variant="pill"
+                  items={[
+                    { id: "monthly", label: "Monthly", content: <p style={panelText}>Monthly contributions.</p> },
+                    { id: "quarterly", label: "Quarterly", content: <p style={panelText}>Quarterly contributions.</p> },
+                    { id: "yearly", label: "Yearly", content: <p style={panelText}>Yearly contributions.</p> },
+                    { id: "custom", label: "Custom", disabled: true },
+                  ]}
+                />
+              </div>
+
+              <div>
+                <div style={{ ...variantLabelStyle, marginBottom: "var(--core-space-3)" }}>Vertical</div>
+                <Tabs
+                  orientation="vertical"
+                  items={[
+                    { id: "personal", label: "Personal Details", content: <p style={panelText}>Personal details content.</p> },
+                    { id: "bank", label: "Bank Details", content: <p style={panelText}>Bank details content.</p> },
+                    { id: "employment", label: "Employment Information", content: <p style={panelText}>Employment info content.</p> },
+                    { id: "beneficiary", label: "Beneficiary Details", disabled: true },
+                  ]}
+                />
+              </div>
             </div>
           </Preview>
         </div>
         <div className="site-panel site-panel--flush site-panel--demo">
           <Preview showModeToggle>
-            <Tabs
-              orientation="vertical"
-              items={[
-                { id: "personal", label: "Personal Details", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)", margin: 0 }}>Personal details content.</p> },
-                { id: "bank", label: "Bank Details", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)", margin: 0 }}>Bank details content.</p> },
-                { id: "employment", label: "Employment Information", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)", margin: 0 }}>Employment info content.</p> },
-                { id: "beneficiary", label: "Beneficiary Details", content: <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)", margin: 0 }}>Beneficiary details content.</p> },
-              ]}
-            />
+            <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "var(--core-space-8)" }}>
+              <div style={{ ...variantLabelStyle, fontSize: "var(--typography-body-lg-size)", lineHeight: "var(--typography-body-lg-line-height)" }}>Interactive states</div>
+              <TabStatesRow kind="underline" title="Underline" />
+              <TabStatesRow kind="pill" title="Pill" />
+              <TabStatesRow kind="vertical" title="Vertical" />
+            </div>
           </Preview>
         </div>
       </>}
         />
+        <style>{`
+          .tab-force-hover .cds-tab:not(:disabled) {
+            color: var(--theme-neutral-text-primary-default);
+            --cds-tab-indicator: var(--theme-neutral-border-strong);
+          }
+          .tab-force-hover .cds-tab--vertical:not(:disabled) { background: var(--core-color-surface-sunken); }
+          .tab-force-hover .cds-tab--pill:not(:disabled) { background: color-mix(in srgb, var(--core-color-surface-default) 60%, transparent); }
+          .tab-force-focus .cds-tab {
+            outline: var(--core-focusRing-width) solid var(--cds-focus-color);
+            outline-offset: var(--core-focusRing-offset);
+          }
+        `}</style>
       </DocsSection>
 
       <style>{`

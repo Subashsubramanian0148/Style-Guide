@@ -1,6 +1,18 @@
 import React, { useId, useRef, useState } from "react";
+import { Icon } from "./Primitives";
 
-export interface TabItem { id: string; label: string; content?: React.ReactNode; }
+export interface TabItem {
+  id: string;
+  label: string;
+  content?: React.ReactNode;
+  /** Font Awesome class, e.g. "fa-solid fa-chart-line"; sits 4px before the label. */
+  icon?: string;
+  /** Count shown as a small pill after the label. */
+  count?: number;
+  disabled?: boolean;
+}
+
+export type TabsVariant = "underline" | "pill";
 
 /**
  * WAI-ARIA APG tabs pattern (https://www.w3.org/WAI/ARIA/apg/patterns/tabs/):
@@ -14,8 +26,19 @@ export interface TabItem { id: string; label: string; content?: React.ReactNode;
  * aria-labelledby, so a screen reader couldn't say which tab a panel's
  * content belonged to.
  */
-export function Tabs({ items, defaultId, orientation = "horizontal" }: { items: TabItem[]; defaultId?: string; orientation?: "horizontal" | "vertical" }) {
-  const [active, setActive] = useState(defaultId ?? items[0]?.id);
+export function Tabs({
+  items,
+  defaultId,
+  orientation = "horizontal",
+  variant = "underline",
+}: {
+  items: TabItem[];
+  defaultId?: string;
+  orientation?: "horizontal" | "vertical";
+  /** Underline (default) or pill (segmented). Pill applies to horizontal tabs only. */
+  variant?: TabsVariant;
+}) {
+  const [active, setActive] = useState(defaultId ?? items.find((t) => !t.disabled)?.id);
   const vertical = orientation === "vertical";
   const baseId = useId();
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -29,18 +52,29 @@ export function Tabs({ items, defaultId, orientation = "horizontal" }: { items: 
     tabRefs.current[index]?.focus();
   };
 
+  // Arrow keys, Home and End skip disabled tabs.
+  const step = (from: number, dir: 1 | -1) => {
+    for (let n = 1; n <= items.length; n++) {
+      const i = (from + dir * n + items.length) % items.length;
+      if (!items[i].disabled) return i;
+    }
+    return from;
+  };
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     const nextKey = vertical ? "ArrowDown" : "ArrowRight";
     const prevKey = vertical ? "ArrowUp" : "ArrowLeft";
-    if (e.key === nextKey) { e.preventDefault(); focusTab((activeIndex + 1) % items.length); }
-    else if (e.key === prevKey) { e.preventDefault(); focusTab((activeIndex - 1 + items.length) % items.length); }
-    else if (e.key === "Home") { e.preventDefault(); focusTab(0); }
-    else if (e.key === "End") { e.preventDefault(); focusTab(items.length - 1); }
+    if (e.key === nextKey) { e.preventDefault(); focusTab(step(activeIndex, 1)); }
+    else if (e.key === prevKey) { e.preventDefault(); focusTab(step(activeIndex, -1)); }
+    else if (e.key === "Home") { e.preventDefault(); focusTab(step(-1, 1)); }
+    else if (e.key === "End") { e.preventDefault(); focusTab(step(items.length, -1)); }
   };
+
+  const pill = variant === "pill" && !vertical;
 
   return (
     <div className={vertical ? "cds-tabs-layout--vertical" : undefined}>
-      <div className={`cds-tabs ${vertical ? "cds-tabs--vertical" : ""}`} role="tablist" aria-orientation={orientation}>
+      <div className={`cds-tabs ${vertical ? "cds-tabs--vertical" : ""} ${pill ? "cds-tabs--pill" : ""}`} role="tablist" aria-orientation={orientation}>
         {items.map((t, i) => (
           <button
             key={t.id}
@@ -50,11 +84,14 @@ export function Tabs({ items, defaultId, orientation = "horizontal" }: { items: 
             aria-selected={active === t.id}
             aria-controls={`${baseId}-panel-${t.id}`}
             tabIndex={active === t.id ? 0 : -1}
-            className={`cds-tab ${vertical ? "cds-tab--vertical" : ""}`}
+            className={`cds-tab ${vertical ? "cds-tab--vertical" : ""} ${pill ? "cds-tab--pill" : ""}`}
+            disabled={t.disabled}
             onClick={() => setActive(t.id)}
             onKeyDown={onKeyDown}
           >
-            {t.label}
+            {t.icon && <Icon name={t.icon} size="sm" />}
+            <span className="cds-tab-label">{t.label}</span>
+            {t.count !== undefined && <span className="cds-tab-count">{t.count}</span>}
           </button>
         ))}
       </div>
@@ -63,7 +100,7 @@ export function Tabs({ items, defaultId, orientation = "horizontal" }: { items: 
         id={`${baseId}-panel-${active}`}
         aria-labelledby={`${baseId}-tab-${active}`}
         tabIndex={0}
-        style={vertical ? { flex: 1, minWidth: 0 } : { paddingTop: 16 }}
+        style={vertical ? { flex: 1, minWidth: 0 } : { paddingTop: "var(--core-space-4)" }}
       >
         {items.find((t) => t.id === active)?.content}
       </div>
