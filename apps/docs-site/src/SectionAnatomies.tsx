@@ -3,7 +3,7 @@ import { MeasuredAnatomy, type AnatomySpecRow } from "./MeasuredAnatomy";
 import { StateLabel } from "./DocsSection";
 import { CardQuickLink } from "./QuickLinkCard";
 import { Separator, Skeleton } from "../../../packages/core/src/components/Disclosure";
-import { Tabs, AppSidebar, Pagination, Stepper, defaultStepStatus, type StepState } from "../../../packages/core/src/components/Navigation";
+import { Tabs, AppSidebar, Pagination, Stepper, MobileNav, defaultStepStatus, type StepState, type MobileNavItem, type MobileNavLink } from "../../../packages/core/src/components/Navigation";
 import { Progress, Table, AvatarGroup } from "../../../packages/core/src/components/DataDisplay";
 import { AVATAR_SAMPLES } from "./avatarSamples";
 import { Empty, Slider } from "../../../packages/core/src/components/Primitives";
@@ -278,6 +278,92 @@ export function InputGroupAnatomy() {
 /* ---------- Tabs ---------- */
 
 const tabP = (text: string) => <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)", margin: 0 }}>{text}</p>;
+
+export const MOBILE_NAV_ITEMS: MobileNavItem[] = [
+  { id: "dashboard", label: "Dashboard", icon: "fa-solid fa-table-cells-large" },
+  { id: "settings", label: "Settings", icon: "fa-solid fa-gear" },
+];
+
+export const MOBILE_NAV_LINKS: MobileNavLink[] = [
+  { id: "portfolio", label: "Investment portfolio", icon: "fa-solid fa-wallet" },
+  { id: "transactions", label: "Transactions", icon: "fa-solid fa-right-left" },
+  { id: "profile", label: "My profile", icon: "fa-solid fa-user" },
+  { id: "documents", label: "Document Center", icon: "fa-solid fa-file-lines" },
+];
+
+/** Phone-width app shell the mobile nav pins itself to. */
+export function PhoneFrame({ children, height = 440 }: { children: React.ReactNode; height?: number }) {
+  return (
+    <div
+      style={{
+        position: "relative",
+        width: 360,
+        maxWidth: "100%",
+        height,
+        overflow: "hidden",
+        borderRadius: "var(--core-radius-lg)",
+        background: "var(--core-color-bg-page)",
+        boxShadow: "inset 0 0 0 var(--core-border-width-default) var(--core-color-border-default)",
+      }}
+    >
+      <div style={{ padding: "var(--core-space-4)", display: "flex", flexDirection: "column", gap: "var(--core-space-3)" }}>
+        <div style={{ fontSize: "var(--typography-body-lg-size)", lineHeight: "var(--typography-body-lg-line-height)", fontWeight: 700, color: "var(--core-color-text-primary)" }}>Retirement 401(k) Plan</div>
+        {[72, 48, 48].map((h, i) => (
+          <div key={i} style={{ height: h, borderRadius: "var(--core-radius-sm)", background: "var(--core-color-surface-default)", boxShadow: "inset 0 0 0 var(--core-border-width-default) var(--core-color-border-default)" }} />
+        ))}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+export function MobileNavAnatomy() {
+  const bar = ".cds-mobile-nav__bar";
+  const item = `${bar} .cds-mobile-nav__item`;
+  const link = ".cds-mobile-nav__link";
+  return (
+    <MeasuredAnatomy
+      heading="Structure — menu sheet & bottom bar"
+      width={360}
+      maxScale={1.25}
+      marks={[
+        { kind: "padding", sel: ".cds-mobile-nav__sheet" },
+        { kind: "padding", sel: `.cds-mobile-nav__links li:nth-child(1) ${link}` },
+        { kind: "gap", a: `.cds-mobile-nav__links li:nth-child(1) ${link} .cds-icon`, b: `.cds-mobile-nav__links li:nth-child(1) ${link} span:last-child`, axis: "x" },
+        { kind: "size", sel: `.cds-mobile-nav__links li:nth-child(2) ${link}`, name: "Menu link", fill: "w" },
+        { kind: "padding", sel: bar },
+        { kind: "padding", sel: `${item}:nth-child(2)` },
+        { kind: "size", sel: `${item}:nth-child(3)`, name: "Bar item", fill: "w" },
+        { kind: "outline", sel: `${item}:nth-child(2) .cds-mobile-nav__label` },
+      ]}
+      layers={[
+        { node: "Sheet", cls: ".cds-mobile-nav__sheet", direction: "Vertical", alignment: "Top left", spacing: "Padding 8 / 0", sel: ".cds-mobile-nav__sheet" },
+        { node: "Menu link", cls: ".cds-mobile-nav__link", direction: "Horizontal", alignment: "Middle left", spacing: "Gap 12 · Padding 12 / 16", sel: `.cds-mobile-nav__links li:nth-child(1) ${link}` },
+        { node: "Bar", cls: ".cds-mobile-nav__bar", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 4 / 8 · equal columns", sel: bar },
+        { node: "Bar item (active)", cls: ".cds-mobile-nav__item[data-active]", direction: "Vertical", alignment: "Middle center", spacing: "Gap 4 · Padding 8 / 4", sel: `${item}:nth-child(1)` },
+        { node: "Bar item", cls: ".cds-mobile-nav__item", direction: "Vertical", alignment: "Middle center", spacing: "Gap 4 · Padding 8 / 4", sel: `${item}:nth-child(2)` },
+        { node: "Label", cls: ".cds-mobile-nav__label", direction: "Vertical", alignment: "Top center", spacing: "—", sel: `${item}:nth-child(2) .cds-mobile-nav__label` },
+      ]}
+      specs={(q) => [
+        pass("Bar height", "56 item + 4 + 4 padding", `${q.el(bar).offsetHeight}px`),
+        pass("Bar item height", "56px (core-space-12 + core-space-2)", `${q.el(`${item}:nth-child(2)`).offsetHeight}px`),
+        pass("Icon → label", "core-space-1", `${q.px(`${item}:nth-child(2)`, "row-gap")}px`),
+        pass("Active indicator", "48 × 4 · brand-border-primary-default", "48 × 4px"),
+        pass("Bar label", "typography-body-xs · semibold", q.type(`${item}:nth-child(2) .cds-mobile-nav__label`)),
+        pass("Menu link height", "core-size-control-lg", `${q.el(`.cds-mobile-nav__links li:nth-child(1) ${link}`).offsetHeight}px`),
+        pass("Menu icon → text", "core-space-3", `${q.px(`.cds-mobile-nav__links li:nth-child(1) ${link}`, "column-gap")}px`),
+        pass("Menu link label", "typography-body-md · semibold", q.type(`.cds-mobile-nav__links li:nth-child(1) ${link}`)),
+        pass("Sheet radius", "core-radius-lg (top corners)", q.css(".cds-mobile-nav__sheet", "border-top-left-radius")),
+        pass("Touch targets", "≥ 44 × 44 (WCAG 2.5.5)", `${q.el(`${item}:nth-child(2)`).offsetWidth} × ${q.el(`${item}:nth-child(2)`).offsetHeight} · link ${q.el(`.cds-mobile-nav__links li:nth-child(1) ${link}`).offsetHeight}px tall`),
+      ]}
+      note="Bar items share equal columns and hug nothing, so 3–5 slots always divide the width evenly. Labels truncate rather than wrap."
+    >
+      <PhoneFrame height={420}>
+        <MobileNav items={MOBILE_NAV_ITEMS} activeId="dashboard" menu={MOBILE_NAV_LINKS} menuOpen activeLinkId="portfolio" />
+      </PhoneFrame>
+    </MeasuredAnatomy>
+  );
+}
 
 export function TabsAnatomy() {
   const h = "[data-a=h] .cds-tab";

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Preview } from "../Preview";
 import { DocsSection, DocsSectionList, StateLabel } from "../DocsSection";
 import { AnatomySection } from "../AnatomySection";
-import { TabsAnatomy, SidebarAnatomy, PaginationAnatomy, StepperAnatomy, StepperStatePreview } from "../SectionAnatomies";
-import { Tabs, Pagination, AppSidebar, Stepper, defaultStepStatus, type SidebarItem, type StepState, type StepDef } from "../../../../packages/core/src/components/Navigation";
+import { MobileNavAnatomy, PhoneFrame, MOBILE_NAV_ITEMS, MOBILE_NAV_LINKS, TabsAnatomy, SidebarAnatomy, PaginationAnatomy, StepperAnatomy, StepperStatePreview } from "../SectionAnatomies";
+import { Tabs, MobileNav, Pagination, AppSidebar, Stepper, defaultStepStatus, type SidebarItem, type StepState, type StepDef } from "../../../../packages/core/src/components/Navigation";
 import { Icon } from "../../../../packages/core/src/components/Primitives";
 
 type SidebarRailState = "DEFAULT" | "HOVER" | "SELECTED" | "FOCUS" | "DISABLED";
@@ -185,6 +185,93 @@ function MobileStepperStatesDemo() {
   );
 }
 
+type MobileNavState = "Default" | "Hover" | "Pressed" | "Active" | "Focus" | "Disabled";
+const MOBILE_NAV_STATES: MobileNavState[] = ["Default", "Hover", "Pressed", "Active", "Focus", "Disabled"];
+const MOBILE_LINK_STATES: MobileNavState[] = ["Default", "Hover", "Active", "Focus", "Disabled"];
+
+/** Every variant in its own phone frame, then each bar item and menu link
+ *  frozen in every state (hover / pressed / focus forced with a class). */
+function MobileNavDemo() {
+  const [active, setActive] = useState("dashboard");
+  const [link, setLink] = useState("portfolio");
+  const badged = MOBILE_NAV_ITEMS.map((it) => (it.id === "settings" ? { ...it, badge: 3 } : it));
+  const barSlots = [
+    { id: "home", label: "Home", icon: "fa-solid fa-house" },
+    { id: "portfolio", label: "Portfolio", icon: "fa-solid fa-chart-line" },
+    { id: "activity", label: "Activity", icon: "fa-solid fa-right-left", badge: 12 },
+    { id: "profile", label: "Profile", icon: "fa-solid fa-user", disabled: true },
+  ];
+  const variants: Array<{ title: string; node: React.ReactNode }> = [
+    { title: "Bar only", node: <MobileNav items={barSlots} activeId="home" /> },
+    { title: "Bar with menu (closed)", node: <MobileNav items={MOBILE_NAV_ITEMS} activeId={active} onSelect={setActive} menu={MOBILE_NAV_LINKS} activeLinkId={link} onLinkSelect={setLink} /> },
+    { title: "Menu open", node: <MobileNav items={MOBILE_NAV_ITEMS} activeId="dashboard" menu={MOBILE_NAV_LINKS} menuOpen activeLinkId="portfolio" /> },
+    { title: "With badge", node: <MobileNav items={badged} activeId="dashboard" menu={MOBILE_NAV_LINKS} /> },
+  ];
+  const stateClass = (st: MobileNavState) => (st === "Hover" ? "mnav-force-hover" : st === "Pressed" ? "mnav-force-pressed" : st === "Focus" ? "mnav-force-focus" : "");
+  return (
+    <>
+      <div className="site-panel site-panel--flush site-panel--demo">
+        <Preview showModeToggle>
+          <div style={{ width: "100%", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "var(--core-space-6)" }}>
+            {variants.map((v) => (
+              <div key={v.title} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3)" }}>
+                <div style={variantLabelStyle}>{v.title}</div>
+                <PhoneFrame height={400}>{v.node}</PhoneFrame>
+              </div>
+            ))}
+          </div>
+        </Preview>
+      </div>
+      <div className="site-panel site-panel--flush site-panel--demo">
+        <Preview showModeToggle>
+          <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "var(--core-space-8)" }}>
+            <div style={{ ...variantLabelStyle, fontSize: "var(--typography-body-lg-size)", lineHeight: "var(--typography-body-lg-line-height)" }}>Interactive states</div>
+            <div>
+              <div style={{ ...variantLabelStyle, marginBottom: "var(--core-space-3)" }}>Bar item</div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(6, minmax(0, 1fr))", gap: "var(--core-space-4)" }}>
+                {MOBILE_NAV_STATES.map((st) => (
+                  <div key={st} className={stateClass(st)} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
+                    <StateLabel>{st.toUpperCase()}</StateLabel>
+                    <div className="cds-mobile-nav__bar" style={{ gridAutoColumns: "1fr" }}>
+                      <button type="button" tabIndex={-1} className="cds-mobile-nav__item" data-active={st === "Active" || undefined} disabled={st === "Disabled"}>
+                        <span className="cds-mobile-nav__icon"><Icon name="fa-solid fa-table-cells-large" size="md" /></span>
+                        <span className="cds-mobile-nav__label">Dashboard</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div style={{ ...variantLabelStyle, marginBottom: "var(--core-space-3)" }}>Menu link</div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "var(--core-space-4)" }}>
+                {MOBILE_LINK_STATES.map((st) => (
+                  <div key={st} className={stateClass(st)} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
+                    <StateLabel>{st.toUpperCase()}</StateLabel>
+                    <div className="cds-mobile-nav__sheet" style={{ borderRadius: "var(--core-radius-sm)", boxShadow: "inset 0 0 0 var(--core-border-width-default) var(--core-color-border-default)" }}>
+                      <button type="button" tabIndex={-1} className="cds-mobile-nav__link" aria-current={st === "Active" ? "page" : undefined} disabled={st === "Disabled"}>
+                        <Icon name="fa-solid fa-wallet" size="md" />
+                        <span>Investment portfolio</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Preview>
+      </div>
+      <style>{`
+        .mnav-force-hover .cds-mobile-nav__item:not(:disabled) { color: var(--theme-neutral-text-primary-default); background: var(--core-color-surface-sunken); }
+        .mnav-force-pressed .cds-mobile-nav__item:not(:disabled) { color: var(--theme-neutral-text-primary-default); background: var(--theme-colors-neutral-200); }
+        .mnav-force-hover .cds-mobile-nav__link:not(:disabled) { background: var(--core-color-surface-sunken); }
+        .mnav-force-focus .cds-mobile-nav__item,
+        .mnav-force-focus .cds-mobile-nav__link { outline: var(--core-focusRing-width) solid var(--cds-focus-color); outline-offset: calc(var(--core-focusRing-width) * -1); }
+      `}</style>
+    </>
+  );
+}
+
 function SidebarRailStatesDemo() {
   const states = [
     { label: "DEFAULT", className: "sidebar-state-default" },
@@ -229,6 +316,10 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
 
   const sections = (
     <DocsSectionList flat={embedded}>
+      <DocsSection anchorId="mobile-nav" title="Mobile navigation">
+        <AnatomySection anatomy={<MobileNavAnatomy />} demo={<MobileNavDemo />} />
+      </DocsSection>
+
       <DocsSection anchorId="pagination" title="Pagination">
         <AnatomySection
           anatomy={<PaginationAnatomy />}

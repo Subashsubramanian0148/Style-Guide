@@ -336,3 +336,130 @@ export function Pagination({ page, pageCount, onChange }: { page: number; pageCo
     </nav>
   );
 }
+
+/* ---------- Mobile navigation ---------- */
+
+export interface MobileNavItem {
+  id: string;
+  label: string;
+  /** Font Awesome class, e.g. "fa-solid fa-table-cells-large". */
+  icon: string;
+  /** Unread count shown on the icon; 0 or undefined hides it. */
+  badge?: number;
+  disabled?: boolean;
+}
+
+export interface MobileNavLink {
+  id: string;
+  label: string;
+  icon: string;
+  disabled?: boolean;
+}
+
+/**
+ * Bottom tab bar for phone layouts (below 768px). The first slot can be a
+ * "Menu" button that opens a sheet of secondary links above the bar, over a
+ * scrim. Place it inside a positioned app shell (or the viewport): it fills
+ * that box and pins the bar to the bottom.
+ *
+ * Keyboard: the bar is a plain list of buttons (Tab moves between them);
+ * the menu button reports aria-expanded, and Escape or a scrim tap closes
+ * the sheet and returns focus to the menu button.
+ */
+export function MobileNav({
+  items,
+  activeId,
+  onSelect,
+  menu,
+  menuOpen,
+  onMenuOpenChange,
+  activeLinkId,
+  onLinkSelect,
+  "aria-label": ariaLabel = "Primary",
+}: {
+  items: MobileNavItem[];
+  activeId?: string;
+  onSelect?: (id: string) => void;
+  /** Secondary links; when set, a "Menu" button is added as the first slot. */
+  menu?: MobileNavLink[];
+  menuOpen?: boolean;
+  onMenuOpenChange?: (open: boolean) => void;
+  activeLinkId?: string;
+  onLinkSelect?: (id: string) => void;
+  "aria-label"?: string;
+}) {
+  const [innerOpen, setInnerOpen] = useState(false);
+  const open = menuOpen ?? innerOpen;
+  const setOpen = (v: boolean) => {
+    if (menuOpen === undefined) setInnerOpen(v);
+    onMenuOpenChange?.(v);
+  };
+  const menuBtn = useRef<HTMLButtonElement | null>(null);
+  const sheetId = useId();
+
+  const close = () => {
+    setOpen(false);
+    menuBtn.current?.focus();
+  };
+
+  return (
+    <div className={`cds-mobile-nav ${open ? "cds-mobile-nav--open" : ""}`} onKeyDown={(e) => { if (open && e.key === "Escape") close(); }}>
+      {menu && open && (
+        <>
+          <div className="cds-mobile-nav__scrim" onClick={close} aria-hidden="true" />
+          <nav id={sheetId} className="cds-mobile-nav__sheet" aria-label="Menu">
+            <ul className="cds-mobile-nav__links">
+              {menu.map((l) => (
+                <li key={l.id}>
+                  <button
+                    type="button"
+                    className="cds-mobile-nav__link"
+                    aria-current={activeLinkId === l.id ? "page" : undefined}
+                    disabled={l.disabled}
+                    onClick={() => { onLinkSelect?.(l.id); setOpen(false); }}
+                  >
+                    <Icon name={l.icon} size="md" />
+                    <span>{l.label}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </>
+      )}
+      <nav className="cds-mobile-nav__bar" aria-label={ariaLabel}>
+        {menu && (
+          <button
+            ref={menuBtn}
+            type="button"
+            className="cds-mobile-nav__item"
+            aria-expanded={open}
+            aria-controls={sheetId}
+            data-active={open || undefined}
+            onClick={() => setOpen(!open)}
+          >
+            <Icon name={open ? "fa-solid fa-xmark" : "fa-solid fa-bars"} size="md" />
+            <span className="cds-mobile-nav__label">Menu</span>
+          </button>
+        )}
+        {items.map((it) => (
+          <button
+            key={it.id}
+            type="button"
+            className="cds-mobile-nav__item"
+            aria-current={activeId === it.id && !open ? "page" : undefined}
+            data-active={(activeId === it.id && !open) || undefined}
+            disabled={it.disabled}
+            onClick={() => { setOpen(false); onSelect?.(it.id); }}
+          >
+            <span className="cds-mobile-nav__icon">
+              <Icon name={it.icon} size="md" />
+              {!!it.badge && <span className="cds-mobile-nav__badge" aria-label={`${it.badge} new`}>{it.badge > 99 ? "99+" : it.badge}</span>}
+            </span>
+            <span className="cds-mobile-nav__label">{it.label}</span>
+          </button>
+        ))}
+      </nav>
+    </div>
+  );
+}

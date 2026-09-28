@@ -74,6 +74,7 @@ export const componentSections: NavSection[] = [
   {
     title: "Navigation",
     links: [
+      componentLink("mobile-nav", "Mobile navigation"),
       componentLink("pagination", "Pagination"),
       componentLink("sidebar", "Sidebar"),
       componentLink("stepper", "Stepper"),
