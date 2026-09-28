@@ -662,7 +662,7 @@ export function SliderAnatomy() {
         { kind: "gap", a: ".cds-label", b: ".cds-slider", axis: "y" },
         { kind: "gap", a: input, b: ".cds-slider-value", axis: "x", span: ".cds-slider" },
         { kind: "outline", sel: ".cds-label" },
-        { kind: "size", sel: input, name: "Control", fill: "w" },
+        { kind: "size", sel: input, name: "Track", fill: "w" },
         { kind: "size", sel: ".cds-slider-value", name: "Value" },
       ]}
       layers={[
@@ -682,6 +682,7 @@ export function SliderAnatomy() {
           "Figma: track frame padding 14 / 14 and value padding 12.05 — both off the 4-point grid; code uses a fixed 32px control with the track centered instead",
         ),
         pass("Track height", "core-space-2", getComputedStyle(q.el(".cds-slider")).getPropertyValue("--cds-slider-track-height").trim()),
+        pass("Track width", "fills the row after the value (flex 1)", `${q.el(input).offsetWidth}px at this width`),
         pass("Value", "typography-body-md · bold", q.type(".cds-slider-value")),
         pass("Label", "typography-label", q.type(".cds-label")),
       ]}
