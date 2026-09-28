@@ -195,14 +195,7 @@ function MobileNavDemo() {
   const [active, setActive] = useState("dashboard");
   const [link, setLink] = useState("portfolio");
   const badged = MOBILE_NAV_ITEMS.map((it) => (it.id === "settings" ? { ...it, badge: 3 } : it));
-  const barSlots = [
-    { id: "home", label: "Home", icon: "fa-solid fa-house" },
-    { id: "portfolio", label: "Portfolio", icon: "fa-solid fa-chart-line" },
-    { id: "activity", label: "Activity", icon: "fa-solid fa-right-left", badge: 12 },
-    { id: "profile", label: "Profile", icon: "fa-solid fa-user", disabled: true },
-  ];
   const variants: Array<{ title: string; node: React.ReactNode }> = [
-    { title: "Bar only", node: <MobileNav items={barSlots} activeId="home" /> },
     { title: "Bar with menu (closed)", node: <MobileNav items={MOBILE_NAV_ITEMS} activeId={active} onSelect={setActive} menu={MOBILE_NAV_LINKS} activeLinkId={link} onLinkSelect={setLink} /> },
     { title: "Menu open", node: <MobileNav items={MOBILE_NAV_ITEMS} activeId="dashboard" menu={MOBILE_NAV_LINKS} menuOpen activeLinkId="portfolio" /> },
     { title: "With badge", node: <MobileNav items={badged} activeId="dashboard" menu={MOBILE_NAV_LINKS} /> },
