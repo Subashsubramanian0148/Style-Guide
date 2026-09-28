@@ -185,8 +185,8 @@ function MobileStepperStatesDemo() {
   );
 }
 
-type MobileNavState = "Default" | "Hover" | "Pressed" | "Active" | "Focus" | "Disabled";
-const MOBILE_NAV_STATES: MobileNavState[] = ["Default", "Hover", "Pressed", "Active", "Focus", "Disabled"];
+type MobileNavState = "Default" | "Hover" | "Active" | "Focus" | "Disabled";
+const MOBILE_NAV_STATES: MobileNavState[] = ["Default", "Hover", "Active", "Focus", "Disabled"];
 const MOBILE_LINK_STATES: MobileNavState[] = ["Default", "Hover", "Active", "Focus", "Disabled"];
 
 /** Every variant in its own phone frame, then each bar item and menu link
@@ -200,7 +200,7 @@ function MobileNavDemo() {
     { title: "Menu open", node: <MobileNav items={MOBILE_NAV_ITEMS} activeId="dashboard" menu={MOBILE_NAV_LINKS} menuOpen activeLinkId="portfolio" /> },
     { title: "With badge", node: <MobileNav items={badged} activeId="dashboard" menu={MOBILE_NAV_LINKS} /> },
   ];
-  const stateClass = (st: MobileNavState) => (st === "Hover" ? "mnav-force-hover" : st === "Pressed" ? "mnav-force-pressed" : st === "Focus" ? "mnav-force-focus" : "");
+  const stateClass = (st: MobileNavState) => (st === "Hover" ? "mnav-force-hover" : st === "Focus" ? "mnav-force-focus" : "");
   return (
     <>
       <div className="site-panel site-panel--flush site-panel--demo">
@@ -221,7 +221,7 @@ function MobileNavDemo() {
             <div style={{ ...variantLabelStyle, fontSize: "var(--typography-body-lg-size)", lineHeight: "var(--typography-body-lg-line-height)" }}>Interactive states</div>
             <div>
               <div style={{ ...variantLabelStyle, marginBottom: "var(--core-space-3)" }}>Bar item</div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(6, minmax(0, 1fr))", gap: "var(--core-space-4)" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: "var(--core-space-4)" }}>
                 {MOBILE_NAV_STATES.map((st) => (
                   <div key={st} className={stateClass(st)} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
                     <StateLabel>{st.toUpperCase()}</StateLabel>
@@ -256,7 +256,6 @@ function MobileNavDemo() {
       </div>
       <style>{`
         .mnav-force-hover .cds-mobile-nav__item:not(:disabled) { color: var(--theme-neutral-text-primary-default); background: var(--core-color-surface-sunken); }
-        .mnav-force-pressed .cds-mobile-nav__item:not(:disabled) { color: var(--theme-neutral-text-primary-default); background: var(--theme-colors-neutral-200); }
         .mnav-force-hover .cds-mobile-nav__link:not(:disabled) { background: var(--core-color-surface-sunken); }
         .mnav-force-focus .cds-mobile-nav__item,
         .mnav-force-focus .cds-mobile-nav__link { outline: var(--core-focusRing-width) solid var(--cds-focus-color); outline-offset: calc(var(--core-focusRing-width) * -1); }

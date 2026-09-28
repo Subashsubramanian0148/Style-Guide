@@ -6364,14 +6364,10 @@
   transition: background-color var(--core-motion-duration-fast) ease;
 }
 
-.cds-mobile-nav__item:hover:not(:disabled) {
-  color: var(--theme-neutral-text-primary-default);
-  background: var(--core-color-surface-sunken);
-}
-
+.cds-mobile-nav__item:hover:not(:disabled),
 .cds-mobile-nav__item:active:not(:disabled) {
   color: var(--theme-neutral-text-primary-default);
-  background: var(--theme-colors-neutral-200);
+  background: var(--core-color-surface-sunken);
 }
 
 .cds-mobile-nav__item[data-active="true"] {
