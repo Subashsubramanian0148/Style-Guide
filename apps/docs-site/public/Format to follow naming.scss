@@ -54,21 +54,11 @@ $accent-text-primary-light: (
 );
 
 $accent-text-primary-dark: (
-  // 500 (unchanged from light) only cleared ~2.3:1 against dark surfaces —
-  // fails WCAG AA (4.5:1). 300 clears ~8:1 while staying clearly "brand blue".
-  default: 300,
-  // Light mode steps progressively darker on interaction (500→700→900); dark
-  // mode mirrors that by stepping progressively lighter. hover was 400, which
-  // was both darker than default and only 4.06:1 — failing AA.
-  hover: 200,
-  active: 100,
-  // Only used for text sitting ON a brand-tinted disabled fill (primary
-  // button/icon button, selected-but-disabled calendar day). Ghost, outline
-  // and link disabled states use the neutral semantics-disabled tokens, so
-  // this no longer needs to differ from `default` to stay distinguishable.
-  // Muted neutral on the neutral(700) disabled fill (3.6:1) — never a
-  // brand step, so it can't match default/hover/active.
-  disabled: neutral(400),
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  default: 500,
+  hover: 400,
+  active: 200,
+  disabled: 300,
 );
 
 $accent-text-oncolor: (
@@ -80,9 +70,9 @@ $accent-text-oncolor: (
   dark: (
     // primary-50 (#F5F7FA) on the lighter dark fill reaches only 4.29:1.
     // Pure white reaches 4.60:1 and passes WCAG AA.
-    brand: neutral(white),
-    secondary: neutral(950),
-    tertiary: neutral(950),
+    brand: prim(primary, 50),
+    secondary: neutral(white),
+    tertiary: neutral(white),
   ),
 );
 
@@ -98,17 +88,14 @@ $accent-background-primary-light: (
 );
 
 $accent-background-primary-dark: (
-  // strong was 500, which is only 2.31:1 against the dark canvas — failing
-  // WCAG 1.4.11 for controls whose state is conveyed purely by this fill
-  // (checked checkbox/radio, switch ON, progress bar). 400 reaches 4.11:1
-  // and still carries white on-color text at 4.60:1.
-  strong: 400,
-  hover: 500,
-  active: 600,
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  strong: 500,
+  hover: 600,
+  active: 500,
   light: 900,
   subtle: 800,
-  disabled-light: neutral(800),
-  disabled-strong: neutral(700),
+  disabled-light: neutral(100),
+  disabled-strong: 200,
 );
 
 $accent-border-primary-light: (
@@ -119,16 +106,10 @@ $accent-border-primary-light: (
 );
 
 $accent-border-primary-dark: (
-  // 500 only reached 2.31:1 against the dark canvas, failing WCAG 1.4.11 (3:1)
-  // for controls identified by their outline — checkbox, radio, toggle. 400
-  // still measured 2.95:1 on the dark surface; 300 clears 3:1. Borders carry
-  // no text, so this can't regress 1.4.3.
-  default: 300,
-  hover: 200,
-  // Was 500 — identical to `default`, so a disabled bordered control (Icon
-  // Button, Button secondary) had the exact same border as an enabled one
-  // in dark mode. A neutral reads as clearly receded/muted.
-  disabled: neutral(600),
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  default: 500,
+  hover: 300,
+  disabled: 200,
 );
 
 // ── Per-role overrides ───────────────────────────────────────────────────────
@@ -138,18 +119,16 @@ $accent-border-primary-dark: (
 // sharing brand's. Every step below is unique within its group and passes
 // WCAG 2.1 AA (text 4.5:1 · UI boundary 3:1); disabled steps are exempt.
 $accent-overrides: (
+  // Figma spec: in dark mode secondary and tertiary fills get lighter on
+  // hover/active (400 / 300) where brand uses 600 / 500.
   secondary: (
     dark: (
-      text: (default: 300, hover: 200, active: 100, disabled: neutral(400)),
-      background: (strong: 400, hover: 500, active: 600, light: 950, subtle: 900, disabled-light: neutral(800), disabled-strong: neutral(700)),
-      border: (default: 300, hover: 200, disabled: neutral(600)),
+      background: (strong: 500, hover: 400, active: 300, light: 900, subtle: 800, disabled-light: neutral(100), disabled-strong: 200),
     ),
   ),
   tertiary: (
     dark: (
-      text: (default: 300, hover: 200, active: 100, disabled: neutral(400)),
-      background: (strong: 400, hover: 500, active: 600, light: 900, subtle: 800, disabled-light: neutral(800), disabled-strong: neutral(700)),
-      border: (default: 300, hover: 200, disabled: neutral(600)),
+      background: (strong: 500, hover: 400, active: 300, light: 900, subtle: 800, disabled-light: neutral(100), disabled-strong: 200),
     ),
   ),
 );
@@ -231,12 +210,11 @@ $neutral-border-light: (
 );
 
 $neutral-border-dark: (
-  // Dark surfaces need a lighter step to keep control outlines at 3:1
-  // (WCAG 1.4.11): 700 only reached ~1.9:1, 500 reaches ~3.9:1.
-  subtle: 500,
-  light: 500,
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  subtle: 800,
+  light: 700,
   default: 600,
-  strong: 400,
+  strong: 600,
   inverse: 900,
   background-strong: 700,
 );
@@ -283,6 +261,10 @@ $semantics-light: (
 $semantics-dark: (
   text: 300,
   background-light: 950,
+  // Figma spec: every strong status fill is 600 in dark mode too.
+  strong: (critical: 600, highlight: 600, success: 600, warning: 600),
+  strong-hover: (critical: 700, highlight: 700, success: 700, warning: 700),
+  strong-active: (critical: 800, highlight: 800, success: 800, warning: 800),
 );
 
 // Per-role "strong background" steps. These fills carry on-color (white) text,
@@ -322,10 +304,11 @@ $semantics-border-light: (
 );
 
 $semantics-border-dark: (
-  critical: 400,
-  highlight: 600,
-  success: 600,
-  warning: 600,
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  critical: 700,
+  highlight: 700,
+  success: 700,
+  warning: 700,
 );
 
 // Disabled borders recede toward the surface. The single 600 map collided
@@ -371,9 +354,10 @@ $semantics-disabled-neutral-light: (
 );
 
 $semantics-disabled-neutral-dark: (
-  background: 800,
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  background: 50,
   border: 700,
-  text: 400,
+  text: 600,
 );
 
 // background and text were 50 / 700 — the enabled light-background and text
