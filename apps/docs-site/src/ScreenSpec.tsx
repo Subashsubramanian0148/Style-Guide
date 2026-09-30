@@ -3,6 +3,7 @@ import { SectionHeading, toHexColors } from "./AnatomySpec";
 import { tokenFor, PROPS, isTransparent } from "./AnatomyColors";
 import { styleLabel } from "./ScreenTypeMap";
 import { usePreviewMode } from "./PreviewModeContext";
+import { FrameCanvas, screenRect } from "./ScreenFrameCanvas";
 
 /** Figma-style screen specification (the "Specs" layout the design file
  *  uses): an Anatomy exhibit — every element numbered, with its attributes —
@@ -215,7 +216,7 @@ function useArtwork(width: number, reserve: number) {
 
 function rectIn(box: HTMLElement, el: HTMLElement): Rect {
   const o = box.getBoundingClientRect();
-  const r = el.getBoundingClientRect();
+  const r = screenRect(el);
   return { x: r.left - o.left, y: r.top - o.top, w: r.width, h: r.height };
 }
 
@@ -291,7 +292,9 @@ function placeDots(items: Item[], box: HTMLElement, aw: number, ah: number): Pla
   return [...sides.l, ...sides.r, ...sides.t, ...sides.b];
 }
 
-function Anatomy({ width, name, children, onPick }: { width: number; name: string; children: React.ReactNode; onPick: (el: HTMLElement) => void }) {
+function Anatomy({ width, name, children, frame, onPick }: { width: number; name: string; children?: React.ReactNode; frame?: string; onPick: (el: HTMLElement) => void }) {
+  const [frameRoot, setFrameRoot] = useState<HTMLElement | null>(null);
+  const [frameTick, setFrameTick] = useState(0);
   const { wrapRef, scale } = useArtwork(width, 2 * GUTTER);
   const { mode } = usePreviewMode();
   const boxRef = useRef<HTMLDivElement>(null);
@@ -303,7 +306,7 @@ function Anatomy({ width, name, children, onPick }: { width: number; name: strin
 
   useLayoutEffect(() => {
     const measure = () => {
-      const root = rootRef.current;
+      const root = frame ? frameRoot : rootRef.current;
       const box = boxRef.current;
       if (!root || !box) return;
       const aw = width * scale;
@@ -316,7 +319,7 @@ function Anatomy({ width, name, children, onPick }: { width: number; name: strin
     measure();
     const t = window.setTimeout(measure, 600);
     return () => window.clearTimeout(t);
-  }, [scale, width, name, mode]);
+  }, [scale, width, name, mode, frameRoot, frameTick]);
 
   const hovered = placed.find((p) => p.item.n === hover);
 
@@ -327,7 +330,7 @@ function Anatomy({ width, name, children, onPick }: { width: number; name: strin
         <div ref={wrapRef} style={{ flex: "1 1 520px", minWidth: 0 }}>
           <div ref={boxRef} style={{ position: "relative", width: size.w + 2 * GUTTER, height: size.h + 2 * GUTTER, background: "var(--core-color-surface-sunken, #EEEEF2)", borderRadius: 8 }}>
             <div style={{ position: "absolute", left: GUTTER, top: GUTTER, width, transform: `scale(${scale})`, transformOrigin: "0 0", pointerEvents: "none" }}>
-              <div ref={rootRef} data-spec-root="1">{children}</div>
+              {frame ? <FrameCanvas src={frame} width={width} onRoot={(r) => { setFrameRoot(r); setFrameTick((t) => t + 1); }} /> : <div ref={rootRef} data-spec-root="1">{children}</div>}
             </div>
             <svg width={size.w + 2 * GUTTER} height={size.h + 2 * GUTTER} style={{ position: "absolute", inset: 0, zIndex: 3, pointerEvents: "none" }}>
               {placed.map((p) => (
@@ -377,7 +380,9 @@ function Band({ r, color, label }: { r: Rect; color: string; label: string }) {
   );
 }
 
-function Layout({ width, name, children, pick }: { width: number; name: string; children: React.ReactNode; pick: { el: HTMLElement | null; tick: number } }) {
+function Layout({ width, name, children, frame, pick }: { width: number; name: string; children?: React.ReactNode; frame?: string; pick: { el: HTMLElement | null; tick: number } }) {
+  const [frameRoot, setFrameRoot] = useState<HTMLElement | null>(null);
+  const [frameTick, setFrameTick] = useState(0);
   const { wrapRef, scale } = useArtwork(width, 0);
   const { mode } = usePreviewMode();
   const boxRef = useRef<HTMLDivElement>(null);
@@ -389,7 +394,7 @@ function Layout({ width, name, children, pick }: { width: number; name: string; 
 
   useLayoutEffect(() => {
     const measure = () => {
-      const root = rootRef.current;
+      const root = frame ? frameRoot : rootRef.current;
       if (!root) return;
       setH(root.offsetHeight * scale);
       setNodes(collectItems(root, name).filter((i) => i.layout));
@@ -398,7 +403,7 @@ function Layout({ width, name, children, pick }: { width: number; name: string; 
     measure();
     const t = window.setTimeout(measure, 600);
     return () => window.clearTimeout(t);
-  }, [scale, width, name, mode]);
+  }, [scale, width, name, mode, frameRoot, frameTick]);
 
   // Jump here when a node is picked in the Anatomy list (matched by position in the tree).
   useLayoutEffect(() => {
@@ -467,7 +472,7 @@ function Layout({ width, name, children, pick }: { width: number; name: string; 
         <div ref={wrapRef} style={{ flex: "1 1 520px", minWidth: 0 }}>
           <div ref={boxRef} onClick={onArtworkClick} style={{ position: "relative", width: width * scale, height: h, overflow: "hidden", borderRadius: 8, cursor: "crosshair" }}>
             <div style={{ position: "absolute", left: 0, top: 0, width, transform: `scale(${scale})`, transformOrigin: "0 0", pointerEvents: "none" }}>
-              <div ref={rootRef} data-spec-root="1">{children}</div>
+              {frame ? <FrameCanvas src={frame} width={width} onRoot={(r) => { setFrameRoot(r); setFrameTick((t) => t + 1); }} /> : <div ref={rootRef} data-spec-root="1">{children}</div>}
             </div>
             {drawn && (
               <>
@@ -508,12 +513,12 @@ function Layout({ width, name, children, pick }: { width: number; name: string; 
 const navBtn: React.CSSProperties = { width: 32, height: 32, borderRadius: 6, border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", color: "var(--core-color-text-primary)", cursor: "pointer", fontSize: 16 };
 
 /** Anatomy + Layout and spacing for one screen, like the Figma spec sheet. */
-export function ScreenSpec({ width, name, render }: { width: number; name: string; render: () => React.ReactNode }) {
+export function ScreenSpec({ width, name, render, frame }: { width: number; name: string; render?: () => React.ReactNode; frame?: string }) {
   const [pick, setPick] = useState<{ el: HTMLElement | null; tick: number }>({ el: null, tick: 0 });
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
-      <Anatomy width={width} name={name} onPick={(el) => setPick((p) => ({ el, tick: p.tick + 1 }))}>{render()}</Anatomy>
-      <Layout width={width} name={name} pick={pick}>{render()}</Layout>
+      <Anatomy width={width} name={name} frame={frame} onPick={(el) => setPick((p) => ({ el, tick: p.tick + 1 }))}>{render?.()}</Anatomy>
+      <Layout width={width} name={name} frame={frame} pick={pick}>{render?.()}</Layout>
     </div>
   );
 }

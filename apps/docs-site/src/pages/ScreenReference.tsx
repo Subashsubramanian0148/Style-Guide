@@ -475,18 +475,35 @@ export function ScreenFrame({ id, mode }: { id: string; mode: "light" | "dark" }
   );
 }
 
-/** Phone preview: 390 × 844 viewport with the page scrolling inside it. */
-function MobilePreview({ id, notes }: { id: string; notes: string[] }) {
+const MOBILE_WIDTH = 390;
+
+/** Phone preview: 390 × 844 viewport with the page scrolling inside it,
+ *  plus the same Anatomy / Layout and spacing / Typography map as desktop,
+ *  measured from the screen rendered at phone width. */
+function MobilePreview({ id, title, notes }: { id: string; title: string; notes: string[] }) {
   const { mode } = usePreviewMode();
+  const src = `/#/screen-frame/${id}?mode=${mode}`;
   return (
-    <div className="sr-mobile-ref">
-      <div className="sr-phone">
-        <iframe title={`${id} — mobile`} src={`/#/screen-frame/${id}?mode=${mode}`} width={390} height={844} />
-      </div>
-      <div className="sr-mobile-notes">
-        <SectionHeading>What changes below 640 px</SectionHeading>
-        <ul>{notes.map((n) => <li key={n}>{n}</li>)}</ul>
-      </div>
+    <div className="site-panel site-panel--flush site-panel--demo">
+      <AnatomySection
+        demo={
+          <div className="sr-mobile-ref">
+            <div className="sr-phone">
+              <iframe key={src} title={`${id} — mobile`} src={src} width={MOBILE_WIDTH} height={844} />
+            </div>
+            <div className="sr-mobile-notes">
+              <SectionHeading>What changes below 640 px</SectionHeading>
+              <ul>{notes.map((n) => <li key={n}>{n}</li>)}</ul>
+            </div>
+          </div>
+        }
+        anatomy={
+          <div key={src} style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+            <ScreenSpec width={MOBILE_WIDTH} name={`LendGuard — ${title} (mobile)`} frame={`${src}&fit=1`} />
+            <ScreenTypeMap width={MOBILE_WIDTH} frame={`${src}&fit=1`} />
+          </div>
+        }
+      />
     </div>
   );
 }
@@ -555,7 +572,7 @@ function ScreenBlock({ id, title, screen, onScan }: { id: string; title: string;
         />
       </div>
       <h4 style={{ margin: "var(--core-space-4) 0 0", fontSize: "var(--typography-heading-h5-size)" }}>{title} — mobile (390 px)</h4>
-      <MobilePreview id={id} notes={[...MOBILE_NOTES[id], ...MOBILE_NOTES.common]} />
+      <MobilePreview id={id} title={title} notes={[...MOBILE_NOTES[id], ...MOBILE_NOTES.common]} />
     </div>
   );
 }

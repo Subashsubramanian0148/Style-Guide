@@ -4,6 +4,7 @@ import { roleName } from "./pages/Typography";
 import { tokensFor, usageFor } from "./pages/typographyUsage";
 import { SectionHeading, SpecTableCard, SpecNote } from "./AnatomySpec";
 import { hasOwnText } from "./AnatomyColors";
+import { FrameCanvas, screenRect } from "./ScreenFrameCanvas";
 
 /** Typography map for a whole screen: tags every piece of text with the
  *  style it uses, says where each style appears, what it is for, and the
@@ -119,7 +120,7 @@ function collect(root: HTMLElement, box: HTMLElement, scale: number): Hit[] {
     const inside = typed && root.contains(typed) ? typed : null;
     const comp = COMPONENTS.find(([sel]) => el.closest(sel));
     const key = inside ? inside.dataset.type! : matchBySize(el);
-    const r = el.getBoundingClientRect();
+    const r = screenRect(el);
     const text = (el.textContent || (el as HTMLInputElement).placeholder || "").trim().replace(/\s+/g, " ");
     if (!text) continue;
     hits.push({ key, text, source: inside ? null : comp ? comp[1] : null, tag: (inside ?? el).tagName.toLowerCase(), rect: { x: (r.left - o.left) / 1, y: (r.top - o.top) / 1, w: r.width, h: r.height } });
@@ -170,7 +171,9 @@ const ORDER = (k: string) => {
   return 10 + (40 - (d ? parseInt(d.size, 10) : 0)) + (d ? (900 - Number(d.weight)) / 1000 : 0);
 };
 
-export function ScreenTypeMap({ width, children }: { width: number; children: React.ReactNode }) {
+export function ScreenTypeMap({ width, children, frame }: { width: number; children?: React.ReactNode; frame?: string }) {
+  const [frameRoot, setFrameRoot] = useState<HTMLElement | null>(null);
+  const [frameTick, setFrameTick] = useState(0);
   const wrapRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -191,14 +194,15 @@ export function ScreenTypeMap({ width, children }: { width: number; children: Re
 
   useLayoutEffect(() => {
     const measure = () => {
-      if (!rootRef.current || !boxRef.current) return;
-      setHeight(rootRef.current.offsetHeight);
-      setHits(collect(rootRef.current, boxRef.current, scale));
+      const root = frame ? frameRoot : rootRef.current;
+      if (!root || !boxRef.current) return;
+      setHeight(root.offsetHeight);
+      setHits(collect(root, boxRef.current, scale));
     };
     measure();
     const t = window.setTimeout(measure, 500);
     return () => window.clearTimeout(t);
-  }, [scale]);
+  }, [scale, frameRoot, frameTick]);
 
   const keys = [...new Set(hits.map((h) => h.key))].sort((a, b) => ORDER(a) - ORDER(b));
   const inFocus = (h: Hit) => !focus || (focus === "headings" ? HEADINGS.includes(h.key) : h.key === focus);
@@ -242,7 +246,7 @@ export function ScreenTypeMap({ width, children }: { width: number; children: Re
         <div ref={wrapRef} style={{ width: "100%", overflow: "hidden" }}>
           <div ref={boxRef} style={{ position: "relative", width: width * scale, height: height * scale }}>
             <div style={{ position: "absolute", left: 0, top: 0, width, transform: `scale(${scale})`, transformOrigin: "0 0" }}>
-              <div ref={rootRef}>{children}</div>
+              {frame ? <FrameCanvas src={frame} width={width} onRoot={(r) => { setFrameRoot(r); setFrameTick((t) => t + 1); }} /> : <div ref={rootRef}>{children}</div>}
             </div>
             {shown.map((h, i) => {
               const color = h.source ? GROUP_COLOR.other : GROUP_COLOR[groupOf(h.key)];
