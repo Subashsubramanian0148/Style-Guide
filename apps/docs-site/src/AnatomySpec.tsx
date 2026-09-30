@@ -44,6 +44,9 @@ export function SpecTableHead() {
  *  so show the same #RRGGBB (or #RRGGBBAA when translucent) the design
  *  system defines. */
 export function toHexColors(value: string): string {
+  value = value.replace(/color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+%?))?\s*\)/g, (_m, r, g, b, a) =>
+    `rgba(${Math.round(+r * 255)}, ${Math.round(+g * 255)}, ${Math.round(+b * 255)}${a !== undefined ? `, ${a}` : ""})`,
+  );
   return value.replace(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+%?))?\s*\)/g, (_m, r, g, b, a) => {
     const hex = (n: number) => Math.round(n).toString(16).padStart(2, "0");
     let out = `#${hex(+r)}${hex(+g)}${hex(+b)}`;
@@ -56,7 +59,27 @@ export function toHexColors(value: string): string {
   });
 }
 
-export function SpecRow({ label, token, value, swatch, standard, note }: { label: string; token: string; value: string; swatch?: string; standard: "pass" | "warn"; note?: string }) {
+export function SpecRow({
+  label,
+  token,
+  value,
+  swatch,
+  standard,
+  note,
+  colorName,
+  ratio,
+}: {
+  label: string;
+  token: string;
+  value: string;
+  swatch?: string;
+  standard: "pass" | "warn" | "fail";
+  note?: string;
+  /** Design-system color name for a color value, e.g. "Neutral 0". */
+  colorName?: string;
+  /** Measured contrast, e.g. "4.52:1", shown beside the pass mark. */
+  ratio?: string;
+}) {
   return (
     <tr style={{ borderTop: "1px solid var(--core-color-border-subtle)" }}>
       <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap", verticalAlign: "top" }}>{label}</td>
@@ -64,12 +87,30 @@ export function SpecRow({ label, token, value, swatch, standard, note }: { label
       <td style={{ padding: "var(--core-space-2) var(--core-space-4)", color: "var(--core-color-text-secondary)", whiteSpace: "nowrap", verticalAlign: "top" }}>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
           {swatch && <span style={{ width: 14, height: 14, borderRadius: 3, background: swatch, border: "1px solid var(--core-color-border-subtle)", display: "inline-block", flexShrink: 0 }} />}
-          {toHexColors(value)}
+          {colorName ? (
+            <>
+              <span style={{ fontWeight: 600, color: "var(--core-color-text-primary)" }}>{colorName}</span>
+              <span style={{ fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12 }}>{toHexColors(value)}</span>
+            </>
+          ) : (
+            toHexColors(value)
+          )}
         </span>
       </td>
       <td style={{ padding: "var(--core-space-2) var(--core-space-4)", maxWidth: 260, verticalAlign: "top" }}>
         {standard === "pass" ? (
-          <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--core-color-status-success-bg, rgba(34,197,94,0.12))", color: "var(--core-color-status-success-text)", fontWeight: 700, fontSize: 12 }} title="Meets design/industry standard">✓</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-2)" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--core-color-status-success-bg, rgba(34,197,94,0.12))", color: "var(--core-color-status-success-text)", fontWeight: 700, fontSize: 12 }} title="Meets design/industry standard">✓</span>
+            {ratio && <span style={{ fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap" }}>{ratio}</span>}
+            {note && <span style={{ fontSize: 12, lineHeight: "16px", color: "var(--core-color-text-tertiary)", whiteSpace: "normal" }}>{note}</span>}
+          </span>
+        ) : standard === "fail" ? (
+          <span style={{ display: "flex", alignItems: "flex-start", gap: "var(--core-space-2)" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--core-color-status-danger-bg)", color: "var(--core-color-status-danger-text)", fontWeight: 700, fontSize: 12, flexShrink: 0 }} title="Fails the standard">✕</span>
+            <span style={{ fontSize: 12, lineHeight: "16px", paddingTop: "var(--core-space-0)", color: "var(--core-color-status-danger-text)", whiteSpace: "normal" }}>
+              {ratio}{note ? ` — ${note}` : ""}
+            </span>
+          </span>
         ) : (
           <span style={{ display: "flex", alignItems: "flex-start", gap: "var(--core-space-1)", color: "var(--core-color-status-warning-text)" }}>
             <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--core-color-status-warning-bg, rgba(217,119,6,0.12))", fontWeight: 700, fontSize: 12, flexShrink: 0 }} title="Caution">⚠</span>

@@ -56,9 +56,9 @@ function StatusIcon({ kind, color }: { kind: "check" | "warn" | "fail"; color: s
 
 export function contrastUsageHint(
   level: WcagLevel,
-  options: { contrastBackground: ContrastBackground; tokenType?: "text" | "background" | "border" }
+  options: { contrastBackground: ContrastBackground; tokenType?: "text" | "background" | "border"; backgroundLabel?: string }
 ): string {
-  const surface = options.contrastBackground === "white" ? "white" : "black";
+  const surface = options.backgroundLabel ?? (options.contrastBackground === "white" ? "white" : "black");
   const { tokenType } = options;
 
   if (tokenType === "border") {
@@ -78,8 +78,8 @@ export function contrastUsageHint(
   return "Background";
 }
 
-export function getContrastResult(hex: string, contrastBackground: ContrastBackground) {
-  const ratio = contrastRatio(hex, BG_HEX[contrastBackground]);
+export function getContrastResult(hex: string, contrastBackground: ContrastBackground, backgroundHex?: string) {
+  const ratio = contrastRatio(hex, backgroundHex ?? BG_HEX[contrastBackground]);
   const level = wcagLevel(ratio);
   return { ratio, level, status: STATUS[level] };
 }
@@ -122,8 +122,8 @@ export function WcagLegend({ style }: { style?: React.CSSProperties }) {
   );
 }
 
-export function ContrastBasisNote({ contrastBackground }: { contrastBackground: ContrastBackground }) {
-  const surface = contrastBackground === "white" ? "white" : "black";
+export function ContrastBasisNote({ contrastBackground, surfaceLabel }: { contrastBackground: ContrastBackground; surfaceLabel?: string }) {
+  const surface = surfaceLabel ?? (contrastBackground === "white" ? "white" : "black");
 
   return (
     <p
@@ -142,9 +142,13 @@ export function ContrastBasisNote({ contrastBackground }: { contrastBackground: 
 export function ContrastAgainstControl({
   value,
   onChange,
+  caption = "Text on",
+  labels = { white: "White", black: "Black" },
 }: {
   value: ContrastBackground;
   onChange: (value: ContrastBackground) => void;
+  caption?: string;
+  labels?: Record<ContrastBackground, string>;
 }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)", flexWrap: "wrap" }}>
@@ -155,7 +159,7 @@ export function ContrastAgainstControl({
           color: "var(--core-color-text-secondary)",
         }}
       >
-        Text on
+        {caption}
       </span>
       <div
         style={{
@@ -188,7 +192,7 @@ export function ContrastAgainstControl({
                 boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
               }}
             >
-              {option === "white" ? "White" : "Black"}
+              {labels[option]}
             </button>
           );
         })}
@@ -206,9 +210,15 @@ export function WcagContrastIndicator({
   isLightSwatch,
   layout = "inline",
   passFailBelow = false,
+  backgroundHex,
+  backgroundLabel,
 }: {
   hex: string;
   contrastBackground?: ContrastBackground;
+  /** Measure against this exact color (e.g. the real dark surface, or the fill an on-color token sits on) instead of pure white/black. */
+  backgroundHex?: string;
+  /** Name shown in the usage hint for `backgroundHex`, e.g. "Brand 500". */
+  backgroundLabel?: string;
   showUsageHint?: boolean;
   tokenType?: "text" | "background" | "border";
   onSwatch?: boolean;
@@ -217,9 +227,9 @@ export function WcagContrastIndicator({
   /** Full color scales: ratio on top, Pass/Fail label below */
   passFailBelow?: boolean;
 }) {
-  const { ratio, level, status } = getContrastResult(hex, contrastBackground);
+  const { ratio, level, status } = getContrastResult(hex, contrastBackground, backgroundHex);
   const usageHint = showUsageHint
-    ? contrastUsageHint(level, { contrastBackground, tokenType })
+    ? contrastUsageHint(level, { contrastBackground, tokenType, backgroundLabel })
     : null;
 
   const onSwatchAdaptive = onSwatch && isLightSwatch !== undefined;
@@ -233,23 +243,17 @@ export function WcagContrastIndicator({
   /** Foreground on a colored swatch — black on light fills, white on dark fills. */
   const swatchTextColor = onSwatchAdaptive
     ? isLightSwatch
-      ? "#1A1A22"
+      ? "#000000"
       : "#FFFFFF"
     : "var(--core-color-text-primary)";
 
   const textColor = swatchTextColor;
 
-  const ratioIconColor = onSwatchAdaptive
-    ? isLightSwatch
-      ? status.colorVar
-      : swatchTextColor
-    : status.colorVar;
+  // On a colored swatch every mark uses the swatch's own black/white so it
+  // stays legible; the icon shape and the Pass/Fail word carry the status.
+  const ratioIconColor = onSwatchAdaptive ? swatchTextColor : status.colorVar;
   const ratioNumberColor = onSwatchAdaptive ? swatchTextColor : "var(--core-color-text-primary)";
-  const labelColor = onSwatchAdaptive
-    ? isLightSwatch
-      ? status.colorVar
-      : swatchTextColor
-    : status.colorVar;
+  const labelColor = onSwatchAdaptive ? swatchTextColor : status.colorVar;
 
   const ratioLine = (
     <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)"}}>
@@ -271,8 +275,9 @@ export function WcagContrastIndicator({
   );
 
   const passFailLabel = level === "fail" ? "Fail" : "Pass";
-  const passFailColor =
-    level === "fail"
+  const passFailColor = onSwatchAdaptive
+    ? swatchTextColor
+    : level === "fail"
       ? "var(--core-color-status-danger-text, #B42318)"
       : "var(--core-color-status-success-text, #1F7A4D)";
 
@@ -343,11 +348,7 @@ export function WcagContrastIndicator({
             fontSize: 10,
             fontWeight: 500,
             marginTop: onSwatch ? 2 : 0,
-            color: onSwatch
-              ? isLightSwatch
-                ? "rgba(26,26,34,0.62)"
-                : "rgba(255,255,255,0.68)"
-              : "var(--core-color-text-tertiary)",
+            color: onSwatch ? swatchTextColor : "var(--core-color-text-tertiary)",
             lineHeight: 1.35,
           }}
         >
