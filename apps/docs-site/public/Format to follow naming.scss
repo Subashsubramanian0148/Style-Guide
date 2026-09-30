@@ -58,8 +58,10 @@ $accent-text-primary-dark: (
   // button/icon button, selected-but-disabled calendar day). Ghost, outline
   // and link disabled states use the neutral semantics-disabled tokens, so
   // this no longer needs to differ from `default` to stay distinguishable.
-  // 600 on the dark disabled fill was 1.48:1 — illegible; 300 gives 6.22:1.
-  disabled: 300,
+  // 600 on the dark disabled fill was 1.48:1 — illegible. 300 read fine but
+  // was the exact default value, so a disabled state looked enabled; 400 on
+  // the 700 disabled fill stays readable while clearly receded.
+  disabled: 400,
 );
 
 $accent-text-oncolor: (
@@ -98,13 +100,15 @@ $accent-background-primary-dark: (
   light: 900,
   subtle: 800,
   disabled-light: neutral(800),
-  disabled-strong: 800,
+  // Was 800 — the same step as `subtle`; 700 is unused by any other state.
+  disabled-strong: 700,
 );
 
 $accent-border-primary-light: (
   default: 500,
   hover: 600,
-  disabled: 500,
+  // Was 500 — identical to `default`, so a disabled outline looked enabled.
+  disabled: 200,
 );
 
 $accent-border-primary-dark: (
@@ -243,11 +247,20 @@ $semantics-border-dark: (
   warning: 600,
 );
 
-$semantics-disabled-border: (
-  critical: 600,
-  highlight: 600,
-  success: 600,
-  warning: 600,
+// Disabled borders recede toward the surface. The single 600 map collided
+// with the enabled border in 5 of 8 role/mode pairs (e.g. warning 600 = 600).
+$semantics-disabled-border-light: (
+  critical: 200,
+  highlight: 200,
+  success: 200,
+  warning: 200,
+);
+
+$semantics-disabled-border-dark: (
+  critical: 800,
+  highlight: 800,
+  success: 800,
+  warning: 800,
 );
 
 @mixin semantics-role-tokens($role, $family, $tokens, $border-step) {
@@ -277,21 +290,25 @@ $semantics-disabled-neutral-dark: (
   text: 400,
 );
 
+// background and text were 50 / 700 — the enabled light-background and text
+// steps exactly, so a disabled status chip was indistinguishable.
 $semantics-disabled-role-light: (
-  background: 50,
-  text: 700,
+  background: 100,
+  text: 600,
   strong-background: 200,
   strong-text: 800,
 );
 
+// text was 300 (= enabled text) and strong-background 700 (= warning's
+// enabled strong fill).
 $semantics-disabled-role-dark: (
   background: 900,
-  text: 300,
-  strong-background: 700,
+  text: 500,
+  strong-background: 800,
   strong-text: 100,
 );
 
-@mixin disabled-tokens($neutral, $role-tokens) {
+@mixin disabled-tokens($neutral, $role-tokens, $disabled-border) {
   /* semantics-disabled */
   --semantics-disabled-background: #{neutral(map.get($neutral, background))};
   --semantics-disabled-border: #{neutral(map.get($neutral, border))};
@@ -301,7 +318,7 @@ $semantics-disabled-role-dark: (
     /* semantics-#{$role}-disabled */
     --semantics-#{$role}-disabled-background: #{status($family, map.get($role-tokens, background))};
     --semantics-#{$role}-disabled-text: #{status($family, map.get($role-tokens, text))};
-    --semantics-#{$role}-disabled-border: #{status($family, map.get($semantics-disabled-border, $role))};
+    --semantics-#{$role}-disabled-border: #{status($family, map.get($disabled-border, $role))};
     --semantics-#{$role}-disabled-strong-background: #{status($family, map.get($role-tokens, strong-background))};
     --semantics-#{$role}-disabled-strong-text: #{status($family, map.get($role-tokens, strong-text))};
   }
@@ -335,7 +352,7 @@ html[data-site-mode="light"],
     );
   }
 
-  @include disabled-tokens($semantics-disabled-neutral-light, $semantics-disabled-role-light);
+  @include disabled-tokens($semantics-disabled-neutral-light, $semantics-disabled-role-light, $semantics-disabled-border-light);
 }
 
 html[data-site-mode="dark"],
@@ -363,5 +380,5 @@ html[data-site-mode="dark"],
     );
   }
 
-  @include disabled-tokens($semantics-disabled-neutral-dark, $semantics-disabled-role-dark);
+  @include disabled-tokens($semantics-disabled-neutral-dark, $semantics-disabled-role-dark, $semantics-disabled-border-dark);
 }
