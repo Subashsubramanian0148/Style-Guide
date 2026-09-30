@@ -1,57 +1,83 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { AppShell, AppHeader } from "../../../../packages/core/src/components/Layout";
-import { AppSidebar, Stepper, Tabs } from "../../../../packages/core/src/components/Navigation";
+import { AppShell, AppHeader, AppFooter } from "../../../../packages/core/src/components/Layout";
+import { AppSidebar, MobileNav, Stepper, Tabs } from "../../../../packages/core/src/components/Navigation";
 import { Button } from "../../../../packages/core/src/components/Button";
 import { Card, Badge } from "../../../../packages/core/src/components/Misc";
 import { DataTable } from "../../../../packages/core/src/components/DataDisplay";
-import { AppFooter } from "../../../../packages/core/src/components/Layout";
+import { Field, Input, InputWithIcon } from "../../../../packages/core/src/components/Field";
+import { Select, Checkbox } from "../../../../packages/core/src/components/FormControls";
+import { Icon, CalendarIcon } from "../../../../packages/core/src/components/Primitives";
+import { LineChartCard } from "../../../../packages/core/src/components/Chart";
+import typography from "../../../../packages/tokens/src/typography.json";
 import { CardQuickLink } from "../QuickLinkCard";
 import { usePreviewMode } from "../PreviewModeContext";
 import { ScreenSpec } from "../ScreenSpec";
-import { Field, Input } from "../../../../packages/core/src/components/Field";
-import { Select, Checkbox, Radio } from "../../../../packages/core/src/components/FormControls";
-import { Icon } from "../../../../packages/core/src/components/Primitives";
-import { LineChartCard } from "../../../../packages/core/src/components/Chart";
-import typography from "../../../../packages/tokens/src/typography.json";
 import { Preview } from "../Preview";
 import { AnatomySection } from "../AnatomySection";
 import { BrandLogo, headerAccount, headerUtilities } from "../SectionAnatomies";
 import { SectionHeading, SpecTableCard } from "../AnatomySpec";
-import { ScreenTypeMap, Txt, readTypedText, styleLabel, typeOrder, typeGroup, TYPE_GROUP_COLOR } from "../ScreenTypeMap";
+import { ScreenTypeMap, readTypedText, styleLabel, typeOrder, typeGroup, TYPE_GROUP_COLOR } from "../ScreenTypeMap";
 import { usageFor } from "./typographyUsage";
+import "./screen-reference.css";
 
-/** Screen reference — four participant-portal screens rebuilt from the
- *  design system to match participantportal-core.netlify.app. Every piece of
- *  text is set with <Txt t="…">, so the docs report the intended style. */
+/** Screen reference — the LendGuard participant portal
+ *  (participantportal-core.netlify.app, source Satish0024/S_PPT@journey-retirement)
+ *  rebuilt with CORE components and tokens. Layout values come from the
+ *  portal's own stylesheet, ported in screen-reference.css. `data-type` marks
+ *  the intended text style for the typography map. */
 
 const WIDTH = 1440;
 
 const NAV = [
-  { key: "dashboard", label: "Dashboard", icon: "fa-solid fa-grip" },
+  { key: "dashboard", label: "Dashboard", icon: "fa-solid fa-table-cells-large" },
   { key: "portfolio", label: "Investment portfolio", icon: "fa-solid fa-wallet" },
   { key: "transactions", label: "Transactions", icon: "fa-solid fa-right-left" },
   { key: "profile", label: "My profile", icon: "fa-solid fa-user" },
   { key: "documents", label: "Document Center", icon: "fa-solid fa-file-lines" },
 ];
 
-function PortalShell({ current, children }: { current: string; children: React.ReactNode }) {
+/** Text that carries its intended typography style for the docs. */
+function T({ as = "span", t, className, children, ...rest }: { as?: keyof JSX.IntrinsicElements; t: string; className?: string; children: React.ReactNode; href?: string } & React.HTMLAttributes<HTMLElement>) {
+  const Tag = as as any;
+  return <Tag data-type={t} className={className} {...rest}>{children}</Tag>;
+}
+
+function PortalShell({ current, footer = true, children }: { current: string; footer?: boolean; children: React.ReactNode }) {
   return (
     <AppShell
       header={<AppHeader brand={<BrandLogo />} utilities={headerUtilities} account={headerAccount} />}
-      sidebar={<AppSidebar variant="rail" items={NAV.map((n) => ({ label: n.label, icon: <Icon name={n.icon} size="lg" />, current: n.key === current }))} />}
-      footer={<AppFooter copyright="© 2026 LendGuard." links={<><a href="#">Privacy</a><a href="#">Terms</a></>} />}
+      sidebar={
+        <>
+          <AppSidebar variant="rail" items={NAV.map((n) => ({ label: n.label, icon: <Icon name={n.icon} size="lg" />, current: n.key === current }))} />
+          <div className="sr-nav-brand" aria-hidden="true">
+            <img className="sr-light" src="/brand/core/core-logo-light.svg" alt="" />
+            <img className="sr-dark" src="/brand/core/core-logo-dark.svg" alt="" />
+          </div>
+        </>
+      }
+      footer={footer ? <AppFooter copyright="© 2026 LendGuard." links={<><a href="#">Privacy</a><a href="#">Terms</a></>} /> : undefined}
     >
       {children}
+      <div className="sr-mobile-nav">
+        <MobileNav
+          items={[{ id: "dashboard", label: "Dashboard", icon: "fa-solid fa-table-cells-large" }, { id: "settings", label: "Settings", icon: "fa-solid fa-gear" }]}
+          activeId={current === "dashboard" ? "dashboard" : undefined}
+          menu={NAV.filter((n) => n.key !== "dashboard").map((n) => ({ id: n.key, label: n.label, icon: n.icon }))}
+          activeLinkId={current}
+        />
+      </div>
     </AppShell>
   );
 }
 
-const MUTED: React.CSSProperties = { color: "var(--core-color-text-secondary)" };
-const BLUE = "var(--brand-text-primary-default)";
-const GREEN = "var(--core-color-status-success-text)";
-const AMBER = "var(--core-color-status-warning-text)";
-const RED = "var(--theme-semantics-critical-text)";
-const MONO: React.CSSProperties = { fontFamily: "var(--typography-font-family-mono)", fontVariantNumeric: "tabular-nums" };
+function Note({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="sr-note">
+      <Icon name="fa-solid fa-circle-info" size="sm" />
+      <T t="text12Regular">{children}</T>
+    </p>
+  );
+}
 
 /* ---------------- Dashboard ---------------- */
 
@@ -64,35 +90,17 @@ const TXNS: Txn[] = [
   { id: "5", date: "Jan 31, 2026", type: "Employer Contribution", plan: "LendGuard Profit Sharing", amount: "$450.00" },
 ];
 
-function Note({ children }: { children: React.ReactNode }) {
+function PlanCard({ title, type, id, badge, tone, ineligible, children }: { title: string; type: string; id: string; badge: string; tone: "success" | "primary" | "neutral"; ineligible?: boolean; children: React.ReactNode }) {
   return (
-    <div style={{ display: "flex", gap: "var(--core-space-2)", alignItems: "center", ...MUTED }}>
-      <Icon name="fa-solid fa-circle-info" size="sm" />
-      <Txt t="text12Regular" style={MUTED}>{children}</Txt>
-    </div>
-  );
-}
-
-function Callout({ tone, children }: { tone: "success" | "info" | "neutral"; children: React.ReactNode }) {
-  const bg = tone === "success" ? "var(--theme-semantics-success-light-background)" : tone === "info" ? "var(--theme-semantics-highlight-light-background)" : "var(--core-color-surface-default)";
-  return (
-    <div data-spec="Plan message" style={{ padding: "var(--core-space-3) var(--core-space-4)", borderRadius: "var(--core-radius-sm)", background: bg, border: tone === "neutral" ? "1px solid var(--core-color-border-subtle)" : undefined }}>
-      {children}
-    </div>
-  );
-}
-
-function PlanCard({ title, type, id, badge, tone, disabled, children }: { title: string; type: string; id: string; badge: string; tone: "success" | "info" | "neutral"; disabled?: boolean; children: React.ReactNode }) {
-  return (
-    <Card style={disabled ? { background: "var(--core-color-surface-sunken)" } : undefined}>
-      <div data-spec="Plan card content" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-4)", opacity: disabled ? 0.7 : 1 }}>
-        <div data-spec="Plan header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--core-space-4)" }}>
-          <div data-spec="Plan title group" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)" }}>
-            <Txt as="h3" t="h4">{title}</Txt>
-            <Txt t="text12SemiBold" style={{ color: disabled ? "var(--core-color-text-secondary)" : BLUE }}>{type}</Txt>
-            <Txt t="text12Regular" style={MUTED}>Plan ID {id}</Txt>
+    <Card className={`sr-plan-card${ineligible ? " sr-ineligible" : ""}`}>
+      <div data-spec="Plan card" className="sr-plan-card" style={{ gap: "var(--core-space-4)" }}>
+        <div data-spec="Plan header" className="sr-pc-top">
+          <div className="sr-pc-identity">
+            <T as="h3" t="h3" className="sr-pc-name">{title}</T>
+            <T as="div" t="text14SemiBold" className="sr-pc-type">{type}</T>
+            <T as="div" t="text12Regular" className="sr-pc-meta">Plan ID {id}</T>
           </div>
-          <Badge tone={tone === "success" ? "success" : tone === "info" ? "info" : "neutral"} size="sm">{badge}</Badge>
+          <Badge tone={tone} size="sm">{badge}</Badge>
         </div>
         {children}
       </div>
@@ -103,96 +111,100 @@ function PlanCard({ title, type, id, badge, tone, disabled, children }: { title:
 function DashboardScreen() {
   return (
     <PortalShell current="dashboard">
-      <div data-s="page" data-spec="Page grid" style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: "var(--core-space-6)", alignItems: "start" }}>
-        <div data-s="left" data-spec="Main column" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-6)" }}>
-          <Txt as="h1" t="h1" data-s="h1">Hi Jordan 👋</Txt>
-          <Card>
-            <div data-spec="Balance summary" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
-              <div data-spec="Balances row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "var(--core-space-4)" }}>
-                <div data-spec="Balances" style={{ display: "flex", gap: "var(--core-space-8)" }}>
-                  <div data-spec="Account balance" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)" }}>
-                    <Txt t="text14Regular" style={MUTED}>Account balance</Txt>
-                    <Txt t="text28Bold" style={{ ...MONO, color: BLUE }}>$14,590.00</Txt>
-                  </div>
-                  <div data-spec="Vested balance" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)" }}>
-                    <Txt t="text14Regular" style={MUTED}>Vested balance</Txt>
-                    <Txt t="text28Bold" style={{ ...MONO, color: GREEN }}>$13,870.00</Txt>
-                  </div>
+      <div data-spec="Page body" className="sr-page-body">
+        <div data-spec="Greeting bar" className="sr-hi-bar"><T as="h1" t="h1" className="sr-h1">Hi Jordan 👋</T></div>
+        <div data-spec="Dashboard grid" className="sr-dash-layout">
+          <div data-spec="Main column" className="sr-dash-main">
+            <Card>
+              <div data-spec="Overall balance" className="sr-ob-top">
+                <div data-spec="Balances" className="sr-ob-metrics">
+                  <div><T as="div" t="text14SemiBold" className="sr-ob-k">Account balance</T><T as="div" t="text32Bold" className="sr-ob-v">$14,590.00</T></div>
+                  <div><T as="div" t="text14SemiBold" className="sr-ob-k">Vested balance</T><T as="div" t="text32Bold" className="sr-ob-v sr-vested">$13,870.00</T></div>
                 </div>
-                <Button variant="secondary" size="sm">View summary</Button>
+                <Button variant="secondary">View summary</Button>
               </div>
-              <div data-spec="Loan balance" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)", borderTop: "1px solid var(--core-color-border-subtle)", paddingTop: "var(--core-space-4)" }}>
-                <div><Txt t="text14Bold">Outstanding loan balance </Txt><Txt t="numericData" style={{ color: AMBER }}>$2,500.00</Txt></div>
+              <div data-spec="Loan balance" className="sr-ob-loan">
+                <div className="sr-ob-loan-row"><T t="text14SemiBold" className="sr-loan-k">Outstanding loan balance</T><T t="text16Bold" className="sr-loan-v">$2,500.00</T></div>
                 <Note>This loan balance is tracked separately and is not reflected in the account balances shown above.</Note>
               </div>
-              <div data-spec="Cash balance benefit" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)", borderTop: "1px solid var(--core-color-border-subtle)", paddingTop: "var(--core-space-4)" }}>
-                <div><Txt t="text14Bold">Cash balance benefit </Txt><Txt t="numericData" style={{ color: AMBER }}>$18,400.00</Txt></div>
+              <div data-spec="Cash balance benefit" className="sr-ob-loan">
+                <div className="sr-ob-loan-row"><T t="text14SemiBold" className="sr-loan-k">Cash balance benefit</T><T t="text16Bold" className="sr-loan-v">$18,400.00</T></div>
                 <Note>This is a notional value, tracked separately, and is removed from the account balances shown above.</Note>
               </div>
-            </div>
-          </Card>
-          <Txt as="h2" t="h2" data-s="h2">My plans</Txt>
-          <div data-spec="Plan grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--core-space-4)" }}>
-            <PlanCard title="LendGuard Employees Savings and Retirement 401(k) Plan" type="401(k)" id="124542" badge="Participating" tone="success">
-              <Callout tone="success"><Txt t="text14Regular">Congratulations! You have been enrolled in this plan based on plan's auto enrollment provisions. </Txt><Txt as="a" t="text14Bold" href="#">View details</Txt></Callout>
-              <div data-s="subcards" data-spec="Balance tiles" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--core-space-4)" }}>
-                <div data-spec="Balance tile" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)", padding: "var(--core-space-3)", borderRadius: "var(--core-radius-sm)", background: "var(--core-color-surface-sunken)" }}><Txt t="text12Regular" style={MUTED}>Account balance</Txt><Txt t="numericData" style={{ color: BLUE }}>$12,840.00</Txt></div>
-                <div data-spec="Balance tile" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)", padding: "var(--core-space-3)", borderRadius: "var(--core-radius-sm)", background: "var(--core-color-surface-sunken)" }}><Txt t="text12Regular" style={MUTED}>Vested balance</Txt><Txt t="numericData" style={{ color: GREEN }}>$9,620.00</Txt></div>
+            </Card>
+            <section>
+              <T as="h2" t="h2" className="sr-section-title">My plans</T>
+              <div data-spec="Plan grid" className="sr-plans-grid">
+                <PlanCard title="LendGuard Employees Savings and Retirement 401(k) Plan" type="401(k)" id="124542" badge="Participating" tone="success">
+                  <T as="p" t="text14Regular" className="sr-plan-notice">Congratulations! You have been enrolled in this plan based on plan's auto enrollment provisions. <a className="sr-link" href="#">View details</a></T>
+                  <div data-spec="Plan balances" className="sr-plan-stats">
+                    <div className="sr-plan-stat"><T as="div" t="text12SemiBold" className="sr-k">Account balance</T><T as="div" t="text16Bold" className="sr-v">$12,840.00</T></div>
+                    <div className="sr-plan-stat sr-vested"><T as="div" t="text12SemiBold" className="sr-k">Vested balance</T><T as="div" t="text16Bold" className="sr-v">$9,620.00</T></div>
+                  </div>
+                </PlanCard>
+                <PlanCard title="LendGuard Roth 401(k) Plan" type="401(k) — Roth" id="124675" badge="Eligible" tone="primary">
+                  <T as="p" t="text14Regular" className="sr-plan-notice sr-highlight">Congratulations! You are eligible to participate in this plan. <a className="sr-link" href="#">Enroll here</a></T>
+                </PlanCard>
+                <PlanCard title="LendGuard Deferred Comp Plan" type="Nonqualified Deferred Compensation" id="125100" badge="Not Eligible" tone="neutral" ineligible>
+                  <T as="p" t="text14Regular" className="sr-plan-notice sr-neutral">You are currently not eligible for this plan since you have not met the age/service requirement. <a className="sr-link" href="#">Provide elections in advance</a></T>
+                </PlanCard>
+                <PlanCard title="LendGuard Cash Balance Plan" type="Cash Balance" id="125210" badge="Participating" tone="success">
+                  <T as="p" t="text14Regular" className="sr-plan-notice sr-highlight">Cash balance benefit is <b>$18,400.00</b>. This is a notional value, tracked separately, and is removed from the account balances shown above.</T>
+                </PlanCard>
               </div>
-            </PlanCard>
-            <PlanCard title="LendGuard Roth 401(k) Plan" type="401(k) — Roth" id="124675" badge="Eligible" tone="info">
-              <Callout tone="info"><Txt t="text14Regular">Congratulations! You are eligible to participate in this plan. </Txt><Txt as="a" t="text14Bold" href="#">Enroll here</Txt></Callout>
-            </PlanCard>
-            <PlanCard title="LendGuard Deferred Comp Plan" type="Nonqualified Deferred Compensation" id="125100" badge="Not Eligible" tone="neutral" disabled>
-              <Callout tone="neutral"><Txt t="text14Regular">You are currently not eligible for this plan since you have not met the age/ service requirement. </Txt><Txt as="a" t="text14Bold" href="#">Provide elections in advance</Txt></Callout>
-            </PlanCard>
-            <PlanCard title="LendGuard Cash Balance Plan" type="Cash Balance" id="125218" badge="Participating" tone="success">
-              <Callout tone="info"><Txt t="text14Regular">Cash balance benefit is </Txt><Txt t="numericData">$18,400.00</Txt><Txt t="text14Regular">. This is a notional value, tracked separately, and is removed from the account balances shown above.</Txt></Callout>
-            </PlanCard>
-          </div>
-          <Txt as="h2" t="h2">Quick links</Txt>
-          <div data-spec="Quick links" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--core-space-4)" }}>
-            {[["fa-solid fa-users", "Add beneficiary"], ["fa-solid fa-file-lines", "My documents"], ["fa-solid fa-chart-line", "My portfolio"], ["fa-solid fa-file-invoice", "Generate statement"]].map(([icon, label]) => (
-              <CardQuickLink key={label} icon={icon} label={label} />
-            ))}
-          </div>
-          <Txt as="h2" t="h2">Recent Transactions</Txt>
-          <div className="screen-ref-table">
-            <DataTable<Txn>
-              columns={[
-                { key: "date", header: "Date", sortable: true },
-                { key: "type", header: "Type", sortable: true },
-                { key: "plan", header: "Plan", sortable: true },
-                { key: "amount", header: "Amount", sortable: true, align: "right" },
-              ]}
-              rows={TXNS}
-              pageSize={5}
-            />
-          </div>
-        </div>
-        <div data-spec="Side column" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
-          <Card>
-            <div data-s="readiness" data-spec="Retirement readiness" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
-              <div data-spec="Readiness banner" style={{ padding: "var(--core-space-4)", background: "var(--brand-background-primary-strong)", color: "var(--brand-text-primary-oncolor)", borderRadius: "var(--core-radius-sm)", display: "flex", flexDirection: "column", gap: "var(--core-space-1)" }}>
-                <Txt t="text12SemiBold">Retirement Readiness</Txt>
-                <Txt as="h3" t="h5">See how your inputs affect your savings, income, risk.</Txt>
+            </section>
+            <section>
+              <T as="h2" t="h2" className="sr-section-title">Quick links</T>
+              <div data-spec="Quick links" className="sr-quick-grid">
+                {[["fa-solid fa-users", "Add beneficiary"], ["fa-solid fa-file-lines", "My documents"], ["fa-solid fa-chart-line", "My portfolio"], ["fa-solid fa-file-invoice-dollar", "Generate statement"]].map(([icon, label]) => (
+                  <CardQuickLink key={label} icon={icon} label={label} />
+                ))}
               </div>
-              <Txt as="p" t="text12Regular" style={MUTED}>This estimates how much of your retirement spending is covered by your savings, using your deferrals, age, and location.</Txt>
-              <div><Button size="sm">Get started</Button></div>
-              <div style={{ borderTop: "1px solid var(--core-color-border-subtle)", paddingTop: "var(--core-space-3)", display: "flex", gap: "var(--core-space-2)", alignItems: "center", ...MUTED }}>
-                <Icon name="fa-solid fa-circle-info" size="sm" />
-                <Txt t="text12Regular" style={MUTED}>Not guaranteed results. </Txt>
-                <Txt as="a" t="text12SemiBold" href="#">Disclaimer</Txt>
+            </section>
+            <section>
+              <T as="h2" t="h2" className="sr-section-title">Recent Transactions</T>
+              <div className="sr-table">
+                <DataTable<Txn>
+                  columns={[
+                    { key: "date", header: "Date", sortable: true },
+                    { key: "type", header: "Type", sortable: true },
+                    { key: "plan", header: "Plan", sortable: true },
+                    { key: "amount", header: "Amount", sortable: true, align: "right" },
+                  ]}
+                  rows={TXNS}
+                  pageSize={5}
+                />
               </div>
-            </div>
-          </Card>
-          <Card>
-            <div data-spec="Enrich" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3)", alignItems: "flex-start" }}>
-              <Badge tone="warning" size="sm">Enrich</Badge>
-              <Txt as="p" t="text12Regular" style={MUTED}>Learn how saving, spending, investing, and retirement planning can work together to support your financial goals.</Txt>
-              <Txt as="a" t="text12SemiBold" href="#">Know More</Txt>
-            </div>
-          </Card>
+            </section>
+          </div>
+          <aside data-spec="Side column" className="sr-dash-side">
+            <section data-spec="Retirement readiness" className="sr-rgs">
+              <header className="sr-rgs-banner">
+                <div className="sr-rgs-copy">
+                  <T as="h3" t="eyebrow" className="sr-rgs-eyebrow">Retirement Readiness</T>
+                  <T as="p" t="h5" className="sr-rgs-headline">See how your inputs affect your savings, income, risk.</T>
+                </div>
+                <img className="sr-rgs-art" src="/screen-reference/readiness-banner.png" alt="" />
+              </header>
+              <div data-spec="Readiness body" className="sr-rgs-body">
+                <div data-spec="Readiness intro" className="sr-rgs-intro">
+                  <T as="p" t="text12Regular">This estimates how much of your retirement spending is covered by your savings, using your deferrals, age, and location.</T>
+                  <Button>Get started</Button>
+                </div>
+                <div data-spec="Readiness footer" className="sr-rgs-foot">
+                  <p className="sr-note"><Icon name="fa-solid fa-circle-info" size="sm" /><span><T t="text12Regular">Not guaranteed results. </T><a className="sr-link" href="#">Disclaimer</a></span></p>
+                </div>
+              </div>
+            </section>
+            <section data-spec="Enrich" className="sr-learn">
+              <div className="sr-learn-body">
+                <T t="text12Medium" className="sr-learn-tag">Enrich</T>
+                <T as="p" t="text12Regular" className="sr-learn-desc">Learn how saving, spending, investing, and retirement planning can work together to support your financial goals.</T>
+                <a className="sr-link" href="#">Know More</a>
+              </div>
+              <img className="sr-learn-art" src="/screen-reference/enrich-illustration.png" alt="" />
+            </section>
+          </aside>
         </div>
       </div>
     </PortalShell>
@@ -201,47 +213,92 @@ function DashboardScreen() {
 
 /* ---------------- Investment portfolio ---------------- */
 
-const PERF = ["Aug", "Oct", "Dec", "Feb", "Apr", "Jun", "Aug"].map((m, i) => ({ month: m, total: +(i * 2).toFixed(1), equity: +(i * 1.7).toFixed(1), commodities: +(i * 0.8).toFixed(1) }));
+const PERF = ["Aug", "Oct", "Dec", "Feb", "Apr", "Jun", "Aug"].map((m, i) => ({ month: m, total: +(i * 2).toFixed(1), equity: +(i * 2.5).toFixed(1), commodities: +(i * 0.8).toFixed(1), money: +(i * 1.7).toFixed(1) }));
+const LEGEND: Array<[string, boolean, "" | "sr-dash" | "sr-dot"]> = [
+  ["Total portfolio", true, ""], ["U.S. Equity", true, ""], ["Sector Equity", false, ""],
+  ["Allocation", false, ""], ["International Equity", false, ""], ["Alternative", false, "sr-dash"],
+  ["Commodities", true, "sr-dot"], ["Taxable Bond", false, "sr-dash"], ["Municipal Bond", false, "sr-dash"],
+  ["Money Market", true, ""], ["Miscellaneous", false, "sr-dash"], ["Nontraditional Equity", false, ""],
+];
+const HOLDINGS = [
+  ["Vanguard Institutional Index Fund Admiral Shares", "U.S. Equity", "922908728", "14.82%", "$25,000.00", "$28,705.00", "+3,705.00", "74.32"],
+  ["Fidelity 500 Index Fund Institutional Class", "U.S. Equity", "315911750", "14.95%", "$18,000.00", "$20,691.00", "+2,691.00", "52.18"],
+  ["Vanguard Total Bond Market Index Fund Admiral Shares", "Taxable Bond", "921937835", "5.18%", "$15,000.00", "$15,777.00", "+777.00", "186.42"],
+  ["Fidelity U.S. Bond Index Fund Institutional Premium", "Taxable Bond", "315911727", "5.27%", "$12,500.00", "$13,159.00", "+659.00", "124.63"],
+  ["Vanguard Target Retirement 2050 Trust Select", "Allocation", "92202E805", "10.42%", "$20,000.00", "$22,084.00", "+2,084.00", "168.57"],
+];
+const HOLDING_COLS = ["Investment name", "Asset class", "CUSIP", "Fund return YTD", "Invested balance", "Current balance", "Gain/loss", "Unit balance"];
+
+function Sort({ label }: { label: string }) {
+  return <span className="sr-sort">{label}<Icon name="fa-solid fa-sort" size="sm" /></span>;
+}
 
 function PortfolioScreen() {
   const [range, setRange] = useState("1Y");
   return (
     <PortalShell current="portfolio">
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-6)" }}>
-        <div data-s="title" data-spec="Title row" style={{ display: "flex", alignItems: "flex-end", gap: "var(--core-space-4)" }}>
-          <Txt as="h1" t="h1" data-s="h1">Investment portfolio</Txt>
-          <div style={{ width: 260 }}>
-            <Field label="Plan">{(p) => <Select {...p} options={[{ value: "p", label: "LendGuard Employees Savings and Retirement" }]} />}</Field>
-          </div>
+      <div data-spec="Page header" className="sr-page-head">
+        <div data-spec="Title row" className="sr-page-head-row">
+          <T as="h1" t="h1" className="sr-h1">Investment portfolio</T>
+          <div style={{ width: 320 }}><Select aria-label="Select plan" defaultValue="p" options={[{ value: "p", label: "LendGuard Employees Savings and Retirement 401(k) Plan" }]} /></div>
         </div>
-        <Tabs items={[{ id: "mine", label: "My portfolio" }, { id: "plan", label: "Plan investments" }]} />
-        <div data-s="page" data-spec="Page grid" style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: "var(--core-space-6)" }}>
-          <Card>
-            <div data-s="stats" data-spec="Stats list" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3)" }}>
-              {[["Current balance", "$100,416.00", "var(--core-color-text-primary)"], ["Invested balance", "$90,500.00", "var(--core-color-text-primary)"], ["Gain / loss", "+$9,916.00", GREEN], ["YTD return", "8.00%", GREEN]].map(([k, v, c]) => (
-                <Card key={k} variant="outlined">
-                  <Txt as="div" t="text12Regular" style={MUTED}>{k}</Txt>
-                  <Txt as="div" t="text20Bold" style={{ ...MONO, color: c }}>{v}</Txt>
-                </Card>
-              ))}
-            </div>
-          </Card>
-          <Card>
-            <div data-s="chart" data-spec="Chart panel" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
-              <Txt as="h2" t="h4">Asset class performance</Txt>
-              <div data-s="ranges" data-spec="Range selector" style={{ display: "flex", gap: "var(--core-space-1)", padding: "var(--core-space-1)", borderRadius: "var(--core-radius-sm)", background: "var(--core-color-surface-sunken)" }}>
-                {["1M", "3M", "6M", "YTD", "1Y", "3Y", "5Y", "10Y"].map((r) => (
-                  <Button key={r} size="sm" variant={r === range ? "primary" : "tertiary"} onClick={() => setRange(r)}>{r}</Button>
+      </div>
+      <div data-spec="Tabs bar" className="sr-tabs-bar"><Tabs items={[{ id: "mine", label: "My portfolio" }, { id: "plan", label: "Plan investments" }]} /></div>
+      <div data-spec="Page body" className="sr-page-body">
+        <div data-spec="Tab panel" className="sr-panel-stack">
+          <div data-spec="Overview row" className="sr-overview-row">
+            <Card>
+              <div data-spec="Portfolio summary" className="sr-overall-body">
+                <div className="sr-stat-block sr-hero"><T as="div" t="text12SemiBold" className="sr-stat-k">Current balance</T><T as="div" t="text24Bold" className="sr-stat-v">$100,416.00</T></div>
+                {[["Invested balance", "$90,500.00", ""], ["Gain / loss", "+$9,916.00", "sr-pos"], ["YTD return", "8.00%", "sr-pos"]].map(([k, v, c]) => (
+                  <div key={k} className="sr-stat-block"><T as="div" t="text12SemiBold" className="sr-stat-k">{k}</T><T as="div" t="text20Bold" className={`sr-stat-v ${c}`}>{v}</T></div>
                 ))}
               </div>
-              <LineChartCard title="Rate of return (%)" data={PERF} xKey="month" height={220} series={[{ key: "total", label: "Total portfolio" }, { key: "equity", label: "U.S. Equity" }, { key: "commodities", label: "Commodities" }]} />
-              <div data-s="legend" data-spec="Legend" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--core-space-3)", borderTop: "1px solid var(--core-color-border-subtle)", paddingTop: "var(--core-space-4)" }}>
-                {["Total portfolio", "U.S. Equity", "Sector Equity", "Allocation", "International Equity", "Alternative", "Commodities", "Taxable Bond", "Money Market"].map((l, i) => (
-                  <Checkbox key={l} label={l} defaultChecked={[0, 1, 6, 8].includes(i)} size="sm" />
-                ))}
+            </Card>
+            <Card>
+              <div data-spec="Chart panel" className="sr-chart-panel">
+                <T as="h2" t="h5" className="sr-chart-title">Asset class performance</T>
+                <div data-spec="Period selector" className="sr-period" aria-label="Chart period">
+                  {["1M", "3M", "6M", "YTD", "1Y", "3Y", "5Y", "10Y"].map((p) => (
+                    <button key={p} type="button" aria-pressed={p === range} onClick={() => setRange(p)} data-type="text12Bold">{p}</button>
+                  ))}
+                </div>
+                <div className="sr-chart-wrap">
+                  <LineChartCard title="Asset class performance" data={PERF} xKey="month" height={260} series={[{ key: "total", label: "Total portfolio", color: "var(--neutral-text-default)" }, { key: "equity", label: "U.S. Equity", color: "var(--neutral-text-subtle)" }, { key: "money", label: "Money Market", color: "var(--brand-text-primary-default)" }, { key: "commodities", label: "Commodities", color: "var(--theme-semantics-critical-text)" }]} />
+                </div>
+                <div data-spec="Legend" className="sr-legend">
+                  {LEGEND.map(([label, on]) => <Checkbox key={label} label={label} defaultChecked={on} size="sm" />)}
+                </div>
               </div>
+            </Card>
+          </div>
+          <section data-spec="Investments">
+            <T as="h2" t="h4" className="sr-section-h">Investments</T>
+            <div data-spec="Table tools" className="sr-table-tools">
+              <div className="sr-table-search"><Field label="Search">{(p) => <Input {...p} placeholder="Search investment name or CUSIP" />}</Field></div>
+              <Button variant="secondary">Export</Button>
             </div>
-          </Card>
+            <div className="sr-table-wrap">
+              <table>
+                <colgroup>{[297, 129, 105, 163, 170, 161, 117, 137].map((w, i) => <col key={i} style={{ width: w }} />)}</colgroup>
+                <thead><tr>{HOLDING_COLS.map((c, i) => <th key={c} className={i >= 3 ? "sr-num" : undefined}><Sort label={c} /></th>)}</tr></thead>
+                <tbody>
+                  {HOLDINGS.map((h) => (
+                    <tr key={h[2]}>
+                      <td className="sr-fund"><button type="button" className="sr-link">{h[0]}</button></td>
+                      <td>{h[1]}</td>
+                      <td>{h[2]}</td>
+                      <td className="sr-num sr-strong">{h[3]}</td>
+                      <td className="sr-num">{h[4]}</td>
+                      <td className="sr-num">{h[5]}</td>
+                      <td className="sr-num sr-strong">{h[6]}</td>
+                      <td className="sr-num">{h[7]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
         </div>
       </div>
     </PortalShell>
@@ -250,31 +307,51 @@ function PortfolioScreen() {
 
 /* ---------------- Documents ---------------- */
 
+function DateField({ label, value, width }: { label: string; value: string; width: number }) {
+  return (
+    <div className="sr-doc-field" style={{ width }}>
+      <Field label={label}>{(p) => <InputWithIcon {...p} readOnly value={value} trailingIcon={<CalendarIcon size={16} />} />}</Field>
+    </div>
+  );
+}
+
 function DocumentsScreen() {
   return (
     <PortalShell current="documents">
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-6)" }}>
-        <div data-s="title" data-spec="Title row" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
-          <Txt as="h1" t="h1" data-s="h1">Documents</Txt>
-          <Txt as="p" t="text14Regular" style={MUTED}>Access, download, and generate important plan documents and disclosures</Txt>
+      <div data-spec="Page body" className="sr-page-body">
+        <div data-spec="Title bar" className="sr-hi-bar">
+          <div>
+            <T as="h1" t="h1" className="sr-h1">Documents</T>
+            <T as="p" t="text14Medium" className="sr-intro">Access, download, and generate important plan documents and disclosures</T>
+          </div>
         </div>
         <Card>
-          <div data-s="filters" data-spec="Filter grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--core-space-4)", alignItems: "end" }}>
-            <Field label="Search">{(p) => <Input {...p} placeholder="Document name" />}</Field>
-            <Field label="Plan Name/ID">{(p) => <Select {...p} options={[{ value: "all", label: "All" }]} />}</Field>
-            <Field label="Document Type">{(p) => <Select {...p} options={[{ value: "all", label: "All" }]} />}</Field>
-            <Field label="Documented from">{(p) => <Input {...p} defaultValue="Mar 29, 2026" />}</Field>
-            <Field label="Documented to">{(p) => <Input {...p} defaultValue="Sep 29, 2026" />}</Field>
-            <div data-s="actions" data-spec="Filter actions" style={{ display: "flex", gap: "var(--core-space-4)", alignItems: "center" }}>
-              <Button variant="tertiary" size="sm">Reset</Button>
-              <Button size="sm">Search</Button>
+          <div data-spec="Filters" className="sr-doc-filters">
+            <div className="sr-doc-field" style={{ width: 167 }}><Field label="Search">{(p) => <Input {...p} placeholder="Document name" />}</Field></div>
+            <div className="sr-doc-field" style={{ width: 170 }}><Field label="Plan Name/ID">{(p) => <Select {...p} defaultValue="all" options={[{ value: "all", label: "All" }]} />}</Field></div>
+            <div className="sr-doc-field" style={{ width: 170 }}><Field label="Document Type">{(p) => <Select {...p} defaultValue="all" options={[{ value: "all", label: "All" }]} />}</Field></div>
+            <DateField label="Documented from" value="Mar 30, 2026" width={150} />
+            <DateField label="Documented to" value="Sep 30, 2026" width={150} />
+            <div className="sr-doc-field">
+              <span className="sr-hidden-label" aria-hidden="true">&nbsp;</span>
+              <div data-spec="Filter actions" className="sr-doc-actions">
+                <button type="button" className="sr-link">Reset</button>
+                <Button disabled>Search</Button>
+              </div>
             </div>
           </div>
-          <div data-s="results" data-spec="Results bar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid var(--core-color-border-subtle)", marginTop: "var(--core-space-6)", paddingTop: "var(--core-space-4)" }}>
-            <Txt as="h2" t="h6">00 - Records found</Txt>
-            <Button variant="secondary" size="sm">Generate new statement</Button>
+          <div data-spec="Results header" className="sr-doc-results">
+            <T t="text14Bold" className="sr-doc-count">01 - Record found</T>
+            <Button variant="secondary">Generate new statement</Button>
           </div>
-          <Txt as="p" t="text14Regular" style={{ ...MUTED, textAlign: "center", marginTop: "var(--core-space-6)" }}>No documents match these filters.</Txt>
+          <article data-spec="Document row" className="sr-doc-row">
+            <div>
+              <T as="h2" t="text14Bold" className="sr-doc-name">Enrollment Notice_08-12-2026</T>
+              <T as="p" t="text12Regular" className="sr-doc-meta">Enrollment Notice · Aug 12, 2026</T>
+            </div>
+            <T t="text12SemiBold" className="sr-doc-plan">LendGuard Employees Savings and Retirement 401(k) Plan</T>
+            <button type="button" className="sr-doc-dl">Download</button>
+          </article>
         </Card>
       </div>
     </PortalShell>
@@ -283,77 +360,172 @@ function DocumentsScreen() {
 
 /* ---------------- Enrollment flow ---------------- */
 
-function EnrollmentScreen() {
+function SourceRow({ name, help }: { name: string; help: string }) {
   return (
-    <PortalShell current="dashboard">
-      <div data-s="page" data-spec="Page grid" style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: "var(--core-space-6)" }}>
-        <div data-s="rail" data-spec="Step rail" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
-          <Txt as="a" t="text14Bold" href="#">‹ Back</Txt>
-          <Txt as="h1" t="h1" data-s="h1">Plan enrollment</Txt>
-          <Stepper
-            orientation="vertical"
-            currentIndex={0}
-            steps={[
-              { label: "Deferral rate", description: "Specify payroll deferral rates and set up auto increase." },
-              { label: "Investment election", description: "Choose the investments and its allocation percentages." },
-              { label: "Summary", description: "Review the elections before confirming." },
-            ]}
-          />
-        </div>
-        <div data-s="form" data-spec="Enrollment form" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-6)" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)" }}>
-            <Txt t="eyebrow" style={MUTED}>Plan details</Txt>
-            <Txt as="h2" t="h2">401(k) Company Plan High Returns</Txt>
-            <div><Txt t="text14Regular" style={MUTED}>Plan ID </Txt><Txt t="numericData">124542</Txt></div>
-          </div>
-          <Txt as="h3" t="h4">Set my deferral rate</Txt>
-          <Card>
-            <div data-s="deferral" data-spec="Deferral by source" style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-3)" }}>
-                  <Txt t="text14Bold">Deferral by source</Txt>
-                  <Button variant="secondary" size="sm">Use plan deferral rate</Button>
-                </div>
-                <div style={{ display: "flex", gap: "var(--core-space-1)" }}>
-                  <Button size="sm">%</Button>
-                  <Button size="sm" variant="secondary">$</Button>
-                </div>
-              </div>
-              {[["Pre-Tax", "Pre-tax employee deferrals lower current year taxes. The deferrals and earnings on the deferrals are taxable when withdrawn and not taxable when it is rolled over."], ["Roth", "Roth employee deferrals are taxable in the year contributed, but not when withdrawn. Earnings will not be taxable if certain age and holding period requirements are met."]].map(([k, d]) => (
-                <div key={k} style={{ display: "grid", gridTemplateColumns: "1fr 96px", gap: "var(--core-space-4)", alignItems: "center", borderTop: "1px solid var(--core-color-border-subtle)", paddingTop: "var(--core-space-4)" }}>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)" }}>
-                    <Txt as="h4" t="h6">{k}</Txt>
-                    <Txt t="text12Regular" style={MUTED}>{d}</Txt>
-                  </div>
-                  <Input defaultValue="0" aria-label={`${k} %`} />
-                </div>
-              ))}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid var(--core-color-border-subtle)", paddingTop: "var(--core-space-4)" }}>
-                <Txt as="a" t="text14Bold" href="#">Reset</Txt>
-                <div><Txt t="text14Bold">Total deferral </Txt><Txt t="numericData" style={{ color: BLUE }}>0%</Txt></div>
-              </div>
-            </div>
-          </Card>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-3)" }}>
-            <Txt as="h3" t="h4">Auto increase</Txt>
-            <Txt as="p" t="text14Regular" style={MUTED}>Automatically increase the deferral rate over time to grow the retirement savings.</Txt>
-            <div data-s="auto" data-spec="Auto increase options" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--core-space-4)" }}>
-              <Card variant="outlined"><Radio name="auto" label="Use auto increase" /></Card>
-              <Card variant="outlined"><Radio name="auto" label="Don't use auto increase" /></Card>
-            </div>
-          </div>
-        </div>
+    <div data-spec="Deferral source" className="sr-source">
+      <div className="sr-srow">
+        <span className="sr-smeta">
+          <T t="text14Bold" className="sr-sname">{name}</T>
+          <T t="text12Medium" className="sr-shelp">{help}</T>
+        </span>
+        <span className="sr-sval"><input defaultValue="0" aria-label={`${name} %`} /><span className="sr-pct">%</span></span>
       </div>
-    </PortalShell>
+    </div>
   );
 }
+
+function EnrollmentScreen() {
+  return (
+    <div className="sr-enroll-shell">
+      <PortalShell current="dashboard" footer={false}>
+        <div data-spec="Enrollment layout" className="sr-enroll">
+          <aside data-spec="Steps panel" className="sr-steps">
+            <a className="sr-link" href="#">‹ Back</a>
+            <T as="h1" t="h2" className="sr-steps-title">Plan enrollment</T>
+            <div className="sr-divider" />
+            <Stepper
+              orientation="vertical"
+              currentIndex={0}
+              steps={[
+                { label: "Deferral rate", description: "Specify payroll deferral rates and set up auto increase." },
+                { label: "Investment election", description: "Choose the investments and its allocation percentages" },
+                { label: "Summary", description: "Review the elections before confirming." },
+              ]}
+            />
+          </aside>
+          <div data-spec="Enrollment main" className="sr-enroll-main">
+            <div data-spec="Detail header" className="sr-detail-head">
+              <T as="div" t="text12SemiBold" className="sr-eyebrow">Plan details</T>
+              <T as="h2" t="h2" className="sr-detail-h2">401(k) Company Plan High Returns</T>
+              <T as="div" t="text16Regular" className="sr-plan-meta">Plan ID <b>124542</b></T>
+            </div>
+            <div data-spec="Detail body" className="sr-detail-body">
+              <div className="sr-narrow">
+                <div data-spec="Section top" className="sr-section-top">
+                  <T as="h3" t="h6" className="sr-enroll-h3">Set my deferral rate</T>
+                  <button type="button" className="sr-link">Opt out</button>
+                </div>
+                <Card className="sr-enroll-form">
+                  <div data-spec="Form header" className="sr-form-head">
+                    <div className="sr-form-head-left">
+                      <T t="text14Bold">Deferral by source</T>
+                      <button type="button" className="sr-plan-chip">Use plan deferral rate</button>
+                    </div>
+                    <div className="sr-unit-toggle" role="group" aria-label="Amount format">
+                      <button type="button" aria-pressed="true">%</button>
+                      <button type="button" aria-pressed="false">$</button>
+                    </div>
+                  </div>
+                  <SourceRow name="Pre-Tax" help="Pre-tax employee deferrals lower current year taxes. The deferrals and earnings on the deferrals are taxable when withdrawn and not taxable when it is rolled over." />
+                  <SourceRow name="Roth" help="Roth employee deferrals are taxable in the year contributed, but not when withdrawn. Earnings will not be taxable if certain age and holding period requirements are met." />
+                  <div data-spec="Total bar" className="sr-totalbar">
+                    <button type="button" className="sr-link">Reset</button>
+                    <span className="sr-tval-wrap"><T t="text14Bold">Total deferral</T><T t="text16Bold" className="sr-tval">0%</T></span>
+                  </div>
+                </Card>
+              </div>
+              <div data-spec="Auto increase" className="sr-ai-block">
+                <T as="h3" t="h6" className="sr-enroll-h3">Auto increase</T>
+                <T as="p" t="text14Regular" className="sr-section-sub">Automatically increase the deferral rate over time to grow the retirement savings.</T>
+                <div data-spec="Choices" className="sr-choice-list" role="radiogroup" aria-label="Auto increase">
+                  {[["Use auto increase", "Set the annual auto deferral rate increase."], ["Don't use auto increase", "Keep the same deferral rate in effect each year"]].map(([b, s]) => (
+                    <button key={b} type="button" role="radio" aria-checked="false" className="sr-choice">
+                      <span className="sr-choice-dot" aria-hidden="true" />
+                      <span><T as="b" t="text14Bold">{b}</T><T as="small" t="text14Medium">{s}</T></span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="sr-narrow">
+                <div data-spec="Actions" className="sr-enroll-nav">
+                  <Button>Continue</Button>
+                  <Button variant="tertiary">Cancel</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </PortalShell>
+    </div>
+  );
+}
+
+/* ---------------- Mobile frame ---------------- */
+
+export const SCREEN_COMPONENTS: Record<string, () => JSX.Element> = {
+  dashboard: DashboardScreen,
+  portfolio: PortfolioScreen,
+  documents: DocumentsScreen,
+  enrollment: EnrollmentScreen,
+};
+
+/** Standalone render of one screen, loaded in a phone-sized iframe so the
+ *  portal's responsive rules (and CORE's own breakpoints) apply for real. */
+export function ScreenFrame({ id, mode }: { id: string; mode: "light" | "dark" }) {
+  const Screen = SCREEN_COMPONENTS[id];
+  useLayoutEffect(() => {
+    document.body.style.margin = "0";
+    document.body.style.background = "var(--core-color-bg-page)";
+  }, []);
+  if (!Screen) return null;
+  return (
+    <div className="sr-portal sr-frame" data-theme="core" data-mode={mode} style={{ minHeight: "100vh", background: "var(--core-color-bg-page)" }}>
+      <Screen />
+    </div>
+  );
+}
+
+/** Phone preview: 390 × 844 viewport with the page scrolling inside it. */
+function MobilePreview({ id, notes }: { id: string; notes: string[] }) {
+  const { mode } = usePreviewMode();
+  return (
+    <div className="sr-mobile-ref">
+      <div className="sr-phone">
+        <iframe title={`${id} — mobile`} src={`/#/screen-frame/${id}?mode=${mode}`} width={390} height={844} />
+      </div>
+      <div className="sr-mobile-notes">
+        <SectionHeading>What changes below 640 px</SectionHeading>
+        <ul>{notes.map((n) => <li key={n}>{n}</li>)}</ul>
+      </div>
+    </div>
+  );
+}
+
+const MOBILE_NOTES: Record<string, string[]> = {
+  common: [
+    "Sidebar rail is replaced by the CORE MobileNav bottom bar (Menu · Dashboard · Settings); the other destinations move into the Menu sheet.",
+    "Page padding drops from 24 / 32 / 48 to 16 / 16 / 32 (core-space-4 / 8); content stacks in one column.",
+    "Footer stacks copyright above the links, padding 12 / 16, no rail offset.",
+  ],
+  dashboard: [
+    "Greeting H1 steps down to font-size-xl (24px).",
+    "Dashboard grid, plan grid and quick links become one column; the side column (Retirement readiness, Enrich) moves below the transactions.",
+    "Below 420 px the balance header stacks and View summary stretches to full width.",
+  ],
+  portfolio: [
+    "Page header padding 16; H1 steps down to H4 (20px) and the plan select wraps below it.",
+    "Tabs bar padding 0 / 16 and scrolls horizontally.",
+    "Summary card and chart stack; chart height 220px; legend becomes one column.",
+    "Holdings table keeps its columns and scrolls sideways inside its frame.",
+  ],
+  documents: [
+    "Filters stack full width (below 760 px); Reset + Search sit on their own row.",
+    "Results header stacks and Generate new statement goes full width.",
+    "Each document row stacks: name, type · date, plan, then Download.",
+  ],
+  enrollment: [
+    "The step panel becomes a row of numbered markers across the top (below 980 px); Back, the title and step text are hidden.",
+    "Detail header padding 16; plan name steps down to H4.",
+    "Deferral form header wraps; percentage inputs are 56px wide at body-lg size.",
+  ],
+};
 
 /* ---------------- Section ---------------- */
 
 function DarkCanvas({ children }: { children: React.ReactNode }) {
   const { mode } = usePreviewMode();
   return (
-    <div data-theme="core" data-mode={mode} style={{ width: WIDTH, background: "var(--core-color-bg-page)", color: "var(--core-color-text-primary)", fontFamily: "var(--typography-font-family-sans)" }}>
+    <div className="sr-portal" data-theme="core" data-mode={mode} style={{ width: WIDTH, background: "var(--core-color-bg-page)" }}>
       {children}
     </div>
   );
@@ -382,6 +554,8 @@ function ScreenBlock({ id, title, screen, onScan }: { id: string; title: string;
           }
         />
       </div>
+      <h4 style={{ margin: "var(--core-space-4) 0 0", fontSize: "var(--typography-heading-h5-size)" }}>{title} — mobile (390 px)</h4>
+      <MobilePreview id={id} notes={[...MOBILE_NOTES[id], ...MOBILE_NOTES.common]} />
     </div>
   );
 }

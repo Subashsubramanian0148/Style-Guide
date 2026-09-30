@@ -12,12 +12,15 @@ import Components from "./pages/Components";
 import LegacyComponentRedirect from "./LegacyComponentRedirect";
 import Patterns from "./pages/Patterns";
 import Screens from "./pages/Screens";
+import { ScreenFrame } from "./pages/ScreenReference";
+import { useParams, useSearchParams } from "react-router-dom";
 import Tokens from "./pages/Tokens";
 import Themes from "./pages/Themes";
 import Accessibility from "./pages/Accessibility";
 export default function App() {
   return (
     <Routes>
+      <Route path="/screen-frame/:id" element={<ScreenFrameRoute />} />
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/foundations/color" element={<Color />} />
@@ -51,4 +54,10 @@ export default function App() {
       </Route>
     </Routes>
   );
+}
+
+function ScreenFrameRoute() {
+  const { id = "" } = useParams();
+  const [params] = useSearchParams();
+  return <ScreenFrame id={id} mode={params.get("mode") === "dark" ? "dark" : "light"} />;
 }
