@@ -513,11 +513,11 @@ function Layout({ width, name, children, frame, pick }: { width: number; name: s
 const navBtn: React.CSSProperties = { width: 32, height: 32, borderRadius: 6, border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", color: "var(--core-color-text-primary)", cursor: "pointer", fontSize: 16 };
 
 /** Anatomy + Layout and spacing for one screen, like the Figma spec sheet. */
-export function ScreenSpec({ width, name, render, frame }: { width: number; name: string; render?: () => React.ReactNode; frame?: string }) {
+export function ScreenSpec({ width, name, render, frame, showAnatomy = true }: { width: number; name: string; render?: () => React.ReactNode; frame?: string; showAnatomy?: boolean }) {
   const [pick, setPick] = useState<{ el: HTMLElement | null; tick: number }>({ el: null, tick: 0 });
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
-      <Anatomy width={width} name={name} frame={frame} onPick={(el) => setPick((p) => ({ el, tick: p.tick + 1 }))}>{render?.()}</Anatomy>
+      {showAnatomy && <Anatomy width={width} name={name} frame={frame} onPick={(el) => setPick((p) => ({ el, tick: p.tick + 1 }))}>{render?.()}</Anatomy>}
       <Layout width={width} name={name} frame={frame} pick={pick}>{render?.()}</Layout>
     </div>
   );

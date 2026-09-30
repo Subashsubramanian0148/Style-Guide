@@ -500,7 +500,7 @@ function MobilePreview({ id, title, notes }: { id: string; title: string; notes:
         }
         anatomy={
           <div key={src} style={{ display: "flex", flexDirection: "column", gap: 48 }}>
-            <ScreenSpec width={MOBILE_WIDTH} name={`LendGuard — ${title} (mobile)`} frame={`${src}&fit=1`} />
+            <ScreenSpec width={MOBILE_WIDTH} name={`LendGuard — ${title} (mobile)`} frame={`${src}&fit=1`}  showAnatomy={false} />
             <ScreenTypeMap width={MOBILE_WIDTH} frame={`${src}&fit=1`} />
           </div>
         }
@@ -567,7 +567,7 @@ function ScreenBlock({ id, title, screen, onScan }: { id: string; title: string;
           }
           anatomy={
             <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
-              <ScreenSpec width={WIDTH} name={`LendGuard — ${title}`} render={() => <DarkCanvas>{screen}</DarkCanvas>} />
+              <ScreenSpec width={WIDTH} name={`LendGuard — ${title}`} render={() => <DarkCanvas>{screen}</DarkCanvas>}  showAnatomy={false} />
               <ScreenTypeMap width={WIDTH}><DarkCanvas>{screen}</DarkCanvas></ScreenTypeMap>
             </div>
           }
