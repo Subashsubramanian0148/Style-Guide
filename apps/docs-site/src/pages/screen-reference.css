@@ -184,8 +184,8 @@
 .sr-unit-toggle button[aria-pressed="true"] { background: var(--brand-background-primary-subtle); color: var(--brand-text-primary-active); }
 .sr-source { padding: var(--core-space-3) 0; border-top: 1px solid var(--neutral-border-light); }
 .sr-form-head + .sr-source { border-top: 0; }
-.sr-srow { display: flex; align-items: flex-start; gap: var(--core-space-3); margin-bottom: var(--core-space-2); }
-.sr-smeta { display: flex; flex-direction: column; gap: var(--core-space-1); flex: 1; min-width: 0; padding-right: var(--core-space-3); }
+.sr-srow { display: flex; align-items: flex-start; gap: var(--core-space-6); margin-bottom: var(--core-space-2); }
+.sr-smeta { display: flex; flex-direction: column; gap: var(--core-space-1); flex: 1; min-width: 0; }
 .sr-sname { font-size: var(--typography-body-md-size); line-height: var(--typography-body-md-line-height); font-weight: var(--typography-font-weight-bold); }
 .sr-shelp { font-size: var(--typography-caption-size); line-height: var(--typography-caption-line-height); font-weight: var(--typography-font-weight-medium); color: var(--neutral-text-subtle); }
 .sr-sval { display: flex; flex: 0 0 auto; margin-top: var(--core-space-1); border: 1px solid var(--core-color-border-control); border-radius: var(--core-radius-sm); background: var(--core-color-surface-default); overflow: hidden; }
@@ -222,7 +222,7 @@
 .sr-steps > .sr-link { min-height: var(--core-space-6); align-items: center; }
 .sr-steps .cds-step--vertical { padding-bottom: var(--core-space-5); }
 .sr-steps .cds-step--vertical:last-child { padding-bottom: 0; }
-.sr-steps .cds-step-label { padding-top: var(--core-space-1); padding-right: var(--core-space-2); }
+.sr-steps .cds-step-label { padding-top: var(--core-space-1); }
 .sr-steps .cds-step-title { margin-bottom: var(--core-space-1); }
 .sr-steps .cds-step--vertical .cds-step-connector { top: calc(var(--sr-step-marker) + var(--core-space-2)); bottom: var(--core-space-1); }
 .sr-steps .cds-step--default .cds-step-status { display: none; }
@@ -273,7 +273,7 @@
   .sr-portal .cds-app-shell-sidebar { display: none; }
   .sr-mobile-nav { display: block; }
   .sr-portal .cds-app-main { width: 100%; }
-  .sr-portal .cds-app-header { padding: 0 var(--core-space-3) 0 var(--core-space-2); }
+  .sr-portal .cds-app-header { padding: 0 var(--core-space-4); }
   .sr-portal .cds-app-header .cds-app-header-icon-btn { display: grid; }
   .sr-portal .cds-app-footer { margin-left: 0; width: 100%; padding: var(--core-space-3) var(--core-space-4); }
   .sr-portal .cds-app-footer-inner { flex-direction: column; align-items: flex-start; gap: var(--core-space-1); }
