@@ -1289,7 +1289,7 @@ export function CalendarAnatomy() {
 
 /* ---------- App header & footer ---------- */
 
-const headerAccount: HeaderAccount = {
+export const headerAccount: HeaderAccount = {
   name: "Ava Sullivan",
   email: "ava.sullivan@email.com",
   avatarSrc: AVATAR_SAMPLES[2].src,
@@ -1299,12 +1299,12 @@ const headerAccount: HeaderAccount = {
   ],
 };
 
-const headerUtilities: HeaderUtility[] = [
+export const headerUtilities: HeaderUtility[] = [
   { label: "Get help", icon: <Icon name="fa-solid fa-circle-question" size="md" /> },
   { label: "Switch to dark theme", icon: <Icon name="fa-solid fa-moon" size="md" /> },
 ];
 
-function BrandLogo() {
+export function BrandLogo() {
   return (
     <span className="docs-brand-logo">
       <img className="docs-brand-logo--light" src="/brand/lendguard/logo-lockup-light.svg" alt="LendGuard" width={190} height={34} />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { DocsSection, DocsSectionList } from "../DocsSection";
 import { AppShell, AppHeader, AppFooter, Container, Grid, GridCol } from "../../../../packages/core/src/components/Layout";
 import { AppSidebar, Breadcrumb, Stepper } from "../../../../packages/core/src/components/Navigation";
@@ -10,6 +10,8 @@ import { Field, Input } from "../../../../packages/core/src/components/Field";
 import { Select } from "../../../../packages/core/src/components/FormControls";
 import { Icon, DescriptionList } from "../../../../packages/core/src/components/Primitives";
 import { Drawer } from "../../../../packages/core/src/components/Overlays";
+import { ScreenTokenUsage } from "../ScreenAnatomyScan";
+import { ScreenReferenceSection } from "./ScreenReference";
 
 const NAV_ITEMS = [
   { label: "Dashboard", icon: <Icon name="fa-solid fa-grip" size="lg" />, current: true },
@@ -54,6 +56,7 @@ const TRANSACTIONS: Txn[] = [
 export default function Screens() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [stepIndex, setStepIndex] = useState(1);
+  const dashboardRef = useRef<HTMLDivElement>(null);
 
   return (
     <div>
@@ -85,7 +88,7 @@ export default function Screens() {
       </DocsSection>
       <DocsSection anchorId="dashboard" title="Dashboard">
       <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", overflowX: "auto" }}>
-        <div style={{ width: 860 }}>
+        <div style={{ width: 860 }} ref={dashboardRef}>
             <AppShell
               header={<ScreenHeader userName="Taylor Hale" />}
               sidebar={<AppSidebar items={NAV_ITEMS} variant="rail" />}
@@ -164,6 +167,7 @@ export default function Screens() {
             </AppShell>
           </div>
       </div>
+      <ScreenTokenUsage root={dashboardRef} />
 
       {/* ============================= TABLE SCREEN ============================= */}
       </DocsSection>
@@ -299,6 +303,16 @@ export default function Screens() {
           <tr><td>Grid columns</td><td>12</td><td>Base column count every screen's content area divides into</td></tr>
         </tbody>
       </table>
+      </DocsSection>
+
+      {/* ============================= SCREEN REFERENCE ============================= */}
+      <DocsSection anchorId="screen-reference" title="Screen reference">
+        <p style={{ fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-secondary)", marginTop: 0, marginBottom: "var(--core-space-6)" }}>
+          Four participant-portal screens rebuilt from the design system to match the live portal. Switch any screen to
+          its anatomy to see header, sidebar, content and section spacing measured from the real DOM, followed by every
+          typography role, color, radius and spacing token the screen uses.
+        </p>
+        <ScreenReferenceSection />
       </DocsSection>
       </DocsSectionList>
     </div>

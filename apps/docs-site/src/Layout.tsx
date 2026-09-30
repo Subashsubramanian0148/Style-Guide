@@ -24,6 +24,15 @@ const nav = [
       ...flatComponentLinks,
     ],
   },
+  {
+    group: "Screen reference",
+    links: [
+      { to: "/screens#screen-ref-dashboard", label: "Dashboard" },
+      { to: "/screens#screen-ref-portfolio", label: "Investment portfolio" },
+      { to: "/screens#screen-ref-documents", label: "Documents" },
+      { to: "/screens#screen-ref-enrollment", label: "Enrollment flow" },
+    ],
+  },
 ];
 
 function getGroupLinks(group: { links: NavLink[] }) {

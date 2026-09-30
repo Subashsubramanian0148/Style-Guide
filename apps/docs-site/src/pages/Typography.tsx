@@ -44,7 +44,7 @@ const order = [
   "numericData"
 ];
 
-const roleName: Record<string, string> = {
+export const roleName: Record<string, string> = {
   "h1": "H1",
   "h2": "H2",
   "h3": "H3",

@@ -577,3 +577,6 @@ table.spec-table code { font-family: var(--site-mono); font-size: 12px; color: v
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* Screen reference: the portal's Recent Transactions table has no pager. */
+.screen-ref-table > div > div:last-child { display: none !important; }

@@ -12,9 +12,9 @@ interface ColorRow {
   value: string;
 }
 
-type Prop = { key: "color" | "background-color" | "border-top-color"; name: string; shorthands: string[] };
+export type Prop = { key: "color" | "background-color" | "border-top-color"; name: string; shorthands: string[] };
 
-const PROPS: Prop[] = [
+export const PROPS: Prop[] = [
   { key: "color", name: "Text", shorthands: ["color"] },
   { key: "background-color", name: "Background", shorthands: ["background-color", "background"] },
   { key: "border-top-color", name: "Border", shorthands: ["border-top-color", "border-color", "border-top", "border"] },
@@ -22,7 +22,7 @@ const PROPS: Prop[] = [
 
 let styleRules: CSSStyleRule[] | null = null;
 
-function allStyleRules(): CSSStyleRule[] {
+export function allStyleRules(): CSSStyleRule[] {
   if (styleRules) return styleRules;
   const out: CSSStyleRule[] = [];
   const walk = (rules: CSSRuleList) => {
@@ -46,7 +46,7 @@ function allStyleRules(): CSSStyleRule[] {
   return out;
 }
 
-const probeColor = (host: Element, value: string): string => {
+export const probeColor = (host: Element, value: string): string => {
   const probe = document.createElement("span");
   probe.style.color = value;
   probe.style.display = "none";
@@ -61,7 +61,7 @@ const probeColor = (host: Element, value: string): string => {
  *  style rules that match the element (inline style first, then later rules
  *  before earlier ones) and keeps the first `var(--…)` whose resolved color
  *  equals what actually rendered. */
-function tokenFor(el: HTMLElement, prop: Prop, computed: string): string {
+export function tokenFor(el: HTMLElement, prop: Prop, computed: string): string {
   const candidates: string[] = [];
   for (const sh of prop.shorthands) {
     const v = el.style.getPropertyValue(sh);
@@ -100,9 +100,9 @@ function tokenFor(el: HTMLElement, prop: Prop, computed: string): string {
   return "—";
 }
 
-const isTransparent = (c: string) => c === "transparent" || /rgba\([^)]*,\s*0\)$/.test(c);
+export const isTransparent = (c: string) => c === "transparent" || /rgba\([^)]*,\s*0\)$/.test(c);
 
-function hasOwnText(el: Element): boolean {
+export function hasOwnText(el: Element): boolean {
   return Array.from(el.childNodes).some((n) => n.nodeType === 3 && n.textContent!.trim()) || el.matches("input:not([type=range]):not([type=checkbox]):not([type=radio]), textarea, select");
 }
 
