@@ -46,15 +46,11 @@ $accent-roles: (
 );
 
 $accent-text-primary-light: (
+  // Light-mode values follow the Figma base-color spec (Color page).
   default: 500,
-  // Adjacent ramp steps (600/700) read as visually identical to 500 at
-  // text size — hover/active need a bigger jump to actually look different,
-  // not just a thicker underline riding along on the same shade.
-  hover: 700,
-  active: 900,
-  // Disabled uses a muted neutral: a brand step either matched another
-  // state or (600) read darker and "more active" than default.
-  disabled: neutral(500),
+  hover: 600,
+  active: 700,
+  disabled: 300,
 );
 
 $accent-text-primary-dark: (
@@ -78,8 +74,8 @@ $accent-text-primary-dark: (
 $accent-text-oncolor: (
   light: (
     brand: neutral(white),
-    secondary: neutral(950),
-    tertiary: neutral(950),
+    secondary: neutral(white),
+    tertiary: neutral(white),
   ),
   dark: (
     // primary-50 (#F5F7FA) on the lighter dark fill reaches only 4.29:1.
@@ -91,13 +87,14 @@ $accent-text-oncolor: (
 );
 
 $accent-background-primary-light: (
+  // Light-mode values follow the Figma base-color spec (Color page).
   strong: 500,
   hover: 600,
   active: 700,
   light: 50,
   subtle: 100,
   disabled-light: neutral(100),
-  disabled-strong: neutral(200),
+  disabled-strong: 200,
 );
 
 $accent-background-primary-dark: (
@@ -115,10 +112,10 @@ $accent-background-primary-dark: (
 );
 
 $accent-border-primary-light: (
+  // Light-mode values follow the Figma base-color spec (Color page).
   default: 500,
   hover: 600,
-  // Was 500 — identical to `default`, so a disabled outline looked enabled.
-  disabled: neutral(300),
+  disabled: 200,
 );
 
 $accent-border-primary-dark: (
@@ -142,11 +139,6 @@ $accent-border-primary-dark: (
 // WCAG 2.1 AA (text 4.5:1 · UI boundary 3:1); disabled steps are exempt.
 $accent-overrides: (
   secondary: (
-    light: (
-      text: (default: 800, hover: 900, active: 950, disabled: neutral(500)),
-      background: (strong: 400, hover: 500, active: 600, light: 50, subtle: 100, disabled-light: neutral(100), disabled-strong: neutral(200)),
-      border: (default: 700, hover: 800, disabled: neutral(300)),
-    ),
     dark: (
       text: (default: 300, hover: 200, active: 100, disabled: neutral(400)),
       background: (strong: 400, hover: 500, active: 600, light: 950, subtle: 900, disabled-light: neutral(800), disabled-strong: neutral(700)),
@@ -154,11 +146,6 @@ $accent-overrides: (
     ),
   ),
   tertiary: (
-    light: (
-      text: (default: 700, hover: 800, active: 900, disabled: neutral(500)),
-      background: (strong: 400, hover: 500, active: 600, light: 50, subtle: 100, disabled-light: neutral(100), disabled-strong: neutral(200)),
-      border: (default: 600, hover: 700, disabled: neutral(300)),
-    ),
     dark: (
       text: (default: 300, hover: 200, active: 100, disabled: neutral(400)),
       background: (strong: 400, hover: 500, active: 600, light: 900, subtle: 800, disabled-light: neutral(800), disabled-strong: neutral(700)),
@@ -217,7 +204,7 @@ $accent-overrides: (
 $neutral-text-light: (
   default: 900,
   subtle: 600,
-  subtle-light: 600,
+  subtle-light: 500,
   on-color: white,
   // Disabled labels (tabs, nav items): one step lighter than resting text,
   // which already uses 600 — the shared disabled text step.
@@ -233,7 +220,7 @@ $neutral-text-dark: (
 );
 
 $neutral-border-light: (
-  subtle: 200,
+  subtle: 100,
   light: 200,
   // Dividers and hover strokes: one step stronger than the resting 200.
   default: 300,
@@ -287,6 +274,10 @@ $semantic-families: (
 $semantics-light: (
   text: 700,
   background-light: 50,
+  // Figma spec: every strong status fill is 600 in light mode (warning too).
+  strong: (critical: 600, highlight: 600, success: 600, warning: 600),
+  strong-hover: (critical: 700, highlight: 700, success: 700, warning: 700),
+  strong-active: (critical: 800, highlight: 800, success: 800, warning: 800),
 );
 
 $semantics-dark: (
@@ -324,10 +315,10 @@ $semantics-strong-bg-active: (
 
 // Per-role border steps — minimum 3:1 vs adjacent light/dark surfaces (WCAG 1.4.11)
 $semantics-border-light: (
-  critical: 400,
-  highlight: 500,
-  success: 500,
-  warning: 600,
+  critical: 200,
+  highlight: 200,
+  success: 200,
+  warning: 200,
 );
 
 $semantics-border-dark: (
@@ -359,9 +350,12 @@ $semantics-disabled-border-dark: (
   --semantics-#{$role}-border: #{status($family, $border-step)};
   --semantics-#{$role}-text: #{status($family, map.get($tokens, text))};
   --semantics-#{$role}-background-light: #{status($family, map.get($tokens, background-light))};
-  --semantics-#{$role}-background-strong: #{status($family, map.get($semantics-strong-bg, $role))};
-  --semantics-#{$role}-background-strong-hover: #{status($family, map.get($semantics-strong-bg-hover, $role))};
-  --semantics-#{$role}-background-strong-active: #{status($family, map.get($semantics-strong-bg-active, $role))};
+  $strong: if(map.has-key($tokens, strong), map.get($tokens, strong), $semantics-strong-bg);
+  $strong-hover: if(map.has-key($tokens, strong-hover), map.get($tokens, strong-hover), $semantics-strong-bg-hover);
+  $strong-active: if(map.has-key($tokens, strong-active), map.get($tokens, strong-active), $semantics-strong-bg-active);
+  --semantics-#{$role}-background-strong: #{status($family, map.get($strong, $role))};
+  --semantics-#{$role}-background-strong-hover: #{status($family, map.get($strong-hover, $role))};
+  --semantics-#{$role}-background-strong-active: #{status($family, map.get($strong-active, $role))};
 }
 
 // ── Disabled ─────────────────────────────────────────────────────────────────
@@ -371,8 +365,8 @@ $semantics-disabled-border-dark: (
 // colors in dark mode (too-light background, unreadable text/border).
 
 $semantics-disabled-neutral-light: (
-  background: 100,
-  border: 200,
+  background: 50,
+  border: 700,
   text: 600,
 );
 
