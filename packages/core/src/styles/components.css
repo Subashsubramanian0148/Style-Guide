@@ -19,14 +19,14 @@
       stays in sync instead of re-deriving the same value. */
 :root,
 [data-mode] {
-  --cds-focus-color: var(--theme-primitive-color-primary-400);
+  --cds-focus-color: var(--brand-border-primary-focus);
   --cds-focus-glow: 0 0 0 3px color-mix(in srgb, var(--cds-focus-color) 25%, transparent);
 }
 
 /* primary-400 is 2.95:1 on the dark surface; 300 keeps focus rings and
    focused outlines at 3:1 (WCAG 1.4.11 / 2.4.11). */
 [data-mode="dark"] {
-  --cds-focus-color: var(--theme-primitive-color-primary-300);
+  --cds-focus-color: var(--brand-border-primary-focus);
 }
 
 /* ── Semantic tone utilities (token-driven) ──
@@ -295,13 +295,13 @@
 }
 
 .cds-btn--destructive:hover:not(:disabled) {
-  background: var(--theme-colors-red-700);
-  border-color: var(--theme-colors-red-700);
+  background: var(--semantics-critical-background-strong-hover);
+  border-color: var(--semantics-critical-background-strong-hover);
 }
 
 .cds-btn--destructive:active:not(:disabled) {
-  background: var(--theme-colors-red-800);
-  border-color: var(--theme-colors-red-800);
+  background: var(--semantics-critical-background-strong-active);
+  border-color: var(--semantics-critical-background-strong-active);
 }
 
 .cds-btn--destructive:disabled,
@@ -319,12 +319,12 @@
 }
 
 .cds-btn--success:hover:not(:disabled) {
-  background: var(--theme-colors-success-700);
-  border-color: var(--theme-colors-success-700);
+  background: var(--semantics-success-background-strong-hover);
+  border-color: var(--semantics-success-background-strong-hover);
 }
 
 .cds-btn--success:active:not(:disabled) {
-  background: var(--theme-colors-success-800);
+  background: var(--semantics-success-background-strong-active);
 }
 
 .cds-btn--success:disabled,
@@ -342,12 +342,12 @@
 }
 
 .cds-btn--warning:hover:not(:disabled) {
-  background: var(--theme-colors-warning-800);
-  border-color: var(--theme-colors-warning-800);
+  background: var(--semantics-warning-background-strong-hover);
+  border-color: var(--semantics-warning-background-strong-hover);
 }
 
 .cds-btn--warning:active:not(:disabled) {
-  background: var(--theme-colors-warning-900);
+  background: var(--semantics-warning-background-strong-active);
 }
 
 .cds-btn--warning:disabled,
@@ -365,12 +365,12 @@
 }
 
 .cds-btn--info:hover:not(:disabled) {
-  background: var(--theme-colors-info-700);
-  border-color: var(--theme-colors-info-700);
+  background: var(--semantics-highlight-background-strong-hover);
+  border-color: var(--semantics-highlight-background-strong-hover);
 }
 
 .cds-btn--info:active:not(:disabled) {
-  background: var(--theme-colors-info-800);
+  background: var(--semantics-highlight-background-strong-active);
 }
 
 .cds-btn--info:disabled,
@@ -743,13 +743,13 @@
 }
 
 .cds-step--warning .cds-step-marker {
-  background: var(--theme-colors-warning-700);
-  color: var(--theme-colors-neutral-0);
+  background: var(--semantics-warning-background-strong);
+  color: var(--neutral-text-on-color);
 }
 
 .cds-step--error .cds-step-marker {
   background: var(--theme-semantics-critical-strong-background);
-  color: var(--theme-colors-neutral-0);
+  color: var(--neutral-text-on-color);
 }
 
 .cds-step-label {
@@ -843,7 +843,7 @@
   height: 12px;
   border-radius: 50%;
   --cds-spinner-track: color-mix(in srgb, var(--core-color-text-primary) 32%, transparent);
-  --cds-spinner-active: var(--brand-text-primary-default, var(--theme-primitive-color-primary-500));
+  --cds-spinner-active: var(--brand-text-primary-default);
   border: 2px solid var(--cds-spinner-track);
   border-top-color: var(--cds-spinner-active);
   animation: cds-spin 700ms linear infinite;
@@ -869,7 +869,7 @@
 }
 
 .cds-step--warning .cds-step-connector {
-  background: var(--theme-colors-warning-700);
+  background: var(--semantics-warning-background-strong);
 }
 
 .cds-step--error .cds-step-connector {
@@ -956,7 +956,7 @@
 }
 
 .cds-stepper-mobile-segment--warning {
-  background: var(--theme-colors-warning-700);
+  background: var(--semantics-warning-background-strong);
 }
 
 .cds-stepper-mobile-segment--error {
@@ -1242,7 +1242,7 @@
 }
 
 .cds-quicklink:hover:not(:disabled) {
-  --cds-stroke-color: var(--theme-colors-neutral-300);
+  --cds-stroke-color: var(--neutral-border-default);
   box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--core-elevation-2);
 }
 
@@ -1479,7 +1479,7 @@
 .force-hover .cds-badge--warning {
   background: color-mix(in srgb, var(--theme-semantics-warning-strong-background) 14%, var(--core-color-surface-default)) !important;
   color: var(--theme-semantics-warning-text) !important;
-  --cds-stroke-color: var(--theme-primitive-color-tertiary-600) !important;
+  --cds-stroke-color: var(--semantics-warning-border) !important;
 }
 
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--danger,
@@ -1487,7 +1487,7 @@
 .force-hover .cds-badge--danger {
   background: color-mix(in srgb, var(--theme-semantics-critical-strong-background) 14%, var(--core-color-surface-default)) !important;
   color: var(--theme-semantics-critical-text) !important;
-  --cds-stroke-color: var(--theme-colors-red-600) !important;
+  --cds-stroke-color: var(--semantics-critical-border) !important;
 }
 
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--info,
@@ -1495,7 +1495,7 @@
 .force-hover .cds-badge--info {
   background: color-mix(in srgb, var(--theme-semantics-highlight-strong-background) 14%, var(--core-color-surface-default)) !important;
   color: var(--theme-semantics-highlight-text) !important;
-  --cds-stroke-color: var(--theme-colors-info-600) !important;
+  --cds-stroke-color: var(--semantics-highlight-border) !important;
 }
 
 .cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--primary,
@@ -1509,16 +1509,16 @@
 .cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--neutral,
 .cds-badge-state--active.cds-badge-style--soft.cds-badge--neutral,
 .force-active .cds-badge-style--soft.cds-badge--neutral {
-  background: var(--theme-colors-neutral-800) !important;
-  color: var(--theme-colors-neutral-0) !important;
-  --cds-stroke-color: var(--theme-colors-neutral-800) !important;
+  background: var(--neutral-background-strong) !important;
+  color: var(--neutral-text-on-color) !important;
+  --cds-stroke-color: var(--neutral-background-strong) !important;
 }
 
 .cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--success,
 .cds-badge-state--active.cds-badge-style--soft.cds-badge--success,
 .force-active .cds-badge-style--soft.cds-badge--success {
   background: var(--theme-semantics-success-strong-background) !important;
-  color: var(--theme-colors-neutral-0) !important;
+  color: var(--neutral-text-on-color) !important;
   --cds-stroke-color: var(--theme-semantics-success-strong-background) !important;
 }
 
@@ -1534,7 +1534,7 @@
 .cds-badge-state--active.cds-badge-style--soft.cds-badge--danger,
 .force-active .cds-badge-style--soft.cds-badge--danger {
   background: var(--theme-semantics-critical-strong-background) !important;
-  color: var(--theme-colors-neutral-0) !important;
+  color: var(--neutral-text-on-color) !important;
   --cds-stroke-color: var(--theme-semantics-critical-strong-background) !important;
 }
 
@@ -1757,7 +1757,7 @@
   width: var(--core-space-8);
   height: var(--core-space-4);
   border-radius: var(--core-radius-full);
-  background: var(--theme-colors-neutral-500);
+  background: var(--core-color-border-control);
   border: none;
   box-sizing: border-box;
   transition: background-color var(--core-motion-duration-base) cubic-bezier(0.4, 0, 0.2, 1);
@@ -1773,7 +1773,7 @@
   width: var(--core-space-3);
   height: var(--core-space-3);
   border-radius: 50%;
-  background: var(--theme-colors-neutral-0);
+  background: var(--neutral-text-on-color);
   box-shadow: var(--core-elevation-1);
   transform: translateY(-50%);
   transition: left var(--core-motion-duration-base) cubic-bezier(0.4, 0, 0.2, 1), right var(--core-motion-duration-base) cubic-bezier(0.4, 0, 0.2, 1);
@@ -1784,7 +1784,7 @@
      this library. The previous n400 was actually *lighter* than the n500
      default — backwards — and additionally failed contrast against the
      white thumb (2.64:1, needs ≥3:1). */
-  background: var(--theme-colors-neutral-600);
+  background: var(--neutral-border-strong);
 }
 
 /*
@@ -1866,13 +1866,13 @@
  * not the track's exact shade.
  */
 .cds-switch--disabled .cds-switch-track {
-  background: var(--theme-colors-neutral-400);
+  background: var(--neutral-text-disabled);
   border: none;
   box-shadow: none;
 }
 
 .cds-switch--disabled .cds-switch-track::after {
-  background: var(--theme-colors-neutral-0);
+  background: var(--neutral-text-on-color);
   box-shadow: none;
 }
 
@@ -2066,7 +2066,7 @@
   border-radius: var(--core-radius-xs);
   border: 1px solid var(--core-color-border-control);
   background: var(--core-color-surface-default);
-  color: var(--theme-colors-neutral-0);
+  color: var(--neutral-text-on-color);
   transition: background var(--core-motion-duration-fast) ease, border-color var(--core-motion-duration-fast) ease;
 }
 
@@ -2185,7 +2185,7 @@
   width: var(--core-space-2);
   height: var(--core-space-2);
   border-radius: 50%;
-  background: var(--theme-colors-neutral-0);
+  background: var(--neutral-text-on-color);
 }
 
 .cds-checkbox input:focus-visible:not(:checked) + .cds-checkbox-box,
@@ -2210,16 +2210,16 @@
 
 .cds-checkbox input:disabled:checked + .cds-checkbox-box,
 .cds-radio input:disabled:checked + .cds-radio-box {
-  background: var(--theme-colors-neutral-500);
-  border-color: var(--theme-colors-neutral-500);
+  background: var(--core-color-border-control);
+  border-color: var(--core-color-border-control);
 }
 
 .cds-checkbox input:disabled:checked + .cds-checkbox-box svg {
-  stroke: var(--theme-colors-neutral-0);
+  stroke: var(--neutral-text-on-color);
 }
 
 .cds-radio input:disabled:checked + .cds-radio-box .dot {
-  background: var(--theme-colors-neutral-0);
+  background: var(--neutral-text-on-color);
   opacity: 1;
 }
 
@@ -2563,7 +2563,7 @@
 .cds-data-table--disabled .cds-select {
   border-color: var(--theme-semantics-disabled-border) !important;
   background-color: var(--theme-semantics-disabled-background) !important;
-  color: var(--theme-colors-neutral-400) !important;
+  color: var(--neutral-text-disabled) !important;
   cursor: not-allowed !important;
 }
 
@@ -2937,11 +2937,11 @@
 /* The shared disabled text step equals a resting tab's grey, so a disabled
    tab would be indistinguishable; tabs recede one step further. */
 .cds-tab {
-  --cds-tab-disabled-text: var(--theme-colors-neutral-400);
+  --cds-tab-disabled-text: var(--neutral-text-disabled);
 }
 
 [data-mode="dark"] .cds-tab {
-  --cds-tab-disabled-text: var(--theme-colors-neutral-600);
+  --cds-tab-disabled-text: var(--neutral-text-disabled);
 }
 
 .cds-tab:disabled {
@@ -3321,7 +3321,7 @@
   height: var(--core-size-icon-md);
   border-radius: 50%;
   --cds-spinner-track: color-mix(in srgb, var(--core-color-text-primary) 32%, transparent);
-  --cds-spinner-active: var(--brand-text-primary-default, var(--core-color-action-primary-bg));
+  --cds-spinner-active: var(--brand-text-primary-default);
   border: 2px solid var(--cds-spinner-track);
   border-top-color: var(--cds-spinner-active);
   animation: cds-spin 700ms linear infinite;
@@ -3771,13 +3771,13 @@
 }
 
 .cds-separator {
-  --cds-separator-color: var(--theme-colors-neutral-300);
+  --cds-separator-color: var(--neutral-border-default);
   border: none;
   background: none;
 }
 
 [data-mode="dark"] .cds-separator {
-  --cds-separator-color: var(--theme-colors-neutral-600);
+  --cds-separator-color: var(--neutral-border-default);
 }
 
 /* A zero-size rule; the 1px line is an absolutely positioned pseudo-element,
@@ -3825,7 +3825,7 @@
 .cds-skeleton {
   position: relative;
   overflow: hidden;
-  background: var(--theme-colors-neutral-100);
+  background: var(--core-color-surface-sunken);
   border-radius: var(--core-radius-sm);
 }
 
@@ -3844,14 +3844,14 @@
 }
 
 [data-mode="dark"] .cds-skeleton {
-  background: var(--theme-colors-neutral-800);
+  background: var(--core-color-surface-sunken);
 }
 
 [data-mode="dark"] .cds-skeleton::after {
   background: linear-gradient(
     90deg,
     transparent,
-    color-mix(in srgb, var(--theme-colors-neutral-0) 10%, transparent),
+    color-mix(in srgb, var(--neutral-text-on-color) 10%, transparent),
     transparent
   );
 }
@@ -3919,13 +3919,13 @@
 
 .cds-toggle:hover:not(:disabled) {
   background: var(--brand-background-primary-hover);
-  color: var(--theme-primitive-color-primary-100);
+  color: var(--brand-text-primary-oncolor);
   border-color: var(--brand-border-primary-hover);
 }
 
 .cds-toggle:active:not(:disabled) {
   background: var(--brand-background-primary-active);
-  color: var(--theme-primitive-color-primary-100);
+  color: var(--brand-text-primary-oncolor);
   border-color: var(--brand-background-primary-active);
 }
 
@@ -3937,7 +3937,7 @@
 
 .cds-toggle[aria-pressed="true"]:hover:not(:disabled) {
   background: var(--brand-background-primary-hover);
-  color: var(--theme-primitive-color-primary-100);
+  color: var(--brand-text-primary-oncolor);
   border-color: var(--brand-border-primary-hover);
 }
 
@@ -4426,10 +4426,10 @@
   gap: var(--core-space-3);
   --cds-slider-track-height: var(--core-space-2);
   --cds-slider-track-fill: var(--brand-background-primary-strong);
-  --cds-slider-track-bg: var(--theme-colors-neutral-100);
+  --cds-slider-track-bg: var(--core-color-surface-sunken);
   --cds-slider-thumb-size: var(--core-size-icon-md);
   --cds-slider-thumb-bg: var(--brand-background-primary-strong);
-  --cds-slider-thumb-border: var(--theme-colors-neutral-0);
+  --cds-slider-thumb-border: var(--neutral-text-on-color);
   --cds-slider-thumb-ring: var(--brand-background-primary-strong);
 }
 
@@ -4507,10 +4507,10 @@
 .cds-slider input[type="range"]:disabled {
   cursor: not-allowed;
   opacity: 1;
-  --cds-slider-track-fill: var(--theme-colors-neutral-300);
+  --cds-slider-track-fill: var(--neutral-border-default);
   --cds-slider-track-bg: var(--theme-semantics-disabled-background);
-  --cds-slider-thumb-bg: var(--theme-colors-neutral-300);
-  --cds-slider-thumb-ring: var(--theme-colors-neutral-300);
+  --cds-slider-thumb-bg: var(--neutral-border-default);
+  --cds-slider-thumb-ring: var(--neutral-border-default);
 }
 
 .cds-slider input[type="range"]:disabled::-webkit-slider-thumb,
@@ -6247,12 +6247,12 @@
 
 .cds-mobile-nav__bar,
 .cds-mobile-nav__sheet {
-  --cds-mobile-nav-disabled: var(--theme-colors-neutral-400);
+  --cds-mobile-nav-disabled: var(--neutral-text-disabled);
 }
 
 [data-mode="dark"] .cds-mobile-nav__bar,
 [data-mode="dark"] .cds-mobile-nav__sheet {
-  --cds-mobile-nav-disabled: var(--theme-colors-neutral-600);
+  --cds-mobile-nav-disabled: var(--neutral-text-disabled);
 }
 
 .cds-mobile-nav__scrim {

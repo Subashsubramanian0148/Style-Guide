@@ -105,6 +105,60 @@ export function tokenFor(el: HTMLElement, prop: Prop, computed: string): string 
   return "—";
 }
 
+/** Palette tokens as named on the Color page (brand-text-primary-default,
+ *  neutral-border-light, semantics-success-text, …). */
+const CANONICAL = /^((brand|secondary|tertiary)-(text|background|border)-primary-|neutral-(text|border|background)-|semantics-)/;
+
+/** The value a custom property is declared with where `el` sits: the last
+ *  matching rule on the element or its nearest ancestor. */
+function declaredValue(el: Element, name: string): string | null {
+  const rules = allStyleRules();
+  for (let cur: Element | null = el; cur; cur = cur.parentElement) {
+    for (let i = rules.length - 1; i >= 0; i--) {
+      const v = rules[i].style.getPropertyValue(name);
+      if (!v) continue;
+      try {
+        if (cur.matches(rules[i].selectorText)) return v.trim();
+      } catch {
+        /* unsupported selector */
+      }
+    }
+  }
+  return null;
+}
+
+/** Follows aliases (`--theme-*`) and component-local variables (`--cds-*`)
+ *  to the design-system token they point at, so the anatomy names the same
+ *  token the Color page shows — e.g. theme-neutral-text-subtle →
+ *  neutral-text-subtle, cds-tab-indicator → brand-background-primary-strong. */
+export function canonicalToken(el: Element, token: string): string {
+  const suffix = token.endsWith(" (mix)") ? " (mix)" : "";
+  let name = token.replace(/ \(mix\)$/, "");
+  for (let hop = 0; hop < 8; hop++) {
+    if (CANONICAL.test(name) || /^core-/.test(name)) break;
+    const v = declaredValue(el, `--${name}`);
+    const m = v?.match(/^var\(--([\w-]+)\)$/);
+    if (!m) break;
+    name = m[1];
+  }
+  return name + suffix;
+}
+
+/** Runs `fn` with CSS transitions off. After a light/dark flip colors fade
+ *  (and freeze while the tab is hidden); reading mid-fade would report the
+ *  previous mode's colors, so measure the settled values. */
+function withoutTransitions<T>(fn: () => T): T {
+  const style = document.createElement("style");
+  style.textContent = "*,*::before,*::after{transition:none!important}";
+  document.head.appendChild(style);
+  try {
+    void document.body.offsetHeight;
+    return fn();
+  } finally {
+    style.remove();
+  }
+}
+
 /* ---------- Palette names ---------- */
 
 const FAMILY_LABEL: Record<string, string> = { primary: "Brand", red: "Danger" };
@@ -289,7 +343,7 @@ export function ColorTable({ layers, root }: { layers: ColorLayer[]; root?: Reac
   const { mode } = usePreviewMode();
 
   useLayoutEffect(() => {
-    const measure = () => {
+    const measure = () => withoutTransitions(() => {
       const r = root?.current;
       if (!r) return;
       const seen = new Set<string>();
@@ -314,7 +368,7 @@ export function ColorTable({ layers, root }: { layers: ColorLayer[]; root?: Reac
           const key = `${l.node}|${p.key}`;
           if (seen.has(key)) continue;
           seen.add(key);
-          const token = tokenFor(el, lookup, shown);
+          const token = canonicalToken(el, tokenFor(el, lookup, shown));
           out.push({
             label: `${l.node} — ${p.name}`,
             token,
@@ -325,7 +379,7 @@ export function ColorTable({ layers, root }: { layers: ColorLayer[]; root?: Reac
         }
       }
       setRows(out);
-    };
+    });
     measure();
     const t = window.setTimeout(measure, 400);
     return () => window.clearTimeout(t);

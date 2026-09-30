@@ -208,6 +208,8 @@ $accent-overrides: (
   --#{$role}-border-primary-default: #{prim($family, map.get($border, default))};
   --#{$role}-border-primary-hover: #{prim($family, map.get($border, hover))};
   --#{$role}-border-primary-disabled: #{step-or-color($family, map.get($border, disabled))};
+  // Focus ring: 400 on light, 300 on dark (400 was 2.95:1 there).
+  --#{$role}-border-primary-focus: #{prim($family, if($mode == "dark", 300, 400))};
 }
 
 // ── Neutral ────────────────────────────────────────────────────────────────────
@@ -217,6 +219,9 @@ $neutral-text-light: (
   subtle: 600,
   subtle-light: 600,
   on-color: white,
+  // Disabled labels (tabs, nav items): one step lighter than resting text,
+  // which already uses 600 — the shared disabled text step.
+  disabled: 400,
 );
 
 $neutral-text-dark: (
@@ -224,13 +229,18 @@ $neutral-text-dark: (
   subtle: 300,
   subtle-light: 400,
   on-color: white,
+  disabled: 600,
 );
 
 $neutral-border-light: (
   subtle: 200,
   light: 200,
+  // Dividers and hover strokes: one step stronger than the resting 200.
+  default: 300,
   strong: 600,
   inverse: white,
+  // Solid neutral fill (active neutral badge) with on-color text.
+  background-strong: 800,
 );
 
 $neutral-border-dark: (
@@ -238,8 +248,10 @@ $neutral-border-dark: (
   // (WCAG 1.4.11): 700 only reached ~1.9:1, 500 reaches ~3.9:1.
   subtle: 500,
   light: 500,
+  default: 600,
   strong: 400,
   inverse: 900,
+  background-strong: 700,
 );
 
 @mixin neutral-tokens($text, $border) {
@@ -249,12 +261,17 @@ $neutral-border-dark: (
   --neutral-text-subtle: #{neutral(map.get($text, subtle))};
   --neutral-text-subtle-light: #{neutral(map.get($text, subtle-light))};
   --neutral-text-on-color: #{neutral(map.get($text, on-color))};
+  --neutral-text-disabled: #{neutral(map.get($text, disabled))};
 
   /* neutral-border */
   --neutral-border-subtle: #{neutral(map.get($border, subtle))};
   --neutral-border-light: #{neutral(map.get($border, light))};
   --neutral-border-strong: #{neutral(map.get($border, strong))};
   --neutral-border-inverse: #{neutral(map.get($border, inverse))};
+  --neutral-border-default: #{neutral(map.get($border, default))};
+
+  /* neutral-background */
+  --neutral-background-strong: #{neutral(map.get($border, background-strong))};
 }
 
 // ── Semantics (critical / highlight / success / warning) ───────────────────────
@@ -287,6 +304,22 @@ $semantics-strong-bg: (
   highlight: 600,
   success: 600,
   warning: 700,
+);
+
+// Hover / active for a solid status fill (Button destructive, success, …):
+// one and two steps darker, white on-color text stays ≥ 4.5:1.
+$semantics-strong-bg-hover: (
+  critical: 700,
+  highlight: 700,
+  success: 700,
+  warning: 800,
+);
+
+$semantics-strong-bg-active: (
+  critical: 800,
+  highlight: 800,
+  success: 800,
+  warning: 900,
 );
 
 // Per-role border steps — minimum 3:1 vs adjacent light/dark surfaces (WCAG 1.4.11)
@@ -327,6 +360,8 @@ $semantics-disabled-border-dark: (
   --semantics-#{$role}-text: #{status($family, map.get($tokens, text))};
   --semantics-#{$role}-background-light: #{status($family, map.get($tokens, background-light))};
   --semantics-#{$role}-background-strong: #{status($family, map.get($semantics-strong-bg, $role))};
+  --semantics-#{$role}-background-strong-hover: #{status($family, map.get($semantics-strong-bg-hover, $role))};
+  --semantics-#{$role}-background-strong-active: #{status($family, map.get($semantics-strong-bg-active, $role))};
 }
 
 // ── Disabled ─────────────────────────────────────────────────────────────────
