@@ -1853,7 +1853,7 @@ function BaseColorPillarSegment({
   return (
     <div
       onClick={() => onCopy(tokenVar, token.id)}
-      title={`${canonicalTokenName(token)} · click to copy ${tokenVar}`}
+      title={`${canonicalTokenName(token)} · ${colorName} ${currentHex.toUpperCase()} · click to copy ${tokenVar}`}
       style={{
         background: currentHex,
         color: textColor,
@@ -1880,7 +1880,7 @@ function BaseColorPillarSegment({
         e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.06)";
       }}
     >
-      {/* Color name + code (the token is still copied on click) */}
+      {/* Token name (the palette step it resolves to is in the tooltip) */}
       <div
         style={{
           fontSize: 11,
@@ -1893,7 +1893,7 @@ function BaseColorPillarSegment({
           marginBottom: 6,
         }}
       >
-        {colorName}
+        {canonicalTokenName(token)}
       </div>
 
       {/* Hex value */}
