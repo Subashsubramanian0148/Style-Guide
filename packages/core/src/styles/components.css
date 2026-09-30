@@ -183,7 +183,7 @@
 .cds-btn--primary:disabled,
 .cds-btn--primary[aria-disabled="true"] {
   background: var(--brand-background-primary-disabled);
-  color: var(--brand-text-primary-disabled);
+  color: var(--semantics-disabled-text);
   border-color: var(--brand-border-primary-disabled);
   opacity: 1;
 }
