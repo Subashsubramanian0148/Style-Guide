@@ -1852,8 +1852,8 @@ function BaseColorPillarSegment({
 
   return (
     <div
-      onClick={() => onCopy(tokenVar, token.id)}
-      title={`${canonicalTokenName(token)} · ${currentHex.toUpperCase()} · click to copy ${tokenVar}`}
+      onClick={() => onCopy(currentHex.toUpperCase(), token.id)}
+      title={`${canonicalTokenName(token)} · ${currentHex.toUpperCase()} · click to copy ${currentHex.toUpperCase()}`}
       style={{
         background: currentHex,
         color: textColor,
