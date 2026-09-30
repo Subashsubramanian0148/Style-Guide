@@ -1852,19 +1852,17 @@ function BaseColorPillarSegment({
     : MODE_SURFACE[mode];
   const rgb = hexToRgb(currentHex);
   const lum = luminance(rgb.r, rgb.g, rgb.b);
-  const { level: contrastLevel } = getContrastResult(currentHex, contrastBackground, against.hex);
-  const failsPageContrast = contrastLevel === "fail";
-  // Failing tokens (e.g. light fills on white) need dark on-card labels for ADA.
-  // Passing tokens keep luminance-based white/dark text on the swatch.
-  const againstLum = (() => {
-    const c = hexToRgb(against.hex);
-    return luminance(c.r, c.g, c.b);
-  })();
-  const isLight = failsPageContrast ? againstLum > 0.42 : lum > 0.42;
-  const textColor = isLight ? "#1A1A22" : "#FFFFFF";
+  // Card labels sit on the token's own color, so pick dark or white by that
+  // color alone (0.179 is where both give equal contrast) — never by the
+  // surface the token is measured against, which left white text on white.
+  const isLight = lum > 0.179;
+  // Solid black / white: at the 0.179 switch point both reach 4.5:1, so the
+  // small labels pass on every swatch (a soft near-black or translucent
+  // text tops out around 4.2:1 on mid-tones).
+  const textColor = isLight ? "#000000" : "#FFFFFF";
 
-  const metaColor = isLight ? "rgba(26, 26, 34, 0.72)" : "rgba(255, 255, 255, 0.82)";
-  const dividerColor = isLight ? "rgba(26, 26, 34, 0.14)" : "rgba(255, 255, 255, 0.22)";
+  const metaColor = textColor;
+  const dividerColor = isLight ? "rgba(0, 0, 0, 0.24)" : "rgba(255, 255, 255, 0.36)";
 
   return (
     <div

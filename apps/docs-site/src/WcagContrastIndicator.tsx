@@ -243,23 +243,17 @@ export function WcagContrastIndicator({
   /** Foreground on a colored swatch — black on light fills, white on dark fills. */
   const swatchTextColor = onSwatchAdaptive
     ? isLightSwatch
-      ? "#1A1A22"
+      ? "#000000"
       : "#FFFFFF"
     : "var(--core-color-text-primary)";
 
   const textColor = swatchTextColor;
 
-  const ratioIconColor = onSwatchAdaptive
-    ? isLightSwatch
-      ? status.colorVar
-      : swatchTextColor
-    : status.colorVar;
+  // On a colored swatch every mark uses the swatch's own black/white so it
+  // stays legible; the icon shape and the Pass/Fail word carry the status.
+  const ratioIconColor = onSwatchAdaptive ? swatchTextColor : status.colorVar;
   const ratioNumberColor = onSwatchAdaptive ? swatchTextColor : "var(--core-color-text-primary)";
-  const labelColor = onSwatchAdaptive
-    ? isLightSwatch
-      ? status.colorVar
-      : swatchTextColor
-    : status.colorVar;
+  const labelColor = onSwatchAdaptive ? swatchTextColor : status.colorVar;
 
   const ratioLine = (
     <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)"}}>
@@ -281,8 +275,9 @@ export function WcagContrastIndicator({
   );
 
   const passFailLabel = level === "fail" ? "Fail" : "Pass";
-  const passFailColor =
-    level === "fail"
+  const passFailColor = onSwatchAdaptive
+    ? swatchTextColor
+    : level === "fail"
       ? "var(--core-color-status-danger-text, #B42318)"
       : "var(--core-color-status-success-text, #1F7A4D)";
 
@@ -353,11 +348,7 @@ export function WcagContrastIndicator({
             fontSize: 10,
             fontWeight: 500,
             marginTop: onSwatch ? 2 : 0,
-            color: onSwatch
-              ? isLightSwatch
-                ? "rgba(26,26,34,0.62)"
-                : "rgba(255,255,255,0.68)"
-              : "var(--core-color-text-tertiary)",
+            color: onSwatch ? swatchTextColor : "var(--core-color-text-tertiary)",
             lineHeight: 1.35,
           }}
         >
