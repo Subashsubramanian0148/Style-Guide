@@ -56,9 +56,9 @@ function StatusIcon({ kind, color }: { kind: "check" | "warn" | "fail"; color: s
 
 export function contrastUsageHint(
   level: WcagLevel,
-  options: { contrastBackground: ContrastBackground; tokenType?: "text" | "background" | "border" }
+  options: { contrastBackground: ContrastBackground; tokenType?: "text" | "background" | "border"; backgroundLabel?: string }
 ): string {
-  const surface = options.contrastBackground === "white" ? "white" : "black";
+  const surface = options.backgroundLabel ?? (options.contrastBackground === "white" ? "white" : "black");
   const { tokenType } = options;
 
   if (tokenType === "border") {
@@ -78,8 +78,8 @@ export function contrastUsageHint(
   return "Background";
 }
 
-export function getContrastResult(hex: string, contrastBackground: ContrastBackground) {
-  const ratio = contrastRatio(hex, BG_HEX[contrastBackground]);
+export function getContrastResult(hex: string, contrastBackground: ContrastBackground, backgroundHex?: string) {
+  const ratio = contrastRatio(hex, backgroundHex ?? BG_HEX[contrastBackground]);
   const level = wcagLevel(ratio);
   return { ratio, level, status: STATUS[level] };
 }
@@ -206,9 +206,15 @@ export function WcagContrastIndicator({
   isLightSwatch,
   layout = "inline",
   passFailBelow = false,
+  backgroundHex,
+  backgroundLabel,
 }: {
   hex: string;
   contrastBackground?: ContrastBackground;
+  /** Measure against this exact color (e.g. the real dark surface, or the fill an on-color token sits on) instead of pure white/black. */
+  backgroundHex?: string;
+  /** Name shown in the usage hint for `backgroundHex`, e.g. "Brand 500". */
+  backgroundLabel?: string;
   showUsageHint?: boolean;
   tokenType?: "text" | "background" | "border";
   onSwatch?: boolean;
@@ -217,9 +223,9 @@ export function WcagContrastIndicator({
   /** Full color scales: ratio on top, Pass/Fail label below */
   passFailBelow?: boolean;
 }) {
-  const { ratio, level, status } = getContrastResult(hex, contrastBackground);
+  const { ratio, level, status } = getContrastResult(hex, contrastBackground, backgroundHex);
   const usageHint = showUsageHint
-    ? contrastUsageHint(level, { contrastBackground, tokenType })
+    ? contrastUsageHint(level, { contrastBackground, tokenType, backgroundLabel })
     : null;
 
   const onSwatchAdaptive = onSwatch && isLightSwatch !== undefined;

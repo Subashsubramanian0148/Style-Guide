@@ -1741,6 +1741,60 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
 ];
 
 /* Vertical Pillar Segment — canonical token name + resolved hex + WCAG */
+/** Reverse lookup of the primitive scale: "#1F4F8D" -> "Brand 500". */
+const PALETTE_NAMES: Record<string, string> = (() => {
+  const out: Record<string, string> = {};
+  const label: Record<string, string> = { brand: "Brand", secondary: "Secondary", tertiary: "Tertiary", neutral: "Neutral", success: "Success", warning: "Warning", danger: "Danger", info: "Info" };
+  for (const [family, scale] of Object.entries(label)) {
+    for (const [step, hex] of Object.entries(color?.[family] ?? {})) {
+      const key = String(hex).toUpperCase();
+      if (!out[key]) out[key] = `${scale} ${step}`;
+    }
+  }
+  return out;
+})();
+
+const liveTokenCache = new Map<string, { hex: string; name: string } | null>();
+
+/** Reads what a token really resolves to in light or dark (through the
+ *  live --theme-* variables), so the cards can't drift from the CSS. */
+function resolveLiveToken(token: FigmaTokenItem, mode: "light" | "dark"): { hex: string; name: string } | null {
+  const key = `${token.cssVar}|${mode}`;
+  if (liveTokenCache.has(key)) return liveTokenCache.get(key)!;
+  let result: { hex: string; name: string } | null = null;
+  if (typeof document !== "undefined") {
+    const probe = document.createElement("span");
+    probe.setAttribute("data-theme", "core");
+    probe.setAttribute("data-mode", mode);
+    probe.style.cssText = "position:absolute;visibility:hidden;pointer-events:none";
+    probe.style.color = `var(${token.cssVar})`;
+    document.body.appendChild(probe);
+    const rgb = getComputedStyle(probe).color;
+    probe.remove();
+    if (/^rgb/.test(rgb)) {
+      const hex = rgbStringToHex(rgb);
+      result = { hex, name: PALETTE_NAMES[hex] ?? hex };
+    }
+  }
+  liveTokenCache.set(key, result);
+  return result;
+}
+
+/** The real canvas each mode renders on (core-color-surface-default). */
+const MODE_SURFACE: Record<"light" | "dark", { hex: string; label: string }> = {
+  light: { hex: "#FFFFFF", label: "Neutral 0" },
+  dark: { hex: "#1D1C24", label: "Neutral 900" },
+};
+
+/** On-color text sits on a brand/status fill, not on the page, so it is
+ *  measured against that fill instead of the surface. */
+const ON_COLOR_FILL: Record<string, string> = {
+  "primary-text-oncolor": "primary-bg-strong",
+  "secondary-text-oncolor": "secondary-bg-strong",
+  "tertiary-text-oncolor": "tertiary-bg-strong",
+  "neutral-text-on-color": "primary-bg-strong",
+};
+
 function BaseColorPillarSegment({
   token,
   mode,
@@ -1754,18 +1808,29 @@ function BaseColorPillarSegment({
   isCopied: boolean;
   onCopy: (text: string, id: string) => void;
 }) {
-  const currentHex = mode === "light" ? token.lightHex : token.darkHex;
+  const live = resolveLiveToken(token, mode);
+  const currentHex = live?.hex ?? (mode === "light" ? token.lightHex : token.darkHex);
+  const colorName = live?.name ?? (mode === "light" ? token.paletteNameLight : token.paletteNameDark);
   const tokenVar = canonicalTokenVar(token);
-  const tokenLabel = canonicalTokenName(token);
+  const fill = ON_COLOR_FILL[token.id] ? FIGMA_BASE_TOKENS.find((t) => t.id === ON_COLOR_FILL[token.id]) : undefined;
+  const liveFill = fill ? resolveLiveToken(fill, mode) : null;
+  const against = fill
+    ? {
+        hex: liveFill?.hex ?? (mode === "light" ? fill.lightHex : fill.darkHex),
+        label: `${liveFill?.name ?? (mode === "light" ? fill.paletteNameLight : fill.paletteNameDark)} fill`,
+      }
+    : MODE_SURFACE[mode];
   const rgb = hexToRgb(currentHex);
   const lum = luminance(rgb.r, rgb.g, rgb.b);
-  const { level: contrastLevel } = getContrastResult(currentHex, contrastBackground);
+  const { level: contrastLevel } = getContrastResult(currentHex, contrastBackground, against.hex);
   const failsPageContrast = contrastLevel === "fail";
   // Failing tokens (e.g. light fills on white) need dark on-card labels for ADA.
   // Passing tokens keep luminance-based white/dark text on the swatch.
-  const isLight = failsPageContrast
-    ? contrastBackground === "white"
-    : lum > 0.42;
+  const againstLum = (() => {
+    const c = hexToRgb(against.hex);
+    return luminance(c.r, c.g, c.b);
+  })();
+  const isLight = failsPageContrast ? againstLum > 0.42 : lum > 0.42;
   const textColor = isLight ? "#1A1A22" : "#FFFFFF";
 
   const metaColor = isLight ? "rgba(26, 26, 34, 0.72)" : "rgba(255, 255, 255, 0.82)";
@@ -1774,7 +1839,7 @@ function BaseColorPillarSegment({
   return (
     <div
       onClick={() => onCopy(tokenVar, token.id)}
-      title={`Click to copy ${tokenVar}`}
+      title={`${canonicalTokenName(token)} · click to copy ${tokenVar}`}
       style={{
         background: currentHex,
         color: textColor,
@@ -1801,7 +1866,7 @@ function BaseColorPillarSegment({
         e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.06)";
       }}
     >
-      {/* Token name */}
+      {/* Color name + code (the token is still copied on click) */}
       <div
         style={{
           fontSize: 11,
@@ -1814,7 +1879,7 @@ function BaseColorPillarSegment({
           marginBottom: 6,
         }}
       >
-        {tokenLabel}
+        {colorName}
       </div>
 
       {/* Hex value */}
@@ -1847,6 +1912,8 @@ function BaseColorPillarSegment({
           onSwatch
           isLightSwatch={isLight}
           layout="stack"
+          backgroundHex={against.hex}
+          backgroundLabel={against.label}
         />
       </div>
 
@@ -2148,7 +2215,7 @@ function BaseColorsRedesignedSection() {
             <span style={{ fontSize: 12, fontWeight: 600, color: activeMode === "dark" ? "var(--site-text)" : "var(--theme-neutral-text-subtle)" }}>Dark</span>
           </div>
           <span style={{ fontSize: "var(--typography-font-size-xs)", color: "var(--site-text-faint)" }}>
-            Contrast vs {contrastBackground}
+            Contrast vs {MODE_SURFACE[activeMode].label} surface {MODE_SURFACE[activeMode].hex}
           </span>
         </div>
       </div>
