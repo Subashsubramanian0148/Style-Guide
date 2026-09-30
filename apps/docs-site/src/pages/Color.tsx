@@ -1816,15 +1816,6 @@ const MODE_SURFACE: Record<"light" | "dark", { hex: string; label: string }> = {
   dark: { hex: "#1D1C24", label: "Neutral 900" },
 };
 
-/** On-color text sits on a brand/status fill, not on the page, so it is
- *  measured against that fill instead of the surface. */
-const ON_COLOR_FILL: Record<string, string> = {
-  "primary-text-oncolor": "primary-bg-strong",
-  "secondary-text-oncolor": "secondary-bg-strong",
-  "tertiary-text-oncolor": "tertiary-bg-strong",
-  "neutral-text-on-color": "primary-bg-strong",
-};
-
 function BaseColorPillarSegment({
   token,
   mode,
@@ -1842,14 +1833,9 @@ function BaseColorPillarSegment({
   const currentHex = live?.hex ?? (mode === "light" ? token.lightHex : token.darkHex);
   const colorName = live?.name ?? (mode === "light" ? token.paletteNameLight : token.paletteNameDark);
   const tokenVar = canonicalTokenVar(token);
-  const fill = ON_COLOR_FILL[token.id] ? FIGMA_BASE_TOKENS.find((t) => t.id === ON_COLOR_FILL[token.id]) : undefined;
-  const liveFill = fill ? resolveLiveToken(fill, mode) : null;
-  const against = fill
-    ? {
-        hex: liveFill?.hex ?? (mode === "light" ? fill.lightHex : fill.darkHex),
-        label: `${liveFill?.name ?? (mode === "light" ? fill.paletteNameLight : fill.paletteNameDark)} fill`,
-      }
-    : MODE_SURFACE[mode];
+  // Every token is judged against the canvas of the mode being viewed, so a
+  // light mode passes only dark colors and a dark mode passes only light ones.
+  const against = MODE_SURFACE[mode];
   const rgb = hexToRgb(currentHex);
   const lum = luminance(rgb.r, rgb.g, rgb.b);
   // Card labels sit on the token's own color, so pick dark or white by that
