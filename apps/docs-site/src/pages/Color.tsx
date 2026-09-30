@@ -1810,6 +1810,93 @@ function resolveLiveToken(token: FigmaTokenItem, mode: "light" | "dark"): { hex:
   return result;
 }
 
+/** Resolves any design-system variable to its hex in a given mode. */
+function resolveVarHex(cssVar: string, mode: "light" | "dark"): string | null {
+  const key = `var|${cssVar}|${mode}`;
+  if (liveTokenCache.has(key)) return liveTokenCache.get(key)?.hex ?? null;
+  let result: { hex: string; name: string } | null = null;
+  if (typeof document !== "undefined") {
+    const probe = document.createElement("span");
+    probe.setAttribute("data-theme", "core");
+    probe.setAttribute("data-mode", mode);
+    probe.style.cssText = "position:absolute;visibility:hidden;pointer-events:none";
+    probe.style.color = `var(${cssVar})`;
+    document.body.appendChild(probe);
+    const rgb = getComputedStyle(probe).color;
+    probe.remove();
+    if (/^rgb/.test(rgb)) {
+      const hex = rgbStringToHex(rgb);
+      result = { hex, name: PALETTE_NAMES[hex] ?? hex };
+    }
+  }
+  liveTokenCache.set(key, result);
+  return result?.hex ?? null;
+}
+
+interface ContrastPairing {
+  /** Foreground and background the ratio is measured between. */
+  fg: string;
+  bg: string;
+  /** Required ratio; undefined = AAA/AA grading. */
+  minimum?: number;
+  exempt: boolean;
+  hint: string;
+}
+
+const nameOf = (hex: string) => PALETTE_NAMES[hex.toUpperCase()] ?? hex.toUpperCase();
+
+/** What each token is actually judged against. A fill is rated by the text
+ *  that sits on it, on-color text by the fill it sits on, borders by the 3:1
+ *  UI minimum, and disabled / decorative colors are shown but exempt. */
+function contrastPairing(name: string, hex: string, mode: "light" | "dark"): ContrastPairing {
+  const surface = MODE_SURFACE[mode];
+  const role = name.match(/^(brand|secondary|tertiary)-/)?.[1];
+  const sem = name.match(/^semantics-(critical|warning|success|highlight)-/)?.[1];
+  const v = (n: string) => resolveVarHex(`--${n}`, mode) ?? surface.hex;
+  const onSurface = (label = "Text"): ContrastPairing => ({ fg: hex, bg: surface.hex, exempt: false, hint: `${label} on ${surface.label}` });
+
+  if (/disabled/.test(name)) {
+    return { fg: hex, bg: surface.hex, exempt: true, hint: "Disabled — no WCAG minimum" };
+  }
+  if (role) {
+    if (/-text-primary-oncolor$/.test(name)) {
+      const bg = v(`${role}-background-primary-strong`);
+      return { fg: hex, bg, exempt: false, hint: `On ${nameOf(bg)} fill` };
+    }
+    if (/-text-/.test(name)) return onSurface();
+    if (/-background-primary-(strong|hover|active)$/.test(name)) {
+      const fg = v(`${role}-text-primary-oncolor`);
+      return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+    }
+    if (/-background-/.test(name)) {
+      const fg = v(`${role}-text-primary-default`);
+      return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+    }
+    if (/-border-/.test(name)) return { fg: hex, bg: surface.hex, minimum: 3, exempt: false, hint: `UI boundary on ${surface.label}` };
+  }
+  if (sem) {
+    if (/-background-light$/.test(name)) {
+      const fg = v(`semantics-${sem}-text`);
+      return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+    }
+    if (/-background-strong$/.test(name)) {
+      const fg = v("neutral-text-on-color");
+      return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+    }
+    if (/-border$/.test(name)) return { fg: hex, bg: surface.hex, minimum: 3, exempt: false, hint: `UI boundary on ${surface.label}` };
+    return onSurface();
+  }
+  if (/^neutral-border/.test(name)) {
+    if (/inverse/.test(name)) return { fg: hex, bg: v("brand-background-primary-strong"), exempt: true, hint: "Divider on dark fills — decorative" };
+    return { fg: hex, bg: surface.hex, exempt: true, hint: "Decorative divider — no minimum" };
+  }
+  if (/^neutral-text-on-color$/.test(name)) {
+    const bg = v("brand-background-primary-strong");
+    return { fg: hex, bg, exempt: false, hint: `On ${nameOf(bg)} fill` };
+  }
+  return onSurface();
+}
+
 /** The real canvas each mode renders on (core-color-surface-default). */
 const MODE_SURFACE: Record<"light" | "dark", { hex: string; label: string }> = {
   light: { hex: "#FFFFFF", label: "Neutral 0" },
@@ -1836,6 +1923,7 @@ function BaseColorPillarSegment({
   // Every token is judged against the canvas of the mode being viewed, so a
   // light mode passes only dark colors and a dark mode passes only light ones.
   const against = MODE_SURFACE[mode];
+  const pairing = contrastPairing(canonicalTokenName(token), currentHex, mode);
   const rgb = hexToRgb(currentHex);
   const lum = luminance(rgb.r, rgb.g, rgb.b);
   // Card labels sit on the token's own color, so pick dark or white by that
@@ -1919,15 +2007,18 @@ function BaseColorPillarSegment({
         }}
       >
         <WcagContrastIndicator
-          hex={currentHex}
+          hex={pairing.fg}
           contrastBackground={contrastBackground}
           showUsageHint
           tokenType={token.type}
           onSwatch
           isLightSwatch={isLight}
           layout="stack"
-          backgroundHex={against.hex}
+          backgroundHex={pairing.bg}
           backgroundLabel={against.label}
+          usageHintOverride={pairing.hint}
+          exempt={pairing.exempt}
+          minimum={pairing.minimum}
         />
       </div>
 

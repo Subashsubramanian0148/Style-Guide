@@ -212,8 +212,19 @@ export function WcagContrastIndicator({
   passFailBelow = false,
   backgroundHex,
   backgroundLabel,
+  usageHintOverride,
+  exempt = false,
+  minimum,
 }: {
   hex: string;
+  /** Replaces the generated usage hint, e.g. "Neutral 0 text on it". */
+  usageHintOverride?: string;
+  /** Disabled / decorative colors: WCAG sets no minimum, so show the ratio
+   *  with an "Exempt" label instead of Pass/Fail. */
+  exempt?: boolean;
+  /** Required ratio (4.5 for text, 3 for UI boundaries). Omit for the
+   *  AAA / AA / AA Large grading. */
+  minimum?: number;
   contrastBackground?: ContrastBackground;
   /** Measure against this exact color (e.g. the real dark surface, or the fill an on-color token sits on) instead of pure white/black. */
   backgroundHex?: string;
@@ -227,9 +238,19 @@ export function WcagContrastIndicator({
   /** Full color scales: ratio on top, Pass/Fail label below */
   passFailBelow?: boolean;
 }) {
-  const { ratio, level, status } = getContrastResult(hex, contrastBackground, backgroundHex);
+  const result = getContrastResult(hex, contrastBackground, backgroundHex);
+  const { ratio } = result;
+  let { level, status } = result;
+  if (exempt) {
+    status = { label: "Exempt", icon: "check", colorVar: "var(--core-color-text-secondary)" };
+  } else if (minimum !== undefined && ratio < minimum) {
+    level = "fail";
+    status = STATUS.fail;
+  } else if (minimum === 3 && ratio >= 3) {
+    status = { ...STATUS.aa, label: "Pass 3:1" };
+  }
   const usageHint = showUsageHint
-    ? contrastUsageHint(level, { contrastBackground, tokenType, backgroundLabel })
+    ? usageHintOverride ?? contrastUsageHint(level, { contrastBackground, tokenType, backgroundLabel })
     : null;
 
   const onSwatchAdaptive = onSwatch && isLightSwatch !== undefined;
