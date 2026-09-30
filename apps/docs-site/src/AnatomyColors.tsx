@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
-import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow } from "./AnatomySpec";
+import { SectionHeading, SpecTableCard, SpecTableHead, SpecRow, toHexColors } from "./AnatomySpec";
+import { usePreviewMode } from "./PreviewModeContext";
 
 interface ColorLayer {
   node: string;
@@ -10,6 +11,10 @@ interface ColorRow {
   label: string;
   token: string;
   value: string;
+  colorName?: string;
+  standard: "pass" | "warn" | "fail";
+  ratio?: string;
+  note?: string;
 }
 
 export type Prop = { key: "color" | "background-color" | "border-top-color"; name: string; shorthands: string[] };
@@ -100,6 +105,167 @@ export function tokenFor(el: HTMLElement, prop: Prop, computed: string): string 
   return "—";
 }
 
+/* ---------- Palette names ---------- */
+
+const FAMILY_LABEL: Record<string, string> = { primary: "Brand", red: "Danger" };
+const FAMILY_ORDER = ["neutral", "primary", "secondary", "success", "red", "info", "warning", "tertiary"];
+/** Words in a token name that point at a palette family. */
+const FAMILY_HINTS: Array<[string, string]> = [
+  ["neutral", "neutral"],
+  ["brand", "primary"],
+  ["primary", "primary"],
+  ["secondary", "secondary"],
+  ["tertiary", "tertiary"],
+  ["success", "success"],
+  ["danger", "red"],
+  ["critical", "red"],
+  ["warning", "warning"],
+  ["info", "info"],
+  ["highlight", "info"],
+];
+
+interface PaletteEntry {
+  family: string;
+  step: string;
+}
+let paletteByHex: Map<string, PaletteEntry[]> | null = null;
+
+/** Hex → palette names, read from the primitive ramps the theme stylesheet
+ *  declares (`--theme-colors-*` and `--theme-primitive-color-*`), so the
+ *  names can never drift from the design system. */
+function palette(): Map<string, PaletteEntry[]> {
+  if (paletteByHex) return paletteByHex;
+  const map = new Map<string, PaletteEntry[]>();
+  for (const r of allStyleRules()) {
+    if (!/:root/.test(r.selectorText)) continue;
+    for (const prop of Array.from(r.style)) {
+      const m = prop.match(/^--theme-(?:colors|primitive-color)-([a-z]+)-(\d+)$/);
+      if (!m) continue;
+      const hex = r.style.getPropertyValue(prop).trim().toUpperCase();
+      if (!/^#[0-9A-F]{6}$/.test(hex)) continue;
+      const list = map.get(hex) ?? [];
+      if (!list.some((e) => e.family === m[1] && e.step === m[2])) list.push({ family: m[1], step: m[2] });
+      map.set(hex, list);
+    }
+  }
+  paletteByHex = map;
+  return map;
+}
+
+/** "Neutral 0" for #FFFFFF, "Brand 500" for #1F4F8D, … — or undefined when
+ *  the color isn't a palette step (translucent mixes, for instance). */
+function paletteName(value: string, token: string): string | undefined {
+  const hex = toHexColors(value).toUpperCase();
+  const matches = palette().get(hex);
+  if (!matches?.length) return undefined;
+  const t = token.toLowerCase();
+  const hinted = FAMILY_HINTS.find(([word, fam]) => t.includes(word) && matches.some((e) => e.family === fam));
+  const pick = hinted
+    ? matches.find((e) => e.family === hinted[1])!
+    : [...matches].sort((a, b) => FAMILY_ORDER.indexOf(a.family) - FAMILY_ORDER.indexOf(b.family))[0];
+  const fam = FAMILY_LABEL[pick.family] ?? pick.family[0].toUpperCase() + pick.family.slice(1);
+  return `${fam} ${pick.step}`;
+}
+
+/* ---------- Contrast ---------- */
+
+type RGBA = [number, number, number, number];
+
+function parseColor(c: string): RGBA | null {
+  let m = c.match(/^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+%?))?\s*\)$/);
+  if (m) return [+m[1], +m[2], +m[3], m[4] === undefined ? 1 : m[4].endsWith("%") ? parseFloat(m[4]) / 100 : +m[4]];
+  m = c.match(/^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+%?))?\s*\)$/);
+  if (m) return [+m[1] * 255, +m[2] * 255, +m[3] * 255, m[4] === undefined ? 1 : m[4].endsWith("%") ? parseFloat(m[4]) / 100 : +m[4]];
+  return null;
+}
+
+const over = (top: RGBA, bottom: [number, number, number]): [number, number, number] => [
+  top[0] * top[3] + bottom[0] * (1 - top[3]),
+  top[1] * top[3] + bottom[1] * (1 - top[3]),
+  top[2] * top[3] + bottom[2] * (1 - top[3]),
+];
+
+/** The color actually behind an element: its own and its ancestors'
+ *  backgrounds composited until one is opaque. */
+function effectiveBg(el: Element | null): [number, number, number] {
+  const layers: RGBA[] = [];
+  let cur = el;
+  let base: [number, number, number] = [255, 255, 255];
+  while (cur) {
+    const c = parseColor(getComputedStyle(cur).backgroundColor);
+    if (c && c[3] > 0) {
+      layers.push(c);
+      if (c[3] >= 1) break;
+    }
+    cur = cur.parentElement;
+    if (!cur) {
+      const b = parseColor(getComputedStyle(document.body).backgroundColor);
+      if (b && b[3] > 0) base = [b[0], b[1], b[2]];
+    }
+  }
+  return layers.reduceRight<[number, number, number]>((acc, l) => over(l, acc), base);
+}
+
+const luminance = ([r, g, b]: [number, number, number]) => {
+  const f = (v: number) => {
+    v /= 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  };
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+};
+
+const contrast = (a: [number, number, number], b: [number, number, number]) => {
+  const x = luminance(a);
+  const y = luminance(b);
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+};
+
+/** Form controls whose outline is what identifies them on the page, so the
+ *  border needs 3:1 (WCAG 1.4.11). Cards, tables and dividers are decorative. */
+const CONTROL_OUTLINE =
+  "input, textarea, select, .cds-checkbox-box, .cds-radio-box, .cds-otp-digit, .cds-incremental-selector, .cds-select-option-checkbox, .cds-input-group-addon, .cds-tab[aria-selected='true']";
+const DISABLED = ":disabled, [aria-disabled='true'], [data-disabled], [class*='disabled']";
+
+const fmt = (n: number) => `${(Math.floor(n * 100) / 100).toFixed(2)}:1`;
+
+interface Verdict {
+  standard: "pass" | "warn" | "fail";
+  ratio?: string;
+  note?: string;
+}
+
+/** Pass/fail for one color row, computed from what rendered in the current
+ *  light/dark mode. */
+function verdictFor(el: HTMLElement, prop: Prop, shown: string): Verdict {
+  const color = parseColor(shown);
+  if (!color || color[3] === 0) return { standard: "pass" };
+  const exempt = !!el.closest(DISABLED);
+
+  if (prop.key === "color") {
+    const bg = effectiveBg(el);
+    const fg = over(color, bg);
+    const r = contrast(fg, bg);
+    const cs = getComputedStyle(el);
+    const size = parseFloat(cs.fontSize);
+    const icon = el.tagName === "I" || el.tagName === "svg" || el.classList.contains("cds-icon");
+    const large = size >= 24 || (size >= 18.66 && +cs.fontWeight >= 700);
+    const need = icon || large ? 3 : 4.5;
+    if (exempt) return { standard: "pass", ratio: fmt(r), note: "disabled — exempt" };
+    if (r >= need) return { standard: "pass", ratio: fmt(r) };
+    return { standard: "fail", ratio: fmt(r), note: `needs ${need}:1 (${icon ? "1.4.11" : "1.4.3"})` };
+  }
+
+  if (prop.key === "border-top-color" && el.matches(CONTROL_OUTLINE)) {
+    const bg = effectiveBg(el.parentElement);
+    const r = contrast(over(color, bg), bg);
+    if (exempt) return { standard: "pass", ratio: fmt(r), note: "disabled — exempt" };
+    if (r >= 3) return { standard: "pass", ratio: fmt(r) };
+    return { standard: "fail", ratio: fmt(r), note: "needs 3:1 (1.4.11)" };
+  }
+
+  return { standard: "pass" };
+}
+
 export const isTransparent = (c: string) => c === "transparent" || /rgba\([^)]*,\s*0\)$/.test(c);
 
 export function hasOwnText(el: Element): boolean {
@@ -118,6 +284,9 @@ function resolve(root: HTMLElement, sel?: string): HTMLElement | null {
  *  hand-written ones. */
 export function ColorTable({ layers, root }: { layers: ColorLayer[]; root?: React.RefObject<HTMLElement> }) {
   const [rows, setRows] = useState<ColorRow[]>([]);
+  // The whole site, anatomy included, follows the global light/dark switch;
+  // re-measuring on it keeps every value and verdict true to the mode shown.
+  const { mode } = usePreviewMode();
 
   useLayoutEffect(() => {
     const measure = () => {
@@ -145,7 +314,14 @@ export function ColorTable({ layers, root }: { layers: ColorLayer[]; root?: Reac
           const key = `${l.node}|${p.key}`;
           if (seen.has(key)) continue;
           seen.add(key);
-          out.push({ label: `${l.node} — ${p.name}`, token: tokenFor(el, lookup, shown), value: shown });
+          const token = tokenFor(el, lookup, shown);
+          out.push({
+            label: `${l.node} — ${p.name}`,
+            token,
+            value: shown,
+            colorName: paletteName(shown, token),
+            ...verdictFor(el, p, shown),
+          });
         }
       }
       setRows(out);
@@ -153,17 +329,17 @@ export function ColorTable({ layers, root }: { layers: ColorLayer[]; root?: Reac
     measure();
     const t = window.setTimeout(measure, 400);
     return () => window.clearTimeout(t);
-  }, [layers, root]);
+  }, [layers, root, mode]);
 
   if (!rows.length) return null;
   return (
     <div>
-      <SectionHeading>Colors — resolved from the live component</SectionHeading>
+      <SectionHeading>Colors — resolved from the live component ({mode} mode)</SectionHeading>
       <SpecTableCard>
         <SpecTableHead />
         <tbody>
           {rows.map((c) => (
-            <SpecRow key={c.label} label={c.label} token={c.token} value={c.value} swatch={c.value} standard="pass" />
+            <SpecRow key={c.label} label={c.label} token={c.token} value={c.value} swatch={c.value} colorName={c.colorName} standard={c.standard} ratio={c.ratio} note={c.note} />
           ))}
         </tbody>
       </SpecTableCard>
