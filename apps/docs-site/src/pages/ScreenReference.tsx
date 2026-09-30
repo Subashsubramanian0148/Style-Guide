@@ -486,6 +486,7 @@ function MobilePreview({ id, title, notes }: { id: string; title: string; notes:
   return (
     <div className="site-panel site-panel--flush site-panel--demo">
       <AnatomySection
+        inset
         demo={
           <div className="sr-mobile-ref">
             <div className="sr-phone">
@@ -558,6 +559,7 @@ function ScreenBlock({ id, title, screen, onScan }: { id: string; title: string;
       <h3 style={{ margin: 0, fontSize: "var(--typography-heading-h4-size)" }}>{title}</h3>
       <div className="site-panel site-panel--flush site-panel--demo">
         <AnatomySection
+        inset
           demo={
             <Preview showModeToggle>
               <div ref={demoRef} style={{ overflowX: "auto" }}><DarkCanvas>{screen}</DarkCanvas></div>

@@ -232,7 +232,7 @@
 
 /* ---------- Mobile reference (phone iframe) ---------- */
 .sr-mobile-nav { display: none; }
-.sr-mobile-ref { display: flex; flex-wrap: wrap; gap: var(--core-space-8); align-items: flex-start; }
+.sr-mobile-ref { display: flex; flex-wrap: wrap; gap: var(--core-space-8); align-items: flex-start; padding: var(--core-space-4) var(--core-space-8) var(--core-space-8); }
 .sr-phone { flex: 0 0 auto; width: 406px; padding: var(--core-space-2); border-radius: 32px; background: var(--theme-colors-neutral-900, #1D1C24); box-shadow: var(--core-elevation-3); }
 .sr-phone iframe { display: block; border: 0; border-radius: 24px; background: var(--core-color-bg-page); }
 .sr-mobile-notes { flex: 1 1 280px; min-width: 0; }

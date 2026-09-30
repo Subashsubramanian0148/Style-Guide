@@ -44,7 +44,9 @@ function resolveBadgeOverlaps(root: HTMLElement | null) {
 
 /** Toggles between a component's live demo and its code-built spacing
  *  anatomy — switching one out for the other, not stacking both. */
-export function AnatomySection({ demo, anatomy }: { demo: React.ReactNode; anatomy: React.ReactNode }) {
+/** `inset` adds panel padding around the toggle and the anatomy view, for
+ *  panels that are `site-panel--flush` (the demo supplies its own padding). */
+export function AnatomySection({ demo, anatomy, inset = false }: { demo: React.ReactNode; anatomy: React.ReactNode; inset?: boolean }) {
   const [showAnatomy, setShowAnatomy] = useState(false);
   const bodyRef = useRef<HTMLDivElement>(null);
 
@@ -68,7 +70,7 @@ export function AnatomySection({ demo, anatomy }: { demo: React.ReactNode; anato
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
+      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12, padding: inset ? "var(--core-space-4) var(--core-space-4) 0" : undefined }}>
         <button
           type="button"
           onClick={() => setShowAnatomy((v) => !v)}
@@ -93,7 +95,7 @@ export function AnatomySection({ demo, anatomy }: { demo: React.ReactNode; anato
       </div>
 
       {showAnatomy ? (
-        <div ref={bodyRef}>
+        <div ref={bodyRef} style={inset ? { padding: "var(--core-space-4) var(--core-space-8) var(--core-space-8)" } : undefined}>
           {anatomy}
           <AutoSizing />
         </div>
