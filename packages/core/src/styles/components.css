@@ -233,6 +233,47 @@
   color: var(--brand-text-primary-oncolor);
 }
 
+/* Dark mode: the Figma dark steps for brand default text/border (Brand 500,
+   2.1:1) and hover text (Brand 400, 3.7:1) fall below WCAG AA on the dark
+   canvas, primary active equals primary default, and the primary disabled
+   fill is a bright pale block. These overrides reuse existing brand tokens
+   whose dark values pass. */
+/* Brand fills are only 1.2–2.1:1 against the dark canvas, so every enabled
+   primary state carries the Brand 300 hover border (7.3:1) as its edge and
+   the fill steps 500 → 600 → 800 carry the state. */
+[data-mode="dark"] .cds-btn--primary:not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--brand-border-primary-hover);
+}
+
+[data-mode="dark"] .cds-btn--primary:active:not(:disabled) {
+  background: var(--brand-background-primary-subtle);
+}
+
+[data-mode="dark"] .cds-btn--secondary:not(:disabled):not([aria-disabled="true"]),
+[data-mode="dark"] .cds-btn--tertiary:not(:disabled):not([aria-disabled="true"]) {
+  color: var(--brand-text-primary-active);
+}
+
+[data-mode="dark"] .cds-btn--secondary:not(:disabled):not([aria-disabled="true"]),
+[data-mode="dark"] .cds-btn--tertiary:focus-visible {
+  border-color: var(--brand-border-primary-hover);
+}
+
+[data-mode="dark"] .cds-btn--primary:disabled,
+[data-mode="dark"] .cds-btn--primary[aria-disabled="true"] {
+  background: var(--brand-background-primary-light);
+  border-color: var(--semantics-disabled-border);
+}
+
+[data-mode="dark"] .cds-btn--primary:disabled,
+[data-mode="dark"] .cds-btn--primary[aria-disabled="true"],
+[data-mode="dark"] .cds-btn--secondary:disabled,
+[data-mode="dark"] .cds-btn--secondary[aria-disabled="true"],
+[data-mode="dark"] .cds-btn--tertiary:disabled,
+[data-mode="dark"] .cds-btn--tertiary[aria-disabled="true"] {
+  color: var(--neutral-text-subtle-light);
+}
+
 .cds-btn--tertiary {
   background: transparent;
   color: var(--brand-text-primary-on-surface);

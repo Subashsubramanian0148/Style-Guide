@@ -144,6 +144,31 @@ const VARIANTS: VariantConfig[] = [
   },
 ];
 
+/* Dark mode mirrors the component's dark overrides (components.css): the
+   Figma dark steps for brand default/hover text and default border fall
+   below WCAG AA on the dark canvas, and primary active equals default. */
+type StateKey = "default" | "hover" | "active" | "focused" | "disabled";
+const DARK_OVERRIDES: Partial<Record<ButtonVariant, Partial<Record<StateKey, Partial<StateStyle>>>>> = {
+  primary: {
+    default: { border: "var(--brand-border-primary-hover)" },
+    hover: { border: "var(--brand-border-primary-hover)" },
+    active: { bg: "var(--brand-background-primary-subtle)", border: "var(--brand-border-primary-hover)" },
+    focused: { border: "var(--brand-border-primary-hover)" },
+  },
+  secondary: {
+    default: { text: "var(--brand-text-primary-active)", border: "var(--brand-border-primary-hover)" },
+    hover: { text: "var(--brand-text-primary-active)" },
+    active: { text: "var(--brand-text-primary-active)" },
+    focused: { text: "var(--brand-text-primary-active)", border: "var(--brand-border-primary-hover)" },
+  },
+  tertiary: {
+    default: { text: "var(--brand-text-primary-active)" },
+    hover: { text: "var(--brand-text-primary-active)" },
+    active: { text: "var(--brand-text-primary-active)" },
+    focused: { text: "var(--brand-text-primary-active)" },
+  },
+};
+
 export function ButtonMatrix() {
   const [size, setSize] = useState<MatrixSize>("md");
   const { mode: canvasBg } = usePreviewMode();
@@ -201,7 +226,10 @@ export function ButtonMatrix() {
     variant: VariantConfig,
     stateKey: "default" | "hover" | "active" | "focused" | "disabled"
   ): React.CSSProperties => {
-    const tok = variant.stateTokens[stateKey];
+    const tok = {
+      ...variant.stateTokens[stateKey],
+      ...(canvasBg === "dark" ? DARK_OVERRIDES[variant.id]?.[stateKey] : undefined),
+    };
     const isTertiaryLinkState = variant.id === "tertiary" && (stateKey === "hover" || stateKey === "active");
 
     return {
