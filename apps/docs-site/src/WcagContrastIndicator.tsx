@@ -122,8 +122,8 @@ export function WcagLegend({ style }: { style?: React.CSSProperties }) {
   );
 }
 
-export function ContrastBasisNote({ contrastBackground }: { contrastBackground: ContrastBackground }) {
-  const surface = contrastBackground === "white" ? "white" : "black";
+export function ContrastBasisNote({ contrastBackground, surfaceLabel }: { contrastBackground: ContrastBackground; surfaceLabel?: string }) {
+  const surface = surfaceLabel ?? (contrastBackground === "white" ? "white" : "black");
 
   return (
     <p
@@ -142,9 +142,13 @@ export function ContrastBasisNote({ contrastBackground }: { contrastBackground: 
 export function ContrastAgainstControl({
   value,
   onChange,
+  caption = "Text on",
+  labels = { white: "White", black: "Black" },
 }: {
   value: ContrastBackground;
   onChange: (value: ContrastBackground) => void;
+  caption?: string;
+  labels?: Record<ContrastBackground, string>;
 }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)", flexWrap: "wrap" }}>
@@ -155,7 +159,7 @@ export function ContrastAgainstControl({
           color: "var(--core-color-text-secondary)",
         }}
       >
-        Text on
+        {caption}
       </span>
       <div
         style={{
@@ -188,7 +192,7 @@ export function ContrastAgainstControl({
                 boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
               }}
             >
-              {option === "white" ? "White" : "Black"}
+              {labels[option]}
             </button>
           );
         })}

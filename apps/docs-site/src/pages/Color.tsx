@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useSyncExternalStore } from "react";
 // @ts-ignore — Vite `?raw` import for palette download bundle.
 import semanticPaletteScss from "../../public/Format.expanded.css?raw";
 import primitives from "../../../../packages/tokens/src/primitives.json";
@@ -301,8 +301,31 @@ function getContrastColor(hex: string): string {
   return lum > 0.179 ? "#000000" : "#FFFFFF";
 }
 
+/** Light/dark mode shared by every color section on this page, so a
+ *  pass/fail badge always reflects the mode the reader is looking at. */
+let sharedColorMode: "light" | "dark" = "light";
+const colorModeListeners = new Set<() => void>();
+function useColorMode(): ["light" | "dark", (m: "light" | "dark") => void] {
+  const mode = useSyncExternalStore(
+    (cb) => {
+      colorModeListeners.add(cb);
+      return () => colorModeListeners.delete(cb);
+    },
+    () => sharedColorMode
+  );
+  return [
+    mode,
+    (m) => {
+      sharedColorMode = m;
+      colorModeListeners.forEach((l) => l());
+    },
+  ];
+}
+
 function FullColorScalesSection() {
-  const [contrastBackground, setContrastBackground] = useState<ContrastBackground>("white");
+  const [mode, setMode] = useColorMode();
+  const contrastBackground: ContrastBackground = mode === "light" ? "white" : "black";
+  const surface = MODE_SURFACE[mode];
 
   return (
     <div style={{ background: "var(--core-color-surface-default)", borderRadius: 14, padding: "32px", border: "1px solid var(--site-border)" }}>
@@ -316,22 +339,27 @@ function FullColorScalesSection() {
           borderBottom: "1px solid var(--site-border)",
         }}
       >
-        <ContrastAgainstControl value={contrastBackground} onChange={setContrastBackground} />
-        <ContrastBasisNote contrastBackground={contrastBackground} />
+        <ContrastAgainstControl
+          caption="Mode"
+          labels={{ white: "Light", black: "Dark" }}
+          value={contrastBackground}
+          onChange={(v) => setMode(v === "white" ? "light" : "dark")}
+        />
+        <ContrastBasisNote contrastBackground={contrastBackground} surfaceLabel={`the ${mode} surface ${surface.hex}`} />
         <WcagLegend />
       </div>
       <div style={{ display: "flex", paddingBottom: 16, borderBottom: "1px solid var(--site-border)", fontSize: "var(--typography-font-size-xs)", fontWeight: 600, color: "var(--core-color-text-secondary)" }}>
         <div style={{ width: "25%", minWidth: 150 }}>Name</div>
         <div style={{ width: "75%" }}>Swatches</div>
       </div>
-      <RampRow name="brand (primary)" prefix="brand" scale={color.brand} contrastBackground={contrastBackground} />
-      <RampRow name="secondary" prefix="secondary" scale={color.secondary} contrastBackground={contrastBackground} />
-      <RampRow name="tertiary" prefix="tertiary" scale={color.tertiary} contrastBackground={contrastBackground} />
-      <RampRow name="neutral" prefix="neutral" scale={color.neutral} contrastBackground={contrastBackground} />
-      <RampRow name="success" prefix="success" scale={color.success} contrastBackground={contrastBackground} />
-      <RampRow name="warning" prefix="warning" scale={color.warning} contrastBackground={contrastBackground} />
-      <RampRow name="danger" prefix="danger" scale={color.danger} contrastBackground={contrastBackground} />
-      <RampRow name="info" prefix="info" scale={color.info} contrastBackground={contrastBackground} isLast />
+      <RampRow name="brand (primary)" prefix="brand" scale={color.brand} contrastBackground={contrastBackground} backgroundHex={surface.hex} />
+      <RampRow name="secondary" prefix="secondary" scale={color.secondary} contrastBackground={contrastBackground} backgroundHex={surface.hex} />
+      <RampRow name="tertiary" prefix="tertiary" scale={color.tertiary} contrastBackground={contrastBackground} backgroundHex={surface.hex} />
+      <RampRow name="neutral" prefix="neutral" scale={color.neutral} contrastBackground={contrastBackground} backgroundHex={surface.hex} />
+      <RampRow name="success" prefix="success" scale={color.success} contrastBackground={contrastBackground} backgroundHex={surface.hex} />
+      <RampRow name="warning" prefix="warning" scale={color.warning} contrastBackground={contrastBackground} backgroundHex={surface.hex} />
+      <RampRow name="danger" prefix="danger" scale={color.danger} contrastBackground={contrastBackground} backgroundHex={surface.hex} />
+      <RampRow name="info" prefix="info" scale={color.info} contrastBackground={contrastBackground} backgroundHex={surface.hex} isLast />
     </div>
   );
 }
@@ -341,12 +369,14 @@ function RampRow({
   prefix,
   scale,
   contrastBackground,
+  backgroundHex,
   isLast,
 }: {
   name: string;
   prefix: string;
   scale: Record<string, string>;
   contrastBackground: ContrastBackground;
+  backgroundHex?: string;
   isLast?: boolean;
 }) {
   const entries = Object.entries(scale);
@@ -451,7 +481,7 @@ function RampRow({
                 >
                   {hex.toUpperCase()}
                 </button>
-                <WcagContrastIndicator hex={hex} contrastBackground={contrastBackground} layout="stack" passFailBelow />
+                <WcagContrastIndicator hex={hex} contrastBackground={contrastBackground} backgroundHex={backgroundHex} layout="stack" passFailBelow />
                 <button
                   type="button"
                   onClick={() => copyToken(step)}
@@ -1993,7 +2023,7 @@ interface EditorialColorGroup {
 
 function BaseColorsRedesignedSection() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [activeMode, setActiveMode] = useState<"light" | "dark">("light");
+  const [activeMode, setActiveMode] = useColorMode();
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [copiedVarName, setCopiedVarName] = useState<string | null>(null);
 
