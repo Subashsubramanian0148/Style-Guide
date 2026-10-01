@@ -12,6 +12,7 @@
  */
 
 @use "sass:map";
+@use "sass:meta";
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -21,6 +22,15 @@
 
 @function neutral($step) {
   @return var(--theme-colors-neutral-#{$step});
+}
+
+// A map value is either a ramp step (number) or an already-resolved color
+// such as neutral(400) — disabled states use muted neutrals, not the ramp.
+@function step-or-color($family, $value) {
+  @if meta.type-of($value) == "number" {
+    @return prim($family, $value);
+  }
+  @return $value;
 }
 
 @function status($family, $step) {
@@ -36,29 +46,18 @@ $accent-roles: (
 );
 
 $accent-text-primary-light: (
+  // Light-mode values follow the Figma base-color spec (Color page).
   default: 500,
-  // Adjacent ramp steps (600/700) read as visually identical to 500 at
-  // text size — hover/active need a bigger jump to actually look different,
-  // not just a thicker underline riding along on the same shade.
-  hover: 700,
-  active: 900,
-  disabled: 600,
+  hover: 600,
+  active: 700,
+  disabled: 300,
 );
 
 $accent-text-primary-dark: (
-  // 500 (unchanged from light) only cleared ~2.3:1 against dark surfaces —
-  // fails WCAG AA (4.5:1). 300 clears ~8:1 while staying clearly "brand blue".
-  default: 300,
-  // Light mode steps progressively darker on interaction (500→700→900); dark
-  // mode mirrors that by stepping progressively lighter. hover was 400, which
-  // was both darker than default and only 4.06:1 — failing AA.
-  hover: 200,
-  active: 100,
-  // Only used for text sitting ON a brand-tinted disabled fill (primary
-  // button/icon button, selected-but-disabled calendar day). Ghost, outline
-  // and link disabled states use the neutral semantics-disabled tokens, so
-  // this no longer needs to differ from `default` to stay distinguishable.
-  // 600 on the dark disabled fill was 1.48:1 — illegible; 300 gives 6.22:1.
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  default: 500,
+  hover: 400,
+  active: 200,
   disabled: 300,
 );
 
@@ -71,13 +70,14 @@ $accent-text-oncolor: (
   dark: (
     // primary-50 (#F5F7FA) on the lighter dark fill reaches only 4.29:1.
     // Pure white reaches 4.60:1 and passes WCAG AA.
-    brand: neutral(white),
+    brand: prim(primary, 50),
     secondary: neutral(white),
     tertiary: neutral(white),
   ),
 );
 
 $accent-background-primary-light: (
+  // Light-mode values follow the Figma base-color spec (Color page).
   strong: 500,
   hover: 600,
   active: 700,
@@ -88,37 +88,62 @@ $accent-background-primary-light: (
 );
 
 $accent-background-primary-dark: (
-  // strong was 500, which is only 2.31:1 against the dark canvas — failing
-  // WCAG 1.4.11 for controls whose state is conveyed purely by this fill
-  // (checked checkbox/radio, switch ON, progress bar). 400 reaches 4.11:1
-  // and still carries white on-color text at 4.60:1.
-  strong: 400,
-  hover: 500,
-  active: 600,
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  strong: 500,
+  hover: 600,
+  active: 500,
   light: 900,
   subtle: 800,
-  disabled-light: neutral(800),
-  disabled-strong: 800,
+  disabled-light: neutral(100),
+  disabled-strong: 200,
 );
 
 $accent-border-primary-light: (
+  // Light-mode values follow the Figma base-color spec (Color page).
   default: 500,
   hover: 600,
-  disabled: 500,
+  disabled: 200,
 );
 
 $accent-border-primary-dark: (
-  // 500 only reached 2.31:1 against the dark canvas, failing WCAG 1.4.11 (3:1)
-  // for controls identified by their outline — checkbox, radio, toggle. 400
-  // still measured 2.95:1 on the dark surface; 300 clears 3:1. Borders carry
-  // no text, so this can't regress 1.4.3.
-  default: 300,
-  hover: 200,
-  // Was 500 — identical to `default`, so a disabled bordered control (Icon
-  // Button, Button secondary) had the exact same border as an enabled one
-  // in dark mode. 700 reads as clearly receded/muted.
-  disabled: 700,
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  default: 500,
+  hover: 300,
+  disabled: 200,
 );
+
+// ── Per-role overrides ───────────────────────────────────────────────────────
+// Secondary (sky) and tertiary (amber) are light hues: white text on their
+// 400–600 steps reaches only 1.9–2.7:1 and their 500 fails as text on white.
+// They get their own steps and dark (neutral 950) on-color text instead of
+// sharing brand's. Every step below is unique within its group and passes
+// WCAG 2.1 AA (text 4.5:1 · UI boundary 3:1); disabled steps are exempt.
+$accent-overrides: (
+  // Figma spec: in dark mode secondary and tertiary fills get lighter on
+  // hover/active (400 / 300) where brand uses 600 / 500.
+  secondary: (
+    dark: (
+      background: (strong: 500, hover: 400, active: 300, light: 900, subtle: 800, disabled-light: neutral(100), disabled-strong: 200),
+    ),
+  ),
+  tertiary: (
+    dark: (
+      background: (strong: 500, hover: 400, active: 300, light: 900, subtle: 800, disabled-light: neutral(100), disabled-strong: 200),
+    ),
+  ),
+);
+
+@function role-map($role, $mode, $kind, $fallback) {
+  $role-maps: map.get($accent-overrides, $role);
+  @if $role-maps == null {
+    @return $fallback;
+  }
+  $m: map.get($role-maps, $mode, $kind);
+  @if $m == null {
+    @return $fallback;
+  }
+  @return $m;
+}
 
 @mixin accent-role-tokens($role, $family, $text, $background, $border, $oncolor, $mode) {
 
@@ -126,13 +151,15 @@ $accent-border-primary-dark: (
   --#{$role}-text-primary-default: #{prim($family, map.get($text, default))};
   --#{$role}-text-primary-hover: #{prim($family, map.get($text, hover))};
   --#{$role}-text-primary-active: #{prim($family, map.get($text, active))};
-  --#{$role}-text-primary-disabled: #{prim($family, map.get($text, disabled))};
+  --#{$role}-text-primary-disabled: #{step-or-color($family, map.get($text, disabled))};
   --#{$role}-text-primary-oncolor: #{$oncolor};
   // Text for a control with no solid fill behind it (Secondary/Tertiary
   // default & focused states). Brand-colored on the light canvas reads
   // fine, but the same hue against the near-black dark canvas falls short
   // of 4.5:1 (WCAG 1.4.3) — dark mode uses oncolor (white) instead.
-  --#{$role}-text-primary-on-surface: #{if($mode == "dark", $oncolor, prim($family, map.get($text, default)))};
+  // Every role's default text now passes 4.5:1 on its mode's canvas, so
+  // text with no fill behind it uses default in both modes.
+  --#{$role}-text-primary-on-surface: #{prim($family, map.get($text, default))};
 
   /* #{$role}-background-primary */
   --#{$role}-background-primary-strong: #{prim($family, map.get($background, strong))};
@@ -141,12 +168,14 @@ $accent-border-primary-dark: (
   --#{$role}-background-primary-light: #{prim($family, map.get($background, light))};
   --#{$role}-background-primary-subtle: #{prim($family, map.get($background, subtle))};
   --#{$role}-background-primary-disabled-light: #{map.get($background, disabled-light)};
-  --#{$role}-background-primary-disabled: #{prim($family, map.get($background, disabled-strong))};
+  --#{$role}-background-primary-disabled: #{step-or-color($family, map.get($background, disabled-strong))};
 
   /* #{$role}-border-primary */
   --#{$role}-border-primary-default: #{prim($family, map.get($border, default))};
   --#{$role}-border-primary-hover: #{prim($family, map.get($border, hover))};
-  --#{$role}-border-primary-disabled: #{prim($family, map.get($border, disabled))};
+  --#{$role}-border-primary-disabled: #{step-or-color($family, map.get($border, disabled))};
+  // Focus ring: 400 on light, 300 on dark (400 was 2.95:1 there).
+  --#{$role}-border-primary-focus: #{prim($family, if($mode == "dark", 300, 400))};
 }
 
 // ── Neutral ────────────────────────────────────────────────────────────────────
@@ -154,8 +183,11 @@ $accent-border-primary-dark: (
 $neutral-text-light: (
   default: 900,
   subtle: 600,
-  subtle-light: 600,
+  subtle-light: 500,
   on-color: white,
+  // Disabled labels (tabs, nav items): one step lighter than resting text,
+  // which already uses 600 — the shared disabled text step.
+  disabled: 400,
 );
 
 $neutral-text-dark: (
@@ -163,22 +195,28 @@ $neutral-text-dark: (
   subtle: 300,
   subtle-light: 400,
   on-color: white,
+  disabled: 600,
 );
 
 $neutral-border-light: (
-  subtle: 200,
+  subtle: 100,
   light: 200,
+  // Dividers and hover strokes: one step stronger than the resting 200.
+  default: 300,
   strong: 600,
   inverse: white,
+  // Solid neutral fill (active neutral badge) with on-color text.
+  background-strong: 800,
 );
 
 $neutral-border-dark: (
-  // Dark surfaces need a lighter step to keep control outlines at 3:1
-  // (WCAG 1.4.11): 700 only reached ~1.9:1, 500 reaches ~3.9:1.
-  subtle: 500,
-  light: 500,
-  strong: 400,
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  subtle: 800,
+  light: 700,
+  default: 600,
+  strong: 600,
   inverse: 900,
+  background-strong: 700,
 );
 
 @mixin neutral-tokens($text, $border) {
@@ -188,12 +226,17 @@ $neutral-border-dark: (
   --neutral-text-subtle: #{neutral(map.get($text, subtle))};
   --neutral-text-subtle-light: #{neutral(map.get($text, subtle-light))};
   --neutral-text-on-color: #{neutral(map.get($text, on-color))};
+  --neutral-text-disabled: #{neutral(map.get($text, disabled))};
 
   /* neutral-border */
   --neutral-border-subtle: #{neutral(map.get($border, subtle))};
   --neutral-border-light: #{neutral(map.get($border, light))};
   --neutral-border-strong: #{neutral(map.get($border, strong))};
   --neutral-border-inverse: #{neutral(map.get($border, inverse))};
+  --neutral-border-default: #{neutral(map.get($border, default))};
+
+  /* neutral-background */
+  --neutral-background-strong: #{neutral(map.get($border, background-strong))};
 }
 
 // ── Semantics (critical / highlight / success / warning) ───────────────────────
@@ -209,11 +252,19 @@ $semantic-families: (
 $semantics-light: (
   text: 700,
   background-light: 50,
+  // Figma spec: every strong status fill is 600 in light mode (warning too).
+  strong: (critical: 600, highlight: 600, success: 600, warning: 600),
+  strong-hover: (critical: 700, highlight: 700, success: 700, warning: 700),
+  strong-active: (critical: 800, highlight: 800, success: 800, warning: 800),
 );
 
 $semantics-dark: (
   text: 300,
   background-light: 950,
+  // Figma spec: every strong status fill is 600 in dark mode too.
+  strong: (critical: 600, highlight: 600, success: 600, warning: 600),
+  strong-hover: (critical: 700, highlight: 700, success: 700, warning: 700),
+  strong-active: (critical: 800, highlight: 800, success: 800, warning: 800),
 );
 
 // Per-role "strong background" steps. These fills carry on-color (white) text,
@@ -228,26 +279,52 @@ $semantics-strong-bg: (
   warning: 700,
 );
 
+// Hover / active for a solid status fill (Button destructive, success, …):
+// one and two steps darker, white on-color text stays ≥ 4.5:1.
+$semantics-strong-bg-hover: (
+  critical: 700,
+  highlight: 700,
+  success: 700,
+  warning: 800,
+);
+
+$semantics-strong-bg-active: (
+  critical: 800,
+  highlight: 800,
+  success: 800,
+  warning: 900,
+);
+
 // Per-role border steps — minimum 3:1 vs adjacent light/dark surfaces (WCAG 1.4.11)
 $semantics-border-light: (
-  critical: 400,
-  highlight: 500,
-  success: 500,
-  warning: 600,
+  critical: 200,
+  highlight: 200,
+  success: 200,
+  warning: 200,
 );
 
 $semantics-border-dark: (
-  critical: 400,
-  highlight: 600,
-  success: 600,
-  warning: 600,
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  critical: 700,
+  highlight: 700,
+  success: 700,
+  warning: 700,
 );
 
-$semantics-disabled-border: (
-  critical: 600,
-  highlight: 600,
-  success: 600,
-  warning: 600,
+// Disabled borders recede toward the surface. The single 600 map collided
+// with the enabled border in 5 of 8 role/mode pairs (e.g. warning 600 = 600).
+$semantics-disabled-border-light: (
+  critical: 200,
+  highlight: 200,
+  success: 200,
+  warning: 200,
+);
+
+$semantics-disabled-border-dark: (
+  critical: 800,
+  highlight: 800,
+  success: 800,
+  warning: 800,
 );
 
 @mixin semantics-role-tokens($role, $family, $tokens, $border-step) {
@@ -256,7 +333,12 @@ $semantics-disabled-border: (
   --semantics-#{$role}-border: #{status($family, $border-step)};
   --semantics-#{$role}-text: #{status($family, map.get($tokens, text))};
   --semantics-#{$role}-background-light: #{status($family, map.get($tokens, background-light))};
-  --semantics-#{$role}-background-strong: #{status($family, map.get($semantics-strong-bg, $role))};
+  $strong: if(map.has-key($tokens, strong), map.get($tokens, strong), $semantics-strong-bg);
+  $strong-hover: if(map.has-key($tokens, strong-hover), map.get($tokens, strong-hover), $semantics-strong-bg-hover);
+  $strong-active: if(map.has-key($tokens, strong-active), map.get($tokens, strong-active), $semantics-strong-bg-active);
+  --semantics-#{$role}-background-strong: #{status($family, map.get($strong, $role))};
+  --semantics-#{$role}-background-strong-hover: #{status($family, map.get($strong-hover, $role))};
+  --semantics-#{$role}-background-strong-active: #{status($family, map.get($strong-active, $role))};
 }
 
 // ── Disabled ─────────────────────────────────────────────────────────────────
@@ -266,32 +348,37 @@ $semantics-disabled-border: (
 // colors in dark mode (too-light background, unreadable text/border).
 
 $semantics-disabled-neutral-light: (
-  background: 100,
-  border: 200,
+  background: 50,
+  border: 700,
   text: 600,
 );
 
 $semantics-disabled-neutral-dark: (
-  background: 800,
+  // Dark-mode values follow the Figma base-color spec (Color page).
+  background: 50,
   border: 700,
-  text: 400,
+  text: 600,
 );
 
+// background and text were 50 / 700 — the enabled light-background and text
+// steps exactly, so a disabled status chip was indistinguishable.
 $semantics-disabled-role-light: (
-  background: 50,
-  text: 700,
+  background: 100,
+  text: 600,
   strong-background: 200,
   strong-text: 800,
 );
 
+// text was 300 (= enabled text) and strong-background 700 (= warning's
+// enabled strong fill).
 $semantics-disabled-role-dark: (
   background: 900,
-  text: 300,
-  strong-background: 700,
+  text: 500,
+  strong-background: 800,
   strong-text: 100,
 );
 
-@mixin disabled-tokens($neutral, $role-tokens) {
+@mixin disabled-tokens($neutral, $role-tokens, $disabled-border) {
   /* semantics-disabled */
   --semantics-disabled-background: #{neutral(map.get($neutral, background))};
   --semantics-disabled-border: #{neutral(map.get($neutral, border))};
@@ -301,7 +388,7 @@ $semantics-disabled-role-dark: (
     /* semantics-#{$role}-disabled */
     --semantics-#{$role}-disabled-background: #{status($family, map.get($role-tokens, background))};
     --semantics-#{$role}-disabled-text: #{status($family, map.get($role-tokens, text))};
-    --semantics-#{$role}-disabled-border: #{status($family, map.get($semantics-disabled-border, $role))};
+    --semantics-#{$role}-disabled-border: #{status($family, map.get($disabled-border, $role))};
     --semantics-#{$role}-disabled-strong-background: #{status($family, map.get($role-tokens, strong-background))};
     --semantics-#{$role}-disabled-strong-text: #{status($family, map.get($role-tokens, strong-text))};
   }
@@ -316,15 +403,21 @@ html[data-site-mode="light"],
     @include accent-role-tokens(
       $role,
       $family,
-      $accent-text-primary-light,
-      $accent-background-primary-light,
-      $accent-border-primary-light,
+      role-map($role, "light", text, $accent-text-primary-light),
+      role-map($role, "light", background, $accent-background-primary-light),
+      role-map($role, "light", border, $accent-border-primary-light),
       map.get(map.get($accent-text-oncolor, light), $role),
       "light"
     );
   }
 
   @include neutral-tokens($neutral-text-light, $neutral-border-light);
+
+  /* neutral background & surface layers */
+  --neutral-background: #{neutral(50)};
+  --neutral-surface-layer-01: #{neutral(0)};
+  --neutral-surface-layer-02: #{neutral(0)};
+  --neutral-surface-layer-03: #{neutral(100)};
 
   @each $role in $semantic-roles {
     @include semantics-role-tokens(
@@ -335,7 +428,7 @@ html[data-site-mode="light"],
     );
   }
 
-  @include disabled-tokens($semantics-disabled-neutral-light, $semantics-disabled-role-light);
+  @include disabled-tokens($semantics-disabled-neutral-light, $semantics-disabled-role-light, $semantics-disabled-border-light);
 }
 
 html[data-site-mode="dark"],
@@ -344,15 +437,21 @@ html[data-site-mode="dark"],
     @include accent-role-tokens(
       $role,
       $family,
-      $accent-text-primary-dark,
-      $accent-background-primary-dark,
-      $accent-border-primary-dark,
+      role-map($role, "dark", text, $accent-text-primary-dark),
+      role-map($role, "dark", background, $accent-background-primary-dark),
+      role-map($role, "dark", border, $accent-border-primary-dark),
       map.get(map.get($accent-text-oncolor, dark), $role),
       "dark"
     );
   }
 
   @include neutral-tokens($neutral-text-dark, $neutral-border-dark);
+
+  /* neutral background & surface layers */
+  --neutral-background: #{neutral(950)};
+  --neutral-surface-layer-01: #{neutral(900)};
+  --neutral-surface-layer-02: #{neutral(800)};
+  --neutral-surface-layer-03: #{neutral(950)};
 
   @each $role in $semantic-roles {
     @include semantics-role-tokens(
@@ -363,5 +462,5 @@ html[data-site-mode="dark"],
     );
   }
 
-  @include disabled-tokens($semantics-disabled-neutral-dark, $semantics-disabled-role-dark);
+  @include disabled-tokens($semantics-disabled-neutral-dark, $semantics-disabled-role-dark, $semantics-disabled-border-dark);
 }

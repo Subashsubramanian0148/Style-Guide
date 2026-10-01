@@ -83,7 +83,7 @@ const variantLabelStyle: React.CSSProperties = {
   lineHeight: "var(--typography-label-line-height)",
   fontWeight: "var(--typography-label-weight)",
   letterSpacing: "var(--typography-label-letter-spacing)",
-  color: "var(--theme-neutral-text-primary-default)",
+  color: "var(--neutral-text-default)",
   marginBottom: 2,
 };
 
@@ -96,7 +96,7 @@ const panelText: React.CSSProperties = {
   margin: 0,
   fontSize: "var(--typography-body-md-size)",
   lineHeight: "var(--typography-body-md-line-height)",
-  color: "var(--core-color-text-secondary)",
+  color: "var(--neutral-text-subtle)",
 };
 
 /** One static tab frozen in a given state, so every state is visible at once
@@ -241,7 +241,7 @@ function MobileNavDemo() {
                 {MOBILE_LINK_STATES.map((st) => (
                   <div key={st} className={stateClass(st)} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
                     <StateLabel>{st.toUpperCase()}</StateLabel>
-                    <div className="cds-mobile-nav__sheet" style={{ borderRadius: "var(--core-radius-sm)", boxShadow: "inset 0 0 0 var(--core-border-width-default) var(--core-color-border-default)" }}>
+                    <div className="cds-mobile-nav__sheet" style={{ borderRadius: "var(--core-radius-sm)", boxShadow: "inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light)" }}>
                       <button type="button" tabIndex={-1} className="cds-mobile-nav__link" aria-current={st === "Active" ? "page" : undefined} disabled={st === "Disabled"}>
                         <Icon name="fa-solid fa-wallet" size="md" />
                         <span>Investment portfolio</span>
@@ -255,8 +255,8 @@ function MobileNavDemo() {
         </Preview>
       </div>
       <style>{`
-        .mnav-force-hover .cds-mobile-nav__item:not(:disabled) { color: var(--theme-neutral-text-primary-default); background: var(--core-color-surface-sunken); }
-        .mnav-force-hover .cds-mobile-nav__link:not(:disabled) { background: var(--core-color-surface-sunken); }
+        .mnav-force-hover .cds-mobile-nav__item:not(:disabled) { color: var(--neutral-text-default); background: var(--neutral-surface-layer-03); }
+        .mnav-force-hover .cds-mobile-nav__link:not(:disabled) { background: var(--neutral-surface-layer-03); }
         .mnav-force-focus .cds-mobile-nav__item,
         .mnav-force-focus .cds-mobile-nav__link { outline: var(--core-focusRing-width) solid var(--cds-focus-color); outline-offset: calc(var(--core-focusRing-width) * -1); }
       `}</style>
@@ -452,11 +452,11 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
         />
         <style>{`
           .tab-force-hover .cds-tab:not(:disabled) {
-            color: var(--theme-neutral-text-primary-default);
-            --cds-tab-indicator: var(--theme-neutral-border-strong);
+            color: var(--neutral-text-default);
+            --cds-tab-indicator: var(--neutral-border-strong);
           }
-          .tab-force-hover .cds-tab--vertical:not(:disabled) { background: var(--core-color-surface-sunken); }
-          .tab-force-hover .cds-tab--pill:not(:disabled) { background: color-mix(in srgb, var(--core-color-surface-default) 60%, transparent); }
+          .tab-force-hover .cds-tab--vertical:not(:disabled) { background: var(--neutral-surface-layer-03); }
+          .tab-force-hover .cds-tab--pill:not(:disabled) { background: color-mix(in srgb, var(--neutral-surface-layer-01) 60%, transparent); }
           .tab-force-focus .cds-tab {
             outline: var(--core-focusRing-width) solid var(--cds-focus-color);
             outline-offset: var(--core-focusRing-offset);
@@ -467,7 +467,7 @@ export default function NavigationPage({ embedded = false }: { embedded?: boolea
       <style>{`
         .sidebar-state-hover .cds-app-sidebar--rail .cds-app-sidebar-link:nth-child(3):not([aria-current="page"]) {
           color: var(--brand-text-primary-default) !important;
-          background: var(--theme-brand-background-primary-subtle) !important;
+          background: var(--brand-background-primary-subtle) !important;
         }
         .sidebar-state-focus .cds-app-sidebar--rail .cds-app-sidebar-link:nth-child(3):not([aria-current="page"]) {
           outline: var(--core-focusRing-width, 2px) solid var(--cds-focus-color) !important;

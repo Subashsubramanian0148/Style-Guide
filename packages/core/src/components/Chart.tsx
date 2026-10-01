@@ -24,11 +24,11 @@ const DEFAULT_SERIES_COLORS = [
   "var(--core-color-categorical-5)",
 ];
 
-const axisTick = { fontSize: 12, fill: "var(--core-color-text-secondary)" };
-const legendStyle = { fontSize: 12, color: "var(--core-color-text-secondary)" };
+const axisTick = { fontSize: 12, fill: "var(--neutral-text-subtle)" };
+const legendStyle = { fontSize: 12, color: "var(--neutral-text-subtle)" };
 const tooltipStyle: React.CSSProperties = {
-  background: "var(--core-card-bg)",
-  border: "1px solid var(--core-color-border-default)",
+  background: "var(--neutral-surface-layer-02)",
+  border: "1px solid var(--neutral-border-light)",
   borderRadius: "var(--core-radius-sm)",
   padding: "var(--core-space-2)",
   fontSize: "var(--core-font-size-xs, 12px)",
@@ -93,8 +93,8 @@ export function LineChartCard({ data, xKey, series, height = 260, title, descrip
     <ChartFrame title={title} description={description} data={data} xKey={xKey} series={series}>
       <ResponsiveContainer width="100%" height={height}>
         <LineChart data={data} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--core-color-border-default)" />
-          <XAxis dataKey={xKey} tick={axisTick} axisLine={{ stroke: "var(--core-color-border-default)" }} tickLine={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--neutral-border-light)" />
+          <XAxis dataKey={xKey} tick={axisTick} axisLine={{ stroke: "var(--neutral-border-light)" }} tickLine={false} />
           <YAxis tick={axisTick} axisLine={false} tickLine={false} width={40} />
           <RTooltip contentStyle={tooltipStyle} />
           <Legend wrapperStyle={legendStyle} />
@@ -114,8 +114,8 @@ export function BarChartCard({ data, xKey, series, height = 260, title, descript
     <ChartFrame title={title} description={description} data={data} xKey={xKey} series={series}>
       <ResponsiveContainer width="100%" height={height}>
         <BarChart data={data} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--core-color-border-default)" vertical={false} />
-          <XAxis dataKey={xKey} tick={axisTick} axisLine={{ stroke: "var(--core-color-border-default)" }} tickLine={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--neutral-border-light)" vertical={false} />
+          <XAxis dataKey={xKey} tick={axisTick} axisLine={{ stroke: "var(--neutral-border-light)" }} tickLine={false} />
           <YAxis tick={axisTick} axisLine={false} tickLine={false} width={40} />
           <RTooltip contentStyle={tooltipStyle} />
           <Legend wrapperStyle={legendStyle} />

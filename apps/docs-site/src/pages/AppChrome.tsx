@@ -6,7 +6,7 @@ import { AppHeaderDemo, AppFooterDemo, AppHeaderAnatomy, AppFooterAnatomy } from
 
 const frame: React.CSSProperties = {
   width: "100%",
-  border: "1px solid var(--core-color-border-subtle)",
+  border: "1px solid var(--neutral-border-light)",
   borderRadius: "var(--core-card-radius)",
   overflow: "visible",
 };

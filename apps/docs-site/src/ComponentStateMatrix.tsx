@@ -81,7 +81,7 @@ export function ComponentStateMatrix({
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "0.08em",
-              color: "var(--theme-neutral-text-subtle)",
+              color: "var(--neutral-text-subtle)",
             }}
           >
             Size:
@@ -102,7 +102,7 @@ export function ComponentStateMatrix({
                 onClick={() => setSize(s.id)}
                 style={{
                   border: "none",
-                  background: size === s.id ? "var(--theme-brand-background-primary-strong)" : "transparent",
+                  background: size === s.id ? "var(--brand-background-primary-strong)" : "transparent",
                   color: size === s.id ? "var(--brand-text-primary-oncolor)" : "var(--site-text)",
                   borderRadius: "var(--core-radius-sm)",
                   padding: "4px 12px",

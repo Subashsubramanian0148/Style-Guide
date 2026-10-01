@@ -256,7 +256,7 @@ export function RadioGroup({
   return (
     <div>
       {label && (
-        <div id={groupId} style={{ fontSize: "var(--typography-label-size)", fontWeight: "var(--typography-label-weight)", color: "var(--theme-neutral-text-subtle)", marginBottom: 8 }}>
+        <div id={groupId} style={{ fontSize: "var(--typography-label-size)", fontWeight: "var(--typography-label-weight)", color: "var(--neutral-text-subtle)", marginBottom: 8 }}>
           {label}
         </div>
       )}

@@ -12,10 +12,10 @@ const STATUS: Record<
   WcagLevel,
   { label: string; icon: "check" | "warn" | "fail"; colorVar: string }
 > = {
-  aaa: { label: "AAA", icon: "check", colorVar: "var(--core-color-status-success-text, #1F7A4D)" },
-  aa: { label: "AA", icon: "check", colorVar: "var(--core-color-status-success-text, #1F7A4D)" },
-  "aa-large": { label: "AA Large", icon: "warn", colorVar: "var(--core-color-status-warning-text, #9A6700)" },
-  fail: { label: "Fail", icon: "fail", colorVar: "var(--core-color-status-danger-text, #B42318)" },
+  aaa: { label: "AAA", icon: "check", colorVar: "var(--semantics-success-text, #1F7A4D)" },
+  aa: { label: "AA", icon: "check", colorVar: "var(--semantics-success-text, #1F7A4D)" },
+  "aa-large": { label: "AA Large", icon: "warn", colorVar: "var(--semantics-warning-text, #9A6700)" },
+  fail: { label: "Fail", icon: "fail", colorVar: "var(--semantics-critical-text, #B42318)" },
 };
 
 function StatusIcon({ kind, color }: { kind: "check" | "warn" | "fail"; color: string }) {
@@ -100,7 +100,7 @@ export function WcagLegend({ style }: { style?: React.CSSProperties }) {
         alignItems: "center",
         gap: "var(--core-space-1) var(--core-space-2)",
         fontSize: "var(--typography-font-size-xs)",
-        color: "var(--core-color-text-secondary)",
+        color: "var(--neutral-text-subtle)",
         ...style,
       }}
       aria-label="WCAG contrast legend"
@@ -131,7 +131,7 @@ export function ContrastBasisNote({ contrastBackground, surfaceLabel }: { contra
         margin: 0,
         fontSize: "var(--typography-font-size-xs)",
         lineHeight: 1.4,
-        color: "var(--core-color-text-secondary)",
+        color: "var(--neutral-text-subtle)",
       }}
     >
       Each shade as text on {surface} · WCAG 2.x ratio
@@ -156,7 +156,7 @@ export function ContrastAgainstControl({
         style={{
           fontSize: "var(--typography-font-size-xs)",
           fontWeight: 600,
-          color: "var(--core-color-text-secondary)",
+          color: "var(--neutral-text-subtle)",
         }}
       >
         {caption}
@@ -186,8 +186,8 @@ export function ContrastAgainstControl({
                 border: "none",
                 fontSize: "var(--typography-font-size-xs)",
                 fontWeight: active ? 600 : 500,
-                background: active ? "var(--core-color-surface-default)" : "transparent",
-                color: active ? "var(--core-color-text-primary)" : "var(--core-color-text-secondary)",
+                background: active ? "var(--neutral-surface-layer-01)" : "transparent",
+                color: active ? "var(--neutral-text-default)" : "var(--neutral-text-subtle)",
                 cursor: "pointer",
                 boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
               }}
@@ -212,8 +212,19 @@ export function WcagContrastIndicator({
   passFailBelow = false,
   backgroundHex,
   backgroundLabel,
+  usageHintOverride,
+  exempt = false,
+  minimum,
 }: {
   hex: string;
+  /** Replaces the generated usage hint, e.g. "Neutral 0 text on it". */
+  usageHintOverride?: string;
+  /** Disabled / decorative colors: WCAG sets no minimum, so show the ratio
+   *  with an "Exempt" label instead of Pass/Fail. */
+  exempt?: boolean;
+  /** Required ratio (4.5 for text, 3 for UI boundaries). Omit for the
+   *  AAA / AA / AA Large grading. */
+  minimum?: number;
   contrastBackground?: ContrastBackground;
   /** Measure against this exact color (e.g. the real dark surface, or the fill an on-color token sits on) instead of pure white/black. */
   backgroundHex?: string;
@@ -227,9 +238,19 @@ export function WcagContrastIndicator({
   /** Full color scales: ratio on top, Pass/Fail label below */
   passFailBelow?: boolean;
 }) {
-  const { ratio, level, status } = getContrastResult(hex, contrastBackground, backgroundHex);
+  const result = getContrastResult(hex, contrastBackground, backgroundHex);
+  const { ratio } = result;
+  let { level, status } = result;
+  if (exempt) {
+    status = { label: "Exempt", icon: "check", colorVar: "var(--neutral-text-subtle)" };
+  } else if (minimum !== undefined && ratio < minimum) {
+    level = "fail";
+    status = STATUS.fail;
+  } else if (minimum === 3 && ratio >= 3) {
+    status = { ...STATUS.aa, label: "Pass 3:1" };
+  }
   const usageHint = showUsageHint
-    ? contrastUsageHint(level, { contrastBackground, tokenType, backgroundLabel })
+    ? usageHintOverride ?? contrastUsageHint(level, { contrastBackground, tokenType, backgroundLabel })
     : null;
 
   const onSwatchAdaptive = onSwatch && isLightSwatch !== undefined;
@@ -245,14 +266,14 @@ export function WcagContrastIndicator({
     ? isLightSwatch
       ? "#000000"
       : "#FFFFFF"
-    : "var(--core-color-text-primary)";
+    : "var(--neutral-text-default)";
 
   const textColor = swatchTextColor;
 
   // On a colored swatch every mark uses the swatch's own black/white so it
   // stays legible; the icon shape and the Pass/Fail word carry the status.
   const ratioIconColor = onSwatchAdaptive ? swatchTextColor : status.colorVar;
-  const ratioNumberColor = onSwatchAdaptive ? swatchTextColor : "var(--core-color-text-primary)";
+  const ratioNumberColor = onSwatchAdaptive ? swatchTextColor : "var(--neutral-text-default)";
   const labelColor = onSwatchAdaptive ? swatchTextColor : status.colorVar;
 
   const ratioLine = (
@@ -278,8 +299,8 @@ export function WcagContrastIndicator({
   const passFailColor = onSwatchAdaptive
     ? swatchTextColor
     : level === "fail"
-      ? "var(--core-color-status-danger-text, #B42318)"
-      : "var(--core-color-status-success-text, #1F7A4D)";
+      ? "var(--semantics-critical-text, #B42318)"
+      : "var(--semantics-success-text, #1F7A4D)";
 
   return (
     <div
@@ -336,7 +357,7 @@ export function WcagContrastIndicator({
           }}
         >
           {ratioLine}
-          <span aria-hidden="true" style={{ color: "var(--core-color-text-tertiary)" }}>
+          <span aria-hidden="true" style={{ color: "var(--neutral-text-subtle)" }}>
             ·
           </span>
           {labelLine}
@@ -348,7 +369,7 @@ export function WcagContrastIndicator({
             fontSize: 10,
             fontWeight: 500,
             marginTop: onSwatch ? 2 : 0,
-            color: onSwatch ? swatchTextColor : "var(--core-color-text-tertiary)",
+            color: onSwatch ? swatchTextColor : "var(--neutral-text-subtle)",
             lineHeight: 1.35,
           }}
         >

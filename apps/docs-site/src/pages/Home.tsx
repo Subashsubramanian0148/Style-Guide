@@ -28,7 +28,7 @@ const sections = [
             style={{
               borderRadius: 14,
               border: "1px solid var(--site-border)",
-              background: "var(--core-color-surface-default)",
+              background: "var(--neutral-surface-layer-01)",
               padding: "24px 28px",
               display: "flex",
               flexDirection: "column",
@@ -46,7 +46,7 @@ const sections = [
                 // at ~1.7:1 against the dark card — the same mode-aware
                 // token used by the CTA link below resolves correctly in
                 // both modes.
-                color: "var(--theme-brand-text-primary-default)",
+                color: "var(--brand-text-primary-default)",
               }}
             >
               {item.label}
@@ -56,7 +56,7 @@ const sections = [
                 margin: 0,
                 fontSize: "var(--typography-body-md-size)",
                 lineHeight: 1.6,
-                color: "var(--core-color-text-secondary)",
+                color: "var(--neutral-text-subtle)",
                 flex: 1,
               }}
             >
@@ -67,7 +67,7 @@ const sections = [
               style={{
                 fontSize: "var(--typography-body-md-size)",
                 fontWeight: 600,
-                color: "var(--theme-brand-text-primary-default)",
+                color: "var(--brand-text-primary-default)",
                 textDecoration: "none",
               }}
             >
@@ -99,13 +99,13 @@ const sections = [
               padding: "var(--core-space-5) var(--core-space-6)",
               borderRadius: 14,
               border: "1px solid var(--site-border)",
-              background: "var(--core-color-surface-default)",
+              background: "var(--neutral-surface-layer-01)",
               textDecoration: "none",
               color: "inherit",
               transition: "border-color 0.15s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--theme-brand-border-primary-default)";
+              e.currentTarget.style.borderColor = "var(--brand-border-primary-default)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = "var(--site-border)";
@@ -116,12 +116,12 @@ const sections = [
                 fontSize: 20,
                 fontWeight: 500,
                 letterSpacing: "-0.02em",
-                color: "var(--core-color-text-primary)",
+                color: "var(--neutral-text-default)",
               }}
             >
               {item.title}
             </span>
-            <span style={{ fontSize: "var(--typography-body-md-size)", lineHeight: 1.6, color: "var(--core-color-text-secondary)" }}>
+            <span style={{ fontSize: "var(--typography-body-md-size)", lineHeight: 1.6, color: "var(--neutral-text-subtle)" }}>
               {item.desc}
             </span>
           </Link>
@@ -150,15 +150,15 @@ const sections = [
               padding: "var(--core-space-2) var(--core-space-3)",
               borderRadius: 8,
               border: "1px solid var(--site-border)",
-              background: "var(--core-color-surface-default)",
+              background: "var(--neutral-surface-layer-01)",
               textDecoration: "none",
               fontSize: "var(--typography-body-md-size)",
               fontWeight: 500,
-              color: "var(--core-color-text-primary)",
+              color: "var(--neutral-text-default)",
               transition: "border-color 0.15s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--theme-brand-border-primary-default)";
+              e.currentTarget.style.borderColor = "var(--brand-border-primary-default)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = "var(--site-border)";
@@ -179,29 +179,29 @@ const sections = [
         style={{
           borderRadius: 14,
           border: "1px solid var(--site-border)",
-          background: "var(--core-color-surface-hover)",
+          background: "var(--neutral-surface-layer-03)",
           padding: "28px 32px",
         }}
       >
         <ol style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: "var(--core-space-3)"}}>
-          <li style={{ fontSize: "var(--typography-body-md-size)", lineHeight: 1.6, color: "var(--core-color-text-secondary)" }}>
+          <li style={{ fontSize: "var(--typography-body-md-size)", lineHeight: 1.6, color: "var(--neutral-text-subtle)" }}>
             Review{" "}
-            <Link to="/foundations/color" style={{ color: "var(--theme-brand-text-primary-default)", fontWeight: 600, textDecoration: "none" }}>
+            <Link to="/foundations/color" style={{ color: "var(--brand-text-primary-default)", fontWeight: 600, textDecoration: "none" }}>
               Color
             </Link>{" "}
             and{" "}
-            <Link to="/foundations/typography" style={{ color: "var(--theme-brand-text-primary-default)", fontWeight: 600, textDecoration: "none" }}>
+            <Link to="/foundations/typography" style={{ color: "var(--brand-text-primary-default)", fontWeight: 600, textDecoration: "none" }}>
               Typography
             </Link>{" "}
             to understand tokens and naming.
           </li>
-          <li style={{ fontSize: "var(--typography-body-md-size)", lineHeight: 1.6, color: "var(--core-color-text-secondary)" }}>
+          <li style={{ fontSize: "var(--typography-body-md-size)", lineHeight: 1.6, color: "var(--neutral-text-subtle)" }}>
             Explore{" "}
-            <Link to="/components/actions" style={{ color: "var(--theme-brand-text-primary-default)", fontWeight: 600, textDecoration: "none" }}>
+            <Link to="/components/actions" style={{ color: "var(--brand-text-primary-default)", fontWeight: 600, textDecoration: "none" }}>
               Actions
             </Link>{" "}
             and{" "}
-            <Link to="/components/forms" style={{ color: "var(--theme-brand-text-primary-default)", fontWeight: 600, textDecoration: "none" }}>
+            <Link to="/components/forms" style={{ color: "var(--brand-text-primary-default)", fontWeight: 600, textDecoration: "none" }}>
               Forms
             </Link>{" "}
             for the most common UI patterns.
@@ -229,7 +229,7 @@ export default function Home() {
             fontWeight: 700,
             letterSpacing: "-0.06em",
             margin: "0 0 16px 0",
-            color: "var(--core-color-text-primary)",
+            color: "var(--neutral-text-default)",
             lineHeight: 1.1,
           }}
         >
@@ -239,7 +239,7 @@ export default function Home() {
           style={{
             maxWidth: 560,
             margin: "0 auto",
-            color: "var(--core-color-text-tertiary)",
+            color: "var(--neutral-text-subtle)",
             fontSize: 18,
             lineHeight: 1.6,
             fontWeight: 400,
@@ -268,7 +268,7 @@ export default function Home() {
                 style={{
                   fontSize: 12,
                   fontWeight: 600,
-                  color: "var(--core-color-text-tertiary)",
+                  color: "var(--neutral-text-subtle)",
                   marginBottom: 12,
                 }}
               >
@@ -280,7 +280,7 @@ export default function Home() {
                   fontWeight: 500,
                   letterSpacing: "-0.04em",
                   margin: 0,
-                  color: "var(--core-color-text-primary)",
+                  color: "var(--neutral-text-default)",
                 }}
               >
                 {s.title}

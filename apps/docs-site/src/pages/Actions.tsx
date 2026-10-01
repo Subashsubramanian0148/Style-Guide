@@ -68,10 +68,10 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
             /* Mirrors the real .cds-icon-btn--secondary/--tertiary hover/active CSS
                (components.css) so this "forced state" demo never drifts from what
                actually renders on real hover/active. */
-            .force-hover .cds-icon-btn--secondary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 12%, transparent); color: var(--theme-brand-text-primary-hover); border-color: var(--theme-brand-border-primary-hover); }
-            .force-hover .cds-icon-btn--tertiary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 8%, transparent); color: var(--theme-brand-text-primary-hover); }
-            .force-active .cds-icon-btn--secondary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 24%, transparent); color: var(--theme-brand-text-primary-active); border-color: var(--theme-brand-border-primary-hover); transform: translateY(1px); }
-            .force-active .cds-icon-btn--tertiary { background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 16%, transparent); color: var(--theme-brand-text-primary-active); transform: translateY(1px); }
+            .force-hover .cds-icon-btn--secondary { background: color-mix(in srgb, var(--brand-background-primary-strong) 12%, transparent); color: var(--brand-text-primary-hover); border-color: var(--brand-border-primary-hover); }
+            .force-hover .cds-icon-btn--tertiary { background: color-mix(in srgb, var(--brand-background-primary-strong) 8%, transparent); color: var(--brand-text-primary-hover); }
+            .force-active .cds-icon-btn--secondary { background: color-mix(in srgb, var(--brand-background-primary-strong) 24%, transparent); color: var(--brand-text-primary-active); border-color: var(--brand-border-primary-hover); transform: translateY(1px); }
+            .force-active .cds-icon-btn--tertiary { background: color-mix(in srgb, var(--brand-background-primary-strong) 16%, transparent); color: var(--brand-text-primary-active); transform: translateY(1px); }
             .force-focus .cds-icon-btn { outline: var(--core-focusRing-width) solid var(--cds-focus-color); outline-offset: 2px; }
           `}</style>
         </div>
@@ -104,7 +104,7 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
             fontWeight: 700,
             letterSpacing: "-0.06em",
             margin: "0 0 16px 0",
-            color: "var(--core-color-text-primary)",
+            color: "var(--neutral-text-default)",
             lineHeight: 1.1,
           }}
         >
@@ -114,7 +114,7 @@ export default function Actions({ embedded = false }: { embedded?: boolean }) {
           style={{
             maxWidth: 580,
             margin: "0 auto",
-            color: "var(--core-color-text-tertiary)",
+            color: "var(--neutral-text-subtle)",
             fontSize: 18,
             lineHeight: 1.6,
             fontWeight: 400,

@@ -146,7 +146,7 @@ export function TextareaAnatomy() {
               <SpecRow label="Input text" token="typography-text14-regular-size" value={m.inputType} standard="pass" />
               <SpecRow label="Text area (W × H)" token="width stretches to container · min-height 88" value={`${Math.round(m.area.w / SCALE)} × ${Math.round(m.area.h / SCALE)}px`} standard="pass" />
               <SpecRow label="Resize" token="resize: vertical" value={m.resize} standard="pass" />
-              <SpecRow label="Border" token="core-color-border-control" value={m.borderSpec} standard="pass" />
+              <SpecRow label="Border" token="neutral-text-subtle-light" value={m.borderSpec} standard="pass" />
               <SpecRow label="Border radius" token="core-radius-sm" value={m.radius} standard="pass" />
             </tbody>
           </SpecTableCard>

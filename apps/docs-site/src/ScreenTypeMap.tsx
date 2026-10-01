@@ -157,7 +157,7 @@ function CopyCss({ text }: { text: string }) {
     <button
       type="button"
       onClick={() => navigator.clipboard?.writeText(text).then(() => { setDone(true); window.setTimeout(() => setDone(false), 1500); })}
-      style={{ padding: "var(--core-space-1) var(--core-space-2)", borderRadius: "var(--core-radius-sm)", border: "var(--core-border-width-default) solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", color: "var(--core-color-text-secondary)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-semibold)", cursor: "pointer" }}
+      style={{ padding: "var(--core-space-1) var(--core-space-2)", borderRadius: "var(--core-radius-sm)", border: "var(--core-border-width-default) solid var(--neutral-border-light)", background: "var(--neutral-surface-layer-01)", color: "var(--neutral-text-subtle)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-semibold)", cursor: "pointer" }}
     >
       {done ? "Copied" : "Copy CSS"}
     </button>
@@ -223,7 +223,7 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
           {["headings", null, ...keys].map((k) => {
             const active = focus === k;
             const count = k === "headings" ? hits.filter((h) => HEADINGS.includes(h.key)).length : k ? hits.filter((h) => h.key === k).length : hits.length;
-            const color = k === "headings" ? GROUP_COLOR.heading : k ? GROUP_COLOR[groupOf(k)] : "var(--core-color-text-primary)";
+            const color = k === "headings" ? GROUP_COLOR.heading : k ? GROUP_COLOR[groupOf(k)] : "var(--neutral-text-default)";
             return (
               <button
                 key={k ?? "all"}
@@ -233,9 +233,9 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
                 style={{
                   display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)",
                   padding: "var(--core-space-1) var(--core-space-3)", borderRadius: 999, cursor: "pointer",
-                  border: `var(--core-border-width-default) solid ${active ? color : "var(--core-color-border-default)"}`,
-                  background: active ? color : "var(--core-color-surface-default)",
-                  color: active ? "var(--brand-text-primary-oncolor)" : "var(--core-color-text-primary)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-semibold)",
+                  border: `var(--core-border-width-default) solid ${active ? color : "var(--neutral-border-light)"}`,
+                  background: active ? color : "var(--neutral-surface-layer-01)",
+                  color: active ? "var(--brand-text-primary-oncolor)" : "var(--neutral-text-default)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-semibold)",
                 }}
               >
                 {k === "headings" ? "Headings (H1–H6)" : k ? styleLabel(k.startsWith("custom:") ? "Custom" : k) : "All text"} <span style={{ opacity: 0.7 }}>{count}</span>
@@ -277,8 +277,8 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
         <SectionHeading>Checks</SectionHeading>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
           {checks(hits).map((c) => (
-            <div key={c.text} style={{ display: "flex", gap: "var(--core-space-2)", fontSize: "var(--typography-body-md-size)", color: "var(--core-color-text-primary)" }}>
-              <span style={{ color: c.ok === "info" ? "var(--brand-text-primary-default)" : c.ok ? "var(--core-color-status-success-text)" : "var(--core-color-status-warning-text)", fontWeight: "var(--typography-font-weight-bold)", flexShrink: 0 }}>{c.ok === "info" ? "ℹ" : c.ok ? "✓" : "⚠"}</span>
+            <div key={c.text} style={{ display: "flex", gap: "var(--core-space-2)", fontSize: "var(--typography-body-md-size)", color: "var(--neutral-text-default)" }}>
+              <span style={{ color: c.ok === "info" ? "var(--brand-text-primary-default)" : c.ok ? "var(--semantics-success-text)" : "var(--semantics-warning-text)", fontWeight: "var(--typography-font-weight-bold)", flexShrink: 0 }}>{c.ok === "info" ? "ℹ" : c.ok ? "✓" : "⚠"}</span>
               {c.text}
             </div>
           ))}
@@ -289,7 +289,7 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
         <SectionHeading>Text styles on this screen — what to use and how</SectionHeading>
         <SpecTableCard>
           <thead>
-            <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: "var(--core-font-size-xs)", textTransform: "uppercase", letterSpacing: "var(--typography-eyebrow-letter-spacing)", background: "var(--core-color-surface-sunken)" }}>
+            <tr style={{ textAlign: "left", color: "var(--neutral-text-subtle)", fontSize: "var(--core-font-size-xs)", textTransform: "uppercase", letterSpacing: "var(--typography-eyebrow-letter-spacing)", background: "var(--neutral-surface-layer-03)" }}>
               {["Style", "Use it for", "Used on this screen", "Code"].map((h) => (
                 <th key={h} style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: "var(--typography-font-weight-bold)" }}>{h}</th>
               ))}
@@ -306,31 +306,31 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
               const usage = !custom && d ? usageFor(k, d) : null;
               const tag = HEADINGS.includes(k) ? k : k === "text14Bold" ? "label" : "p / span";
               return (
-                <tr key={k} style={{ borderTop: "var(--core-border-width-default) solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
+                <tr key={k} style={{ borderTop: "var(--core-border-width-default) solid var(--neutral-border-light)", verticalAlign: "top" }}>
                   <td style={{ padding: "var(--core-space-3) var(--core-space-4)", whiteSpace: "nowrap" }}>
                     <div style={{ display: "inline-block", padding: "0 var(--core-space-2)", borderRadius: "var(--core-radius-xs)", background: GROUP_COLOR[groupOf(k)], color: "var(--brand-text-primary-oncolor)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-bold)" }}>{custom ? "Custom" : styleLabel(k)}</div>
-                    <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-tertiary)", marginTop: "var(--core-space-1)" }}>{custom ? k.slice(7) : `${d?.size} / ${d?.weight} / ${d?.lineHeight}`}</div>
+                    <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--neutral-text-subtle)", marginTop: "var(--core-space-1)" }}>{custom ? k.slice(7) : `${d?.size} / ${d?.weight} / ${d?.lineHeight}`}</div>
                   </td>
-                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-primary)", minWidth: 180 }}>
+                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: "var(--core-font-size-sm)", color: "var(--neutral-text-default)", minWidth: 180 }}>
                     {usage ? (
                       <>
                         <div>{usage.use}</div>
-                        <div style={{ color: "var(--core-color-text-tertiary)", marginTop: "var(--core-space-1)" }}>Avoid: {usage.avoid}</div>
+                        <div style={{ color: "var(--neutral-text-subtle)", marginTop: "var(--core-space-1)" }}>Avoid: {usage.avoid}</div>
                       </>
                     ) : "Not a design-system style — replace it with the closest token style."}
                   </td>
-                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-secondary)", minWidth: 180 }}>
+                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: "var(--core-font-size-sm)", color: "var(--neutral-text-subtle)", minWidth: 180 }}>
                     {own.slice(0, 4).map((r, i) => <div key={i}>“{r.text.length > 48 ? `${r.text.slice(0, 48)}…` : r.text}”</div>)}
                     {own.length > 4 && <div>+{own.length - 4} more</div>}
-                    {fromComponents.length > 0 && <div style={{ color: "var(--core-color-text-tertiary)", marginTop: own.length ? "var(--core-space-1)" : 0 }}>From {fromComponents.map((c) => `<${c}>`).join(", ")} — set by the component</div>}
+                    {fromComponents.length > 0 && <div style={{ color: "var(--neutral-text-subtle)", marginTop: own.length ? "var(--core-space-1)" : 0 }}>From {fromComponents.map((c) => `<${c}>`).join(", ")} — set by the component</div>}
                   </td>
                   <td style={{ padding: "var(--core-space-3) var(--core-space-4)", minWidth: "calc(var(--core-space-1) * 50)" }}>
                     {own.length === 0 && fromComponents.length ? (
-                      <span style={{ fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-tertiary)" }}>Use the component — don't restyle its text.</span>
+                      <span style={{ fontSize: "var(--core-font-size-xs)", color: "var(--neutral-text-subtle)" }}>Use the component — don't restyle its text.</span>
                     ) : css ? (
                       <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)", alignItems: "flex-start" }}>
                         <code style={{ fontSize: "var(--core-font-size-xs)" }}>{`<${tag.split(" ")[0]}>`}</code>
-                        <pre style={{ margin: 0, fontSize: "var(--core-font-size-xs)", lineHeight: "var(--typography-body-xs-relaxed-line-height)", whiteSpace: "pre-wrap", color: "var(--core-color-text-secondary)", fontFamily: "var(--typography-font-family-mono)" }}>{css}</pre>
+                        <pre style={{ margin: 0, fontSize: "var(--core-font-size-xs)", lineHeight: "var(--typography-body-xs-relaxed-line-height)", whiteSpace: "pre-wrap", color: "var(--neutral-text-subtle)", fontFamily: "var(--typography-font-family-mono)" }}>{css}</pre>
                         <CopyCss text={css} />
                       </div>
                     ) : "—"}

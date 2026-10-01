@@ -32,7 +32,7 @@ export default function Components() {
             fontWeight: 700,
             letterSpacing: "-0.06em",
             margin: "0 0 16px 0",
-            color: "var(--core-color-text-primary)",
+            color: "var(--neutral-text-default)",
             lineHeight: 1.1,
           }}
         >
@@ -42,7 +42,7 @@ export default function Components() {
           style={{
             maxWidth: 620,
             margin: "0 auto",
-            color: "var(--core-color-text-secondary)",
+            color: "var(--neutral-text-subtle)",
             fontSize: 18,
             lineHeight: 1.6,
             fontWeight: 400,

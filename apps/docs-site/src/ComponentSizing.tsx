@@ -350,8 +350,8 @@ function FrameMeasure({ width, node, sel, stretch, onSize }: { width: number; no
 }
 
 const th: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 };
-const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", fontSize: 13, verticalAlign: "top" };
-const head: React.CSSProperties = { textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" };
+const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--neutral-border-light)", fontSize: 13, verticalAlign: "top" };
+const head: React.CSSProperties = { textAlign: "left", color: "var(--neutral-text-subtle)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--neutral-surface-layer-03, rgba(0,0,0,0.03))" };
 
 function MeasuredRows({ title, rows, first }: { title: string; rows: Variant[]; first: string }) {
   const measureRef = useRef<HTMLDivElement>(null);
@@ -398,9 +398,9 @@ function MeasuredRows({ title, rows, first }: { title: string; rows: Variant[]; 
         <tbody>
           {rows.map((v, i) => (
             <tr key={v.name}>
-              <td style={{ ...td, fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap", textTransform: "capitalize" }}>{v.name}</td>
+              <td style={{ ...td, fontWeight: 600, color: "var(--neutral-text-default)", whiteSpace: "nowrap", textTransform: "capitalize" }}>{v.name}</td>
               <td style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", whiteSpace: "nowrap" }}>{dims[i] ?? "…"}</td>
-              <td style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)" }}>{v.token}</td>
+              <td style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--neutral-text-subtle)" }}>{v.token}</td>
               <td style={td}>{v.fillWidth ? "Stretches to container (value at 320px)" : "Fixed / sized by content"}</td>
             </tr>
           ))}

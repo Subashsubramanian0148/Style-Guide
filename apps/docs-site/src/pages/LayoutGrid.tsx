@@ -49,7 +49,7 @@ function GridPlayground() {
   const spanPerCol = 12 / cols;
 
   return (
-    <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
+    <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)" }}>
       <div style={{ display: "flex", gap: "var(--core-space-6)", flexWrap: "wrap", marginBottom: "var(--core-space-4)" }}>
         <label style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", fontWeight: 500 }}>
           Columns
@@ -59,9 +59,9 @@ function GridPlayground() {
             style={{
               padding: "var(--core-space-1) var(--core-space-3)",
               borderRadius: "var(--core-radius-sm)",
-              border: "1px solid var(--core-color-border-subtle)",
+              border: "1px solid var(--neutral-border-light)",
               fontSize: "var(--core-font-size-sm)",
-              background: "var(--core-color-bg-surface)",
+              background: "var(--neutral-surface-layer-01)",
             }}
           >
             {columnOptions.map((c) => (
@@ -77,9 +77,9 @@ function GridPlayground() {
             style={{
               padding: "var(--core-space-1) var(--core-space-3)",
               borderRadius: "var(--core-radius-sm)",
-              border: "1px solid var(--core-color-border-subtle)",
+              border: "1px solid var(--neutral-border-light)",
               fontSize: "var(--core-font-size-sm)",
-              background: "var(--core-color-bg-surface)",
+              background: "var(--neutral-surface-layer-01)",
             }}
           >
             {gapOptions.map((g) => (
@@ -114,8 +114,8 @@ export default function LayoutGrid() {
       <DocsSectionList>
       <DocsSection anchorId="header" title="App header">
       <div className="site-panel site-panel--flush">
-        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", padding: 24 }}>
-          <div style={{ width: "100%", maxWidth: 640, border: "1px solid var(--core-color-border-subtle)", borderRadius: "var(--core-card-radius)", overflow: "hidden" }}>
+        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)", padding: 24 }}>
+          <div style={{ width: "100%", maxWidth: 640, border: "1px solid var(--neutral-border-light)", borderRadius: "var(--core-card-radius)", overflow: "hidden" }}>
             <div className="cds-app-header">
               <AppHeader
                 brand="Meridian"
@@ -132,8 +132,8 @@ export default function LayoutGrid() {
       </DocsSection>
       <DocsSection anchorId="footer" title="App footer">
       <div className="site-panel site-panel--flush">
-        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", padding: 24 }}>
-          <div style={{ width: "100%", maxWidth: 640, border: "1px solid var(--core-color-border-subtle)", borderRadius: "var(--core-card-radius)", overflow: "hidden" }}>
+        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)", padding: 24 }}>
+          <div style={{ width: "100%", maxWidth: 640, border: "1px solid var(--neutral-border-light)", borderRadius: "var(--core-card-radius)", overflow: "hidden" }}>
             <div className="cds-app-footer">
               <AppFooter copyright="© 2026 Meridian." links={<><a href="#">Privacy</a><a href="#">Terms</a></>} />
             </div>
@@ -160,7 +160,7 @@ export default function LayoutGrid() {
       {/* ── Basic grid ──────────────────────────────────────────── */}
       </DocsSection>
       <DocsSection anchorId="basic-grid" title="Basic grid">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)" }}>
         {/* Row 1 — full width */}
         <Grid columns={12} gap="4">
           <GridCol span={12}><div style={demoBlockStyle(0)}>col-12</div></GridCol>
@@ -204,7 +204,7 @@ export default function LayoutGrid() {
       {/* ── 2. Grid gutter ────────────────────────────────────────── */}
       </DocsSection>
       <DocsSection anchorId="grid-gutter" title="Grid gutter">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", display: "flex", flexDirection: "column", gap: "var(--core-space-6)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)", display: "flex", flexDirection: "column", gap: "var(--core-space-6)" }}>
         {(["2", "4", "6", "8"] as GridGap[]).map((g) => (
           <div key={g}>
             <p style={{ margin: 0, marginBottom: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", fontWeight: 600 }}>
@@ -222,7 +222,7 @@ export default function LayoutGrid() {
       {/* ── 3. Column offset ──────────────────────────────────────── */}
       </DocsSection>
       <DocsSection anchorId="column-offset" title="Column offset">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)", display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
         {/* span 6, offset 6 */}
         <div>
           <p style={{ margin: 0, marginBottom: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", fontWeight: 600 }}>
@@ -261,7 +261,7 @@ export default function LayoutGrid() {
       {/* ── 4. Responsive behavior ────────────────────────────────── */}
       </DocsSection>
       <DocsSection anchorId="responsive-behavior" title="Responsive behavior">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)", display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
         <div>
           <p style={{ margin: 0, marginBottom: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", fontWeight: 600 }}>
             span=12 spanMd=6 — full-width → halves
@@ -302,7 +302,7 @@ export default function LayoutGrid() {
            ═══════════════════════════════════════════════════════════════ */}
       </DocsSection>
       <DocsSection anchorId="layout-login" title="Login / Onboarding — 50 · 50">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", padding: 0, overflow: "hidden", borderRadius: "var(--core-radius-md)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)", padding: 0, overflow: "hidden", borderRadius: "var(--core-radius-md)" }}>
         <Grid columns={12} gap="2" style={{ gap: 0 }}>
           <GridCol span={12} spanMd={6}>
             <div style={{
@@ -322,7 +322,7 @@ export default function LayoutGrid() {
           </GridCol>
           <GridCol span={12} spanMd={6}>
             <div style={{
-              background: "var(--core-color-surface-raised)",
+              background: "var(--neutral-surface-layer-02)",
               padding: "var(--core-space-8)",
               minHeight: 220,
               display: "flex",
@@ -330,11 +330,11 @@ export default function LayoutGrid() {
               justifyContent: "center",
               gap: "var(--core-space-4)",
             }}>
-              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-tertiary)" }}>span 6 · Sign-in form</div>
-              <div style={{ fontSize: "var(--core-font-size-lg)", fontWeight: 700, color: "var(--core-color-text-primary)" }}>Sign in</div>
-              <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", color: "var(--core-color-text-tertiary)", fontSize: "var(--core-font-size-sm)" }}>you@email.com</div>
-              <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", color: "var(--core-color-text-tertiary)", fontSize: "var(--core-font-size-sm)" }}>Enter password</div>
-              <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", background: "var(--core-color-action-primary-bg)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: "var(--core-font-size-sm)" }}>Sign in</div>
+              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)" }}>span 6 · Sign-in form</div>
+              <div style={{ fontSize: "var(--core-font-size-lg)", fontWeight: 700, color: "var(--neutral-text-default)" }}>Sign in</div>
+              <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--neutral-border-light)", background: "var(--neutral-surface-layer-01)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", color: "var(--neutral-text-subtle)", fontSize: "var(--core-font-size-sm)" }}>you@email.com</div>
+              <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--neutral-border-light)", background: "var(--neutral-surface-layer-01)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", color: "var(--neutral-text-subtle)", fontSize: "var(--core-font-size-sm)" }}>Enter password</div>
+              <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", background: "var(--brand-background-primary-strong)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: "var(--core-font-size-sm)" }}>Sign in</div>
             </div>
           </GridCol>
         </Grid>
@@ -352,25 +352,25 @@ export default function LayoutGrid() {
       {/* ── Pattern 2: Dashboard — 8/4 main + sidebar ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-dashboard-summary" title="Dashboard summary — 8 · 4">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)" }}>
         <Grid columns={12} gap="4">
           <GridCol span={12} spanMd={8}>
             <div style={{
-              background: "var(--core-color-surface-raised)",
+              background: "var(--neutral-surface-layer-02)",
               borderRadius: "var(--core-radius-md)",
               padding: "var(--core-space-6)",
               minHeight: 140,
-              border: "1px solid var(--core-color-border-subtle)",
+              border: "1px solid var(--neutral-border-light)",
             }}>
-              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-tertiary)", marginBottom: "var(--core-space-3)" }}>span 8 · Summary card</div>
+              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)", marginBottom: "var(--core-space-3)" }}>span 8 · Summary card</div>
               <div style={{ display: "flex", gap: "var(--core-space-8)", flexWrap: "wrap" }}>
                 <div>
-                  <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-secondary)" }}>Account balance</div>
-                  <div style={{ fontSize: "var(--core-font-size-xl)", fontWeight: 700, color: "var(--core-color-text-primary)" }}>$14,590.00</div>
+                  <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--neutral-text-subtle)" }}>Account balance</div>
+                  <div style={{ fontSize: "var(--core-font-size-xl)", fontWeight: 700, color: "var(--neutral-text-default)" }}>$14,590.00</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-secondary)" }}>Vested balance</div>
-                  <div style={{ fontSize: "var(--core-font-size-xl)", fontWeight: 700, color: "var(--core-color-text-primary)" }}>$13,870.00</div>
+                  <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--neutral-text-subtle)" }}>Vested balance</div>
+                  <div style={{ fontSize: "var(--core-font-size-xl)", fontWeight: 700, color: "var(--neutral-text-default)" }}>$13,870.00</div>
                 </div>
               </div>
             </div>
@@ -403,17 +403,17 @@ export default function LayoutGrid() {
       {/* ── Pattern 3: Dashboard plans — 4/4/4 ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-dashboard-plans" title="Dashboard plans — 4 · 4 · 4">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)" }}>
         <Grid columns={12} gap="4">
           {["401(k) Plan", "Roth 401(k) Plan", "Financial Wellness"].map((name, i) => (
             <GridCol key={name} span={12} spanMd={4}>
               <div style={{
-                background: i === 2 ? "var(--core-promoCard-bg, linear-gradient(135deg, var(--core-color-brand-600), var(--core-color-brand-800)))" : "var(--core-color-surface-raised)",
+                background: i === 2 ? "var(--core-promoCard-bg, linear-gradient(135deg, var(--core-color-brand-600), var(--core-color-brand-800)))" : "var(--neutral-surface-layer-02)",
                 borderRadius: "var(--core-radius-md)",
                 padding: "var(--core-space-5)",
                 minHeight: 100,
-                border: i === 2 ? "none" : "1px solid var(--core-color-border-subtle)",
-                color: i === 2 ? "#fff" : "var(--core-color-text-primary)",
+                border: i === 2 ? "none" : "1px solid var(--neutral-border-light)",
+                color: i === 2 ? "#fff" : "var(--neutral-text-default)",
               }}>
                 <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", opacity: 0.6, marginBottom: "var(--core-space-2)" }}>span 4</div>
                 <div style={{ fontSize: "var(--core-font-size-md)", fontWeight: 700 }}>{name}</div>
@@ -427,20 +427,20 @@ export default function LayoutGrid() {
       {/* ── Pattern 4: Dashboard — 6/6 halves ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-dashboard-halves" title="Dashboard cards — 6 · 6">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)" }}>
         <Grid columns={12} gap="4">
           {["Deferred Comp Plan", "Cash Balance Plan"].map((name) => (
             <GridCol key={name} span={12} spanMd={6}>
               <div style={{
-                background: "var(--core-color-surface-raised)",
+                background: "var(--neutral-surface-layer-02)",
                 borderRadius: "var(--core-radius-md)",
                 padding: "var(--core-space-5)",
                 minHeight: 80,
-                border: "1px solid var(--core-color-border-subtle)",
+                border: "1px solid var(--neutral-border-light)",
               }}>
-                <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-tertiary)", marginBottom: "var(--core-space-2)" }}>span 6</div>
-                <div style={{ fontSize: "var(--core-font-size-md)", fontWeight: 700, color: "var(--core-color-text-primary)" }}>{name}</div>
-                <div style={{ fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-secondary)", marginTop: "var(--core-space-1)" }}>Plan details, balance, status</div>
+                <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)", marginBottom: "var(--core-space-2)" }}>span 6</div>
+                <div style={{ fontSize: "var(--core-font-size-md)", fontWeight: 700, color: "var(--neutral-text-default)" }}>{name}</div>
+                <div style={{ fontSize: "var(--core-font-size-sm)", color: "var(--neutral-text-subtle)", marginTop: "var(--core-space-1)" }}>Plan details, balance, status</div>
               </div>
             </GridCol>
           ))}
@@ -450,52 +450,52 @@ export default function LayoutGrid() {
       {/* ── Pattern 5: Multi-step form — 3/9 ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-form-stepper" title="Multi-step form — 3 · 9">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)" }}>
         <Grid columns={12} gap="4">
           <GridCol span={12} spanMd={3}>
             <div style={{
-              background: "var(--core-color-surface-raised)",
+              background: "var(--neutral-surface-layer-02)",
               borderRadius: "var(--core-radius-md)",
               padding: "var(--core-space-5)",
               minHeight: 200,
-              border: "1px solid var(--core-color-border-subtle)",
+              border: "1px solid var(--neutral-border-light)",
               display: "flex",
               flexDirection: "column",
               gap: "var(--core-space-3)",
             }}>
-              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-tertiary)" }}>span 3 · Stepper</div>
+              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)" }}>span 3 · Stepper</div>
               {["Loan Details", "Payment & Fee", "Upload Docs", "Summary"].map((step, i) => (
                 <div key={step} style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)" }}>
                   <div style={{
                     width: 22, height: 22, borderRadius: "50%",
-                    background: i === 0 ? "var(--core-color-action-primary-bg)" : "var(--core-color-surface-sunken)",
-                    color: i === 0 ? "#fff" : "var(--core-color-text-secondary)",
+                    background: i === 0 ? "var(--brand-background-primary-strong)" : "var(--neutral-surface-layer-03)",
+                    color: i === 0 ? "#fff" : "var(--neutral-text-subtle)",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     fontSize: "var(--typography-font-size-xs)", fontWeight: 700,
                   }}>{i + 1}</div>
-                  <span style={{ fontSize: "var(--core-font-size-sm)", fontWeight: i === 0 ? 600 : 400, color: i === 0 ? "var(--core-color-action-primary-bg)" : "var(--core-color-text-secondary)" }}>{step}</span>
+                  <span style={{ fontSize: "var(--core-font-size-sm)", fontWeight: i === 0 ? 600 : 400, color: i === 0 ? "var(--brand-background-primary-strong)" : "var(--neutral-text-subtle)" }}>{step}</span>
                 </div>
               ))}
             </div>
           </GridCol>
           <GridCol span={12} spanMd={9}>
             <div style={{
-              background: "var(--core-color-surface-raised)",
+              background: "var(--neutral-surface-layer-02)",
               borderRadius: "var(--core-radius-md)",
               padding: "var(--core-space-6)",
               minHeight: 200,
-              border: "1px solid var(--core-color-border-subtle)",
+              border: "1px solid var(--neutral-border-light)",
             }}>
-              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-tertiary)", marginBottom: "var(--core-space-4)" }}>span 9 · Form content</div>
-              <div style={{ fontSize: "var(--core-font-size-md)", fontWeight: 700, color: "var(--core-color-text-primary)", marginBottom: "var(--core-space-4)" }}>Loan Details</div>
+              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)", marginBottom: "var(--core-space-4)" }}>span 9 · Form content</div>
+              <div style={{ fontSize: "var(--core-font-size-md)", fontWeight: 700, color: "var(--neutral-text-default)", marginBottom: "var(--core-space-4)" }}>Loan Details</div>
               <Grid columns={12} gap="4">
                 <GridCol span={12} spanMd={6}>
-                  <div style={{ fontSize: "var(--core-font-size-sm)", fontWeight: 600, color: "var(--core-color-text-primary)", marginBottom: "var(--core-space-1)" }}>Select Loan type *</div>
-                  <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", color: "var(--core-color-text-tertiary)", fontSize: "var(--core-font-size-sm)" }}>Select</div>
+                  <div style={{ fontSize: "var(--core-font-size-sm)", fontWeight: 600, color: "var(--neutral-text-default)", marginBottom: "var(--core-space-1)" }}>Select Loan type *</div>
+                  <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--neutral-border-light)", background: "var(--neutral-surface-layer-01)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", color: "var(--neutral-text-subtle)", fontSize: "var(--core-font-size-sm)" }}>Select</div>
                 </GridCol>
                 <GridCol span={12} spanMd={6}>
-                  <div style={{ fontSize: "var(--core-font-size-sm)", fontWeight: 600, color: "var(--core-color-text-primary)", marginBottom: "var(--core-space-1)" }}>Reason for loan</div>
-                  <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", color: "var(--core-color-text-tertiary)", fontSize: "var(--core-font-size-sm)" }}>e.g. Educational purpose</div>
+                  <div style={{ fontSize: "var(--core-font-size-sm)", fontWeight: 600, color: "var(--neutral-text-default)", marginBottom: "var(--core-space-1)" }}>Reason for loan</div>
+                  <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--neutral-border-light)", background: "var(--neutral-surface-layer-01)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", color: "var(--neutral-text-subtle)", fontSize: "var(--core-font-size-sm)" }}>e.g. Educational purpose</div>
                 </GridCol>
               </Grid>
             </div>
@@ -515,26 +515,26 @@ export default function LayoutGrid() {
       {/* ── Pattern 6: Form fields — nested 6/6 ─── */}
       </DocsSection>
       <DocsSection anchorId="layout-form-fields" title="Form fields — 6 · 6 (nested)">
-      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
-        <div style={{ background: "var(--core-color-surface-raised)", borderRadius: "var(--core-radius-md)", padding: "var(--core-space-6)", border: "1px solid var(--core-color-border-subtle)" }}>
+      <div className="site-panel" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)" }}>
+        <div style={{ background: "var(--neutral-surface-layer-02)", borderRadius: "var(--core-radius-md)", padding: "var(--core-space-6)", border: "1px solid var(--neutral-border-light)" }}>
           <Grid columns={12} gap="4">
             <GridCol span={12} spanMd={6}>
-              <div style={{ fontSize: "var(--core-font-size-sm)", fontWeight: 600, color: "var(--core-color-text-primary)", marginBottom: "var(--core-space-1)" }}>Loan repayment method *</div>
-              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-tertiary)", marginBottom: "var(--core-space-2)" }}>span 6</div>
+              <div style={{ fontSize: "var(--core-font-size-sm)", fontWeight: 600, color: "var(--neutral-text-default)", marginBottom: "var(--core-space-1)" }}>Loan repayment method *</div>
+              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)", marginBottom: "var(--core-space-2)" }}>span 6</div>
               <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
                 {["Payroll deduction", "Direct payment", "Both"].map((opt, i) => (
-                  <label key={opt} style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-primary)" }}>
-                    <div style={{ width: 16, height: 16, borderRadius: "50%", border: i === 0 ? "5px solid var(--core-color-action-primary-bg)" : "2px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)" }} />
+                  <label key={opt} style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)", fontSize: "var(--core-font-size-sm)", color: "var(--neutral-text-default)" }}>
+                    <div style={{ width: 16, height: 16, borderRadius: "50%", border: i === 0 ? "5px solid var(--brand-background-primary-strong)" : "2px solid var(--neutral-border-light)", background: "var(--neutral-surface-layer-01)" }} />
                     {opt}
                   </label>
                 ))}
               </div>
             </GridCol>
             <GridCol span={12} spanMd={6}>
-              <div style={{ fontSize: "var(--core-font-size-sm)", fontWeight: 600, color: "var(--core-color-text-primary)", marginBottom: "var(--core-space-1)" }}>Loan repayment frequency *</div>
-              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-tertiary)", marginBottom: "var(--core-space-2)" }}>span 6</div>
-              <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--core-color-text-primary)", fontSize: "var(--core-font-size-sm)" }}>
-                Monthly <ChevronIcon size={12} style={{ color: "var(--core-color-text-tertiary)" }} />
+              <div style={{ fontSize: "var(--core-font-size-sm)", fontWeight: 600, color: "var(--neutral-text-default)", marginBottom: "var(--core-space-1)" }}>Loan repayment frequency *</div>
+              <div style={{ fontSize: "var(--core-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)", marginBottom: "var(--core-space-2)" }}>span 6</div>
+              <div style={{ height: 36, borderRadius: "var(--core-radius-sm)", border: "1px solid var(--neutral-border-light)", background: "var(--neutral-surface-layer-01)", padding: "0 var(--core-space-3)", display: "flex", alignItems: "center", justifyContent: "space-between", color: "var(--neutral-text-default)", fontSize: "var(--core-font-size-sm)" }}>
+                Monthly <ChevronIcon size={12} style={{ color: "var(--neutral-text-subtle)" }} />
               </div>
             </GridCol>
           </Grid>

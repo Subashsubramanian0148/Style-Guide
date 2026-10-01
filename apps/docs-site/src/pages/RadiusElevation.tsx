@@ -26,11 +26,11 @@ export default function RadiusElevation() {
         </DocsSection>
 
         <DocsSection anchorId="elevation" title="Elevation">
-          <div className="site-panel site-grid cols-4" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
+          <div className="site-panel site-grid cols-4" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)" }}>
             {Object.entries(elevation).filter(([k]) => k !== "0").map(([step, val]) => (
               <div key={step} style={{ textAlign: "center" }}>
-                <div style={{ height: 70, background: "var(--core-color-bg-canvas)", borderRadius: "var(--core-radius-md)", boxShadow: val, border: "1px solid var(--core-color-border-subtle)" }} />
-                <div style={{ marginTop: 8, fontSize: 12, fontFamily: "var(--site-mono)", color: "var(--core-color-text-secondary)" }}>elevation.{step}</div>
+                <div style={{ height: 70, background: "var(--neutral-surface-layer-01)", borderRadius: "var(--core-radius-md)", boxShadow: val, border: "1px solid var(--neutral-border-light)" }} />
+                <div style={{ marginTop: 8, fontSize: 12, fontFamily: "var(--site-mono)", color: "var(--neutral-text-subtle)" }}>elevation.{step}</div>
               </div>
             ))}
           </div>

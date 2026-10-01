@@ -19,7 +19,7 @@ export interface AnatomyRect {
 
 export function Anatomy({ children, points = [], rects = [], height = 120 }: { children?: React.ReactNode; points?: AnatomyPoint[]; rects?: AnatomyRect[]; height?: number }) {
   return (
-    <div style={{ position: "relative", minHeight: height, background: "var(--core-color-surface-default)", border: "1px solid var(--core-color-border-subtle)", borderRadius: "var(--core-radius-md)", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", margin: "16px 0" }}>
+    <div style={{ position: "relative", minHeight: height, background: "var(--neutral-surface-layer-01)", border: "1px solid var(--neutral-border-light)", borderRadius: "var(--core-radius-md)", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", margin: "16px 0" }}>
       <div style={{ position: "relative", display: "inline-block" }}>
         {children}
         {rects.map((r, i) => (
@@ -39,7 +39,7 @@ export function Anatomy({ children, points = [], rects = [], height = 120 }: { c
           <React.Fragment key={i}>
             {p.leaderTo && (
               <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", overflow: "visible", pointerEvents: "none", zIndex: 10 }}>
-                <line x1={p.x} y1={p.y} x2={p.leaderTo.x} y2={p.leaderTo.y} stroke="var(--core-color-status-success-text)" strokeWidth="1" opacity="0.6" />
+                <line x1={p.x} y1={p.y} x2={p.leaderTo.x} y2={p.leaderTo.y} stroke="var(--semantics-success-text)" strokeWidth="1" opacity="0.6" />
               </svg>
             )}
             <div style={{
@@ -47,7 +47,7 @@ export function Anatomy({ children, points = [], rects = [], height = 120 }: { c
               left: p.x,
               top: p.y,
               transform: "translate(-50%, -50%)",
-              background: "var(--core-color-status-success-text)",
+              background: "var(--semantics-success-text)",
               color: "white",
               fontSize: 12,
               fontWeight: "bold",
@@ -73,7 +73,7 @@ export function AnatomyLegend({ points = [] }: { points?: AnatomyPoint[] }) {
       {points.map((p, i) => (
         <li key={i} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: 14 }}>
           <span style={{
-            background: "var(--core-color-status-success-text)",
+            background: "var(--semantics-success-text)",
             color: "white",
             fontSize: 12,
             fontWeight: "bold",
@@ -81,7 +81,7 @@ export function AnatomyLegend({ points = [] }: { points?: AnatomyPoint[] }) {
             padding: "var(--core-space-1) var(--core-space-1)",
             lineHeight: 1
           }}>{p.n}</span>
-          <span style={{ color: "var(--core-color-text-secondary)" }}>{p.label}</span>
+          <span style={{ color: "var(--neutral-text-subtle)" }}>{p.label}</span>
         </li>
       ))}
     </ul>

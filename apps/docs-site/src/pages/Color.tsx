@@ -328,7 +328,7 @@ function FullColorScalesSection() {
   const surface = MODE_SURFACE[mode];
 
   return (
-    <div style={{ background: "var(--core-color-surface-default)", borderRadius: 14, padding: "32px", border: "1px solid var(--site-border)" }}>
+    <div style={{ background: "var(--neutral-surface-layer-01)", borderRadius: 14, padding: "32px", border: "1px solid var(--site-border)" }}>
       <div
         style={{
           display: "flex",
@@ -348,7 +348,7 @@ function FullColorScalesSection() {
         <ContrastBasisNote contrastBackground={contrastBackground} surfaceLabel={`the ${mode} surface ${surface.hex}`} />
         <WcagLegend />
       </div>
-      <div style={{ display: "flex", paddingBottom: 16, borderBottom: "1px solid var(--site-border)", fontSize: "var(--typography-font-size-xs)", fontWeight: 600, color: "var(--core-color-text-secondary)" }}>
+      <div style={{ display: "flex", paddingBottom: 16, borderBottom: "1px solid var(--site-border)", fontSize: "var(--typography-font-size-xs)", fontWeight: 600, color: "var(--neutral-text-subtle)" }}>
         <div style={{ width: "25%", minWidth: 150 }}>Name</div>
         <div style={{ width: "75%" }}>Swatches</div>
       </div>
@@ -394,7 +394,7 @@ function RampRow({
           fontSize: "var(--typography-font-size-xs)",
           fontWeight: 700,
           textTransform: "uppercase",
-          color: "var(--core-color-text-primary)",
+          color: "var(--neutral-text-default)",
           paddingTop: 8,
           letterSpacing: "0.04em",
           lineHeight: 1.4,
@@ -473,7 +473,7 @@ function RampRow({
                     fontSize: 10,
                     fontFamily: "var(--site-mono)",
                     fontWeight: 600,
-                    color: "var(--core-color-text-secondary)",
+                    color: "var(--neutral-text-subtle)",
                     cursor: "pointer",
                     lineHeight: 1.2,
                     wordBreak: "break-all",
@@ -492,7 +492,7 @@ function RampRow({
                     padding: "var(--core-space-1) 0 0",
                     fontSize: 11,
                     fontWeight: 700,
-                    color: "var(--core-color-text-primary)",
+                    color: "var(--neutral-text-default)",
                     cursor: "pointer",
                     lineHeight: 1.2,
                   }}
@@ -517,7 +517,7 @@ export interface FigmaTokenItem {
   group: string; // e.g. "Brand / Text"
   subgroup: string; // e.g. "Text", "Background", "Borders", "Critical", etc.
   path: string; // e.g. "Brand / Text / primary-default"
-  cssVar: string; // e.g. "--theme-brand-text-primary-default"
+  cssVar: string; // e.g. "--brand-text-primary-default"
   aliasCssVar?: string; // e.g. "--brand-text-primary-default"
   coreRef: string; // e.g. "--core-color-action-primary-bg"
   category: "primary" | "secondary" | "tertiary" | "neutral" | "disabled" | "critical" | "warning" | "success" | "info" | "brand" | "semantics";
@@ -548,7 +548,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Text",
     subgroup: "Text",
     path: "Primary / Text / primary-oncolor",
-    cssVar: "--theme-brand-text-primary-oncolor",
+    cssVar: "--brand-text-primary-oncolor",
     aliasCssVar: "--brand-text-primary-oncolor",
     coreRef: "--core-color-action-primary-text",
     category: "primary",
@@ -565,7 +565,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Text",
     subgroup: "Text",
     path: "Primary / Text / primary-disabled",
-    cssVar: "--theme-brand-text-primary-disabled",
+    cssVar: "--brand-text-primary-disabled",
     aliasCssVar: "--brand-text-primary-disabled",
     coreRef: "--core-color-brand-300",
     category: "primary",
@@ -582,7 +582,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Text",
     subgroup: "Text",
     path: "Primary / Text / primary-default",
-    cssVar: "--theme-brand-text-primary-default",
+    cssVar: "--brand-text-primary-default",
     aliasCssVar: "--brand-text-primary-default",
     coreRef: "--core-color-action-primary-bg",
     category: "primary",
@@ -599,7 +599,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Text",
     subgroup: "Text",
     path: "Primary / Text / primaryhover",
-    cssVar: "--theme-brand-text-primary-hover",
+    cssVar: "--brand-text-primary-hover",
     aliasCssVar: "--brand-text-primary-hover",
     coreRef: "--core-color-action-primary-bgHover",
     category: "primary",
@@ -616,7 +616,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Text",
     subgroup: "Text",
     path: "Primary / Text / primary-active",
-    cssVar: "--theme-brand-text-primary-active",
+    cssVar: "--brand-text-primary-active",
     aliasCssVar: "--brand-text-primary-active",
     coreRef: "--core-color-action-primary-bgActive",
     category: "primary",
@@ -635,7 +635,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Background",
     subgroup: "Background",
     path: "Primary / Background / primary-light",
-    cssVar: "--theme-brand-background-primary-light",
+    cssVar: "--brand-background-primary-light",
     aliasCssVar: "--brand-background-primary-light",
     coreRef: "--core-color-action-primary-tintBg",
     category: "primary",
@@ -652,7 +652,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Background",
     subgroup: "Background",
     path: "Primary / Background / primary-subtle",
-    cssVar: "--theme-brand-background-primary-subtle",
+    cssVar: "--brand-background-primary-subtle",
     aliasCssVar: "--brand-background-primary-subtle",
     coreRef: "--core-color-brand-100",
     category: "primary",
@@ -669,7 +669,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Background",
     subgroup: "Background",
     path: "Primary / Background / disabled-light",
-    cssVar: "--theme-brand-background-primary-disabled-light",
+    cssVar: "--brand-background-primary-disabled-light",
     aliasCssVar: "--brand-background-primary-disabled-light",
     coreRef: "--core-color-neutral-100",
     category: "primary",
@@ -686,7 +686,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Background",
     subgroup: "Background",
     path: "Primary / Background / disabled-strong",
-    cssVar: "--theme-brand-background-primary-disabled",
+    cssVar: "--brand-background-primary-disabled",
     aliasCssVar: "--brand-background-primary-disabled",
     coreRef: "--core-color-brand-200",
     category: "primary",
@@ -703,7 +703,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Background",
     subgroup: "Background",
     path: "Primary / Background / strong",
-    cssVar: "--theme-brand-background-primary-strong",
+    cssVar: "--brand-background-primary-strong",
     aliasCssVar: "--brand-background-primary-strong",
     coreRef: "--core-color-action-primary-bg",
     category: "primary",
@@ -720,7 +720,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Background",
     subgroup: "Background",
     path: "Primary / Background / hover",
-    cssVar: "--theme-brand-background-primary-hover",
+    cssVar: "--brand-background-primary-hover",
     aliasCssVar: "--brand-background-primary-hover",
     coreRef: "--core-color-action-primary-bgHover",
     category: "primary",
@@ -737,7 +737,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Background",
     subgroup: "Background",
     path: "Primary / Background / active",
-    cssVar: "--theme-brand-background-primary-active",
+    cssVar: "--brand-background-primary-active",
     aliasCssVar: "--brand-background-primary-active",
     coreRef: "--core-color-action-primary-bgActive",
     category: "primary",
@@ -756,7 +756,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Borders",
     subgroup: "Borders",
     path: "Primary / Borders / primary-disabled",
-    cssVar: "--theme-brand-border-primary-disabled",
+    cssVar: "--brand-border-primary-disabled",
     aliasCssVar: "--brand-border-primary-disabled",
     coreRef: "--core-color-brand-200",
     category: "primary",
@@ -773,7 +773,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Borders",
     subgroup: "Borders",
     path: "Primary / Borders / primary-default",
-    cssVar: "--theme-brand-border-primary-default",
+    cssVar: "--brand-border-primary-default",
     aliasCssVar: "--brand-border-primary-default",
     coreRef: "--core-color-brand-500",
     category: "primary",
@@ -790,7 +790,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Primary / Borders",
     subgroup: "Borders",
     path: "Primary / Borders / hover",
-    cssVar: "--theme-brand-border-primary-hover",
+    cssVar: "--brand-border-primary-hover",
     aliasCssVar: "--brand-border-primary-hover",
     coreRef: "--core-color-brand-600",
     category: "primary",
@@ -810,7 +810,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Text",
     subgroup: "Text",
     path: "Secondary / Text / secondary-oncolor",
-    cssVar: "--theme-secondary-text-primary-oncolor",
+    cssVar: "--secondary-text-primary-oncolor",
     coreRef: "--core-color-neutral-0",
     category: "secondary",
     type: "text",
@@ -826,7 +826,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Text",
     subgroup: "Text",
     path: "Secondary / Text / secondary-disabled",
-    cssVar: "--theme-secondary-text-primary-disabled",
+    cssVar: "--secondary-text-primary-disabled",
     coreRef: "--core-color-secondary-300",
     category: "secondary",
     type: "text",
@@ -842,7 +842,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Text",
     subgroup: "Text",
     path: "Secondary / Text / secondary-default",
-    cssVar: "--theme-secondary-text-primary-default",
+    cssVar: "--secondary-text-primary-default",
     coreRef: "--core-color-secondary-500",
     category: "secondary",
     type: "text",
@@ -858,7 +858,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Text",
     subgroup: "Text",
     path: "Secondary / Text / secondaryhover",
-    cssVar: "--theme-secondary-text-primary-hover",
+    cssVar: "--secondary-text-primary-hover",
     coreRef: "--core-color-secondary-600",
     category: "secondary",
     type: "text",
@@ -874,7 +874,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Text",
     subgroup: "Text",
     path: "Secondary / Text / secondary-active",
-    cssVar: "--theme-secondary-text-primary-active",
+    cssVar: "--secondary-text-primary-active",
     coreRef: "--core-color-secondary-700",
     category: "secondary",
     type: "text",
@@ -892,7 +892,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Background",
     subgroup: "Background",
     path: "Secondary / Background / secondary-light",
-    cssVar: "--theme-secondary-background-primary-light",
+    cssVar: "--secondary-background-primary-light",
     coreRef: "--core-color-secondary-50",
     category: "secondary",
     type: "background",
@@ -908,7 +908,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Background",
     subgroup: "Background",
     path: "Secondary / Background / secondary-subtle",
-    cssVar: "--theme-secondary-background-primary-subtle",
+    cssVar: "--secondary-background-primary-subtle",
     coreRef: "--core-color-secondary-100",
     category: "secondary",
     type: "background",
@@ -924,7 +924,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Background",
     subgroup: "Background",
     path: "Secondary / Background / disabled-light",
-    cssVar: "--theme-secondary-background-primary-disabled-light",
+    cssVar: "--secondary-background-primary-disabled-light",
     coreRef: "--core-color-neutral-100",
     category: "secondary",
     type: "background",
@@ -940,7 +940,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Background",
     subgroup: "Background",
     path: "Secondary / Background / disabled-strong",
-    cssVar: "--theme-secondary-background-primary-disabled",
+    cssVar: "--secondary-background-primary-disabled",
     coreRef: "--core-color-secondary-200",
     category: "secondary",
     type: "background",
@@ -956,7 +956,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Background",
     subgroup: "Background",
     path: "Secondary / Background / strong",
-    cssVar: "--theme-secondary-background-primary-strong",
+    cssVar: "--secondary-background-primary-strong",
     coreRef: "--core-color-secondary-500",
     category: "secondary",
     type: "background",
@@ -972,7 +972,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Background",
     subgroup: "Background",
     path: "Secondary / Background / hover",
-    cssVar: "--theme-secondary-background-primary-hover",
+    cssVar: "--secondary-background-primary-hover",
     coreRef: "--core-color-secondary-600",
     category: "secondary",
     type: "background",
@@ -988,7 +988,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Background",
     subgroup: "Background",
     path: "Secondary / Background / active",
-    cssVar: "--theme-secondary-background-primary-active",
+    cssVar: "--secondary-background-primary-active",
     coreRef: "--core-color-secondary-700",
     category: "secondary",
     type: "background",
@@ -1006,7 +1006,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Borders",
     subgroup: "Borders",
     path: "Secondary / Borders / secondary-disabled",
-    cssVar: "--theme-secondary-border-primary-disabled",
+    cssVar: "--secondary-border-primary-disabled",
     coreRef: "--core-color-secondary-200",
     category: "secondary",
     type: "border",
@@ -1022,7 +1022,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Borders",
     subgroup: "Borders",
     path: "Secondary / Borders / secondary-default",
-    cssVar: "--theme-secondary-border-primary-default",
+    cssVar: "--secondary-border-primary-default",
     coreRef: "--core-color-secondary-500",
     category: "secondary",
     type: "border",
@@ -1038,7 +1038,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Secondary / Borders",
     subgroup: "Borders",
     path: "Secondary / Borders / hover",
-    cssVar: "--theme-secondary-border-primary-hover",
+    cssVar: "--secondary-border-primary-hover",
     coreRef: "--core-color-secondary-600",
     category: "secondary",
     type: "border",
@@ -1057,7 +1057,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Text",
     subgroup: "Text",
     path: "Tertiary / Text / tertiary-oncolor",
-    cssVar: "--theme-tertiary-text-primary-oncolor",
+    cssVar: "--tertiary-text-primary-oncolor",
     coreRef: "--core-color-neutral-0",
     category: "tertiary",
     type: "text",
@@ -1073,7 +1073,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Text",
     subgroup: "Text",
     path: "Tertiary / Text / tertiary-disabled",
-    cssVar: "--theme-tertiary-text-primary-disabled",
+    cssVar: "--tertiary-text-primary-disabled",
     coreRef: "--core-color-tertiary-300",
     category: "tertiary",
     type: "text",
@@ -1089,7 +1089,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Text",
     subgroup: "Text",
     path: "Tertiary / Text / tertiary-default",
-    cssVar: "--theme-tertiary-text-primary-default",
+    cssVar: "--tertiary-text-primary-default",
     coreRef: "--core-color-tertiary-500",
     category: "tertiary",
     type: "text",
@@ -1105,7 +1105,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Text",
     subgroup: "Text",
     path: "Tertiary / Text / tertiaryhover",
-    cssVar: "--theme-tertiary-text-primary-hover",
+    cssVar: "--tertiary-text-primary-hover",
     coreRef: "--core-color-tertiary-600",
     category: "tertiary",
     type: "text",
@@ -1121,7 +1121,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Text",
     subgroup: "Text",
     path: "Tertiary / Text / tertiary-active",
-    cssVar: "--theme-tertiary-text-primary-active",
+    cssVar: "--tertiary-text-primary-active",
     coreRef: "--core-color-tertiary-700",
     category: "tertiary",
     type: "text",
@@ -1139,7 +1139,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Background",
     subgroup: "Background",
     path: "Tertiary / Background / tertiary-light",
-    cssVar: "--theme-tertiary-background-primary-light",
+    cssVar: "--tertiary-background-primary-light",
     coreRef: "--core-color-tertiary-50",
     category: "tertiary",
     type: "background",
@@ -1155,7 +1155,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Background",
     subgroup: "Background",
     path: "Tertiary / Background / tertiary-subtle",
-    cssVar: "--theme-tertiary-background-primary-subtle",
+    cssVar: "--tertiary-background-primary-subtle",
     coreRef: "--core-color-tertiary-100",
     category: "tertiary",
     type: "background",
@@ -1171,7 +1171,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Background",
     subgroup: "Background",
     path: "Tertiary / Background / disabled-light",
-    cssVar: "--theme-tertiary-background-primary-disabled-light",
+    cssVar: "--tertiary-background-primary-disabled-light",
     coreRef: "--core-color-neutral-100",
     category: "tertiary",
     type: "background",
@@ -1187,7 +1187,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Background",
     subgroup: "Background",
     path: "Tertiary / Background / disabled-strong",
-    cssVar: "--theme-tertiary-background-primary-disabled",
+    cssVar: "--tertiary-background-primary-disabled",
     coreRef: "--core-color-tertiary-200",
     category: "tertiary",
     type: "background",
@@ -1203,7 +1203,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Background",
     subgroup: "Background",
     path: "Tertiary / Background / strong",
-    cssVar: "--theme-tertiary-background-primary-strong",
+    cssVar: "--tertiary-background-primary-strong",
     coreRef: "--core-color-tertiary-500",
     category: "tertiary",
     type: "background",
@@ -1219,7 +1219,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Background",
     subgroup: "Background",
     path: "Tertiary / Background / hover",
-    cssVar: "--theme-tertiary-background-primary-hover",
+    cssVar: "--tertiary-background-primary-hover",
     coreRef: "--core-color-tertiary-600",
     category: "tertiary",
     type: "background",
@@ -1235,7 +1235,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Background",
     subgroup: "Background",
     path: "Tertiary / Background / active",
-    cssVar: "--theme-tertiary-background-primary-active",
+    cssVar: "--tertiary-background-primary-active",
     coreRef: "--core-color-tertiary-700",
     category: "tertiary",
     type: "background",
@@ -1253,7 +1253,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Borders",
     subgroup: "Borders",
     path: "Tertiary / Borders / tertiary-disabled",
-    cssVar: "--theme-tertiary-border-primary-disabled",
+    cssVar: "--tertiary-border-primary-disabled",
     coreRef: "--core-color-tertiary-200",
     category: "tertiary",
     type: "border",
@@ -1269,7 +1269,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Borders",
     subgroup: "Borders",
     path: "Tertiary / Borders / tertiary-default",
-    cssVar: "--theme-tertiary-border-primary-default",
+    cssVar: "--tertiary-border-primary-default",
     coreRef: "--core-color-tertiary-500",
     category: "tertiary",
     type: "border",
@@ -1285,7 +1285,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Tertiary / Borders",
     subgroup: "Borders",
     path: "Tertiary / Borders / hover",
-    cssVar: "--theme-tertiary-border-primary-hover",
+    cssVar: "--tertiary-border-primary-hover",
     coreRef: "--core-color-tertiary-600",
     category: "tertiary",
     type: "border",
@@ -1304,7 +1304,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Neutral / Text",
     subgroup: "Text",
     path: "Neutral / Text / text-on-color",
-    cssVar: "--theme-neutral-text-on-color",
+    cssVar: "--neutral-text-on-color",
     aliasCssVar: "--neutral-text-on-color",
     coreRef: "--core-color-text-inverse",
     category: "neutral",
@@ -1321,7 +1321,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Neutral / Text",
     subgroup: "Text",
     path: "Neutral / Text / subtleleast",
-    cssVar: "--theme-neutral-text-subtleleast",
+    cssVar: "--neutral-text-subtle-light",
     aliasCssVar: "--neutral-text-subtle-light",
     coreRef: "--core-color-text-tertiary",
     category: "neutral",
@@ -1338,7 +1338,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Neutral / Text",
     subgroup: "Text",
     path: "Neutral / Text / subtle",
-    cssVar: "--theme-neutral-text-subtle",
+    cssVar: "--neutral-text-subtle",
     aliasCssVar: "--neutral-text-subtle",
     coreRef: "--core-color-text-secondary",
     category: "neutral",
@@ -1355,7 +1355,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Neutral / Text",
     subgroup: "Text",
     path: "Neutral / Text / text",
-    cssVar: "--theme-neutral-text-primary-default",
+    cssVar: "--neutral-text-default",
     aliasCssVar: "--neutral-text-default",
     coreRef: "--core-color-text-primary",
     category: "neutral",
@@ -1374,7 +1374,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Neutral / Border",
     subgroup: "Border",
     path: "Neutral / Border / inverse",
-    cssVar: "--theme-neutral-border-inverse",
+    cssVar: "--neutral-border-inverse",
     aliasCssVar: "--neutral-border-inverse",
     coreRef: "--core-color-neutral-0",
     category: "neutral",
@@ -1391,7 +1391,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Neutral / Border",
     subgroup: "Border",
     path: "Neutral / Border / border-subtle",
-    cssVar: "--theme-neutral-border-subtle",
+    cssVar: "--neutral-border-subtle",
     aliasCssVar: "--neutral-border-subtle",
     coreRef: "--core-color-border-subtle",
     category: "neutral",
@@ -1408,7 +1408,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Neutral / Border",
     subgroup: "Border",
     path: "Neutral / Border / border-light",
-    cssVar: "--theme-neutral-border-primary-default",
+    cssVar: "--neutral-border-light",
     aliasCssVar: "--neutral-border-light",
     coreRef: "--core-color-border-default",
     category: "neutral",
@@ -1425,7 +1425,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Neutral / Border",
     subgroup: "Border",
     path: "Neutral / Border / border-strong",
-    cssVar: "--theme-neutral-border-strong",
+    cssVar: "--neutral-border-strong",
     aliasCssVar: "--neutral-border-strong",
     coreRef: "--core-color-border-strong",
     category: "neutral",
@@ -1436,6 +1436,74 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     paletteNameDark: "Neutral 600",
   },
 
+  {
+    id: "neutral-background",
+    name: "background",
+    displayName: "Background",
+    group: "Neutral / Background",
+    subgroup: "Background",
+    path: "Neutral / Background / background",
+    cssVar: "--neutral-background",
+    aliasCssVar: "--neutral-background",
+    coreRef: "--core-color-bg-page",
+    category: "neutral",
+    type: "background",
+    lightHex: "#F7F7F9",
+    darkHex: "#111017",
+    paletteNameLight: "Neutral 50",
+    paletteNameDark: "Neutral 950",
+  },
+  {
+    id: "neutral-surface-layer-01",
+    name: "surface-layer-01",
+    displayName: "Surface Layer 01",
+    group: "Neutral / Background",
+    subgroup: "Background",
+    path: "Neutral / Background / surface-layer-01",
+    cssVar: "--neutral-surface-layer-01",
+    aliasCssVar: "--neutral-surface-layer-01",
+    coreRef: "--core-color-surface-default",
+    category: "neutral",
+    type: "background",
+    lightHex: "#FFFFFF",
+    darkHex: "#1D1C24",
+    paletteNameLight: "Neutral 0",
+    paletteNameDark: "Neutral 900",
+  },
+  {
+    id: "neutral-surface-layer-02",
+    name: "surface-layer-02",
+    displayName: "Surface Layer 02",
+    group: "Neutral / Background",
+    subgroup: "Background",
+    path: "Neutral / Background / surface-layer-02",
+    cssVar: "--neutral-surface-layer-02",
+    aliasCssVar: "--neutral-surface-layer-02",
+    coreRef: "--core-color-surface-raised",
+    category: "neutral",
+    type: "background",
+    lightHex: "#FFFFFF",
+    darkHex: "#2E2D38",
+    paletteNameLight: "Neutral 0",
+    paletteNameDark: "Neutral 800",
+  },
+  {
+    id: "neutral-surface-layer-03",
+    name: "surface-layer-03",
+    displayName: "Surface Layer 03",
+    group: "Neutral / Background",
+    subgroup: "Background",
+    path: "Neutral / Background / surface-layer-03",
+    cssVar: "--neutral-surface-layer-03",
+    aliasCssVar: "--neutral-surface-layer-03",
+    coreRef: "--core-color-surface-sunken",
+    category: "neutral",
+    type: "background",
+    lightHex: "#EEEEF2",
+    darkHex: "#111017",
+    paletteNameLight: "Neutral 100",
+    paletteNameDark: "Neutral 950",
+  },
   // ── 5. DISABLED COLORS ──
   {
     id: "disabled-background",
@@ -1444,7 +1512,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Disabled",
     subgroup: "Disabled",
     path: "Disabled / background",
-    cssVar: "--theme-semantics-disabled-background",
+    cssVar: "--semantics-disabled-background",
     aliasCssVar: "--semantics-disabled-background",
     coreRef: "--core-color-control-disabled-bg",
     category: "disabled",
@@ -1461,7 +1529,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Disabled",
     subgroup: "Disabled",
     path: "Disabled / border",
-    cssVar: "--theme-semantics-disabled-border",
+    cssVar: "--semantics-disabled-border",
     aliasCssVar: "--semantics-disabled-border",
     coreRef: "--core-color-control-disabled-border",
     category: "disabled",
@@ -1478,7 +1546,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Disabled",
     subgroup: "Disabled",
     path: "Disabled / text",
-    cssVar: "--theme-semantics-disabled-text",
+    cssVar: "--semantics-disabled-text",
     aliasCssVar: "--semantics-disabled-text",
     coreRef: "--core-color-control-disabled-text",
     category: "disabled",
@@ -1497,7 +1565,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Critical",
     subgroup: "Critical",
     path: "Critical / light-background",
-    cssVar: "--theme-semantics-critical-light-background",
+    cssVar: "--semantics-critical-background-light",
     aliasCssVar: "--semantics-critical-background-light",
     coreRef: "--core-color-status-danger-bg",
     category: "critical",
@@ -1514,7 +1582,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Critical",
     subgroup: "Critical",
     path: "Critical / border",
-    cssVar: "--theme-semantics-critical-border",
+    cssVar: "--semantics-critical-border",
     aliasCssVar: "--semantics-critical-border",
     coreRef: "--core-color-status-danger-border",
     category: "critical",
@@ -1531,7 +1599,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Critical",
     subgroup: "Critical",
     path: "Critical / strong-background",
-    cssVar: "--theme-semantics-critical-strong-background",
+    cssVar: "--semantics-critical-background-strong",
     aliasCssVar: "--semantics-critical-background-strong",
     coreRef: "--core-color-danger-600",
     category: "critical",
@@ -1548,7 +1616,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Critical",
     subgroup: "Critical",
     path: "Critical / text",
-    cssVar: "--theme-semantics-critical-text",
+    cssVar: "--semantics-critical-text",
     aliasCssVar: "--semantics-critical-text",
     coreRef: "--core-color-status-danger-text",
     category: "critical",
@@ -1567,7 +1635,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Warning",
     subgroup: "Warning",
     path: "Warning / light-background",
-    cssVar: "--theme-semantics-warning-light-background",
+    cssVar: "--semantics-warning-background-light",
     aliasCssVar: "--semantics-warning-background-light",
     coreRef: "--core-color-status-warning-bg",
     category: "warning",
@@ -1584,7 +1652,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Warning",
     subgroup: "Warning",
     path: "Warning / border",
-    cssVar: "--theme-semantics-warning-border",
+    cssVar: "--semantics-warning-border",
     aliasCssVar: "--semantics-warning-border",
     coreRef: "--core-color-status-warning-border",
     category: "warning",
@@ -1601,7 +1669,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Warning",
     subgroup: "Warning",
     path: "Warning / strong-background",
-    cssVar: "--theme-semantics-warning-strong-background",
+    cssVar: "--semantics-warning-background-strong",
     aliasCssVar: "--semantics-warning-background-strong",
     coreRef: "--core-color-warning-600",
     category: "warning",
@@ -1618,7 +1686,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Warning",
     subgroup: "Warning",
     path: "Warning / text",
-    cssVar: "--theme-semantics-warning-text",
+    cssVar: "--semantics-warning-text",
     aliasCssVar: "--semantics-warning-text",
     coreRef: "--core-color-status-warning-text",
     category: "warning",
@@ -1637,7 +1705,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Success",
     subgroup: "Success",
     path: "Success / light-background",
-    cssVar: "--theme-semantics-success-light-background",
+    cssVar: "--semantics-success-background-light",
     aliasCssVar: "--semantics-success-background-light",
     coreRef: "--core-color-status-success-bg",
     category: "success",
@@ -1654,7 +1722,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Success",
     subgroup: "Success",
     path: "Success / border",
-    cssVar: "--theme-semantics-success-border",
+    cssVar: "--semantics-success-border",
     aliasCssVar: "--semantics-success-border",
     coreRef: "--core-color-status-success-border",
     category: "success",
@@ -1671,7 +1739,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Success",
     subgroup: "Success",
     path: "Success / strong-background",
-    cssVar: "--theme-semantics-success-strong-background",
+    cssVar: "--semantics-success-background-strong",
     aliasCssVar: "--semantics-success-background-strong",
     coreRef: "--core-color-success-600",
     category: "success",
@@ -1688,7 +1756,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Success",
     subgroup: "Success",
     path: "Success / text",
-    cssVar: "--theme-semantics-success-text",
+    cssVar: "--semantics-success-text",
     aliasCssVar: "--semantics-success-text",
     coreRef: "--core-color-status-success-text",
     category: "success",
@@ -1707,7 +1775,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Info",
     subgroup: "Info",
     path: "Info / light-background",
-    cssVar: "--theme-semantics-highlight-light-background",
+    cssVar: "--semantics-highlight-background-light",
     aliasCssVar: "--semantics-highlight-background-light",
     coreRef: "--core-color-status-info-bg",
     category: "info",
@@ -1724,7 +1792,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Info",
     subgroup: "Info",
     path: "Info / border",
-    cssVar: "--theme-semantics-highlight-border",
+    cssVar: "--semantics-highlight-border",
     aliasCssVar: "--semantics-highlight-border",
     coreRef: "--core-color-status-info-border",
     category: "info",
@@ -1741,7 +1809,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Info",
     subgroup: "Info",
     path: "Info / strong-background",
-    cssVar: "--theme-semantics-highlight-strong-background",
+    cssVar: "--semantics-highlight-background-strong",
     aliasCssVar: "--semantics-highlight-background-strong",
     coreRef: "--core-color-info-600",
     category: "info",
@@ -1758,7 +1826,7 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     group: "Info",
     subgroup: "Info",
     path: "Info / text",
-    cssVar: "--theme-semantics-highlight-text",
+    cssVar: "--semantics-highlight-text",
     aliasCssVar: "--semantics-highlight-text",
     coreRef: "--core-color-status-info-text",
     category: "info",
@@ -1810,6 +1878,97 @@ function resolveLiveToken(token: FigmaTokenItem, mode: "light" | "dark"): { hex:
   return result;
 }
 
+/** Resolves any design-system variable to its hex in a given mode. */
+function resolveVarHex(cssVar: string, mode: "light" | "dark"): string | null {
+  const key = `var|${cssVar}|${mode}`;
+  if (liveTokenCache.has(key)) return liveTokenCache.get(key)?.hex ?? null;
+  let result: { hex: string; name: string } | null = null;
+  if (typeof document !== "undefined") {
+    const probe = document.createElement("span");
+    probe.setAttribute("data-theme", "core");
+    probe.setAttribute("data-mode", mode);
+    probe.style.cssText = "position:absolute;visibility:hidden;pointer-events:none";
+    probe.style.color = `var(${cssVar})`;
+    document.body.appendChild(probe);
+    const rgb = getComputedStyle(probe).color;
+    probe.remove();
+    if (/^rgb/.test(rgb)) {
+      const hex = rgbStringToHex(rgb);
+      result = { hex, name: PALETTE_NAMES[hex] ?? hex };
+    }
+  }
+  liveTokenCache.set(key, result);
+  return result?.hex ?? null;
+}
+
+interface ContrastPairing {
+  /** Foreground and background the ratio is measured between. */
+  fg: string;
+  bg: string;
+  /** Required ratio; undefined = AAA/AA grading. */
+  minimum?: number;
+  exempt: boolean;
+  hint: string;
+}
+
+const nameOf = (hex: string) => PALETTE_NAMES[hex.toUpperCase()] ?? hex.toUpperCase();
+
+/** What each token is actually judged against. A fill is rated by the text
+ *  that sits on it, on-color text by the fill it sits on, borders by the 3:1
+ *  UI minimum, and disabled / decorative colors are shown but exempt. */
+function contrastPairing(name: string, hex: string, mode: "light" | "dark"): ContrastPairing {
+  const surface = MODE_SURFACE[mode];
+  const role = name.match(/^(brand|secondary|tertiary)-/)?.[1];
+  const sem = name.match(/^semantics-(critical|warning|success|highlight)-/)?.[1];
+  const v = (n: string) => resolveVarHex(`--${n}`, mode) ?? surface.hex;
+  const onSurface = (label = "Text"): ContrastPairing => ({ fg: hex, bg: surface.hex, exempt: false, hint: `${label} on ${surface.label}` });
+
+  if (/disabled/.test(name)) {
+    return { fg: hex, bg: surface.hex, exempt: true, hint: "Disabled — no WCAG minimum" };
+  }
+  if (role) {
+    if (/-text-primary-oncolor$/.test(name)) {
+      const bg = v(`${role}-background-primary-strong`);
+      return { fg: hex, bg, exempt: false, hint: `On ${nameOf(bg)} fill` };
+    }
+    if (/-text-/.test(name)) return onSurface();
+    if (/-background-primary-(strong|hover|active)$/.test(name)) {
+      const fg = v(`${role}-text-primary-oncolor`);
+      return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+    }
+    if (/-background-/.test(name)) {
+      const fg = v(`${role}-text-primary-default`);
+      return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+    }
+    if (/-border-/.test(name)) return { fg: hex, bg: surface.hex, minimum: 3, exempt: false, hint: `UI boundary on ${surface.label}` };
+  }
+  if (sem) {
+    if (/-background-light$/.test(name)) {
+      const fg = v(`semantics-${sem}-text`);
+      return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+    }
+    if (/-background-strong$/.test(name)) {
+      const fg = v("neutral-text-on-color");
+      return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+    }
+    if (/-border$/.test(name)) return { fg: hex, bg: surface.hex, minimum: 3, exempt: false, hint: `UI boundary on ${surface.label}` };
+    return onSurface();
+  }
+  if (/^neutral-border/.test(name)) {
+    if (/inverse/.test(name)) return { fg: hex, bg: v("brand-background-primary-strong"), exempt: true, hint: "Divider on dark fills — decorative" };
+    return { fg: hex, bg: surface.hex, exempt: true, hint: "Decorative divider — no minimum" };
+  }
+  if (/^neutral-(background|surface-layer-\d+)$/.test(name)) {
+    const fg = v("neutral-text-default");
+    return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+  }
+  if (/^neutral-text-on-color$/.test(name)) {
+    const bg = v("brand-background-primary-strong");
+    return { fg: hex, bg, exempt: false, hint: `On ${nameOf(bg)} fill` };
+  }
+  return onSurface();
+}
+
 /** The real canvas each mode renders on (core-color-surface-default). */
 const MODE_SURFACE: Record<"light" | "dark", { hex: string; label: string }> = {
   light: { hex: "#FFFFFF", label: "Neutral 0" },
@@ -1836,6 +1995,7 @@ function BaseColorPillarSegment({
   // Every token is judged against the canvas of the mode being viewed, so a
   // light mode passes only dark colors and a dark mode passes only light ones.
   const against = MODE_SURFACE[mode];
+  const pairing = contrastPairing(canonicalTokenName(token), currentHex, mode);
   const rgb = hexToRgb(currentHex);
   const lum = luminance(rgb.r, rgb.g, rgb.b);
   // Card labels sit on the token's own color, so pick dark or white by that
@@ -1919,15 +2079,18 @@ function BaseColorPillarSegment({
         }}
       >
         <WcagContrastIndicator
-          hex={currentHex}
+          hex={pairing.fg}
           contrastBackground={contrastBackground}
           showUsageHint
           tokenType={token.type}
           onSwatch
           isLightSwatch={isLight}
           layout="stack"
-          backgroundHex={against.hex}
+          backgroundHex={pairing.bg}
           backgroundLabel={against.label}
+          usageHintOverride={pairing.hint}
+          exempt={pairing.exempt}
+          minimum={pairing.minimum}
         />
       </div>
 
@@ -2039,8 +2202,8 @@ function BaseColorsRedesignedSection() {
     tokens: FIGMA_BASE_TOKENS.filter((t) => t.category === "tertiary" && t.subgroup === subgroup),
   }));
 
-  // 4. Neutral Pillars (Text, Border)
-  const neutralPillars = ["Text", "Border"].map((subgroup) => ({
+  // 4. Neutral Pillars (Text, Border, Background)
+  const neutralPillars = ["Text", "Border", "Background"].map((subgroup) => ({
     subgroup,
     tokens: FIGMA_BASE_TOKENS.filter((t) => t.category === "neutral" && t.subgroup === subgroup),
   }));
@@ -2195,7 +2358,7 @@ function BaseColorsRedesignedSection() {
         {/* Light / Dark Mode Toggle */}
         <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-3)", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, background: "var(--site-bg)", padding: "var(--core-space-1) var(--core-space-2)", borderRadius: 24, border: "1px solid var(--site-border)" }}>
-            <span style={{ fontSize: 12, fontWeight: 600, color: activeMode === "light" ? "var(--site-text)" : "var(--theme-neutral-text-subtle)" }}>Light</span>
+            <span style={{ fontSize: 12, fontWeight: 600, color: activeMode === "light" ? "var(--site-text)" : "var(--neutral-text-subtle)" }}>Light</span>
             <button
               type="button"
               onClick={() => setActiveMode(activeMode === "light" ? "dark" : "light")}
@@ -2203,7 +2366,7 @@ function BaseColorsRedesignedSection() {
                 width: 40,
                 height: 22,
                 borderRadius: 11,
-                background: activeMode === "light" ? "var(--theme-neutral-border-strong)" : "var(--theme-brand-background-primary-strong)",
+                background: activeMode === "light" ? "var(--neutral-border-strong)" : "var(--brand-background-primary-strong)",
                 border: "none",
                 position: "relative",
                 cursor: "pointer",
@@ -2217,7 +2380,7 @@ function BaseColorsRedesignedSection() {
                   width: 18,
                   height: 18,
                   borderRadius: 9,
-                  background: "var(--theme-colors-neutral-0)",
+                  background: "var(--neutral-text-on-color)",
                   position: "absolute",
                   top: 2,
                   left: activeMode === "light" ? 2 : 20,
@@ -2226,7 +2389,7 @@ function BaseColorsRedesignedSection() {
                 }}
               />
             </button>
-            <span style={{ fontSize: 12, fontWeight: 600, color: activeMode === "dark" ? "var(--site-text)" : "var(--theme-neutral-text-subtle)" }}>Dark</span>
+            <span style={{ fontSize: 12, fontWeight: 600, color: activeMode === "dark" ? "var(--site-text)" : "var(--neutral-text-subtle)" }}>Dark</span>
           </div>
           <span style={{ fontSize: "var(--typography-font-size-xs)", color: "var(--site-text-faint)" }}>
             Contrast vs {MODE_SURFACE[activeMode].label} surface {MODE_SURFACE[activeMode].hex}
@@ -2436,7 +2599,7 @@ function BrandPaletteOverviewCard({
               padding: "4px 8px",
               borderRadius: 999,
               background: "rgba(255,255,255,0.94)",
-              color: "var(--core-color-status-success-text, #178451)",
+              color: "var(--semantics-success-text, #178451)",
               fontSize: "var(--typography-font-size-xs)",
               fontWeight: 700,
               boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
@@ -2490,10 +2653,10 @@ function BrandPaletteOverviewCard({
               fontSize: "var(--typography-font-size-xs)",
               fontWeight: 600,
               color: copied
-                ? "var(--theme-semantics-success-text)"
+                ? "var(--semantics-success-text)"
                 : hovered
-                  ? "var(--theme-primitive-color-primary-600)"
-                  : "var(--theme-neutral-text-subtle)",
+                  ? "var(--brand-text-primary-hover)"
+                  : "var(--neutral-text-subtle)",
               transition: "color 0.15s ease",
               whiteSpace: "nowrap",
             }}
@@ -2646,10 +2809,10 @@ ${semanticPaletteScss.trim()}
   return (
     <div style={{ maxWidth: 1024, margin: "0 auto", padding: "20px" }}>
       <div style={{ textAlign: "center", marginBottom: 60, marginTop: 40 }}>
-        <h1 style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.06em", margin: "0 0 16px 0", color: "var(--core-color-text-primary)", lineHeight: 1.1 }}>
+        <h1 style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.06em", margin: "0 0 16px 0", color: "var(--neutral-text-default)", lineHeight: 1.1 }}>
           Colors
         </h1>
-        <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--core-color-text-tertiary)", fontSize: 18, lineHeight: 1.6, fontWeight: 400 }}>
+        <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--neutral-text-subtle)", fontSize: 18, lineHeight: 1.6, fontWeight: 400 }}>
           The complete color system — base colors that define what each hue is for, semantic tokens that resolve in light and dark mode, and the full primitive scales they're built from.
         </p>
         <div style={{ marginTop: 32, display: "flex", justifyContent: "center" }}>
@@ -2661,8 +2824,8 @@ ${semanticPaletteScss.trim()}
               alignItems: "center",
               gap: "var(--core-space-2)",
               padding: "var(--core-space-3) 28px",
-              background: "var(--core-color-action-primary-bg)",
-              color: "var(--core-color-action-primary-text)",
+              background: "var(--brand-background-primary-strong)",
+              color: "var(--brand-text-primary-oncolor)",
               fontWeight: 600,
               borderRadius: 30,
               border: "none",

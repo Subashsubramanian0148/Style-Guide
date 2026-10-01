@@ -264,7 +264,7 @@ export function DataTable<T extends { id: string | number }>({
           </tbody>
         </table>
       </TableScrollWrap>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12, fontFamily: "var(--typography-font-family-sans)", fontSize: "var(--typography-body-xs-size)", lineHeight: "var(--typography-body-xs-line-height)", color: disabled ? "var(--theme-neutral-text-subtleleast)" : "var(--theme-neutral-text-subtle)" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12, fontFamily: "var(--typography-font-family-sans)", fontSize: "var(--typography-body-xs-size)", lineHeight: "var(--typography-body-xs-line-height)", color: disabled ? "var(--neutral-text-subtle-light)" : "var(--neutral-text-subtle)" }}>
         <span>Page {page_} of {pageCount} — {sorted.length} rows</span>
         <div className="cds-pagination">
           <button className="cds-page-btn" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={disabled || page_ <= 1}>‹ Prev</button>
@@ -327,7 +327,7 @@ export function AvatarGroup({
 export function Progress({ value, label, indeterminate = false }: { value?: number; label?: string; indeterminate?: boolean }) {
   return (
     <div>
-      {label && <div style={{ fontSize: "var(--typography-font-size-xs)", lineHeight: "var(--typography-body-xs-line-height)", marginBottom: "var(--core-space-1)", color: "var(--core-color-text-secondary)" }}>{label}</div>}
+      {label && <div style={{ fontSize: "var(--typography-font-size-xs)", lineHeight: "var(--typography-body-xs-line-height)", marginBottom: "var(--core-space-1)", color: "var(--neutral-text-subtle)" }}>{label}</div>}
       <div
         className={`cds-progress ${indeterminate ? "cds-progress--indeterminate" : ""}`}
         role="progressbar"

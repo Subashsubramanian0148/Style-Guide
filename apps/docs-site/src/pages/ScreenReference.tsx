@@ -219,7 +219,7 @@ function PortfolioScreen() {
                   <Tabs variant="pill" defaultId="1Y" items={["1M", "3M", "6M", "YTD", "1Y", "3Y", "5Y", "10Y"].map((p) => ({ id: p, label: p }))} />
                 </div>
                 <div className="sr-chart-wrap">
-                  <LineChartCard title="Asset class performance" data={PERF} xKey="month" height={260} series={[{ key: "total", label: "Total portfolio", color: "var(--neutral-text-default)" }, { key: "equity", label: "U.S. Equity", color: "var(--neutral-text-subtle)" }, { key: "money", label: "Money Market", color: "var(--brand-text-primary-default)" }, { key: "commodities", label: "Commodities", color: "var(--theme-semantics-critical-text)" }]} />
+                  <LineChartCard title="Asset class performance" data={PERF} xKey="month" height={260} series={[{ key: "total", label: "Total portfolio", color: "var(--neutral-text-default)" }, { key: "equity", label: "U.S. Equity", color: "var(--neutral-text-subtle)" }, { key: "money", label: "Money Market", color: "var(--brand-text-primary-default)" }, { key: "commodities", label: "Commodities", color: "var(--semantics-critical-text)" }]} />
                 </div>
                 <div data-spec="Legend" className="sr-legend">
                   {LEGEND.map(([label, on]) => <Checkbox key={label} label={label} defaultChecked={on} size="sm" />)}
@@ -409,11 +409,11 @@ export function ScreenFrame({ id, mode }: { id: string; mode: "light" | "dark" }
   const Screen = SCREEN_COMPONENTS[id];
   useLayoutEffect(() => {
     document.body.style.margin = "0";
-    document.body.style.background = "var(--core-color-bg-page)";
+    document.body.style.background = "var(--neutral-background)";
   }, []);
   if (!Screen) return null;
   return (
-    <div className="sr-portal sr-frame" data-theme="core" data-mode={mode} style={{ minHeight: "100vh", background: "var(--core-color-bg-page)" }}>
+    <div className="sr-portal sr-frame" data-theme="core" data-mode={mode} style={{ minHeight: "100vh", background: "var(--neutral-background)" }}>
       <Screen />
     </div>
   );
@@ -512,7 +512,7 @@ const MOBILE_NOTES: Record<string, string[]> = {
 function DarkCanvas({ children }: { children: React.ReactNode }) {
   const { mode } = usePreviewMode();
   return (
-    <div className="sr-portal" data-theme="core" data-mode={mode} style={{ width: WIDTH, background: "var(--core-color-bg-page)" }}>
+    <div className="sr-portal" data-theme="core" data-mode={mode} style={{ width: WIDTH, background: "var(--neutral-background)" }}>
       {children}
     </div>
   );
@@ -565,7 +565,7 @@ function TypeGuide({ usage }: { usage: Record<string, Record<string, string[]>> 
       <SectionHeading>Text styles — when to use each, and where the screens use it</SectionHeading>
       <SpecTableCard>
         <thead>
-          <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: "var(--core-font-size-xs)", textTransform: "uppercase", letterSpacing: "var(--typography-eyebrow-letter-spacing)", background: "var(--core-color-surface-sunken)" }}>
+          <tr style={{ textAlign: "left", color: "var(--neutral-text-subtle)", fontSize: "var(--core-font-size-xs)", textTransform: "uppercase", letterSpacing: "var(--typography-eyebrow-letter-spacing)", background: "var(--neutral-surface-layer-03)" }}>
             <th style={{ padding: "var(--core-space-2) var(--core-space-4)", width: "calc(var(--core-space-1) * 40)" }}>Style</th>
             <th style={{ padding: "var(--core-space-2) var(--core-space-4)", width: "32%" }}>Use it for</th>
             <th style={{ padding: "var(--core-space-2) var(--core-space-4)" }}>Where the screens use it</th>
@@ -577,13 +577,13 @@ function TypeGuide({ usage }: { usage: Record<string, Record<string, string[]>> 
             const uses = SCREEN_LIST.flatMap((s) => (usage[s.id]?.[k] ?? []).slice(0, 2).map((t) => ({ s, t })));
             const screens = SCREEN_LIST.filter((s) => usage[s.id]?.[k]?.length);
             return (
-              <tr key={k} style={{ borderTop: "var(--core-border-width-default) solid var(--core-color-border-subtle)" }}>
+              <tr key={k} style={{ borderTop: "var(--core-border-width-default) solid var(--neutral-border-light)" }}>
                 <td style={{ ...cell, whiteSpace: "nowrap" }}>
                   <span style={{ display: "inline-block", padding: "0 var(--core-space-2)", borderRadius: "var(--core-radius-xs)", background: TYPE_GROUP_COLOR[typeGroup(k)], color: "var(--brand-text-primary-oncolor)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-bold)" }}>{styleLabel(k)}</span>
-                  <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-tertiary)", marginTop: "var(--core-space-1)" }}>{d ? `${d.size} / ${d.weight}` : ""}</div>
+                  <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--neutral-text-subtle)", marginTop: "var(--core-space-1)" }}>{d ? `${d.size} / ${d.weight}` : ""}</div>
                 </td>
-                <td style={{ ...cell, fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-primary)" }}>{d ? usageFor(k, d).use : ""}</td>
-                <td style={{ ...cell, fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-secondary)" }}>
+                <td style={{ ...cell, fontSize: "var(--core-font-size-sm)", color: "var(--neutral-text-default)" }}>{d ? usageFor(k, d).use : ""}</td>
+                <td style={{ ...cell, fontSize: "var(--core-font-size-xs)", color: "var(--neutral-text-subtle)" }}>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--core-space-1) var(--core-space-3)" }}>
                     {uses.slice(0, 6).map(({ s, t }, i) => (
                       <span key={i}>
@@ -591,7 +591,7 @@ function TypeGuide({ usage }: { usage: Record<string, Record<string, string[]>> 
                       </span>
                     ))}
                   </div>
-                  {screens.length > 0 && <div style={{ marginTop: "var(--core-space-1)", color: "var(--core-color-text-tertiary)" }}>Used on {screens.length} screen{screens.length > 1 ? "s" : ""}</div>}
+                  {screens.length > 0 && <div style={{ marginTop: "var(--core-space-1)", color: "var(--neutral-text-subtle)" }}>Used on {screens.length} screen{screens.length > 1 ? "s" : ""}</div>}
                 </td>
               </tr>
             );

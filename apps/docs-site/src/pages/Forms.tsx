@@ -91,17 +91,17 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
             anatomy={<AttachmentAnatomyFull />}
             demo={
           <Preview showModeToggle>
-            <p style={{ margin: "0 0 16px", fontSize: "var(--typography-body-sm-size)", color: "var(--theme-neutral-text-subtle)" }}>
-              File rows use the shared <strong style={{ color: "var(--theme-neutral-text-primary-default)" }}>Badge</strong> component — first file in each state uses <code>size=&quot;md&quot;</code>, second uses <code>size=&quot;sm&quot;</code>.
+            <p style={{ margin: "0 0 16px", fontSize: "var(--typography-body-sm-size)", color: "var(--neutral-text-subtle)" }}>
+              File rows use the shared <strong style={{ color: "var(--neutral-text-default)" }}>Badge</strong> component — first file in each state uses <code>size=&quot;md&quot;</code>, second uses <code>size=&quot;sm&quot;</code>.
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))", gap: 32, width: "100%" }}>
               {/* Default State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-secondary)" }}>
+                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--neutral-text-subtle)" }}>
                     Default (Interactive)
                   </span>
-                  <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 500, color: "var(--core-color-text-tertiary)" }}>Ready to upload</span>
+                  <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 500, color: "var(--neutral-text-subtle)" }}>Ready to upload</span>
                 </div>
                 <Dropzone
                   onFiles={(fl) =>
@@ -117,15 +117,15 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               {/* Success State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-success-text)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
+                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--semantics-success-text)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
                     <Icon name="fa-solid fa-circle-check" size="sm" /> Success State
                   </span>
                   <Badge tone="success" variant="soft" size="sm">Complete</Badge>
                 </div>
                 <Dropzone
                   status="success"
-                  icon={<Icon name="fa-solid fa-circle-check" size="md" color="var(--core-color-status-success-text)" />}
-                  label={<span>File uploaded successfully, or <strong style={{ color: "var(--core-color-status-success-text)" }}>browse more</strong></span>}
+                  icon={<Icon name="fa-solid fa-circle-check" size="md" color="var(--semantics-success-text)" />}
+                  label={<span>File uploaded successfully, or <strong style={{ color: "var(--semantics-success-text)" }}>browse more</strong></span>}
                   hint="All files passed security and format verification."
                 />
                 <AttachmentList
@@ -140,15 +140,15 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               {/* Error State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-danger-text)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
+                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--semantics-critical-text)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
                     <Icon name="fa-solid fa-circle-exclamation" size="sm" /> Error State
                   </span>
                   <Badge tone="danger" variant="soft" size="sm">Failed</Badge>
                 </div>
                 <Dropzone
                   status="error"
-                  icon={<Icon name="fa-solid fa-circle-exclamation" size="md" color="var(--core-color-status-danger-text)" />}
-                  label={<span>Upload failed, or <strong style={{ color: "var(--core-color-status-danger-text)" }}>choose another file</strong></span>}
+                  icon={<Icon name="fa-solid fa-circle-exclamation" size="md" color="var(--semantics-critical-text)" />}
+                  label={<span>Upload failed, or <strong style={{ color: "var(--semantics-critical-text)" }}>choose another file</strong></span>}
                   hint="File exceeds 10MB limit. Please select a smaller file."
                 />
                 <AttachmentList
@@ -163,15 +163,15 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               {/* Warning State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-status-warning-text)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
+                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--semantics-warning-text)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
                     <Icon name="fa-solid fa-triangle-exclamation" size="sm" /> Warning State
                   </span>
                   <Badge tone="warning" variant="soft" size="sm">Warning</Badge>
                 </div>
                 <Dropzone
                   status="warning"
-                  icon={<Icon name="fa-solid fa-triangle-exclamation" size="md" color="var(--core-color-status-warning-text)" />}
-                  label={<span>Storage capacity warning, or <strong style={{ color: "var(--core-color-status-warning-text)" }}>browse</strong></span>}
+                  icon={<Icon name="fa-solid fa-triangle-exclamation" size="md" color="var(--semantics-warning-text)" />}
+                  label={<span>Storage capacity warning, or <strong style={{ color: "var(--semantics-warning-text)" }}>browse</strong></span>}
                   hint="Only 1 upload remaining before reaching capacity limit (3 files max)."
                 />
                 <AttachmentList
@@ -186,14 +186,14 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               {/* Disable State */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-tertiary)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
+                  <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--neutral-text-subtle)", display: "flex", alignItems: "center", gap: "var(--core-space-1)"}}>
                     <Icon name="fa-solid fa-lock" size="sm" /> Disable State
                   </span>
                   <Badge tone="neutral" variant="soft" size="sm" disabled>Disabled</Badge>
                 </div>
                 <Dropzone
                   disabled={true}
-                  icon={<Icon name="fa-solid fa-lock" size="md" color="var(--theme-neutral-text-subtleleast)" />}
+                  icon={<Icon name="fa-solid fa-lock" size="md" color="var(--neutral-text-subtle-light)" />}
                   label={<span>File uploads are disabled</span>}
                   hint="Attachments are locked and read-only for submitted requests."
                 />
@@ -223,7 +223,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
           <Preview showModeToggle>
             <div style={{ display: "flex", flexDirection: "column", gap: 32, width: "100%" }}>
               <div>
-                <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 16 }}>Checkbox</div>
+                <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 16 }}>Checkbox</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(120px, 1fr))", gap: 32, padding: "8px 0" }}>
                   <div style={{ display: "flex", flexDirection: "column", gap: 20, alignItems: "flex-start", padding: "8px 12px" }}>
                     <StateLabel>DEFAULT</StateLabel>
@@ -249,7 +249,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               </div>
 
               <div>
-                <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 16 }}>Radio</div>
+                <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 16 }}>Radio</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(120px, 1fr))", gap: 32, padding: "8px 0" }}>
                   <div style={{ display: "flex", flexDirection: "column", gap: 20, alignItems: "flex-start", padding: "8px 12px" }}>
                     <StateLabel>DEFAULT</StateLabel>
@@ -293,7 +293,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
             <Preview showModeToggle>
               <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
                 <div>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>DatePicker Popover</div>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>DatePicker Popover</div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
                     <div className="force-default">
                       <Field label="Default">
@@ -333,11 +333,11 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
             <Preview showModeToggle>
               <div style={{ display: "flex", gap: 40, flexWrap: "wrap" }}>
                 <div>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Calendar (Active)</div>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Calendar (Active)</div>
                   <Calendar selected={dob} onSelect={setDob} onClear={() => setDob(undefined)} maxDate={new Date()} />
                 </div>
                 <div>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Calendar (Disabled)</div>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Calendar (Disabled)</div>
                   <Calendar disabled selected={dob} onSelect={() => { }} />
                 </div>
               </div>
@@ -402,7 +402,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
                 {/* Leading icon */}
                 <div>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Leading Icon (Search)</div>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Leading Icon (Search)</div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
                     <div className="force-default">
                       <Field label="Default">
@@ -433,8 +433,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
 
                 {/* Trailing icon */}
-                <div style={{ borderTop: "1px solid var(--theme-neutral-border-primary-default)", paddingTop: 20 }}>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Leading Icon (Currency)</div>
+                <div style={{ borderTop: "1px solid var(--neutral-border-light)", paddingTop: 20 }}>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Leading Icon (Currency)</div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
                     <div className="force-default">
                       <Field label="Default">
@@ -465,8 +465,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
 
                 {/* Incremental selector */}
-                <div style={{ borderTop: "1px solid var(--theme-neutral-border-primary-default)", paddingTop: 20 }}>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Incremental Selector</div>
+                <div style={{ borderTop: "1px solid var(--neutral-border-light)", paddingTop: 20 }}>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Incremental Selector</div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
                     <div className="force-default">
                       <Field label="Default">
@@ -512,7 +512,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
                 {/* Prefix variant row */}
                 <div>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Prefix Addon ($)</div>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Prefix Addon ($)</div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
                     <div className="force-default">
                       <Field label="Default">
@@ -543,8 +543,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
 
                 {/* Suffix variant row */}
-                <div style={{ borderTop: "1px solid var(--theme-neutral-border-primary-default)", paddingTop: 20 }}>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Suffix Addon (%)</div>
+                <div style={{ borderTop: "1px solid var(--neutral-border-light)", paddingTop: 20 }}>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Suffix Addon (%)</div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
                     <div className="force-default">
                       <Field label="Default">
@@ -595,7 +595,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
                 {/* Card Number */}
                 <div>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Card Number</div>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Card Number</div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
                     <div className="force-default">
                       <Field label="Default">
@@ -662,8 +662,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
 
                 {/* Routing & Account Number */}
-                <div style={{ borderTop: "1px solid var(--theme-neutral-border-primary-default)", paddingTop: 20 }}>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Routing Number (9 Digits)</div>
+                <div style={{ borderTop: "1px solid var(--neutral-border-light)", paddingTop: 20 }}>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Routing Number (9 Digits)</div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
                     <div className="force-default">
                       <Field label="Default">
@@ -694,8 +694,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
 
                 {/* Expiration & CVC */}
-                <div style={{ borderTop: "1px solid var(--theme-neutral-border-primary-default)", paddingTop: 20 }}>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Interactive Card Verification Entry</div>
+                <div style={{ borderTop: "1px solid var(--neutral-border-light)", paddingTop: 20 }}>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Interactive Card Verification Entry</div>
                   <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: 16 }}>
                     <Field label="Card number" hint={cardNumberError ? undefined : "Stored securely — last 4 digits only."} error={cardNumberError}>
                       {(p) => (
@@ -757,7 +757,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
           <Preview showModeToggle>
             <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
               <div>
-                <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Single Select</div>
+                <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Single Select</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
                   <div className="force-default">
                     <Field label="Default">{(p) => <Select {...p} options={employers} />}</Field>
@@ -777,8 +777,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                 </div>
               </div>
 
-              <div style={{ borderTop: "1px solid var(--theme-neutral-border-primary-default)", paddingTop: 20 }}>
-                <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>Multi Select</div>
+              <div style={{ borderTop: "1px solid var(--neutral-border-light)", paddingTop: 20 }}>
+                <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Multi Select</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
                   <div className="force-default">
                     <Field label="Default">{(p) => <Select {...p} multiple options={usStates} />}</Field>
@@ -931,7 +931,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
             <Preview showModeToggle>
               <div style={{ display: "flex", flexDirection: "column", gap: 32, maxWidth: 420 }}>
                 {/* Working Form */}
-                <div style={{ padding: 24, border: "1px solid var(--site-border)", borderRadius: 12, background: "var(--core-color-surface-default)" }}>
+                <div style={{ padding: 24, border: "1px solid var(--site-border)", borderRadius: 12, background: "var(--neutral-surface-layer-01)" }}>
                   <h3 style={{ margin: "0 0 24px 0", fontSize: 18, fontWeight: 600 }}>Profile Settings</h3>
                   <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                     <Field label="Display name">
@@ -949,7 +949,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 0", borderTop: "1px solid var(--site-border)", borderBottom: "1px solid var(--site-border)" }}>
                       <div id="two-factor-label">
                         <div style={{ fontWeight: 600, fontSize: 14 }}>Two-factor authentication</div>
-                        <div style={{ fontSize: "var(--typography-font-size-xs)", color: "var(--core-color-text-tertiary)", marginTop: 2 }}>Secure your account.</div>
+                        <div style={{ fontSize: "var(--typography-font-size-xs)", color: "var(--neutral-text-subtle)", marginTop: 2 }}>Secure your account.</div>
                       </div>
                       <Switch checked={on} onChange={setOn} aria-labelledby="two-factor-label" />
                     </div>
@@ -988,23 +988,23 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
         .force-hover .cds-combobox .cds-input,
         .force-hover .cds-input-affix-wrap .cds-input,
         .force-hover .cds-input-group .cds-input {
-          border-color: var(--theme-neutral-border-strong) !important;
-          background: color-mix(in srgb, black 8%, var(--core-color-surface-default)) !important;
+          border-color: var(--neutral-border-strong) !important;
+          background: color-mix(in srgb, black 8%, var(--neutral-surface-layer-01)) !important;
         }
         .force-hover .cds-input-group-addon,
         .force-hover .cds-incremental-selector__btn,
         .force-hover .cds-incremental-selector__value {
-          border-color: var(--theme-neutral-border-strong) !important;
+          border-color: var(--neutral-border-strong) !important;
         }
         .force-hover .cds-incremental-selector__btn {
-          background: var(--core-color-surface-raised) !important;
-          color: var(--theme-neutral-text-primary-default) !important;
+          background: var(--neutral-surface-layer-02) !important;
+          color: var(--neutral-text-default) !important;
         }
         .force-hover .cds-incremental-selector__value {
-          background: var(--core-color-surface-default) !important;
+          background: var(--neutral-surface-layer-01) !important;
         }
         .force-hover .cds-switch input:not(:checked):not(:disabled) + .cds-switch-track {
-          background: var(--theme-colors-neutral-600) !important;
+          background: var(--neutral-border-strong) !important;
         }
         .force-hover .cds-switch input:checked:not(:disabled) + .cds-switch-track {
           background: color-mix(in srgb, var(--brand-background-primary-strong) 88%, white) !important;
@@ -1012,7 +1012,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
         .force-hover .cds-checkbox input:not(:checked):not(:disabled) + .cds-checkbox-box,
         .force-hover .cds-radio input:not(:checked):not(:disabled) + .cds-radio-box {
           border-color: var(--cds-focus-color) !important;
-          background: var(--theme-brand-background-primary-subtle) !important;
+          background: var(--brand-background-primary-subtle) !important;
         }
         .force-hover .cds-checkbox input:checked:not(:disabled) + .cds-checkbox-box,
         .force-hover .cds-radio input:checked:not(:disabled) + .cds-radio-box {
@@ -1025,8 +1025,8 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
         .force-hover .cds-date-picker .cds-input,
         .force-hover .cds-date-picker .cds-input-affix-wrap .cds-input,
         .force-hover .cds-input-affix-wrap .cds-input {
-          border-color: var(--theme-neutral-border-strong) !important;
-          background: color-mix(in srgb, black 8%, var(--core-color-surface-default)) !important;
+          border-color: var(--neutral-border-strong) !important;
+          background: color-mix(in srgb, black 8%, var(--neutral-surface-layer-01)) !important;
         }
         .force-focus .cds-input,
         .force-focus .cds-textarea,
@@ -1039,7 +1039,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
           box-shadow: 0 0 0 3px color-mix(in srgb, var(--cds-focus-color) 25%, transparent) !important;
         }
         .force-focus .cds-input-affix-wrap .cds-input-icon {
-          color: var(--theme-neutral-text-subtle) !important;
+          color: var(--neutral-text-subtle) !important;
         }
         .force-focus .cds-input-group {
           border-radius: var(--core-input-radius) !important;
@@ -1053,27 +1053,27 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
           box-shadow: none !important;
         }
         .force-hover .cds-incremental-selector:not(:has(.cds-incremental-selector__btn:disabled)) {
-          border-color: var(--theme-neutral-border-strong) !important;
+          border-color: var(--neutral-border-strong) !important;
         }
         .force-hover .cds-incremental-selector__btn:not(:disabled) {
           background: color-mix(in srgb, currentColor 16%, transparent) !important;
-          color: var(--theme-neutral-text-primary-default) !important;
+          color: var(--neutral-text-default) !important;
         }
         .force-focus .cds-incremental-selector {
           border-color: var(--cds-focus-color) !important;
           box-shadow: 0 0 0 3px color-mix(in srgb, var(--cds-focus-color) 25%, transparent) !important;
         }
         .force-hover .cds-btn--tertiary:not(:disabled) .cds-btn__text {
-          color: var(--theme-brand-text-primary-hover) !important;
+          color: var(--brand-text-primary-hover) !important;
         }
         .force-hover .cds-btn--tertiary:not(:disabled) {
-          background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 8%, transparent) !important;
+          background: color-mix(in srgb, var(--brand-background-primary-strong) 8%, transparent) !important;
         }
         .force-active .cds-btn--tertiary:not(:disabled) .cds-btn__text {
-          color: var(--theme-brand-text-primary-active) !important;
+          color: var(--brand-text-primary-active) !important;
         }
         .force-active .cds-btn--tertiary:not(:disabled) {
-          background: color-mix(in srgb, var(--theme-brand-background-primary-strong) 16%, transparent) !important;
+          background: color-mix(in srgb, var(--brand-background-primary-strong) 16%, transparent) !important;
           transform: translateY(1px);
         }
         .force-focus .cds-btn--tertiary:not(:disabled) {
@@ -1083,20 +1083,20 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
         .force-focus .cds-checkbox input:not(:checked):not(:disabled) + .cds-checkbox-box,
         .force-focus .cds-radio input:not(:checked):not(:disabled) + .cds-radio-box {
           border-color: var(--cds-focus-color) !important;
-          background: var(--core-color-surface-default) !important;
+          background: var(--neutral-surface-layer-01) !important;
           outline: var(--core-focusRing-width) solid var(--cds-focus-color) !important;
           outline-offset: 2px !important;
         }
         .force-focus .cds-switch-track {
           outline: none !important;
           box-shadow:
-            0 0 0 2px var(--core-color-surface-default),
+            0 0 0 2px var(--neutral-surface-layer-01),
             0 0 0 calc(2px + var(--core-focusRing-width)) var(--cds-focus-color) !important;
         }
         .force-active .cds-textarea, .force-active .cds-select {
           border-color: var(--cds-focus-color) !important;
           box-shadow: 0 0 0 3px color-mix(in srgb, var(--cds-focus-color) 25%, transparent) !important;
-          background: var(--theme-brand-background-primary-subtle) !important;
+          background: var(--brand-background-primary-subtle) !important;
         }
         .force-active .cds-checkbox input:checked:not(:disabled) + .cds-checkbox-box,
         .force-active .cds-radio input:checked:not(:disabled) + .cds-radio-box {
@@ -1104,7 +1104,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
           border-color: var(--brand-background-primary-strong) !important;
         }
         .force-error .cds-input[aria-invalid="true"] {
-          border-color: var(--theme-semantics-critical-border) !important;
+          border-color: var(--semantics-critical-border) !important;
         }
 
         /* Input/Textarea/Select/Input-group are plain neutral surfaces — their
@@ -1113,14 +1113,14 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
            needed; letting the real state show is what keeps "disabled" from
            looking different in every component page. */
         .force-disabled .cds-input-icon, .cds-input-affix-wrap:has(.cds-input:disabled) .cds-input-icon {
-          color: var(--theme-semantics-disabled-text) !important;
+          color: var(--semantics-disabled-text) !important;
         }
         .force-disabled .cds-slider,
         .cds-slider--disabled {
-          --cds-slider-track-fill: var(--theme-colors-neutral-300) !important;
-          --cds-slider-track-bg: var(--theme-semantics-disabled-background) !important;
-          --cds-slider-thumb-bg: var(--theme-colors-neutral-300) !important;
-          --cds-slider-thumb-ring: var(--theme-colors-neutral-300) !important;
+          --cds-slider-track-fill: var(--neutral-border-default) !important;
+          --cds-slider-track-bg: var(--semantics-disabled-background) !important;
+          --cds-slider-thumb-bg: var(--neutral-border-default) !important;
+          --cds-slider-thumb-ring: var(--neutral-border-default) !important;
           cursor: not-allowed !important;
         }
         .force-disabled .cds-slider input[type="range"],
@@ -1135,7 +1135,7 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
         }
         .force-disabled .cds-slider-value,
         .cds-slider--disabled .cds-slider-value {
-          color: var(--theme-neutral-text-subtleleast) !important;
+          color: var(--neutral-text-subtle-light) !important;
         }
         .force-hover .cds-slider {
           --cds-slider-thumb-ring: var(--brand-background-primary-hover) !important;
@@ -1171,10 +1171,10 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
     <div style={{ maxWidth: 1024, margin: "0 auto", padding: "20px" }}>
       {formStyles}
       <div style={{ textAlign: "center", marginBottom: 60, marginTop: 40 }}>
-        <h1 style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.06em", margin: "0 0 16px 0", color: "var(--core-color-text-primary)", lineHeight: 1.1 }}>
+        <h1 style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.06em", margin: "0 0 16px 0", color: "var(--neutral-text-default)", lineHeight: 1.1 }}>
           Form Controls
         </h1>
-        <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--core-color-text-tertiary)", fontSize: 18, lineHeight: 1.6, fontWeight: 400 }}>
+        <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--neutral-text-subtle)", fontSize: 18, lineHeight: 1.6, fontWeight: 400 }}>
           Essential components for data entry and configuration. Label, hint, and error states are wired together automatically via aria attributes.
         </p>
       </div>
