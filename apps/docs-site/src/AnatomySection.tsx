@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "../../../packages/core/src/components/Primitives";
 import { AutoSizing } from "./ComponentSizing";
+import { ComponentColorReference } from "./ComponentColorReference";
 
 /** Value badges are absolutely positioned leaves with white text on a solid
  *  fill; when two land on the same spot one hides the other. Nudge the later
@@ -98,6 +99,7 @@ export function AnatomySection({ demo, anatomy, inset = false }: { demo: React.R
         <div ref={bodyRef} style={inset ? { padding: "var(--core-space-4) var(--core-space-8) var(--core-space-8)" } : undefined}>
           {anatomy}
           <AutoSizing />
+          <ComponentColorReference />
         </div>
       ) : (
         demo

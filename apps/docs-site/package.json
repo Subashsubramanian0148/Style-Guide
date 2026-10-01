@@ -6,8 +6,9 @@
   "scripts": {
     "typography:tokens": "node scripts/generate-typography-tokens.mjs",
     "palette:tokens": "node scripts/generate-theme-palette.mjs",
-    "dev": "npm run typography:tokens && npm run palette:tokens && vite",
-    "build": "npm run typography:tokens && npm run palette:tokens && tsc -b && vite build",
+    "colors:components": "node scripts/generate-component-colors.mjs",
+    "dev": "npm run typography:tokens && npm run palette:tokens && npm run colors:components && vite",
+    "build": "npm run typography:tokens && npm run palette:tokens && npm run colors:components && tsc -b && vite build",
     "preview": "vite preview --port 4173"
   },
   "dependencies": {

@@ -208,7 +208,7 @@ function palette(): Map<string, PaletteEntry[]> {
 
 /** "Neutral 0" for #FFFFFF, "Brand 500" for #1F4F8D, … — or undefined when
  *  the color isn't a palette step (translucent mixes, for instance). */
-function paletteName(value: string, token: string): string | undefined {
+export function paletteName(value: string, token: string): string | undefined {
   const hex = toHexColors(value).toUpperCase();
   const matches = palette().get(hex);
   if (!matches?.length) return undefined;
