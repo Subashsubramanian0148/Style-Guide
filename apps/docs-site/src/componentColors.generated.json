@@ -1,0 +1,8763 @@
+{
+ "accordion": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "chevron",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "outline",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "item",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "item",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "panel",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "panel",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "trigger",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "trigger",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "trigger",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "chevron",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "trigger",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "chevron",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "trigger",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "separated",
+   "state": "Default",
+   "part": "item",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "alert": [
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "dismiss",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-highlight-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "app-footer": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border-top",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "links",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "app-header": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "brand",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border-bottom",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "dropdown",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "dropdown",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon-btn",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "identity",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "identity-label",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "identity-value",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "initials",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "initials",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "initials",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "initials",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "option",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "option-icon",
+   "property": "background",
+   "token": "semantics-critical-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "option-icon",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "util",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "utils",
+   "property": "border-bottom",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "icon-btn",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "trigger",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "option",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "option",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "attachment": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "meta",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "meta-sep",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "name",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "remove",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "trigger",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "remove",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "remove",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "trigger",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "remove",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "trigger",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "hint",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "icon",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "icon",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "status",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "trigger",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "hint",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "icon",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "icon",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "meta",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "name",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "status",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "trigger",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "hint",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "icon",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "icon",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "status",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "trigger",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "hint",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "icon",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "icon",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "status",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "trigger",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "avatar": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "group-item",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "group-item",
+   "property": "border",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "status",
+   "property": "border",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "away",
+   "state": "Default",
+   "part": "status",
+   "property": "background",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "offline",
+   "state": "Default",
+   "part": "status",
+   "property": "background",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "online",
+   "state": "Default",
+   "part": "status",
+   "property": "background",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "badge": [
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "remove",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / info",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / info",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / info",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / info",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-highlight-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / success",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / success",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "hover / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "hover / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-highlight-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive",
+   "state": "Default",
+   "part": "container",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive",
+   "state": "Focus",
+   "part": "container",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / danger",
+   "state": "Hover",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / danger",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / danger",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / danger",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / danger",
+   "state": "Active",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / danger",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / danger",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / info",
+   "state": "Hover",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / info",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / info",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / info",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-highlight-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / info",
+   "state": "Active",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / info",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / info",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / neutral",
+   "state": "Hover",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / neutral",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / neutral",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / neutral",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / neutral",
+   "state": "Active",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / neutral",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / neutral",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / primary",
+   "state": "Hover",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / primary",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / primary",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / primary",
+   "state": "Active",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / primary",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / primary",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / success",
+   "state": "Hover",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / success",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / success",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / success",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / success",
+   "state": "Active",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / success",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / success",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / warning",
+   "state": "Hover",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / warning",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / warning",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "interactive / warning",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / warning",
+   "state": "Active",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / warning",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "interactive / warning",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / info",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / info",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-highlight-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / success",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / success",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft",
+   "state": "Default",
+   "part": "style",
+   "property": "--cds-stroke-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft",
+   "state": "Default",
+   "part": "style",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft",
+   "state": "Default",
+   "part": "style",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Selected",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Selected",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-critical-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / danger",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-highlight-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Selected",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Selected",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-highlight-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / info",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-highlight-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Selected",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Selected",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / neutral",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Selected",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Selected",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Selected",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Selected",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / success",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-success-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Selected",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Selected",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "soft / warning",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-warning-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / danger",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / info",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / info",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-border-inverse",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / success",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-warning-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "button": [
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-critical-background-strong-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Active",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-critical-background-strong-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-disabled-strong-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-critical-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-disabled-strong-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-highlight-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-highlight-background-strong-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-background-strong-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-highlight-disabled-strong-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-highlight-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-highlight-disabled-strong-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "neutral",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "neutral",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-border-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "neutral",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "neutral",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "neutral",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "neutral",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outline-primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Active",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-background-primary-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-light",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-on-surface",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-active",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "secondary",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "secondary",
+   "state": "Active",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-success-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-success-background-strong-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-background-strong-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-success-disabled-strong-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-success-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-success-disabled-strong-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-active",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-on-surface",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "tertiary",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "tertiary",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Focus",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Focus",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Focus",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-on-surface",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-warning-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-warning-background-strong-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-background-strong-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-warning-disabled-strong-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-warning-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-warning-disabled-strong-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "calendar": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "day",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "footer",
+   "property": "border-top",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "nav",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "nav",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "nav",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "weekday",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "nav",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "day",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "day",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "day",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected + Disabled",
+   "part": "day",
+   "property": "background",
+   "token": "brand-background-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected + Disabled",
+   "part": "day",
+   "property": "color",
+   "token": "brand-text-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "day",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "nav",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "title",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "weekday",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outside",
+   "state": "Default",
+   "part": "day",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "checkbox-radio": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "box",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "box",
+   "property": "background",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "box",
+   "property": "border",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "box",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover + Selected",
+   "part": "box",
+   "property": "background",
+   "token": "brand-background-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover + Selected",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-background-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Active",
+   "part": "box",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Active",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Active + Selected",
+   "part": "box",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Active + Selected",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "box",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "box",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "box",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected + Disabled",
+   "part": "box",
+   "property": "background",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected + Disabled",
+   "part": "box",
+   "property": "background",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected + Disabled",
+   "part": "box",
+   "property": "border-color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected + Disabled",
+   "part": "box",
+   "property": "stroke",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "box",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "box",
+   "property": "border-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Selected",
+   "part": "box",
+   "property": "background",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Selected",
+   "part": "box",
+   "property": "border-color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger / indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
+   "property": "background",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger / indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
+   "property": "border-color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Selected",
+   "part": "box",
+   "property": "background",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Selected",
+   "part": "box",
+   "property": "border-color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success / indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
+   "property": "background",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success / indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
+   "property": "border-color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Selected",
+   "part": "box",
+   "property": "background",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Selected",
+   "part": "box",
+   "property": "border-color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning / indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
+   "property": "background",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning / indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
+   "property": "border-color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "data-table": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "box-shadow",
+   "token": "neutral-border-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "dot",
+   "property": "background",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "empty",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "empty-value",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "link",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "negative",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "positive",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "search",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "search",
+   "property": "border-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "search",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "secondary",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "toolbar",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "toolbar",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "view-badge",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "view-badge",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "view-badge",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-border-color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-border-color",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-scrollbar-thumb",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-scrollbar-track",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-scrollbar-track",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "border-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "link",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "wrap",
+   "property": "background",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "link",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-row-divider",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "wrap",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "wrap",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "benchmark",
+   "state": "Default",
+   "part": "row",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "benchmark",
+   "state": "Default",
+   "part": "row",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "divided",
+   "state": "Default",
+   "part": "container",
+   "property": "border-right",
+   "token": "neutral-border-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "scrollable",
+   "state": "Hover",
+   "part": "wrap",
+   "property": "background",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "border-bottom-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "border-bottom-color",
+   "token": "neutral-border-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "wrap",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "wrap",
+   "property": "border-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "date-picker": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "day",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "footer",
+   "property": "border-top",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "nav",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "nav",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "nav",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "weekday",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "nav",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "day",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "day",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "day",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected + Disabled",
+   "part": "day",
+   "property": "background",
+   "token": "brand-background-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected + Disabled",
+   "part": "day",
+   "property": "color",
+   "token": "brand-text-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "day",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "nav",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "title",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "weekday",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "outside",
+   "state": "Default",
+   "part": "day",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "empty": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "icon-button": [
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "circle / tertiary",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "destructive",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "destructive",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Active",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-background-primary-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "primary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-on-surface",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "secondary",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "secondary",
+   "state": "Active",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "secondary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-on-surface",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "tertiary",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Active",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "tertiary",
+   "state": "Active",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-active",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "tertiary",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "input": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background-color",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled + Placeholder",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Placeholder",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "flush",
+   "state": "Default",
+   "part": "style",
+   "property": "border-bottom",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "flush",
+   "state": "Focus",
+   "part": "style",
+   "property": "border-bottom-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid",
+   "state": "Default",
+   "part": "style",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "solid",
+   "state": "Focus",
+   "part": "style",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "input-icon": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "input-group": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "addon",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "addon",
+   "property": "border",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "addon",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "addon",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "addon",
+   "property": "border-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "addon",
+   "property": "background",
+   "token": "brand-background-primary-disabled-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "addon",
+   "property": "border-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "addon",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "line-chart": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "fill",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "desc",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "mobile-nav": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "badge",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "badge",
+   "property": "box-shadow",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "badge",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "bar",
+   "property": "--cds-mobile-nav-disabled",
+   "token": "neutral-text-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "bar",
+   "property": "--cds-mobile-nav-disabled",
+   "token": "neutral-text-disabled",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "bar",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "bar",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "item",
+   "property": "background",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "item",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "item",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "link",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "scrim",
+   "property": "background",
+   "token": "core-overlay-scrim",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "sheet",
+   "property": "--cds-mobile-nav-disabled",
+   "token": "neutral-text-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "sheet",
+   "property": "--cds-mobile-nav-disabled",
+   "token": "neutral-text-disabled",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "sheet",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "item",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "item",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "link",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Active",
+   "part": "item",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Active",
+   "part": "item",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Active",
+   "part": "link",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "item",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "link",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "link",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "link",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "modal": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "body",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "core-overlay-scrim",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "pagination": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "payment-bank-fields": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "btn",
+   "property": "border-left",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "btn",
+   "property": "border-right",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "btn",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "digit",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "digit",
+   "property": "border",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "digit",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "value",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "btn",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "btn",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "digit",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "digit",
+   "property": "border-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus + Error",
+   "part": "digit",
+   "property": "border-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus + Error",
+   "part": "digit",
+   "property": "box-shadow",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "digit",
+   "property": "border-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "btn",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "btn",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "btn",
+   "property": "border-left-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "btn",
+   "property": "border-right-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "btn",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "digit",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "digit",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "digit",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "value",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "progress": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "bar",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "quick-links": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "arrow",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "arrow",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "description",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "background",
+   "token": "brand-background-primary-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "label",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "label",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "arrow",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "arrow",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "description",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "icon",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "icon",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "label",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "select": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "caret",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "check",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "empty",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "list",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "list",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "listbox",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "listbox",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "option",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "option-checkbox",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "option-checkbox",
+   "property": "border",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "option-checkbox",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "option",
+   "property": "background",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "option",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "option",
+   "property": "background",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "option",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "option",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "option",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background-color",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "option",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Placeholder",
+   "part": "placeholder",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "checked",
+   "state": "Default",
+   "part": "option-checkbox",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "checked",
+   "state": "Default",
+   "part": "option-checkbox",
+   "property": "border-color",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "separator": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-separator-color",
+   "token": "neutral-border-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-separator-color",
+   "token": "neutral-border-default",
+   "mode": "dark",
+   "mix": false
+  }
+ ],
+ "sidebar": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border-right",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "icon",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "item",
+   "property": "background",
+   "token": "core-sidebar-item-activeBg",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "item",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "item",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "link",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "sublabel",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "item",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "item",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "link",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "link",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "item",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "link",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "icon",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "icon",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "item",
+   "property": "background",
+   "token": "core-sidebar-item-activeBg",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "item",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "link",
+   "property": "background",
+   "token": "core-sidebar-item-activeBg",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "link",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "icon",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "icon",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "icon-plain",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "item",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "panel",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "panel",
+   "state": "Default",
+   "part": "container",
+   "property": "border-top",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Default",
+   "part": "container",
+   "property": "border-right",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Default",
+   "part": "link",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Hover",
+   "part": "link",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Hover",
+   "part": "link",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Focus",
+   "part": "link",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Selected",
+   "part": "link",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Selected",
+   "part": "link",
+   "property": "box-shadow",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Selected",
+   "part": "link",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Disabled",
+   "part": "link",
+   "property": "background",
+   "token": "brand-background-primary-disabled-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "rail",
+   "state": "Disabled",
+   "part": "link",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "skeleton": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-text-on-color",
+   "mode": "dark",
+   "mix": true
+  }
+ ],
+ "slideover": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "aside",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "close",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "header",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "close",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "close",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "close",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "slider": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-slider-thumb-bg",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-slider-thumb-border",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-slider-thumb-ring",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-slider-track-bg",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-slider-track-fill",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "value",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "box-shadow",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-slider-thumb-bg",
+   "token": "neutral-border-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-slider-thumb-ring",
+   "token": "neutral-border-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-slider-track-bg",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-slider-track-fill",
+   "token": "neutral-border-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "value",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "spinner": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-spinner-active",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-spinner-track",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  }
+ ],
+ "stepper": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "connector",
+   "property": "background",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "desc",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "marker",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "marker",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "marker",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "mobile-count",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "mobile-segment",
+   "property": "background",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "mobile-step-label",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "status",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "status-spinner",
+   "property": "--cds-spinner-active",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "status-spinner",
+   "property": "--cds-spinner-track",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "connector",
+   "property": "background",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "marker",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "marker",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "mobile-segment",
+   "property": "background",
+   "token": "semantics-critical-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "status",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "title",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "completed",
+   "state": "Default",
+   "part": "connector",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "completed",
+   "state": "Default",
+   "part": "marker",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "completed",
+   "state": "Default",
+   "part": "marker",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "completed",
+   "state": "Default",
+   "part": "mobile-segment",
+   "property": "background",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "completed",
+   "state": "Default",
+   "part": "status",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "completed",
+   "state": "Default",
+   "part": "status",
+   "property": "color",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "completed",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "default",
+   "state": "Default",
+   "part": "marker",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "default",
+   "state": "Default",
+   "part": "marker",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "default",
+   "state": "Default",
+   "part": "marker",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "default",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "in-progress",
+   "state": "Default",
+   "part": "marker",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "in-progress",
+   "state": "Default",
+   "part": "marker",
+   "property": "color",
+   "token": "brand-text-primary-oncolor",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "in-progress",
+   "state": "Default",
+   "part": "mobile-segment",
+   "property": "background",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "in-progress",
+   "state": "Default",
+   "part": "mobile-segment",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "in-progress",
+   "state": "Default",
+   "part": "status",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "in-progress",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "mobile",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-02",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "mobile",
+   "state": "Default",
+   "part": "container",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "mobile",
+   "state": "Error",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "mobile / completed",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-success-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "mobile / completed",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "mobile / in-progress",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "mobile / warning",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-warning-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "connector",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "marker",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "marker",
+   "property": "color",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "mobile-segment",
+   "property": "background",
+   "token": "semantics-warning-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "status",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "switch": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "track",
+   "property": "background",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "track",
+   "property": "background",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "track",
+   "property": "background",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover + Selected",
+   "part": "track",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Active + Selected",
+   "part": "track",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "track",
+   "property": "box-shadow",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "track",
+   "property": "box-shadow",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "track",
+   "property": "background",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "track",
+   "property": "background",
+   "token": "neutral-text-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "track",
+   "property": "background",
+   "token": "neutral-text-on-color",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "table": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "box-shadow",
+   "token": "neutral-border-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "dot",
+   "property": "background",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "empty",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "empty-value",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "link",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "negative",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "positive",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "search",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "search",
+   "property": "border-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "search",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "secondary",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "toolbar",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "toolbar",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "view-badge",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "view-badge",
+   "property": "border",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "view-badge",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-border-color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-border-color",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-scrollbar-thumb",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-scrollbar-track",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "--cds-table-scrollbar-track",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "wrap",
+   "property": "border-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "link",
+   "property": "color",
+   "token": "brand-text-primary-hover",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "wrap",
+   "property": "background",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "link",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "--cds-row-divider",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "wrap",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "wrap",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "benchmark",
+   "state": "Default",
+   "part": "row",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "benchmark",
+   "state": "Default",
+   "part": "row",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "divided",
+   "state": "Default",
+   "part": "container",
+   "property": "border-right",
+   "token": "neutral-border-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "scrollable",
+   "state": "Hover",
+   "part": "wrap",
+   "property": "background",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "border-bottom-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "border-bottom-color",
+   "token": "neutral-border-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "wrap",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "view-mode",
+   "state": "Default",
+   "part": "wrap",
+   "property": "border-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "tabs": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-tab-disabled-text",
+   "token": "neutral-text-disabled",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-tab-disabled-text",
+   "token": "neutral-text-disabled",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "count",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "count",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "--cds-tab-indicator",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "container",
+   "property": "--cds-tab-indicator",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "count",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "count",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "count",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "pill",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "pill",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "pill",
+   "state": "Selected",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "pill",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "vertical",
+   "state": "Default",
+   "part": "container",
+   "property": "box-shadow",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "vertical",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "vertical",
+   "state": "Selected",
+   "part": "container",
+   "property": "--cds-tab-indicator",
+   "token": "brand-background-primary-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "vertical",
+   "state": "Selected",
+   "part": "container",
+   "property": "background",
+   "token": "brand-background-primary-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "vertical",
+   "state": "Selected",
+   "part": "container",
+   "property": "color",
+   "token": "brand-text-primary-default",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "textarea": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "container",
+   "property": "border-color",
+   "token": "neutral-border-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "container",
+   "property": "border-color",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Error",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-critical-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "background",
+   "token": "semantics-disabled-background",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "border-color",
+   "token": "semantics-disabled-border",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Disabled",
+   "part": "container",
+   "property": "color",
+   "token": "semantics-disabled-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "toast": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "body",
+   "property": "color",
+   "token": "neutral-text-subtle",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "close",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-stroke-color",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "timestamp",
+   "property": "color",
+   "token": "neutral-text-subtle-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "title",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "close",
+   "property": "background",
+   "token": "neutral-surface-layer-03",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover",
+   "part": "close",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Focus",
+   "part": "close",
+   "property": "outline",
+   "token": "brand-border-primary-focus",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "icon-badge",
+   "property": "background",
+   "token": "semantics-critical-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "danger",
+   "state": "Default",
+   "part": "icon-badge",
+   "property": "color",
+   "token": "semantics-critical-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "icon-badge",
+   "property": "background",
+   "token": "semantics-highlight-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "info",
+   "state": "Default",
+   "part": "icon-badge",
+   "property": "color",
+   "token": "semantics-highlight-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "icon-badge",
+   "property": "background",
+   "token": "semantics-success-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "success",
+   "state": "Default",
+   "part": "icon-badge",
+   "property": "color",
+   "token": "semantics-success-text",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "icon-badge",
+   "property": "background",
+   "token": "semantics-warning-background-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "warning",
+   "state": "Default",
+   "part": "icon-badge",
+   "property": "color",
+   "token": "semantics-warning-text",
+   "mode": "both",
+   "mix": false
+  }
+ ],
+ "tooltip": [
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "background",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "color",
+   "token": "neutral-surface-layer-01",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "bottom",
+   "state": "Default",
+   "part": "wrap",
+   "property": "border-bottom-color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "left",
+   "state": "Default",
+   "part": "wrap",
+   "property": "border-left-color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "right",
+   "state": "Default",
+   "part": "wrap",
+   "property": "border-right-color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "top",
+   "state": "Default",
+   "part": "wrap",
+   "property": "border-top-color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  }
+ ]
+}
