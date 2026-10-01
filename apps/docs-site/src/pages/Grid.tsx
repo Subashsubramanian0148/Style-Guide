@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { DocsSection, DocsSectionList } from "../DocsSection";
+import { Tabs } from "../../../../packages/core/src/components/Navigation";
 import "./grid.css";
 
 /** Grid — the layout grids the Screen reference screens use, read from the
@@ -134,106 +135,172 @@ const BREAKPOINTS: Array<[string, string]> = [
 ];
 
 
-/* ---------- Layout grid overlay (12 columns + 8px rhythm + modules) ---------- */
-type Box = [number, number, number, number]; // x, y, w, h at 1440 × 1000
-type Overlay = {
-  id: string; title: string; screens: Array<[string, string]>; top: number; bottom: number; footerY: number; activeNav: number;
-  side: { region: Box; rows: Box[]; label: string };
-  main: { region: Box; cells: Box[]; label: string };
+/* ---------- Layout grid overlay (columns + 8px rhythm + chrome + modules) ---------- */
+type Box = [number, number, number, number]; // x, y, w, h measured on the live portal
+type Frame = {
+  vw: number; bottom: number; footerY: number; footerH: number;
+  rail: boolean; mobileNav: boolean; activeNav: number;
+  contentX: number; contentW: number; cols: number; gutter: number; colsLabel: string;
+  main: { label: string; region: Box; cells: Box[] };
+  side: { label: string; region: Box; rows: Box[] };
   note: string;
 };
+type Overlay = { id: string; title: string; screens: Array<[string, string]>; desktop: Frame; tablet: Frame; mobile: Frame };
 
-/** App chrome measured on the live portal at 1440 × 1000. */
-const HEADER_H = 56, RAIL_W = 96, FOOTER_H = 48;
+/** App chrome measured on the live portal. */
+const HEADER_H = 56, RAIL_W = 96, MOBILE_NAV_H = 77;
 const RAIL_ITEMS: Array<[number, number]> = [[72, 68], [148, 84], [240, 68], [316, 68], [392, 84]];
-const CONTENT_X = 128, CONTENT_W = 1280, COLS = 12, GUTTER = 20;
-const COL_W = (CONTENT_W - GUTTER * (COLS - 1)) / COLS;
+const D = { vw: 1440, footerH: 48, rail: true, mobileNav: false, contentX: 128, contentW: 1280, cols: 12, gutter: 20, colsLabel: "12 columns · 88px · 20px gutter" };
+const T = { vw: 768, footerH: 48, rail: true, mobileNav: false, contentX: 112, contentW: 640, cols: 12, gutter: 20, colsLabel: "12 columns · 35px · 20px gutter" };
+const M = { vw: 390, footerH: 69, rail: false, mobileNav: true, contentX: 16, contentW: 358, cols: 4, gutter: 16, colsLabel: "4 columns · 78px · 16px gutter" };
+
+const stack = (x: number, w: number, ys: Array<[number, number]>): Box[] => ys.map(([y, h]) => [x, y, w, h]);
 
 const OVERLAYS: Overlay[] = [
   {
-    id: "dashboard", title: "Dashboard", screens: [["Dashboard", "dashboard"]], top: 0, bottom: 1686, footerY: 1638, activeNav: 0,
-    main: {
-      label: "Main · 7fr · 882px", region: [128, 148, 882, 1442],
-      cells: [[128, 148, 882, 257], [128, 473, 433, 372], [577, 473, 433, 372], [128, 861, 433, 250], [577, 861, 433, 250],
-        [128, 1179, 212, 72], [352, 1179, 212, 72], [575, 1179, 212, 72], [799, 1179, 212, 72], [128, 1319, 882, 271]],
-    },
-    side: { label: "Side · 3fr · 378px", region: [1030, 148, 378, 483], rows: [[1030, 148, 378, 291], [1030, 455, 378, 176]] },
-    note: "7fr · 3fr with a 20px gap. Plan cards sit on a 2-column grid (16px gap), quick links on a 4-column grid (12px gap).",
+    id: "dashboard", title: "Dashboard", screens: [["Dashboard", "dashboard"]],
+    desktop: { ...D, bottom: 1686, footerY: 1638, activeNav: 0,
+      main: { label: "Main · 7fr · 882px", region: [128, 148, 882, 1442],
+        cells: [[128, 148, 882, 257], [128, 473, 433, 372], [577, 473, 433, 372], [128, 861, 433, 250], [577, 861, 433, 250],
+          [128, 1179, 212, 72], [352, 1179, 212, 72], [575, 1179, 212, 72], [799, 1179, 212, 72], [128, 1319, 882, 271]] },
+      side: { label: "Side · 3fr · 378px", region: [1030, 148, 378, 483], rows: [[1030, 148, 378, 291], [1030, 455, 378, 176]] },
+      note: "7fr · 3fr with a 20px gap. Plan cards sit on 2 columns (16px gap), quick links on 4 columns (12px gap)." },
+    tablet: { ...T, bottom: 2717, footerY: 2669, activeNav: 0,
+      main: { label: "Main · full width · 640px", region: [112, 144, 640, 1998],
+        cells: stack(112, 640, [[144, 257], [469, 320], [805, 178], [999, 198], [1213, 198], [1479, 72], [1563, 72], [1647, 72], [1731, 72], [1871, 271]]) },
+      side: { label: "Side · moves below · 640px", region: [112, 2162, 640, 467], rows: stack(112, 640, [[2162, 275], [2453, 176]]) },
+      note: "≤ 980px: one column. Page padding 20 · 16 · 40, so the content is 640px beside the 96px rail. Plan cards and quick links stack; the side column moves below." },
+    mobile: { ...M, bottom: 3346, footerY: 3277, activeNav: -1,
+      main: { label: "Main · full width · 358px", region: [16, 140, 358, 2522],
+        cells: stack(16, 358, [[140, 437], [645, 436], [1097, 230], [1343, 302], [1661, 270], [1999, 72], [2083, 72], [2167, 72], [2251, 72], [2391, 271]]) },
+      side: { label: "Side · moves below · 358px", region: [16, 2682, 358, 483], rows: stack(16, 358, [[2682, 291], [2989, 176]]) },
+      note: "≤ 640px: no rail; the bottom MobileNav (77px) takes over. Page padding 16 · 16 · 32, content 358px, every module spans all 4 columns." },
   },
   {
-    id: "readiness", title: "Retirement readiness", screens: [["Retirement readiness", "retirement-readiness"]], top: 0, bottom: 1048, footerY: 1000, activeNav: 0,
-    main: {
-      label: "Inputs · 7fr · 879px", region: [128, 180, 879, 596],
-      cells: [[145, 233, 398, 79], [145, 320, 398, 66], [145, 394, 398, 111], [145, 513, 398, 111], [145, 632, 398, 127],
-        [593, 197, 320, 64], [593, 373, 398, 90], [593, 479, 398, 90], [593, 585, 398, 78]],
-    },
-    side: { label: "Live result · 3fr · 377px", region: [1031, 180, 377, 582], rows: [[1052, 205, 335, 277], [1052, 498, 335, 181], [1052, 695, 335, 46]] },
-    note: "7fr · 3fr with a 24px gap. The inputs split into two equal panels (16px gap); target cards stack with an 8px gap.",
+    id: "readiness", title: "Retirement readiness", screens: [["Retirement readiness", "retirement-readiness"]],
+    desktop: { ...D, bottom: 1048, footerY: 1000, activeNav: 0,
+      main: { label: "Inputs · 7fr · 879px", region: [128, 180, 879, 596],
+        cells: [[145, 233, 398, 79], [145, 320, 398, 66], [145, 394, 398, 111], [145, 513, 398, 111], [145, 632, 398, 127],
+          [593, 197, 320, 64], [593, 373, 398, 90], [593, 479, 398, 90], [593, 585, 398, 78]] },
+      side: { label: "Live result · 3fr · 377px", region: [1031, 180, 377, 582], rows: [[1052, 205, 335, 277], [1052, 498, 335, 181], [1052, 695, 335, 46]] },
+      note: "7fr · 3fr with a 24px gap. The inputs split into two equal panels (16px gap); target cards stack with an 8px gap." },
+    tablet: { ...T, bottom: 2095, footerY: 2047, activeNav: 0,
+      main: { label: "Inputs · full width · 640px", region: [112, 176, 640, 1133],
+        cells: [...stack(129, 606, [[229, 111], [348, 111], [467, 111], [586, 111], [705, 111]]), [129, 866, 320, 64], ...stack(129, 606, [[1018, 74], [1108, 74], [1198, 78]])] },
+      side: { label: "Live result · below · 640px", region: [112, 1333, 640, 562], rows: stack(133, 598, [[1358, 277], [1651, 161], [1828, 46]]) },
+      note: "≤ 980px: one column. The two input panels stack, then the live result card follows (24px gap) and stops being sticky." },
+    mobile: { ...M, bottom: 2344, footerY: 2275, activeNav: -1,
+      main: { label: "Inputs · full width · 358px", region: [16, 172, 358, 1273],
+        cells: [...stack(33, 324, [[225, 127], [360, 111], [479, 127], [614, 127], [749, 127]]), [33, 926, 320, 64], ...stack(33, 324, [[1102, 90], [1208, 90], [1314, 98]])] },
+      side: { label: "Live result · below · 358px", region: [16, 1469, 358, 582], rows: stack(37, 316, [[1494, 277], [1787, 181], [1984, 46]]) },
+      note: "≤ 640px: same order as tablet inside 16px page padding; target cards stack their control below the copy." },
   },
   {
-    id: "side-nav", title: "Side nav + panel", screens: [["Beneficiaries", "beneficiaries"], ["Plan details", "plan-details"], ["Add beneficiary", "bene-basic"]], top: 0, bottom: 1048, footerY: 1000, activeNav: 3,
-    side: { label: "Nav · 240px", region: [128, 176, 240, 338], rows: [[141, 189, 214, 56], [141, 249, 214, 56], [141, 309, 214, 64], [141, 377, 214, 64], [141, 445, 214, 56]] },
-    main: { label: "Panel · 1fr (max 760px)", region: [388, 176, 760, 315], cells: [[409, 197, 718, 40], [409, 253, 718, 46], [409, 299, 718, 57], [409, 356, 718, 57], [409, 413, 718, 57]] },
-    note: "240px · 1fr with a 20px gap. Nav items stack with a 4px gap inside 12px padding; the panel stops at 760px.",
+    id: "side-nav", title: "Side nav + panel", screens: [["Beneficiaries", "beneficiaries"], ["Plan details", "plan-details"], ["Add beneficiary", "bene-basic"]],
+    desktop: { ...D, bottom: 1048, footerY: 1000, activeNav: 3,
+      side: { label: "Nav · 240px", region: [128, 176, 240, 338], rows: stack(141, 214, [[189, 56], [249, 56], [309, 64], [377, 64], [445, 56]]) },
+      main: { label: "Panel · 1fr (max 760px)", region: [388, 176, 760, 315], cells: stack(409, 718, [[197, 40], [253, 46], [299, 57], [356, 57], [413, 57]]) },
+      note: "240px · 1fr with a 20px gap. Nav items stack with a 4px gap inside 12px padding; the panel stops at 760px." },
+    tablet: { ...T, bottom: 1072, footerY: 1024, activeNav: 3,
+      side: { label: "Nav · above · wraps", region: [112, 172, 640, 142], rows: [[125, 185, 190, 56], [319, 185, 165, 56], [488, 185, 251, 56], [125, 245, 323, 56], [452, 245, 287, 56]] },
+      main: { label: "Panel · full width · 640px", region: [112, 334, 640, 315], cells: stack(133, 598, [[355, 40], [411, 46], [457, 57], [514, 57], [571, 57]]) },
+      note: "≤ 980px: one column. The section nav sits above the panel (20px gap) and its items wrap into rows." },
+    mobile: { ...M, bottom: 1030, footerY: 961, activeNav: -1,
+      side: { label: "Nav · above · stacked", region: [16, 192, 358, 322], rows: stack(29, 332, [[205, 56], [265, 56], [325, 56], [385, 56], [445, 56]]) },
+      main: { label: "Panel · full width · 358px", region: [16, 534, 358, 315], cells: stack(37, 316, [[555, 40], [611, 46], [657, 57], [714, 57], [771, 57]]) },
+      note: "≤ 640px: the nav items stack full width above the panel; the table scrolls sideways inside it." },
   },
 ];
 
-/** How many 12-column grid columns (20px gutters) a width covers. */
-function spanOf(w: number) {
-  return Math.round(((w + GUTTER) / (COL_W + GUTTER)) * 10) / 10;
+/** How many grid columns a width covers. */
+function spanOf(f: Frame, w: number) {
+  const col = (f.contentW - f.gutter * (f.cols - 1)) / f.cols;
+  return Math.min(f.cols, Math.round(((w + f.gutter) / (col + f.gutter)) * 10) / 10);
+}
+
+function FrameSvg({ f, title }: { f: Frame; title: string }) {
+  const col = (f.contentW - f.gutter * (f.cols - 1)) / f.cols;
+  const left = f.rail ? RAIL_W : 0;
+  const pageBottom = f.footerY;
+  const lines: number[] = [];
+  for (let y = HEADER_H + 8; y < pageBottom; y += 8) lines.push(y);
+  const navBottom = f.mobileNav ? f.bottom + MOBILE_NAV_H : f.bottom;
+  const sm = f.vw < 500 ? "go-text go-text--sm" : "go-text";
+  return (
+    <svg viewBox={`0 0 ${f.vw} ${navBottom}`} role="img" aria-label={`${title} layout at ${f.vw}px`} style={{ maxWidth: f.vw === 1440 ? "100%" : f.vw === 768 ? "calc(var(--core-space-1) * 160)" : "calc(var(--core-space-1) * 98)" }}>
+      <rect className="go-page" x={left} y={HEADER_H} width={f.vw - left} height={pageBottom - HEADER_H} />
+      {Array.from({ length: f.cols }, (_, i) => (
+        <rect key={i} className="go-col" x={f.contentX + i * (col + f.gutter)} y={HEADER_H} width={col} height={pageBottom - HEADER_H} />
+      ))}
+      {lines.map((y) => <line key={y} className="go-line" x1={left} x2={f.vw} y1={y} y2={y} />)}
+      <rect className="go-margin" x={left} y={HEADER_H} width={f.contentX - left} height={pageBottom - HEADER_H} />
+      <rect className="go-margin" x={f.contentX + f.contentW} y={HEADER_H} width={f.vw - f.contentX - f.contentW} height={pageBottom - HEADER_H} />
+      <rect className="go-main" x={f.main.region[0]} y={f.main.region[1]} width={f.main.region[2]} height={f.main.region[3]} />
+      {f.main.cells.map(([x, y, w, h], i) => <rect key={i} className="go-cell" x={x} y={y} width={w} height={h} />)}
+      <rect className="go-side" x={f.side.region[0]} y={f.side.region[1]} width={f.side.region[2]} height={f.side.region[3]} />
+      {f.side.rows.map(([x, y, w, h], i) => <rect key={i} className="go-row" x={x} y={y} width={w} height={h} />)}
+
+      <rect className="go-chrome" x={0} y={0} width={f.vw} height={HEADER_H} />
+      <rect className="go-chrome-item" x={24} y={12} width={f.vw < 500 ? 130 : 178} height={32} />
+      <rect className="go-chrome-item" x={f.vw - 146} y={10} width={122} height={36} />
+      <text className={sm} x={f.vw / 2} y={HEADER_H / 2}>Header · 56px</text>
+
+      {f.rail && (
+        <>
+          <rect className="go-chrome" x={0} y={HEADER_H} width={RAIL_W} height={f.bottom - HEADER_H} />
+          {RAIL_ITEMS.map(([y, h], i) => <rect key={y} className={i === f.activeNav ? "go-chrome-item go-chrome-item--on" : "go-chrome-item"} x={0} y={y} width={RAIL_W - 1} height={h} />)}
+          <text className="go-text" x={RAIL_W / 2} y={720} transform={`rotate(-90 ${RAIL_W / 2} 720)`}>Sidebar rail · 96px</text>
+        </>
+      )}
+
+      <rect className="go-chrome" x={left} y={f.footerY} width={f.vw - left} height={f.footerH} />
+      <text className={sm} x={(left + f.vw) / 2} y={f.footerY + f.footerH / 2}>Footer · {f.footerH}px</text>
+
+      {f.mobileNav && (
+        <>
+          <rect className="go-chrome" x={0} y={f.bottom} width={f.vw} height={MOBILE_NAV_H} />
+          {[0, 1, 2].map((i) => <rect key={i} className={i === 1 ? "go-chrome-item go-chrome-item--on" : "go-chrome-item"} x={i * (f.vw / 3) + 24} y={f.bottom + 10} width={f.vw / 3 - 48} height={MOBILE_NAV_H - 20} />)}
+          <text className={sm} x={f.vw / 2} y={f.bottom + MOBILE_NAV_H / 2}>MobileNav · 77px</text>
+        </>
+      )}
+      <text className="go-text go-text--pad" x={(left + f.contentX) / 2} y={HEADER_H + 12}>{f.contentX - left}</text>
+      <text className="go-text go-text--pad" x={(f.contentX + f.contentW + f.vw) / 2} y={HEADER_H + 12}>{f.vw - f.contentX - f.contentW}</text>
+    </svg>
+  );
+}
+
+function FramePanel({ f, title }: { f: Frame; title: string }) {
+  return (
+    <div className="grid-overlay__frame">
+      <div className="grid-overlay__canvas"><FrameSvg f={f} title={title} /></div>
+      <div className="grid-overlay__cap">
+        <ul className="grid-overlay__keys">
+          <li><i className="go-key go-key--col" />{f.colsLabel}</li>
+          <li><i className="go-key go-key--main" />{f.main.label} · spans ≈ {spanOf(f, f.main.region[2])} of {f.cols}</li>
+          <li><i className="go-key go-key--side" />{f.side.label} · spans ≈ {spanOf(f, f.side.region[2])} of {f.cols}</li>
+        </ul>
+        <p className="grid-overlay__note">{f.note}</p>
+      </div>
+    </div>
+  );
 }
 
 function LayoutOverlay({ o }: { o: Overlay }) {
-  const h = o.bottom - o.top;
-  const lines = [];
-  for (let y = o.top; y <= o.bottom; y += 8) lines.push(y);
   return (
     <figure className="grid-overlay">
-      <svg viewBox={`0 ${o.top} 1440 ${h}`} role="img" aria-label={`${o.title} layout on the 12-column grid`}>
-        <rect className="go-page" x={RAIL_W} y={HEADER_H} width={1440 - RAIL_W} height={o.footerY - HEADER_H} />
-        {Array.from({ length: COLS }, (_, i) => (
-          <rect key={i} className="go-col" x={CONTENT_X + i * (COL_W + GUTTER)} y={HEADER_H} width={COL_W} height={o.footerY - HEADER_H} />
-        ))}
-        {lines.filter((y) => y > HEADER_H && y < o.footerY).map((y) => <line key={y} className="go-line" x1={RAIL_W} x2={1440} y1={y} y2={y} />)}
-        <rect className="go-margin" x={RAIL_W} y={HEADER_H} width={CONTENT_X - RAIL_W} height={o.footerY - HEADER_H} />
-        <rect className="go-margin" x={CONTENT_X + CONTENT_W} y={HEADER_H} width={1440 - CONTENT_X - CONTENT_W} height={o.footerY - HEADER_H} />
-        <rect className="go-main" x={o.main.region[0]} y={o.main.region[1]} width={o.main.region[2]} height={o.main.region[3]} />
-        {o.main.cells.map(([x, y, w, ch], i) => <rect key={i} className="go-cell" x={x} y={y} width={w} height={ch} />)}
-        <rect className="go-side" x={o.side.region[0]} y={o.side.region[1]} width={o.side.region[2]} height={o.side.region[3]} />
-        {o.side.rows.map(([x, y, w, rh], i) => <rect key={i} className="go-row" x={x} y={y} width={w} height={rh} />)}
-
-        {/* Header */}
-        <rect className="go-chrome" x={0} y={0} width={1440} height={HEADER_H} />
-        <rect className="go-chrome-item" x={24} y={12} width={178} height={32} />
-        <rect className="go-chrome-item" x={1294} y={10} width={122} height={36} />
-        <text className="go-text" x={720} y={HEADER_H / 2}>Header · 56px · full width</text>
-        {/* Sidebar rail */}
-        <rect className="go-chrome" x={0} y={HEADER_H} width={RAIL_W} height={o.bottom - HEADER_H} />
-        {RAIL_ITEMS.map(([y, rh], i) => (
-          <rect key={y} className={i === o.activeNav ? "go-chrome-item go-chrome-item--on" : "go-chrome-item"} x={0} y={y} width={RAIL_W - 1} height={rh} />
-        ))}
-        <rect className="go-chrome-item" x={6} y={946} width={83} height={38} />
-        <text className="go-text go-text--v" x={RAIL_W / 2} y={(492 + 946) / 2} transform={`rotate(-90 ${RAIL_W / 2} ${(492 + 946) / 2})`}>Sidebar rail · 96px</text>
-        {/* Footer */}
-        <rect className="go-chrome" x={RAIL_W} y={o.footerY} width={1440 - RAIL_W} height={FOOTER_H} />
-        <rect className="go-chrome-item" x={120} y={o.footerY + 16} width={111} height={16} />
-        <rect className="go-chrome-item" x={1325} y={o.footerY + 12} width={91} height={24} />
-        <text className="go-text" x={(RAIL_W + 1440) / 2} y={o.footerY + FOOTER_H / 2}>Footer · 48px · padding 8 / 24</text>
-        {/* Page padding markers */}
-        <text className="go-text go-text--pad" x={(RAIL_W + CONTENT_X) / 2} y={HEADER_H + 12}>32</text>
-        <text className="go-text go-text--pad" x={(CONTENT_X + CONTENT_W + 1440) / 2} y={HEADER_H + 12}>32</text>
-      </svg>
-      <figcaption className="grid-overlay__cap">
-        <div className="grid-overlay__head">
-          <h3 className="grid-card__title">{o.title}</h3>
-          <span className="grid-overlay__used">Used in <ScreenLinks screens={o.screens} /></span>
-        </div>
-        <ul className="grid-overlay__keys">
-          <li><i className="go-key go-key--main" />{o.main.label} · spans ≈ {spanOf(o.main.region[2])} columns</li>
-          <li><i className="go-key go-key--side" />{o.side.label} · spans ≈ {spanOf(o.side.region[2])} columns</li>
-        </ul>
-        <p className="grid-overlay__note">{o.note}</p>
-      </figcaption>
+      <div className="grid-overlay__head">
+        <h3 className="grid-card__title">{o.title}</h3>
+        <span className="grid-overlay__used">Used in <ScreenLinks screens={o.screens} /></span>
+      </div>
+      <Tabs
+        variant="pill"
+        defaultId="desktop"
+        items={[
+          { id: "desktop", label: "Desktop · 1440", content: <FramePanel f={o.desktop} title={o.title} /> },
+          { id: "tablet", label: "Tablet · 768", content: <FramePanel f={o.tablet} title={o.title} /> },
+          { id: "mobile", label: "Mobile · 390", content: <FramePanel f={o.mobile} title={o.title} /> },
+        ]}
+      />
     </figure>
   );
 }
@@ -270,15 +337,14 @@ export default function Grid() {
       <DocsSectionList>
         <DocsSection anchorId="layout-grid" title="Layout grid">
           <p className="grid-intro">
-            Each screen drawn with its app chrome (header, sidebar rail, footer) and laid on CORE's 12-column grid (<code>Grid</code>, <code>columns=12</code>) across the 1280px content area at 1440px,
-            with 20px gutters (<code>--core-space-5</code>, the portal's layout gap). The thin lines mark the 8px rhythm (<code>--core-space-2</code>).
+            Each screen drawn with its app chrome (header, sidebar rail or MobileNav, footer) on CORE's column grid at three widths. Desktop (1440) and tablet (768) use the 12-column <code>Grid</code> with 20px gutters (<code>--core-space-5</code>, the portal's layout gap) across the 1280px and 640px content areas; mobile (390) shows 4 reference columns with 16px gutters across 358px. The thin lines mark the 8px rhythm (<code>--core-space-2</code>).
             Green is the side column, broken into its stacked rows; purple is the main area, broken into its cards. Every box is measured from the
             live portal and drawn to scale.
           </p>
           <ul className="grid-overlay__legend">
             <li><i className="go-key go-key--chrome" />Header 56px · sidebar rail 96px · footer 48px</li>
             <li><i className="go-key go-key--margin" />Page margin 32px</li>
-            <li><i className="go-key go-key--col" />12 columns · 88px · 20px gutter</li>
+            <li><i className="go-key go-key--col" />Columns · 12 on desktop and tablet, 4 on mobile</li>
             <li><i className="go-key go-key--line" />8px rhythm</li>
             <li><i className="go-key go-key--side" />Side column · rows</li>
             <li><i className="go-key go-key--main" />Main area · cards</li>

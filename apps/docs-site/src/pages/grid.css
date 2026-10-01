@@ -73,3 +73,9 @@
 .go-text--pad { fill: var(--semantics-warning-text); font-size: var(--core-font-size-md); }
 .go-key--chrome { background: var(--neutral-surface-layer-01); border: var(--core-border-width-default) solid var(--neutral-border-light); }
 .go-key--margin { background: color-mix(in srgb, var(--semantics-warning-text) 16%, var(--neutral-surface-layer-01)); }
+.grid-overlay { padding: var(--core-space-4) var(--core-space-5) 0; display: flex; flex-direction: column; gap: var(--core-space-3); }
+.grid-overlay .grid-overlay__head { padding: 0; }
+.grid-overlay__frame { display: flex; flex-direction: column; margin: var(--core-space-3) calc(-1 * var(--core-space-5)) 0; }
+.grid-overlay__canvas { display: flex; justify-content: center; padding: var(--core-space-4); background: var(--neutral-surface-layer-03); border-top: var(--core-border-width-default) solid var(--neutral-border-light); }
+.grid-overlay__canvas svg { display: block; width: 100%; height: auto; background: var(--neutral-surface-layer-01); box-shadow: var(--core-elevation-1); }
+.go-text--sm { font-size: var(--core-font-size-sm); }
