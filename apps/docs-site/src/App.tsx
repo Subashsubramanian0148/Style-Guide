@@ -12,6 +12,7 @@ import Components from "./pages/Components";
 import LegacyComponentRedirect from "./LegacyComponentRedirect";
 import Patterns from "./pages/Patterns";
 import Screens from "./pages/Screens";
+import Grid from "./pages/Grid";
 import { ScreenFrame } from "./pages/ScreenReference";
 import { useParams, useSearchParams } from "react-router-dom";
 import Tokens from "./pages/Tokens";
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/foundations/icons" element={<Navigate to="/foundations/typography" replace />} />
         <Route path="/foundations/layout-grid" element={<LayoutGrid />} />
         <Route path="/foundations/logo" element={<LogoPage />} />
+        <Route path="/foundations/grid" element={<Grid />} />
         <Route path="/components" element={<Components />} />
         <Route path="/components/actions" element={<LegacyComponentRedirect />} />
         <Route path="/components/forms" element={<LegacyComponentRedirect />} />

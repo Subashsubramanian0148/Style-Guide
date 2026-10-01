@@ -19,6 +19,14 @@ import { SectionHeading, SpecTableCard } from "../AnatomySpec";
 import { ScreenTypeMap, readTypedText, styleLabel, typeOrder, typeGroup, TYPE_GROUP_COLOR } from "../ScreenTypeMap";
 import { usageFor } from "./typographyUsage";
 import "./screen-reference.css";
+import "./screen-ref/portal.css";
+import { NAV, T, PortalShell, Note } from "./screen-ref/shared";
+import { AccountSummaryScreen } from "./screen-ref/AccountSummaryScreen";
+import { EnrollmentLayout, EnrollmentInvestmentsScreen, EnrollmentSummaryScreen } from "./screen-ref/EnrollmentScreens";
+import { PlanDetailsScreen } from "./screen-ref/PlanDetailsScreen";
+import { PlanInvestmentsScreen } from "./screen-ref/PlanInvestmentsScreen";
+import { RetirementReadinessScreen } from "./screen-ref/RetirementReadinessScreen";
+import { BeneficiaryListScreen, AddBeneficiaryBasicScreen, AddBeneficiaryContactScreen, AddBeneficiaryBankScreen } from "./screen-ref/BeneficiaryScreens";
 
 /** Screen reference — the LendGuard participant portal
  *  (participantportal-core.netlify.app, source Satish0024/S_PPT@journey-retirement)
@@ -27,57 +35,6 @@ import "./screen-reference.css";
  *  the intended text style for the typography map. */
 
 const WIDTH = 1440;
-
-const NAV = [
-  { key: "dashboard", label: "Dashboard", icon: "fa-solid fa-table-cells-large" },
-  { key: "portfolio", label: "Investment portfolio", icon: "fa-solid fa-wallet" },
-  { key: "transactions", label: "Transactions", icon: "fa-solid fa-right-left" },
-  { key: "profile", label: "My profile", icon: "fa-solid fa-user" },
-  { key: "documents", label: "Document Center", icon: "fa-solid fa-file-lines" },
-];
-
-/** Text that carries its intended typography style for the docs. */
-function T({ as = "span", t, className, children, ...rest }: { as?: keyof JSX.IntrinsicElements; t: string; className?: string; children: React.ReactNode; href?: string } & React.HTMLAttributes<HTMLElement>) {
-  const Tag = as as any;
-  return <Tag data-type={t} className={className} {...rest}>{children}</Tag>;
-}
-
-function PortalShell({ current, footer = true, children }: { current: string; footer?: boolean; children: React.ReactNode }) {
-  return (
-    <AppShell
-      header={<AppHeader brand={<BrandLogo />} utilities={headerUtilities} account={headerAccount} />}
-      sidebar={
-        <>
-          <AppSidebar variant="rail" items={NAV.map((n) => ({ label: n.label, icon: <Icon name={n.icon} size="lg" />, current: n.key === current }))} />
-          <div className="sr-nav-brand" aria-hidden="true">
-            <img className="sr-light" src="/brand/core/core-logo-light.svg" alt="" />
-            <img className="sr-dark" src="/brand/core/core-logo-dark.svg" alt="" />
-          </div>
-        </>
-      }
-      footer={footer ? <AppFooter copyright="© 2026 LendGuard." links={<><a href="#">Privacy</a><a href="#">Terms</a></>} /> : undefined}
-    >
-      {children}
-      <div className="sr-mobile-nav">
-        <MobileNav
-          items={[{ id: "dashboard", label: "Dashboard", icon: "fa-solid fa-table-cells-large" }, { id: "settings", label: "Settings", icon: "fa-solid fa-gear" }]}
-          activeId={current === "dashboard" ? "dashboard" : undefined}
-          menu={NAV.filter((n) => n.key !== "dashboard").map((n) => ({ id: n.key, label: n.label, icon: n.icon }))}
-          activeLinkId={current}
-        />
-      </div>
-    </AppShell>
-  );
-}
-
-function Note({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="sr-note">
-      <Icon name="fa-solid fa-circle-info" size="sm" />
-      <T t="text12Regular">{children}</T>
-    </p>
-  );
-}
 
 /* ---------------- Dashboard ---------------- */
 
@@ -234,13 +191,13 @@ function Sort({ label }: { label: string }) {
 }
 
 function PortfolioScreen() {
-  const [range, setRange] = useState("1Y");
+
   return (
     <PortalShell current="portfolio">
       <div data-spec="Page header" className="sr-page-head">
         <div data-spec="Title row" className="sr-page-head-row">
           <T as="h1" t="h1" className="sr-h1">Investment portfolio</T>
-          <div style={{ width: 320 }}><Select aria-label="Select plan" defaultValue="p" options={[{ value: "p", label: "LendGuard Employees Savings and Retirement 401(k) Plan" }]} /></div>
+          <div style={{ width: "calc(var(--core-space-1) * 80)" }}><Select aria-label="Select plan" defaultValue="p" options={[{ value: "p", label: "LendGuard Employees Savings and Retirement 401(k) Plan" }]} /></div>
         </div>
       </div>
       <div data-spec="Tabs bar" className="sr-tabs-bar"><Tabs items={[{ id: "mine", label: "My portfolio" }, { id: "plan", label: "Plan investments" }]} /></div>
@@ -258,10 +215,8 @@ function PortfolioScreen() {
             <Card>
               <div data-spec="Chart panel" className="sr-chart-panel">
                 <T as="h2" t="h5" className="sr-chart-title">Asset class performance</T>
-                <div data-spec="Period selector" className="sr-period" aria-label="Chart period">
-                  {["1M", "3M", "6M", "YTD", "1Y", "3Y", "5Y", "10Y"].map((p) => (
-                    <button key={p} type="button" aria-pressed={p === range} onClick={() => setRange(p)} data-type="text12Bold">{p}</button>
-                  ))}
+                <div data-spec="Period selector" className="sr-period-tabs">
+                  <Tabs variant="pill" defaultId="1Y" items={["1M", "3M", "6M", "YTD", "1Y", "3Y", "5Y", "10Y"].map((p) => ({ id: p, label: p }))} />
                 </div>
                 <div className="sr-chart-wrap">
                   <LineChartCard title="Asset class performance" data={PERF} xKey="month" height={260} series={[{ key: "total", label: "Total portfolio", color: "var(--neutral-text-default)" }, { key: "equity", label: "U.S. Equity", color: "var(--neutral-text-subtle)" }, { key: "money", label: "Money Market", color: "var(--brand-text-primary-default)" }, { key: "commodities", label: "Commodities", color: "var(--theme-semantics-critical-text)" }]} />
@@ -307,7 +262,7 @@ function PortfolioScreen() {
 
 /* ---------------- Documents ---------------- */
 
-function DateField({ label, value, width }: { label: string; value: string; width: number }) {
+function DateField({ label, value, width }: { label: string; value: string; width: string }) {
   return (
     <div className="sr-doc-field" style={{ width }}>
       <Field label={label}>{(p) => <InputWithIcon {...p} readOnly value={value} trailingIcon={<CalendarIcon size={16} />} />}</Field>
@@ -327,11 +282,11 @@ function DocumentsScreen() {
         </div>
         <Card>
           <div data-spec="Filters" className="sr-doc-filters">
-            <div className="sr-doc-field" style={{ width: 167 }}><Field label="Search">{(p) => <Input {...p} placeholder="Document name" />}</Field></div>
-            <div className="sr-doc-field" style={{ width: 170 }}><Field label="Plan Name/ID">{(p) => <Select {...p} defaultValue="all" options={[{ value: "all", label: "All" }]} />}</Field></div>
-            <div className="sr-doc-field" style={{ width: 170 }}><Field label="Document Type">{(p) => <Select {...p} defaultValue="all" options={[{ value: "all", label: "All" }]} />}</Field></div>
-            <DateField label="Documented from" value="Mar 30, 2026" width={150} />
-            <DateField label="Documented to" value="Sep 30, 2026" width={150} />
+            <div className="sr-doc-field" style={{ width: "calc(calc(var(--core-space-1) * 42) - var(--core-border-width-default))" }}><Field label="Search">{(p) => <Input {...p} placeholder="Document name" />}</Field></div>
+            <div className="sr-doc-field" style={{ width: "calc(calc(var(--core-space-1) * 42) + var(--core-border-width-thick))" }}><Field label="Plan Name/ID">{(p) => <Select {...p} defaultValue="all" options={[{ value: "all", label: "All" }]} />}</Field></div>
+            <div className="sr-doc-field" style={{ width: "calc(calc(var(--core-space-1) * 42) + var(--core-border-width-thick))" }}><Field label="Document Type">{(p) => <Select {...p} defaultValue="all" options={[{ value: "all", label: "All" }]} />}</Field></div>
+            <DateField label="Documented from" value="Apr 1, 2026" width="calc(calc(var(--core-space-1) * 38) - var(--core-border-width-thick))" />
+            <DateField label="Documented to" value="Oct 1, 2026" width="calc(calc(var(--core-space-1) * 38) - var(--core-border-width-thick))" />
             <div className="sr-doc-field">
               <span className="sr-hidden-label" aria-hidden="true">&nbsp;</span>
               <div data-spec="Filter actions" className="sr-doc-actions">
@@ -376,29 +331,7 @@ function SourceRow({ name, help }: { name: string; help: string }) {
 
 function EnrollmentScreen() {
   return (
-    <div className="sr-enroll-shell">
-      <PortalShell current="dashboard" footer={false}>
-        <div data-spec="Enrollment layout" className="sr-enroll">
-          <aside data-spec="Steps panel" className="sr-steps">
-            <a className="sr-link" href="#">‹ Back</a>
-            <T as="h1" t="h2" className="sr-steps-title">Plan enrollment</T>
-            <div className="sr-divider" />
-            <Stepper
-              orientation="vertical"
-              currentIndex={0}
-              steps={[
-                { label: "Deferral rate", description: "Specify payroll deferral rates and set up auto increase." },
-                { label: "Investment election", description: "Choose the investments and its allocation percentages" },
-                { label: "Summary", description: "Review the elections before confirming." },
-              ]}
-            />
-          </aside>
-          <div data-spec="Enrollment main" className="sr-enroll-main">
-            <div data-spec="Detail header" className="sr-detail-head">
-              <T as="div" t="text12SemiBold" className="sr-eyebrow">Plan details</T>
-              <T as="h2" t="h2" className="sr-detail-h2">401(k) Company Plan High Returns</T>
-              <T as="div" t="text16Regular" className="sr-plan-meta">Plan ID <b>124542</b></T>
-            </div>
+    <EnrollmentLayout step={0}>
             <div data-spec="Detail body" className="sr-detail-body">
               <div className="sr-narrow">
                 <div data-spec="Section top" className="sr-section-top">
@@ -443,21 +376,32 @@ function EnrollmentScreen() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </PortalShell>
-    </div>
+    </EnrollmentLayout>
   );
 }
 
 /* ---------------- Mobile frame ---------------- */
 
-export const SCREEN_COMPONENTS: Record<string, () => JSX.Element> = {
-  dashboard: DashboardScreen,
-  portfolio: PortfolioScreen,
-  documents: DocumentsScreen,
-  enrollment: EnrollmentScreen,
-};
+/** Every Screen reference page, in display order, grouped by portal flow.
+ *  `id` is the anchor (#screen-ref-<id>) and the mobile frame route. */
+export interface ScreenDef { id: string; title: string; group: string; Component: () => JSX.Element }
+export const SCREEN_LIST: ScreenDef[] = [
+  { id: "dashboard", title: "Dashboard", group: "Dashboard", Component: DashboardScreen },
+  { id: "account-summary", title: "Account summary", group: "Account summary", Component: AccountSummaryScreen },
+  { id: "plan-details", title: "View plan details", group: "View plan details", Component: PlanDetailsScreen },
+  { id: "portfolio", title: "My portfolio", group: "Investment portfolio", Component: PortfolioScreen },
+  { id: "portfolio-plan", title: "Plan investments", group: "Investment portfolio", Component: PlanInvestmentsScreen },
+  { id: "documents", title: "Documents", group: "Documents", Component: DocumentsScreen },
+  { id: "enrollment", title: "Step 1 — Deferral rate", group: "Enrollment flow", Component: EnrollmentScreen },
+  { id: "enroll-investments", title: "Step 2 — Investment election", group: "Enrollment flow", Component: EnrollmentInvestmentsScreen },
+  { id: "enroll-summary", title: "Step 3 — Summary", group: "Enrollment flow", Component: EnrollmentSummaryScreen },
+  { id: "beneficiaries", title: "Beneficiary details", group: "Profile & beneficiary", Component: BeneficiaryListScreen },
+  { id: "bene-basic", title: "Add beneficiary — Basic details", group: "Profile & beneficiary", Component: AddBeneficiaryBasicScreen },
+  { id: "bene-contact", title: "Add beneficiary — Contact details", group: "Profile & beneficiary", Component: AddBeneficiaryContactScreen },
+  { id: "bene-bank", title: "Add beneficiary — Bank details", group: "Profile & beneficiary", Component: AddBeneficiaryBankScreen },
+  { id: "retirement-readiness", title: "Retirement readiness", group: "Retirement readiness", Component: RetirementReadinessScreen },
+];
+export const SCREEN_COMPONENTS: Record<string, () => JSX.Element> = Object.fromEntries(SCREEN_LIST.map((s) => [s.id, s.Component]));
 
 /** Standalone render of one screen, loaded in a phone-sized iframe so the
  *  portal's responsive rules (and CORE's own breakpoints) apply for real. */
@@ -490,7 +434,7 @@ function MobilePreview({ id, title, notes }: { id: string; title: string; notes:
         demo={
           <div className="sr-mobile-ref">
             <div className="sr-phone">
-              <iframe key={src} title={`${id} — mobile`} src={src} width={MOBILE_WIDTH} height={844} />
+              <iframe key={src} title={`${id} — mobile`} src={src} width={MOBILE_WIDTH} height={844} loading="lazy" />
             </div>
             <div className="sr-mobile-notes">
               <SectionHeading>What changes below 640 px</SectionHeading>
@@ -499,7 +443,7 @@ function MobilePreview({ id, title, notes }: { id: string; title: string; notes:
           </div>
         }
         anatomy={
-          <div key={src} style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+          <div key={src} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-12)" }}>
             <ScreenSpec width={MOBILE_WIDTH} name={`LendGuard — ${title} (mobile)`} frame={`${src}&fit=1`}  showAnatomy={false} />
             <ScreenTypeMap width={MOBILE_WIDTH} frame={`${src}&fit=1`} />
           </div>
@@ -510,6 +454,31 @@ function MobilePreview({ id, title, notes }: { id: string; title: string; notes:
 }
 
 const MOBILE_NOTES: Record<string, string[]> = {
+  beneficiaries: [
+    "Profile layout becomes one column: the section nav sits above the panel (gap 20).",
+    "Section nav stays a bordered card (padding 12, gap 4) with the five sections stacked.",
+    "Beneficiary table keeps its columns and scrolls sideways inside its frame.",
+  ],
+  "bene-basic": [
+    "Steps card stacks above the form panel (gap 20).",
+    "Each field stacks its label above the input (gap 4, row padding 12 / 0); inputs go full width.",
+    "Action bar keeps Next · Previous · Cancel on one row, gap 8.",
+  ],
+  "bene-contact": [
+    "Steps card stacks above the form panel (gap 20).",
+    "Labels stack above inputs; the phone country code and number stay side by side.",
+    "Action bar keeps Next · Previous · Cancel on one row, gap 8.",
+  ],
+  "bene-bank": [
+    "Steps card stacks above the form panel (gap 20).",
+    "Labels stack above inputs; Type Of Account select goes full width.",
+    "Action bar keeps Save · Previous · Cancel on one row, gap 8.",
+  ],
+  "retirement-readiness": [
+    "Layout becomes one column (gap 24): Retirement target, then Deferrals, then the live result card.",
+    "Each target card stacks its control below the copy (column, gap 8).",
+    "Update and Cancel stack in a column (gap 16) at the end of the page.",
+  ],
   common: [
     "Sidebar rail is replaced by the CORE MobileNav bottom bar (Menu · Dashboard · Settings); the other destinations move into the Menu sheet.",
     "Page padding drops from 24 / 32 / 48 to 16 / 16 / 32 (core-space-4 / 8); content stacks in one column.",
@@ -566,7 +535,7 @@ function ScreenBlock({ id, title, screen, onScan }: { id: string; title: string;
             </Preview>
           }
           anatomy={
-            <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-12)" }}>
               <ScreenSpec width={WIDTH} name={`LendGuard — ${title}`} render={() => <DarkCanvas>{screen}</DarkCanvas>}  showAnatomy={false} />
               <ScreenTypeMap width={WIDTH}><DarkCanvas>{screen}</DarkCanvas></ScreenTypeMap>
             </div>
@@ -574,58 +543,56 @@ function ScreenBlock({ id, title, screen, onScan }: { id: string; title: string;
         />
       </div>
       <h4 style={{ margin: "var(--core-space-4) 0 0", fontSize: "var(--typography-heading-h5-size)" }}>{title} — mobile (390 px)</h4>
-      <MobilePreview id={id} title={title} notes={[...MOBILE_NOTES[id], ...MOBILE_NOTES.common]} />
+      <MobilePreview id={id} title={title} notes={[...(MOBILE_NOTES[id] ?? []), ...MOBILE_NOTES.common]} />
     </div>
   );
 }
 
-const SCREENS = [
-  { id: "dashboard", title: "Dashboard" },
-  { id: "portfolio", title: "Investment portfolio" },
-  { id: "documents", title: "Documents" },
-  { id: "enrollment", title: "Enrollment flow" },
-];
-
 const TYPO = typography as Record<string, { desktop: { size: string; weight: string; lineHeight: string } }>;
 
-/** One row per text style: when to use it and where each screen uses it. */
+const jump = (id: string) => (e: React.MouseEvent) => {
+  e.preventDefault();
+  document.getElementById(`screen-ref-${id}`)?.scrollIntoView({ behavior: "smooth" });
+};
+
+/** One row per text style: when to use it and where the screens use it. */
 function TypeGuide({ usage }: { usage: Record<string, Record<string, string[]>> }) {
   const keys = [...new Set(Object.values(usage).flatMap((u) => Object.keys(u)))].sort((a, b) => typeOrder(a) - typeOrder(b));
   if (!keys.length) return null;
+  const cell: React.CSSProperties = { padding: "var(--core-space-3) var(--core-space-4)", verticalAlign: "top" };
   return (
     <div>
       <SectionHeading>Text styles — when to use each, and where the screens use it</SectionHeading>
       <SpecTableCard>
         <thead>
-          <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, #00000008)" }}>
-            <th style={{ padding: "var(--core-space-2) var(--core-space-4)" }}>Style</th>
-            <th style={{ padding: "var(--core-space-2) var(--core-space-4)" }}>Use it for</th>
-            {SCREENS.map((s) => (
-              <th key={s.id} style={{ padding: "var(--core-space-2) var(--core-space-4)" }}>
-                <a href="#/screens" onClick={(e) => { e.preventDefault(); document.getElementById(`screen-ref-${s.id}`)?.scrollIntoView({ behavior: "smooth" }); }}>{s.title}</a>
-              </th>
-            ))}
+          <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: "var(--core-font-size-xs)", textTransform: "uppercase", letterSpacing: "var(--typography-eyebrow-letter-spacing)", background: "var(--core-color-surface-sunken)" }}>
+            <th style={{ padding: "var(--core-space-2) var(--core-space-4)", width: "calc(var(--core-space-1) * 40)" }}>Style</th>
+            <th style={{ padding: "var(--core-space-2) var(--core-space-4)", width: "32%" }}>Use it for</th>
+            <th style={{ padding: "var(--core-space-2) var(--core-space-4)" }}>Where the screens use it</th>
           </tr>
         </thead>
         <tbody>
           {keys.map((k) => {
             const d = TYPO[k]?.desktop;
+            const uses = SCREEN_LIST.flatMap((s) => (usage[s.id]?.[k] ?? []).slice(0, 2).map((t) => ({ s, t })));
+            const screens = SCREEN_LIST.filter((s) => usage[s.id]?.[k]?.length);
             return (
-              <tr key={k} style={{ borderTop: "1px solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
-                <td style={{ padding: "var(--core-space-3) var(--core-space-4)", whiteSpace: "nowrap" }}>
-                  <span style={{ display: "inline-block", padding: "1px 6px", borderRadius: 4, background: TYPE_GROUP_COLOR[typeGroup(k)], color: "#FFFFFF", fontSize: 11, fontWeight: 700 }}>{styleLabel(k)}</span>
-                  <div style={{ fontSize: 12, color: "var(--core-color-text-tertiary)", marginTop: "var(--core-space-1)" }}>{d ? `${d.size} / ${d.weight}` : ""}</div>
+              <tr key={k} style={{ borderTop: "var(--core-border-width-default) solid var(--core-color-border-subtle)" }}>
+                <td style={{ ...cell, whiteSpace: "nowrap" }}>
+                  <span style={{ display: "inline-block", padding: "0 var(--core-space-2)", borderRadius: "var(--core-radius-xs)", background: TYPE_GROUP_COLOR[typeGroup(k)], color: "var(--brand-text-primary-oncolor)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-bold)" }}>{styleLabel(k)}</span>
+                  <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-tertiary)", marginTop: "var(--core-space-1)" }}>{d ? `${d.size} / ${d.weight}` : ""}</div>
                 </td>
-                <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: 13, color: "var(--core-color-text-primary)", minWidth: 200 }}>{d ? usageFor(k, d).use : ""}</td>
-                {SCREENS.map((s) => {
-                  const texts = usage[s.id]?.[k] ?? [];
-                  return (
-                    <td key={s.id} style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: 12, color: texts.length ? "var(--core-color-text-secondary)" : "var(--core-color-text-tertiary)", minWidth: 140 }}>
-                      {texts.length ? texts.slice(0, 3).map((t, i) => <div key={i}>“{t.length > 36 ? `${t.slice(0, 36)}…` : t}”</div>) : "—"}
-                      {texts.length > 3 && <div>+{texts.length - 3} more</div>}
-                    </td>
-                  );
-                })}
+                <td style={{ ...cell, fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-primary)" }}>{d ? usageFor(k, d).use : ""}</td>
+                <td style={{ ...cell, fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-secondary)" }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--core-space-1) var(--core-space-3)" }}>
+                    {uses.slice(0, 6).map(({ s, t }, i) => (
+                      <span key={i}>
+                        <a href="#/screens" onClick={jump(s.id)} style={{ fontWeight: "var(--typography-font-weight-semibold)" }}>{s.group === s.title ? s.title : `${s.group}: ${s.title}`}</a> “{t.length > 30 ? `${t.slice(0, 30)}…` : t}”
+                      </span>
+                    ))}
+                  </div>
+                  {screens.length > 0 && <div style={{ marginTop: "var(--core-space-1)", color: "var(--core-color-text-tertiary)" }}>Used on {screens.length} screen{screens.length > 1 ? "s" : ""}</div>}
+                </td>
               </tr>
             );
           })}
@@ -640,34 +607,22 @@ export function ScreenReferenceSection() {
   const onScan = useCallback((id: string, typed: Record<string, string[]>) => {
     setUsage((u) => (JSON.stringify(u[id]) === JSON.stringify(typed) ? u : { ...u, [id]: typed }));
   }, []);
+  const groups = [...new Set(SCREEN_LIST.map((s) => s.group))];
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-12)" }}>
       <TypeGuide usage={usage} />
-      <ScreenBlock
-        id="dashboard"
-        title="Dashboard"
-        onScan={onScan}
-        screen={<DashboardScreen />}
-      />
-      <ScreenBlock
-        id="portfolio"
-        title="Investment portfolio"
-        onScan={onScan}
-        screen={<PortfolioScreen />}
-      />
-      <ScreenBlock
-        id="documents"
-        title="Documents"
-        onScan={onScan}
-        screen={<DocumentsScreen />}
-      />
-      <ScreenBlock
-        id="enrollment"
-        title="Enrollment flow"
-        onScan={onScan}
-        screen={<EnrollmentScreen />}
-      />
+      {groups.map((g) => {
+        const screens = SCREEN_LIST.filter((s) => s.group === g);
+        return (
+          <section key={g} id={`screen-group-${g.toLowerCase().replace(/[^a-z]+/g, "-")}`} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-10)" }}>
+            {screens.length > 1 && <h3 style={{ margin: 0, fontSize: "var(--typography-heading-h3-size)" }}>{g}</h3>}
+            {screens.map((s) => (
+              <ScreenBlock key={s.id} id={s.id} title={screens.length > 1 ? s.title : g} screen={<s.Component />} onScan={onScan} />
+            ))}
+          </section>
+        );
+      })}
     </div>
   );
 }

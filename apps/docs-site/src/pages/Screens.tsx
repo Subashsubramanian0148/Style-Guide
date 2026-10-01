@@ -8,7 +8,7 @@ export default function Screens() {
       <DocsSectionList>
         <DocsSection anchorId="screen-reference" title="Screen reference">
           <p style={{ fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-secondary)", marginTop: 0, marginBottom: "var(--core-space-6)" }}>
-            Four participant-portal screens rebuilt from the design system to match the live portal. Switch any screen to
+            Participant-portal screens rebuilt from the design system to match the live portal. Switch any screen to
             its anatomy to see header, sidebar, content and section spacing measured from the real DOM, followed by every
             typography role, color, radius and spacing token the screen uses.
           </p>

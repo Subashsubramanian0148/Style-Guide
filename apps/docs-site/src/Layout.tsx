@@ -15,6 +15,7 @@ const nav = [
       { to: "/foundations/logo", label: "Logo" },
       { to: "/foundations/color", label: "Color" },
       { to: "/foundations/typography", label: "Typography" },
+      { to: "/foundations/grid", label: "Grid" },
     ],
   },
   {
@@ -30,7 +31,11 @@ const nav = [
       { to: "/screens#screen-ref-dashboard", label: "Dashboard" },
       { to: "/screens#screen-ref-portfolio", label: "Investment portfolio" },
       { to: "/screens#screen-ref-documents", label: "Documents" },
+      { to: "/screens#screen-ref-account-summary", label: "Account summary" },
+      { to: "/screens#screen-ref-plan-details", label: "Plan details" },
       { to: "/screens#screen-ref-enrollment", label: "Enrollment flow" },
+      { to: "/screens#screen-ref-beneficiaries", label: "Beneficiaries" },
+      { to: "/screens#screen-ref-retirement-readiness", label: "Retirement readiness" },
     ],
   },
 ];

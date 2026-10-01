@@ -19,6 +19,12 @@ export const pageSections: Record<string, { hash: string; label: string }[]> = {
     { hash: "#elevation-shadows", label: "Elevation & Shadows" },
     { hash: "#icon-sizing", label: "Icon Sizing" },
   ],
+  "/foundations/grid": [
+    { hash: "#layout-grid", label: "Layout grid" },
+    { hash: "#page-grid", label: "Page grid" },
+    { hash: "#breakpoints", label: "Breakpoints" },
+    { hash: "#screen-grids", label: "Grids used in screens" },
+  ],
   "/foundations/color": [
     { hash: "#full-color-scales", label: "Full color scales" },
     { hash: "#base-colors", label: "Base colors" },

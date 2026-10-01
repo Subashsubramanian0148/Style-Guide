@@ -40,7 +40,7 @@ export function typeStyle(key: string): React.CSSProperties {
   const d = TYPO[key]?.desktop;
   const p = SEMANTIC_PREFIX[key];
   if (key === "numericData") {
-    return { fontFamily: "var(--typography-font-family-mono)", fontSize: "var(--typography-font-size-sm)", fontWeight: 600, lineHeight: 1.5, fontVariantNumeric: "tabular-nums", margin: 0 };
+    return { fontFamily: "var(--typography-font-family-mono)", fontSize: "var(--typography-font-size-sm)", fontWeight: "var(--typography-font-weight-semibold)", lineHeight: 1.5, fontVariantNumeric: "tabular-nums", margin: 0 };
   }
   if (p) {
     return {
@@ -80,7 +80,7 @@ const COMPONENTS: Array<[string, string]> = [
   [".cds-select, .cds-input, input, select", "Input / Select"],
 ];
 
-const GROUP_COLOR = { heading: "#7C3AED", body: "#2563EB", label: "#118D57", numeric: "#C2410C", other: "#5C5C6B" };
+const GROUP_COLOR = { heading: "var(--core-color-accent-plum-500)", body: "var(--core-color-accent-ocean-500)", label: "var(--core-color-accent-teal-500)", numeric: "var(--core-color-accent-amber-500)", other: "var(--core-color-accent-slate-500)" };
 function groupOf(key: string): keyof typeof GROUP_COLOR {
   if (HEADINGS.includes(key)) return "heading";
   if (key === "numericData" || /^text(20|24|28|32)Bold$/.test(key)) return "numeric";
@@ -157,7 +157,7 @@ function CopyCss({ text }: { text: string }) {
     <button
       type="button"
       onClick={() => navigator.clipboard?.writeText(text).then(() => { setDone(true); window.setTimeout(() => setDone(false), 1500); })}
-      style={{ padding: "var(--core-space-1) var(--core-space-2)", borderRadius: "var(--core-radius-sm)", border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", color: "var(--core-color-text-secondary)", fontSize: 12, fontWeight: 600, cursor: "pointer" }}
+      style={{ padding: "var(--core-space-1) var(--core-space-2)", borderRadius: "var(--core-radius-sm)", border: "var(--core-border-width-default) solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", color: "var(--core-color-text-secondary)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-semibold)", cursor: "pointer" }}
     >
       {done ? "Copied" : "Copy CSS"}
     </button>
@@ -233,9 +233,9 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
                 style={{
                   display: "inline-flex", alignItems: "center", gap: "var(--core-space-1)",
                   padding: "var(--core-space-1) var(--core-space-3)", borderRadius: 999, cursor: "pointer",
-                  border: `1px solid ${active ? color : "var(--core-color-border-default)"}`,
+                  border: `var(--core-border-width-default) solid ${active ? color : "var(--core-color-border-default)"}`,
                   background: active ? color : "var(--core-color-surface-default)",
-                  color: active ? "#FFFFFF" : "var(--core-color-text-primary)", fontSize: 12, fontWeight: 600,
+                  color: active ? "var(--brand-text-primary-oncolor)" : "var(--core-color-text-primary)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-semibold)",
                 }}
               >
                 {k === "headings" ? "Headings (H1–H6)" : k ? styleLabel(k.startsWith("custom:") ? "Custom" : k) : "All text"} <span style={{ opacity: 0.7 }}>{count}</span>
@@ -252,10 +252,10 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
               const color = h.source ? GROUP_COLOR.other : GROUP_COLOR[groupOf(h.key)];
               return (
                 <React.Fragment key={i}>
-                  <div style={{ position: "absolute", left: h.rect.x, top: h.rect.y, width: h.rect.w, height: h.rect.h, outline: `1.5px solid ${color}`, background: focus ? `${color}26` : "transparent", pointerEvents: "none", zIndex: 2 }} />
+                  <div style={{ position: "absolute", left: h.rect.x, top: h.rect.y, width: h.rect.w, height: h.rect.h, outline: `var(--core-border-width-thick) solid ${color}`, background: focus ? `color-mix(in srgb, ${color} 15%, transparent)` : "transparent", pointerEvents: "none", zIndex: 2 }} />
                   <div
                     title={`${styleLabel(h.key)} — “${h.text}”`}
-                    style={{ position: "absolute", left: h.rect.x, top: h.rect.y - 14, background: color, color: "#FFFFFF", fontSize: 9, fontWeight: 700, lineHeight: "12px", padding: "1px 4px", borderRadius: 3, whiteSpace: "nowrap", zIndex: 3, pointerEvents: "none" }}
+                    style={{ position: "absolute", left: h.rect.x, top: `calc(${h.rect.y}px - var(--core-size-icon-sm))`, background: color, color: "var(--brand-text-primary-oncolor)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-bold)", lineHeight: "var(--core-size-icon-sm)", padding: "0 var(--core-space-1)", borderRadius: "var(--core-radius-xs)", whiteSpace: "nowrap", zIndex: 3, pointerEvents: "none" }}
                   >
                     {shortLabel(h)}
                   </div>
@@ -265,11 +265,11 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
           </div>
         </div>
         <SpecNote>
-          <span style={{ color: GROUP_COLOR.heading, fontWeight: 700 }}>Purple</span> = headings,{" "}
-          <span style={{ color: GROUP_COLOR.body, fontWeight: 700 }}>blue</span> = body text,{" "}
-          <span style={{ color: GROUP_COLOR.label, fontWeight: 700 }}>green</span> = labels & captions,{" "}
-          <span style={{ color: GROUP_COLOR.numeric, fontWeight: 700 }}>orange</span> = numbers & amounts,{" "}
-          <span style={{ color: GROUP_COLOR.other, fontWeight: 700 }}>grey</span> = text set by a component (don't restyle it). Pick a style above to see every place it is used.
+          <span style={{ color: GROUP_COLOR.heading, fontWeight: "var(--typography-font-weight-bold)" }}>Purple</span> = headings,{" "}
+          <span style={{ color: GROUP_COLOR.body, fontWeight: "var(--typography-font-weight-bold)" }}>blue</span> = body text,{" "}
+          <span style={{ color: GROUP_COLOR.label, fontWeight: "var(--typography-font-weight-bold)" }}>green</span> = labels & captions,{" "}
+          <span style={{ color: GROUP_COLOR.numeric, fontWeight: "var(--typography-font-weight-bold)" }}>orange</span> = numbers & amounts,{" "}
+          <span style={{ color: GROUP_COLOR.other, fontWeight: "var(--typography-font-weight-bold)" }}>grey</span> = text set by a component (don't restyle it). Pick a style above to see every place it is used.
         </SpecNote>
       </div>
 
@@ -278,7 +278,7 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)" }}>
           {checks(hits).map((c) => (
             <div key={c.text} style={{ display: "flex", gap: "var(--core-space-2)", fontSize: "var(--typography-body-md-size)", color: "var(--core-color-text-primary)" }}>
-              <span style={{ color: c.ok === "info" ? "var(--brand-text-primary-default)" : c.ok ? "var(--core-color-status-success-text)" : "var(--core-color-status-warning-text)", fontWeight: 700, flexShrink: 0 }}>{c.ok === "info" ? "ℹ" : c.ok ? "✓" : "⚠"}</span>
+              <span style={{ color: c.ok === "info" ? "var(--brand-text-primary-default)" : c.ok ? "var(--core-color-status-success-text)" : "var(--core-color-status-warning-text)", fontWeight: "var(--typography-font-weight-bold)", flexShrink: 0 }}>{c.ok === "info" ? "ℹ" : c.ok ? "✓" : "⚠"}</span>
               {c.text}
             </div>
           ))}
@@ -289,9 +289,9 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
         <SectionHeading>Text styles on this screen — what to use and how</SectionHeading>
         <SpecTableCard>
           <thead>
-            <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, #00000008)" }}>
+            <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: "var(--core-font-size-xs)", textTransform: "uppercase", letterSpacing: "var(--typography-eyebrow-letter-spacing)", background: "var(--core-color-surface-sunken)" }}>
               {["Style", "Use it for", "Used on this screen", "Code"].map((h) => (
-                <th key={h} style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>{h}</th>
+                <th key={h} style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: "var(--typography-font-weight-bold)" }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -306,12 +306,12 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
               const usage = !custom && d ? usageFor(k, d) : null;
               const tag = HEADINGS.includes(k) ? k : k === "text14Bold" ? "label" : "p / span";
               return (
-                <tr key={k} style={{ borderTop: "1px solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
+                <tr key={k} style={{ borderTop: "var(--core-border-width-default) solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
                   <td style={{ padding: "var(--core-space-3) var(--core-space-4)", whiteSpace: "nowrap" }}>
-                    <div style={{ display: "inline-block", padding: "1px 6px", borderRadius: 4, background: GROUP_COLOR[groupOf(k)], color: "#FFFFFF", fontSize: 11, fontWeight: 700 }}>{custom ? "Custom" : styleLabel(k)}</div>
-                    <div style={{ fontSize: 12, color: "var(--core-color-text-tertiary)", marginTop: "var(--core-space-1)" }}>{custom ? k.slice(7) : `${d?.size} / ${d?.weight} / ${d?.lineHeight}`}</div>
+                    <div style={{ display: "inline-block", padding: "0 var(--core-space-2)", borderRadius: "var(--core-radius-xs)", background: GROUP_COLOR[groupOf(k)], color: "var(--brand-text-primary-oncolor)", fontSize: "var(--core-font-size-xs)", fontWeight: "var(--typography-font-weight-bold)" }}>{custom ? "Custom" : styleLabel(k)}</div>
+                    <div style={{ fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-tertiary)", marginTop: "var(--core-space-1)" }}>{custom ? k.slice(7) : `${d?.size} / ${d?.weight} / ${d?.lineHeight}`}</div>
                   </td>
-                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: 13, color: "var(--core-color-text-primary)", minWidth: 180 }}>
+                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-primary)", minWidth: 180 }}>
                     {usage ? (
                       <>
                         <div>{usage.use}</div>
@@ -319,18 +319,18 @@ export function ScreenTypeMap({ width, children, frame }: { width: number; child
                       </>
                     ) : "Not a design-system style — replace it with the closest token style."}
                   </td>
-                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: 13, color: "var(--core-color-text-secondary)", minWidth: 180 }}>
+                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: "var(--core-font-size-sm)", color: "var(--core-color-text-secondary)", minWidth: 180 }}>
                     {own.slice(0, 4).map((r, i) => <div key={i}>“{r.text.length > 48 ? `${r.text.slice(0, 48)}…` : r.text}”</div>)}
                     {own.length > 4 && <div>+{own.length - 4} more</div>}
                     {fromComponents.length > 0 && <div style={{ color: "var(--core-color-text-tertiary)", marginTop: own.length ? "var(--core-space-1)" : 0 }}>From {fromComponents.map((c) => `<${c}>`).join(", ")} — set by the component</div>}
                   </td>
-                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", minWidth: 200 }}>
+                  <td style={{ padding: "var(--core-space-3) var(--core-space-4)", minWidth: "calc(var(--core-space-1) * 50)" }}>
                     {own.length === 0 && fromComponents.length ? (
-                      <span style={{ fontSize: 12, color: "var(--core-color-text-tertiary)" }}>Use the component — don't restyle its text.</span>
+                      <span style={{ fontSize: "var(--core-font-size-xs)", color: "var(--core-color-text-tertiary)" }}>Use the component — don't restyle its text.</span>
                     ) : css ? (
                       <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-2)", alignItems: "flex-start" }}>
-                        <code style={{ fontSize: 12 }}>{`<${tag.split(" ")[0]}>`}</code>
-                        <pre style={{ margin: 0, fontSize: 11, lineHeight: 1.6, whiteSpace: "pre-wrap", color: "var(--core-color-text-secondary)", fontFamily: "var(--typography-font-family-mono, monospace)" }}>{css}</pre>
+                        <code style={{ fontSize: "var(--core-font-size-xs)" }}>{`<${tag.split(" ")[0]}>`}</code>
+                        <pre style={{ margin: 0, fontSize: "var(--core-font-size-xs)", lineHeight: "var(--typography-body-xs-relaxed-line-height)", whiteSpace: "pre-wrap", color: "var(--core-color-text-secondary)", fontFamily: "var(--typography-font-family-mono)" }}>{css}</pre>
                         <CopyCss text={css} />
                       </div>
                     ) : "—"}
