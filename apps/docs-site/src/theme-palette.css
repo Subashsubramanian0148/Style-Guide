@@ -213,6 +213,11 @@ html[data-site-mode=light],
   --neutral-border-default: var(--theme-colors-neutral-300);
   /* neutral-background */
   --neutral-background-strong: var(--theme-colors-neutral-800);
+  /* neutral background & surface layers */
+  --neutral-background: var(--theme-colors-neutral-50);
+  --neutral-surface-layer-01: var(--theme-colors-neutral-0);
+  --neutral-surface-layer-02: var(--theme-colors-neutral-0);
+  --neutral-surface-layer-03: var(--theme-colors-neutral-100);
   /* semantics-critical */
   --semantics-critical-border: var(--theme-colors-red-200);
   --semantics-critical-text: var(--theme-colors-red-700);
@@ -347,6 +352,11 @@ html[data-site-mode=dark],
   --neutral-border-default: var(--theme-colors-neutral-600);
   /* neutral-background */
   --neutral-background-strong: var(--theme-colors-neutral-700);
+  /* neutral background & surface layers */
+  --neutral-background: var(--theme-colors-neutral-950);
+  --neutral-surface-layer-01: var(--theme-colors-neutral-900);
+  --neutral-surface-layer-02: var(--theme-colors-neutral-800);
+  --neutral-surface-layer-03: var(--theme-colors-neutral-950);
   /* semantics-critical */
   --semantics-critical-border: var(--theme-colors-red-700);
   --semantics-critical-text: var(--theme-colors-red-300);
@@ -426,6 +436,7 @@ html[data-site-mode="light"],
   --theme-brand-text-primary-hover: var(--brand-text-primary-hover);
   --theme-brand-text-primary-on-surface: var(--brand-text-primary-on-surface);
   --theme-brand-text-primary-oncolor: var(--brand-text-primary-oncolor);
+  --theme-neutral-background: var(--neutral-background);
   --theme-neutral-background-strong: var(--neutral-background-strong);
   --theme-neutral-border-default: var(--neutral-border-default);
   --theme-neutral-border-inverse: var(--neutral-border-inverse);
@@ -433,6 +444,9 @@ html[data-site-mode="light"],
   --theme-neutral-border-primary-default: var(--neutral-border-light);
   --theme-neutral-border-strong: var(--neutral-border-strong);
   --theme-neutral-border-subtle: var(--neutral-border-subtle);
+  --theme-neutral-surface-layer-01: var(--neutral-surface-layer-01);
+  --theme-neutral-surface-layer-02: var(--neutral-surface-layer-02);
+  --theme-neutral-surface-layer-03: var(--neutral-surface-layer-03);
   --theme-neutral-text-disabled: var(--neutral-text-disabled);
   --theme-neutral-text-on-color: var(--neutral-text-on-color);
   --theme-neutral-text-oncolor: var(--neutral-text-on-color);
@@ -552,6 +566,7 @@ html[data-site-mode="dark"],
   --theme-brand-text-primary-hover: var(--brand-text-primary-hover);
   --theme-brand-text-primary-on-surface: var(--brand-text-primary-on-surface);
   --theme-brand-text-primary-oncolor: var(--brand-text-primary-oncolor);
+  --theme-neutral-background: var(--neutral-background);
   --theme-neutral-background-strong: var(--neutral-background-strong);
   --theme-neutral-border-default: var(--neutral-border-default);
   --theme-neutral-border-inverse: var(--neutral-border-inverse);
@@ -559,6 +574,9 @@ html[data-site-mode="dark"],
   --theme-neutral-border-primary-default: var(--neutral-border-light);
   --theme-neutral-border-strong: var(--neutral-border-strong);
   --theme-neutral-border-subtle: var(--neutral-border-subtle);
+  --theme-neutral-surface-layer-01: var(--neutral-surface-layer-01);
+  --theme-neutral-surface-layer-02: var(--neutral-surface-layer-02);
+  --theme-neutral-surface-layer-03: var(--neutral-surface-layer-03);
   --theme-neutral-text-disabled: var(--neutral-text-disabled);
   --theme-neutral-text-on-color: var(--neutral-text-on-color);
   --theme-neutral-text-oncolor: var(--neutral-text-on-color);

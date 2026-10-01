@@ -1436,6 +1436,74 @@ const FIGMA_BASE_TOKENS: FigmaTokenItem[] = [
     paletteNameDark: "Neutral 600",
   },
 
+  {
+    id: "neutral-background",
+    name: "background",
+    displayName: "Background",
+    group: "Neutral / Background",
+    subgroup: "Background",
+    path: "Neutral / Background / background",
+    cssVar: "--theme-neutral-background",
+    aliasCssVar: "--neutral-background",
+    coreRef: "--core-color-bg-page",
+    category: "neutral",
+    type: "background",
+    lightHex: "#F7F7F9",
+    darkHex: "#111017",
+    paletteNameLight: "Neutral 50",
+    paletteNameDark: "Neutral 950",
+  },
+  {
+    id: "neutral-surface-layer-01",
+    name: "surface-layer-01",
+    displayName: "Surface Layer 01",
+    group: "Neutral / Background",
+    subgroup: "Background",
+    path: "Neutral / Background / surface-layer-01",
+    cssVar: "--theme-neutral-surface-layer-01",
+    aliasCssVar: "--neutral-surface-layer-01",
+    coreRef: "--core-color-surface-default",
+    category: "neutral",
+    type: "background",
+    lightHex: "#FFFFFF",
+    darkHex: "#1D1C24",
+    paletteNameLight: "Neutral 0",
+    paletteNameDark: "Neutral 900",
+  },
+  {
+    id: "neutral-surface-layer-02",
+    name: "surface-layer-02",
+    displayName: "Surface Layer 02",
+    group: "Neutral / Background",
+    subgroup: "Background",
+    path: "Neutral / Background / surface-layer-02",
+    cssVar: "--theme-neutral-surface-layer-02",
+    aliasCssVar: "--neutral-surface-layer-02",
+    coreRef: "--core-color-surface-raised",
+    category: "neutral",
+    type: "background",
+    lightHex: "#FFFFFF",
+    darkHex: "#2E2D38",
+    paletteNameLight: "Neutral 0",
+    paletteNameDark: "Neutral 800",
+  },
+  {
+    id: "neutral-surface-layer-03",
+    name: "surface-layer-03",
+    displayName: "Surface Layer 03",
+    group: "Neutral / Background",
+    subgroup: "Background",
+    path: "Neutral / Background / surface-layer-03",
+    cssVar: "--theme-neutral-surface-layer-03",
+    aliasCssVar: "--neutral-surface-layer-03",
+    coreRef: "--core-color-surface-sunken",
+    category: "neutral",
+    type: "background",
+    lightHex: "#EEEEF2",
+    darkHex: "#111017",
+    paletteNameLight: "Neutral 100",
+    paletteNameDark: "Neutral 950",
+  },
   // ── 5. DISABLED COLORS ──
   {
     id: "disabled-background",
@@ -1890,6 +1958,10 @@ function contrastPairing(name: string, hex: string, mode: "light" | "dark"): Con
     if (/inverse/.test(name)) return { fg: hex, bg: v("brand-background-primary-strong"), exempt: true, hint: "Divider on dark fills — decorative" };
     return { fg: hex, bg: surface.hex, exempt: true, hint: "Decorative divider — no minimum" };
   }
+  if (/^neutral-(background|surface-layer-\d+)$/.test(name)) {
+    const fg = v("neutral-text-default");
+    return { fg, bg: hex, exempt: false, hint: `${nameOf(fg)} text on it` };
+  }
   if (/^neutral-text-on-color$/.test(name)) {
     const bg = v("brand-background-primary-strong");
     return { fg: hex, bg, exempt: false, hint: `On ${nameOf(bg)} fill` };
@@ -2130,8 +2202,8 @@ function BaseColorsRedesignedSection() {
     tokens: FIGMA_BASE_TOKENS.filter((t) => t.category === "tertiary" && t.subgroup === subgroup),
   }));
 
-  // 4. Neutral Pillars (Text, Border)
-  const neutralPillars = ["Text", "Border"].map((subgroup) => ({
+  // 4. Neutral Pillars (Text, Border, Background)
+  const neutralPillars = ["Text", "Border", "Background"].map((subgroup) => ({
     subgroup,
     tokens: FIGMA_BASE_TOKENS.filter((t) => t.category === "neutral" && t.subgroup === subgroup),
   }));

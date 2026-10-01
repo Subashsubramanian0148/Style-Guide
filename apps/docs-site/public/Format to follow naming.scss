@@ -413,6 +413,12 @@ html[data-site-mode="light"],
 
   @include neutral-tokens($neutral-text-light, $neutral-border-light);
 
+  /* neutral background & surface layers */
+  --neutral-background: #{neutral(50)};
+  --neutral-surface-layer-01: #{neutral(0)};
+  --neutral-surface-layer-02: #{neutral(0)};
+  --neutral-surface-layer-03: #{neutral(100)};
+
   @each $role in $semantic-roles {
     @include semantics-role-tokens(
       $role,
@@ -440,6 +446,12 @@ html[data-site-mode="dark"],
   }
 
   @include neutral-tokens($neutral-text-dark, $neutral-border-dark);
+
+  /* neutral background & surface layers */
+  --neutral-background: #{neutral(950)};
+  --neutral-surface-layer-01: #{neutral(900)};
+  --neutral-surface-layer-02: #{neutral(800)};
+  --neutral-surface-layer-03: #{neutral(950)};
 
   @each $role in $semantic-roles {
     @include semantics-role-tokens(

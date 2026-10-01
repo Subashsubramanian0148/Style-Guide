@@ -88,6 +88,11 @@ html[data-site-mode=light],
   --neutral-border-default: var(--theme-colors-neutral-300);
   /* neutral-background */
   --neutral-background-strong: var(--theme-colors-neutral-800);
+  /* neutral background & surface layers */
+  --neutral-background: var(--theme-colors-neutral-50);
+  --neutral-surface-layer-01: var(--theme-colors-neutral-0);
+  --neutral-surface-layer-02: var(--theme-colors-neutral-0);
+  --neutral-surface-layer-03: var(--theme-colors-neutral-100);
   /* semantics-critical */
   --semantics-critical-border: var(--theme-colors-red-200);
   --semantics-critical-text: var(--theme-colors-red-700);
@@ -222,6 +227,11 @@ html[data-site-mode=dark],
   --neutral-border-default: var(--theme-colors-neutral-600);
   /* neutral-background */
   --neutral-background-strong: var(--theme-colors-neutral-700);
+  /* neutral background & surface layers */
+  --neutral-background: var(--theme-colors-neutral-950);
+  --neutral-surface-layer-01: var(--theme-colors-neutral-900);
+  --neutral-surface-layer-02: var(--theme-colors-neutral-800);
+  --neutral-surface-layer-03: var(--theme-colors-neutral-950);
   /* semantics-critical */
   --semantics-critical-border: var(--theme-colors-red-700);
   --semantics-critical-text: var(--theme-colors-red-300);
