@@ -172,12 +172,12 @@ const STATE_MATRIX: { state: string; primary: CellSpec; secondary: CellSpec; ter
 function MatrixCell({ spec }: { spec: CellSpec }) {
   const line = (label: string, val: string) => (
     <div style={{ display: "flex", gap: "var(--core-space-1)", fontSize: 12, lineHeight: 1.5 }}>
-      <span style={{ color: "var(--core-color-text-tertiary)", minWidth: 30 }}>{label}</span>
-      <span style={{ fontFamily: "var(--typography-font-family-mono, monospace)", color: "var(--core-color-text-secondary)" }}>{val}</span>
+      <span style={{ color: "var(--neutral-text-subtle)", minWidth: 30 }}>{label}</span>
+      <span style={{ fontFamily: "var(--typography-font-family-mono, monospace)", color: "var(--neutral-text-subtle)" }}>{val}</span>
     </div>
   );
   return (
-    <td style={{ padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
+    <td style={{ padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--neutral-border-light)", verticalAlign: "top" }}>
       {line("bg", spec.bg)}
       {line("text", spec.text)}
       {line("border", spec.border)}
@@ -191,7 +191,7 @@ function StateMatrix() {
   return (
     <SpecTableCard>
       <thead>
-        <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
+        <tr style={{ textAlign: "left", color: "var(--neutral-text-subtle)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--neutral-surface-layer-03, rgba(0,0,0,0.03))" }}>
           <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>State</th>
           <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Primary</th>
           <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Secondary</th>
@@ -200,8 +200,8 @@ function StateMatrix() {
       </thead>
       <tbody>
         {STATE_MATRIX.map((row) => (
-          <tr key={row.state} style={{ borderTop: "1px solid var(--core-color-border-subtle)" }}>
-            <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--core-color-text-primary)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
+          <tr key={row.state} style={{ borderTop: "1px solid var(--neutral-border-light)" }}>
+            <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--neutral-text-default)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
             <MatrixCell spec={row.primary} />
             <MatrixCell spec={row.secondary} />
             <MatrixCell spec={row.tertiary} />

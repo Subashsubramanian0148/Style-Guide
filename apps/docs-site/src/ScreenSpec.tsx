@@ -222,7 +222,7 @@ function rectIn(box: HTMLElement, el: HTMLElement): Rect {
 
 function KindIcon({ kind }: { kind: Kind }) {
   const glyph = kind === "component" ? "◇" : kind === "text" ? "T" : "#";
-  return <span aria-hidden="true" style={{ width: 16, flexShrink: 0, textAlign: "center", color: "var(--core-color-text-tertiary)", fontFamily: kind === "text" ? "serif" : undefined }}>{glyph}</span>;
+  return <span aria-hidden="true" style={{ width: 16, flexShrink: 0, textAlign: "center", color: "var(--neutral-text-subtle)", fontFamily: kind === "text" ? "serif" : undefined }}>{glyph}</span>;
 }
 
 function DotMark({ n, x, y, active }: { n: number; x: number; y: number; active?: boolean }) {
@@ -238,8 +238,8 @@ function AttrList({ attrs }: { attrs: Array<[string, string]> }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)", paddingLeft: 26 }}>
       {attrs.map(([k, v]) => (
-        <div key={k} style={{ fontSize: 12, lineHeight: "18px", color: "var(--core-color-text-secondary)" }}>
-          {k}: <span style={{ color: "var(--core-color-text-primary)", fontFamily: k === "React" ? "var(--typography-font-family-mono, monospace)" : undefined }}>{v}</span>
+        <div key={k} style={{ fontSize: 12, lineHeight: "18px", color: "var(--neutral-text-subtle)" }}>
+          {k}: <span style={{ color: "var(--neutral-text-default)", fontFamily: k === "React" ? "var(--typography-font-family-mono, monospace)" : undefined }}>{v}</span>
         </div>
       ))}
     </div>
@@ -328,7 +328,7 @@ function Anatomy({ width, name, children, frame, onPick }: { width: number; name
       <SectionHeading>Anatomy</SectionHeading>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--core-space-6)", alignItems: "flex-start" }}>
         <div ref={wrapRef} style={{ flex: "1 1 520px", minWidth: 0 }}>
-          <div ref={boxRef} style={{ position: "relative", width: size.w + 2 * GUTTER, height: size.h + 2 * GUTTER, background: "var(--core-color-surface-sunken, #EEEEF2)", borderRadius: 8 }}>
+          <div ref={boxRef} style={{ position: "relative", width: size.w + 2 * GUTTER, height: size.h + 2 * GUTTER, background: "var(--neutral-surface-layer-03, #EEEEF2)", borderRadius: 8 }}>
             <div style={{ position: "absolute", left: GUTTER, top: GUTTER, width, transform: `scale(${scale})`, transformOrigin: "0 0", pointerEvents: "none" }}>
               {frame ? <FrameCanvas src={frame} width={width} onRoot={(r) => { setFrameRoot(r); setFrameTick((t) => t + 1); }} /> : <div ref={rootRef} data-spec-root="1">{children}</div>}
             </div>
@@ -351,12 +351,12 @@ function Anatomy({ width, name, children, frame, onPick }: { width: number; name
               onMouseEnter={() => setHover(it.n)}
               onMouseLeave={() => setHover(null)}
               onClick={() => it.layout && onPick(it.el)}
-              style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)", padding: "var(--core-space-2)", borderRadius: 8, background: hover === it.n ? "var(--core-color-surface-sunken, #EEEEF2)" : "transparent", cursor: it.layout ? "pointer" : "default" }}
+              style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-1)", padding: "var(--core-space-2)", borderRadius: 8, background: hover === it.n ? "var(--neutral-surface-layer-03, #EEEEF2)" : "transparent", cursor: it.layout ? "pointer" : "default" }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <span style={{ minWidth: 20, height: 20, borderRadius: 999, background: DOT, color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 4px", flexShrink: 0 }}>{it.n}</span>
                 <KindIcon kind={it.kind} />
-                <strong style={{ fontSize: 14, color: "var(--core-color-text-primary)" }}>{it.name}</strong>
+                <strong style={{ fontSize: 14, color: "var(--neutral-text-default)" }}>{it.name}</strong>
               </div>
               <AttrList attrs={it.attrs} />
               {it.layout && <span style={{ paddingLeft: 26, fontSize: 11, color: BLUE }}>View layout & spacing →</span>}
@@ -482,24 +482,24 @@ function Layout({ width, name, children, frame, pick }: { width: number; name: s
               </>
             )}
           </div>
-          <p style={{ margin: "var(--core-space-2) 0 0", fontSize: 12, color: "var(--core-color-text-tertiary)" }}>Click any area of the screen to inspect the container under the pointer.</p>
+          <p style={{ margin: "var(--core-space-2) 0 0", fontSize: 12, color: "var(--neutral-text-subtle)" }}>Click any area of the screen to inspect the container under the pointer.</p>
         </div>
         {node && (
           <div style={{ flex: "0 1 340px", minWidth: 260, display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "var(--core-space-2)" }}>
               <button type="button" onClick={() => setIndex((i) => Math.max(0, i - 1))} disabled={index === 0} style={navBtn}>‹</button>
-              <select value={index} onChange={(e) => setIndex(Number(e.target.value))} style={{ flex: 1, minWidth: 0, padding: "var(--core-space-1) var(--core-space-2)", borderRadius: 6, border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", color: "var(--core-color-text-primary)", fontSize: 13 }}>
+              <select value={index} onChange={(e) => setIndex(Number(e.target.value))} style={{ flex: 1, minWidth: 0, padding: "var(--core-space-1) var(--core-space-2)", borderRadius: 6, border: "1px solid var(--neutral-border-light)", background: "var(--neutral-surface-layer-01)", color: "var(--neutral-text-default)", fontSize: 13 }}>
                 {nodes.map((n, i) => <option key={i} value={i}>{`${i + 1}. ${n.name}`}</option>)}
               </select>
               <button type="button" onClick={() => setIndex((i) => Math.min(nodes.length - 1, i + 1))} disabled={index >= nodes.length - 1} style={navBtn}>›</button>
             </div>
-            <div style={{ fontSize: 12, color: "var(--core-color-text-tertiary)" }}>Node {Math.min(index, nodes.length - 1) + 1} of {nodes.length}</div>
+            <div style={{ fontSize: 12, color: "var(--neutral-text-subtle)" }}>Node {Math.min(index, nodes.length - 1) + 1} of {nodes.length}</div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <KindIcon kind={node.kind} />
-              <strong style={{ fontSize: 16, color: "var(--core-color-text-primary)" }}>{node.name}</strong>
+              <strong style={{ fontSize: 16, color: "var(--neutral-text-default)" }}>{node.name}</strong>
             </div>
             <div style={{ marginLeft: -26 }}><AttrList attrs={layoutProps(node.el)} /></div>
-            <div style={{ fontSize: 12, color: "var(--core-color-text-secondary)", display: "flex", flexDirection: "column", gap: 4 }}>
+            <div style={{ fontSize: 12, color: "var(--neutral-text-subtle)", display: "flex", flexDirection: "column", gap: 4 }}>
               <span><span style={{ color: BLUE, fontWeight: 700 }}>Blue</span> outline = selected node · dashed = its children</span>
               <span><span style={{ color: GREEN, fontWeight: 700 }}>Green</span> = padding · <span style={{ color: ORANGE, fontWeight: 700 }}>orange</span> = item spacing</span>
             </div>
@@ -510,7 +510,7 @@ function Layout({ width, name, children, frame, pick }: { width: number; name: s
   );
 }
 
-const navBtn: React.CSSProperties = { width: 32, height: 32, borderRadius: 6, border: "1px solid var(--core-color-border-default)", background: "var(--core-color-surface-default)", color: "var(--core-color-text-primary)", cursor: "pointer", fontSize: 16 };
+const navBtn: React.CSSProperties = { width: 32, height: 32, borderRadius: 6, border: "1px solid var(--neutral-border-light)", background: "var(--neutral-surface-layer-01)", color: "var(--neutral-text-default)", cursor: "pointer", fontSize: 16 };
 
 /** Anatomy + Layout and spacing for one screen, like the Figma spec sheet. */
 export function ScreenSpec({ width, name, render, frame, showAnatomy = true }: { width: number; name: string; render?: () => React.ReactNode; frame?: string; showAnatomy?: boolean }) {

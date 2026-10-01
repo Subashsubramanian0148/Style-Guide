@@ -340,7 +340,7 @@ function BadgeMark({ b }: { b: Badge }) {
 }
 
 const th: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 };
-const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", fontSize: 13, verticalAlign: "top" };
+const td: React.CSSProperties = { padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--neutral-border-light)", fontSize: 13, verticalAlign: "top" };
 
 /** Rendered size of an element in CSS px — offset sizes ignore the diagram's
  *  scale transform; SVG elements fall back to their computed size. */
@@ -367,7 +367,7 @@ export function radiusLabel(e: Element): string {
 /** Measured values read as code; explanatory phrases wrap as normal text. */
 function valueCell(v?: string): React.CSSProperties {
   const isValue = !v || /^(\d|—|…|full)/.test(v) && v.length <= 16;
-  return isValue ? { ...td, fontFamily: "var(--typography-font-family-mono, monospace)", whiteSpace: "nowrap" } : { ...td, color: "var(--core-color-text-secondary)" };
+  return isValue ? { ...td, fontFamily: "var(--typography-font-family-mono, monospace)", whiteSpace: "nowrap" } : { ...td, color: "var(--neutral-text-subtle)" };
 }
 
 export function LayerTable({ layers, root }: { layers: AnatomyLayer[]; root?: React.RefObject<HTMLElement> }) {
@@ -424,7 +424,7 @@ export function LayerTable({ layers, root }: { layers: AnatomyLayer[]; root?: Re
       <SectionHeading>Layer structure — Figma node → CSS class</SectionHeading>
       <SpecTableCard>
         <thead>
-          <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
+          <tr style={{ textAlign: "left", color: "var(--neutral-text-subtle)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--neutral-surface-layer-03, rgba(0,0,0,0.03))" }}>
             <th style={th}>Node</th>
             <th style={th}>Class</th>
             <th style={th}>Direction</th>
@@ -437,8 +437,8 @@ export function LayerTable({ layers, root }: { layers: AnatomyLayer[]; root?: Re
         <tbody>
           {layers.map((l, i) => (
             <tr key={l.node + l.cls}>
-              <td style={{ ...td, fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap" }}>{l.node}</td>
-              <td className="docs-cls" style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)" }}>
+              <td style={{ ...td, fontWeight: 600, color: "var(--neutral-text-default)", whiteSpace: "nowrap" }}>{l.node}</td>
+              <td className="docs-cls" style={{ ...td, fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--neutral-text-subtle)" }}>
                 {l.cls.split(/(\s+)/).map((part, j) => (/\s/.test(part) ? part : <span key={j} style={{ whiteSpace: "nowrap" }}>{part}</span>))}
               </td>
               <td style={td}>{l.direction}</td>

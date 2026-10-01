@@ -22,8 +22,8 @@ export function Preview({
         data-mode={resolvedMode}
         className="preview-surface"
         style={{
-          background: "var(--core-color-surface-default)",
-          color: "var(--core-color-text-primary)",
+          background: "var(--neutral-surface-layer-01)",
+          color: "var(--neutral-text-default)",
           fontFamily: "var(--typography-font-family-sans)",
         }}
       >

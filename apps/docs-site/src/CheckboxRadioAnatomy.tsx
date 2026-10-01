@@ -136,17 +136,17 @@ export function CheckboxRadioAnatomy() {
               <tbody>
                 <SpecRow label="Checkbox box (W × H)" token="core-size-icon-md" value={spec.boxSize} standard="pass" />
                 <SpecRow label="Radio circle (W × H)" token="core-size-icon-md" value={spec.radioSize} standard="pass" />
-                <SpecRow label="Border" token="core-color-border-control" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
+                <SpecRow label="Border" token="neutral-text-subtle-light" value={`${spec.borderWidth} solid ${spec.borderColor}`} swatch={spec.borderColor} standard="pass" />
                 <SpecRow label="Radius — Checkbox" token="core-radius-xs" value={spec.checkboxRadius} standard="pass" />
                 <SpecRow label="Radius — Radio" token="(circle)" value={spec.radioRadius} standard="pass" />
-                <SpecRow label="Background (unchecked)" token="core-color-surface-default" value={spec.fill} swatch={spec.fill} standard="pass" />
+                <SpecRow label="Background (unchecked)" token="neutral-surface-layer-01" value={spec.fill} swatch={spec.fill} standard="pass" />
                 <SpecRow label="Background (checked)" token="brand-background-primary-strong" value="rgb(31, 79, 141)" swatch="rgb(31, 79, 141)" standard="pass" />
                 <SpecRow label="Indicator" token="Checkbox: check glyph · Radio: 7px dot" value="neutral-0 (white)" standard="pass" />
                 <SpecRow label="Label gap" token="core-space-2" value={spec.gap} standard="pass" />
                 <SpecRow label="Row padding" token="core-space-1 / core-space-0" value={spec.padding} standard="pass" note="Keeps the clickable row at least 24px tall (WCAG 2.5.8)" />
                 <SpecRow label="Label font" token="typography-body-md" value={`${spec.fontSize} / ${spec.fontWeight} / ${spec.lineHeight}`} standard="pass" />
                 <SpecRow label="Label family" token="typography-font-family-sans" value={spec.fontFamily} standard="pass" />
-                <SpecRow label="Label color" token="theme-neutral-text-primary-default" value={spec.labelColor} swatch={spec.labelColor} standard="pass" />
+                <SpecRow label="Label color" token="neutral-text-default" value={spec.labelColor} swatch={spec.labelColor} standard="pass" />
               </tbody>
             </SpecTableCard>
           )}
@@ -173,7 +173,7 @@ interface CellSpec {
 const STATE_MATRIX: { state: string; unchecked: CellSpec; checked: CellSpec }[] = [
   {
     state: "Default",
-    unchecked: { fill: "core-color-surface-default", border: "core-color-border-control" },
+    unchecked: { fill: "neutral-surface-layer-01", border: "neutral-text-subtle-light" },
     checked: { fill: "background-primary-strong", border: "background-primary-strong" },
   },
   {
@@ -201,12 +201,12 @@ const STATE_MATRIX: { state: string; unchecked: CellSpec; checked: CellSpec }[] 
 function MatrixCell({ spec }: { spec: CellSpec }) {
   const line = (label: string, val: string) => (
     <div style={{ display: "flex", gap: "var(--core-space-1)", fontSize: 12, lineHeight: 1.5 }}>
-      <span style={{ color: "var(--core-color-text-tertiary)", minWidth: 40 }}>{label}</span>
-      <span style={{ fontFamily: "var(--typography-font-family-mono, monospace)", color: "var(--core-color-text-secondary)" }}>{val}</span>
+      <span style={{ color: "var(--neutral-text-subtle)", minWidth: 40 }}>{label}</span>
+      <span style={{ fontFamily: "var(--typography-font-family-mono, monospace)", color: "var(--neutral-text-subtle)" }}>{val}</span>
     </div>
   );
   return (
-    <td style={{ padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
+    <td style={{ padding: "var(--core-space-2) var(--core-space-4)", borderTop: "1px solid var(--neutral-border-light)", verticalAlign: "top" }}>
       {line("bg", spec.fill)}
       {line("border", spec.border)}
     </td>
@@ -219,7 +219,7 @@ function StateMatrix() {
   return (
     <SpecTableCard>
       <thead>
-        <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
+        <tr style={{ textAlign: "left", color: "var(--neutral-text-subtle)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--neutral-surface-layer-03, rgba(0,0,0,0.03))" }}>
           <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>State</th>
           <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Unchecked</th>
           <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700 }}>Checked</th>
@@ -227,8 +227,8 @@ function StateMatrix() {
       </thead>
       <tbody>
         {STATE_MATRIX.map((row) => (
-          <tr key={row.state} style={{ borderTop: "1px solid var(--core-color-border-subtle)" }}>
-            <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--core-color-text-primary)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
+          <tr key={row.state} style={{ borderTop: "1px solid var(--neutral-border-light)" }}>
+            <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--neutral-text-default)", verticalAlign: "top", whiteSpace: "nowrap" }}>{row.state}</td>
             <MatrixCell spec={row.unchecked} />
             <MatrixCell spec={row.checked} />
           </tr>

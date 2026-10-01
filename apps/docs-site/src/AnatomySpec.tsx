@@ -3,7 +3,7 @@ import React from "react";
 /** Uppercase section label for a spec sheet. */
 export function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <div className="docs-section-heading" style={{ fontSize: "var(--typography-label-size)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)", marginBottom: 16 }}>
+    <div className="docs-section-heading" style={{ fontSize: "var(--typography-label-size)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)", marginBottom: 16 }}>
       {children}
     </div>
   );
@@ -13,7 +13,7 @@ export function SectionHeading({ children }: { children: React.ReactNode }) {
  *  instead of loose rows on the page background. */
 export function SpecTableCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="docs-spec-card" style={{ border: "1px solid var(--core-color-border-subtle)", borderRadius: 12, overflowX: "auto", overflowY: "hidden", background: "var(--core-color-surface-default)" }}>
+    <div className="docs-spec-card" style={{ border: "1px solid var(--neutral-border-light)", borderRadius: 12, overflowX: "auto", overflowY: "hidden", background: "var(--neutral-surface-layer-01)" }}>
       <table style={{ borderCollapse: "collapse", fontSize: "var(--typography-body-sm-size)", width: "100%" }}>
         {children}
       </table>
@@ -25,7 +25,7 @@ export function SpecTableCard({ children }: { children: React.ReactNode }) {
 export function SpecTableHead() {
   return (
     <thead>
-      <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
+      <tr style={{ textAlign: "left", color: "var(--neutral-text-subtle)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--neutral-surface-layer-03, rgba(0,0,0,0.03))" }}>
         <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "32%" }}>Property</th>
         <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "28%" }}>Token</th>
         <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "28%" }}>Value</th>
@@ -81,15 +81,15 @@ export function SpecRow({
   ratio?: string;
 }) {
   return (
-    <tr style={{ borderTop: "1px solid var(--core-color-border-subtle)" }}>
-      <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap", verticalAlign: "top" }}>{label}</td>
-      <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap", verticalAlign: "top" }}>{token}</td>
-      <td style={{ padding: "var(--core-space-2) var(--core-space-4)", color: "var(--core-color-text-secondary)", whiteSpace: "nowrap", verticalAlign: "top" }}>
+    <tr style={{ borderTop: "1px solid var(--neutral-border-light)" }}>
+      <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--neutral-text-default)", whiteSpace: "nowrap", verticalAlign: "top" }}>{label}</td>
+      <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--neutral-text-subtle)", whiteSpace: "nowrap", verticalAlign: "top" }}>{token}</td>
+      <td style={{ padding: "var(--core-space-2) var(--core-space-4)", color: "var(--neutral-text-subtle)", whiteSpace: "nowrap", verticalAlign: "top" }}>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-          {swatch && <span style={{ width: 14, height: 14, borderRadius: 3, background: swatch, border: "1px solid var(--core-color-border-subtle)", display: "inline-block", flexShrink: 0 }} />}
+          {swatch && <span style={{ width: 14, height: 14, borderRadius: 3, background: swatch, border: "1px solid var(--neutral-border-light)", display: "inline-block", flexShrink: 0 }} />}
           {colorName ? (
             <>
-              <span style={{ fontWeight: 600, color: "var(--core-color-text-primary)" }}>{colorName}</span>
+              <span style={{ fontWeight: 600, color: "var(--neutral-text-default)" }}>{colorName}</span>
               <span style={{ fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12 }}>{toHexColors(value)}</span>
             </>
           ) : (
@@ -100,21 +100,21 @@ export function SpecRow({
       <td style={{ padding: "var(--core-space-2) var(--core-space-4)", maxWidth: 260, verticalAlign: "top" }}>
         {standard === "pass" ? (
           <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--core-space-2)" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--core-color-status-success-bg, rgba(34,197,94,0.12))", color: "var(--core-color-status-success-text)", fontWeight: 700, fontSize: 12 }} title="Meets design/industry standard">✓</span>
-            {ratio && <span style={{ fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap" }}>{ratio}</span>}
-            {note && <span style={{ fontSize: 12, lineHeight: "16px", color: "var(--core-color-text-tertiary)", whiteSpace: "normal" }}>{note}</span>}
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--semantics-success-background-light, rgba(34,197,94,0.12))", color: "var(--semantics-success-text)", fontWeight: 700, fontSize: 12 }} title="Meets design/industry standard">✓</span>
+            {ratio && <span style={{ fontSize: 12, color: "var(--neutral-text-subtle)", whiteSpace: "nowrap" }}>{ratio}</span>}
+            {note && <span style={{ fontSize: 12, lineHeight: "16px", color: "var(--neutral-text-subtle)", whiteSpace: "normal" }}>{note}</span>}
           </span>
         ) : standard === "fail" ? (
           <span style={{ display: "flex", alignItems: "flex-start", gap: "var(--core-space-2)" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--core-color-status-danger-bg)", color: "var(--core-color-status-danger-text)", fontWeight: 700, fontSize: 12, flexShrink: 0 }} title="Fails the standard">✕</span>
-            <span style={{ fontSize: 12, lineHeight: "16px", paddingTop: "var(--core-space-0)", color: "var(--core-color-status-danger-text)", whiteSpace: "normal" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--semantics-critical-background-light)", color: "var(--semantics-critical-text)", fontWeight: 700, fontSize: 12, flexShrink: 0 }} title="Fails the standard">✕</span>
+            <span style={{ fontSize: 12, lineHeight: "16px", paddingTop: "var(--core-space-0)", color: "var(--semantics-critical-text)", whiteSpace: "normal" }}>
               {ratio}{note ? ` — ${note}` : ""}
             </span>
           </span>
         ) : (
-          <span style={{ display: "flex", alignItems: "flex-start", gap: "var(--core-space-1)", color: "var(--core-color-status-warning-text)" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--core-color-status-warning-bg, rgba(217,119,6,0.12))", fontWeight: 700, fontSize: 12, flexShrink: 0 }} title="Caution">⚠</span>
-            {note && <span style={{ fontSize: 12, lineHeight: 1.5, color: "var(--core-color-text-tertiary)", whiteSpace: "normal", paddingTop: "var(--core-space-1)"}}>{note}</span>}
+          <span style={{ display: "flex", alignItems: "flex-start", gap: "var(--core-space-1)", color: "var(--semantics-warning-text)" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 20, height: 20, borderRadius: "50%", background: "var(--semantics-warning-background-light, rgba(217,119,6,0.12))", fontWeight: 700, fontSize: 12, flexShrink: 0 }} title="Caution">⚠</span>
+            {note && <span style={{ fontSize: 12, lineHeight: 1.5, color: "var(--neutral-text-subtle)", whiteSpace: "normal", paddingTop: "var(--core-space-1)"}}>{note}</span>}
           </span>
         )}
       </td>
@@ -135,15 +135,15 @@ export function SpecNote({ children }: { children: React.ReactNode }) {
         margin: "0 0 16px",
         padding: "var(--core-space-3) var(--core-space-3)",
         borderRadius: 8,
-        border: "1px solid var(--core-color-border-subtle)",
+        border: "1px solid var(--neutral-border-light)",
         borderLeft: "3px solid var(--primitive-color-primary-400, #2563EB)",
-        background: "var(--core-color-surface-subtle, rgba(37,99,235,0.05))",
+        background: "var(--neutral-surface-layer-03, rgba(37,99,235,0.05))",
       }}
     >
       <span style={{ fontSize: 13, fontWeight: 700, color: "var(--primitive-color-primary-400, #2563EB)", lineHeight: "18px" }} aria-hidden>
         ⓘ
       </span>
-      <p style={{ margin: 0, fontSize: "var(--typography-body-sm-size)", lineHeight: 1.55, color: "var(--core-color-text-secondary)" }}>{children}</p>
+      <p style={{ margin: 0, fontSize: "var(--typography-body-sm-size)", lineHeight: 1.55, color: "var(--neutral-text-subtle)" }}>{children}</p>
     </div>
   );
 }

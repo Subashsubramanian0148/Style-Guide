@@ -22,8 +22,8 @@ const warn = (label: string, token: string, value: string, note: string): Anatom
 
 /* ---------- Separator ---------- */
 
-const titleStyle: React.CSSProperties = { fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", fontWeight: 600, color: "var(--core-color-text-primary)" };
-const bodyStyle: React.CSSProperties = { fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", color: "var(--core-color-text-secondary)", marginTop: "var(--core-space-1)" };
+const titleStyle: React.CSSProperties = { fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", fontWeight: 600, color: "var(--neutral-text-default)" };
+const bodyStyle: React.CSSProperties = { fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", color: "var(--neutral-text-subtle)", marginTop: "var(--core-space-1)" };
 
 /** Shared by the Separator demo and its anatomy. */
 export function SeparatorCard() {
@@ -31,8 +31,8 @@ export function SeparatorCard() {
     <div
       data-a="card"
       style={{
-        background: "var(--core-color-surface-raised)",
-        boxShadow: "inset 0 0 0 1px var(--core-color-border-default)",
+        background: "var(--neutral-surface-layer-02)",
+        boxShadow: "inset 0 0 0 1px var(--neutral-border-light)",
         borderRadius: 8,
         padding: "var(--core-space-4)",
         display: "flex",
@@ -81,7 +81,7 @@ export function SeparatorAnatomy() {
         pass("Card padding", "core-space-4", `${q.px("[data-a=card]", "padding-top")}px`),
         pass("Separator margin", "core-space-4", `${q.px(".cds-separator", "margin-top")}px / ${q.px(".cds-separator", "margin-bottom")}px`, "Spacing above and below lives on the separator; the card adds no extra gap"),
         pass("Title → body", "core-space-1", `${q.gap("[data-a=t1]", "[data-a=b1]", "y")}px`),
-        pass("Separator", "1px line · theme-colors-neutral-300", `1px line, 0px layout height · ${getComputedStyle(document.querySelector(".cds-separator--h") ?? document.body, "::before").backgroundColor}`),
+        pass("Separator", "1px line · neutral-border-default", `1px line, 0px layout height · ${getComputedStyle(document.querySelector(".cds-separator--h") ?? document.body, "::before").backgroundColor}`),
         pass("Title", "typography-body-md · 600", q.type("[data-a=t1]")),
         pass("Body", "typography-body-md", q.type("[data-a=b1]")),
       ]}
@@ -277,7 +277,7 @@ export function InputGroupAnatomy() {
 
 /* ---------- Tabs ---------- */
 
-const tabP = (text: string) => <p style={{ fontSize: 14, color: "var(--core-color-text-secondary)", margin: 0 }}>{text}</p>;
+const tabP = (text: string) => <p style={{ fontSize: 14, color: "var(--neutral-text-subtle)", margin: 0 }}>{text}</p>;
 
 export const MOBILE_NAV_ITEMS: MobileNavItem[] = [
   { id: "dashboard", label: "Dashboard", icon: "fa-solid fa-table-cells-large" },
@@ -302,14 +302,14 @@ export function PhoneFrame({ children, height = 440 }: { children: React.ReactNo
         height,
         overflow: "hidden",
         borderRadius: "var(--core-radius-lg)",
-        background: "var(--core-color-bg-page)",
-        boxShadow: "inset 0 0 0 var(--core-border-width-default) var(--core-color-border-default)",
+        background: "var(--neutral-background)",
+        boxShadow: "inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light)",
       }}
     >
       <div style={{ padding: "var(--core-space-4)", display: "flex", flexDirection: "column", gap: "var(--core-space-3)" }}>
-        <div style={{ fontSize: "var(--typography-body-lg-size)", lineHeight: "var(--typography-body-lg-line-height)", fontWeight: 700, color: "var(--core-color-text-primary)" }}>Retirement 401(k) Plan</div>
+        <div style={{ fontSize: "var(--typography-body-lg-size)", lineHeight: "var(--typography-body-lg-line-height)", fontWeight: 700, color: "var(--neutral-text-default)" }}>Retirement 401(k) Plan</div>
         {[72, 48, 48].map((h, i) => (
-          <div key={i} style={{ height: h, borderRadius: "var(--core-radius-sm)", background: "var(--core-color-surface-default)", boxShadow: "inset 0 0 0 var(--core-border-width-default) var(--core-color-border-default)" }} />
+          <div key={i} style={{ height: h, borderRadius: "var(--core-radius-sm)", background: "var(--neutral-surface-layer-01)", boxShadow: "inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light)" }} />
         ))}
       </div>
       {children}
@@ -495,8 +495,8 @@ export function SkeletonCard() {
     <div
       data-a="card"
       style={{
-        background: "var(--core-color-surface-raised)",
-        boxShadow: "inset 0 0 0 1px var(--core-color-border-default), var(--core-elevation-1)",
+        background: "var(--neutral-surface-layer-02)",
+        boxShadow: "inset 0 0 0 1px var(--neutral-border-light), var(--core-elevation-1)",
         borderRadius: 8,
         padding: "var(--core-space-6)",
         width: 340,
@@ -970,7 +970,7 @@ export function SlideoverAnatomy() {
       ]}
       note="Shown without the scrim and slide-in animation; the live panel is full-height, slides in from the right and closes on Escape."
     >
-      <div className="cds-drawer cds-drawer--from-right cds-drawer--visible" role="presentation" style={{ position: "static", transform: "none", width: 520, height: "auto", minHeight: 0, maxWidth: "none", boxShadow: "inset 0 0 0 1px var(--core-color-border-default)" }}>
+      <div className="cds-drawer cds-drawer--from-right cds-drawer--visible" role="presentation" style={{ position: "static", transform: "none", width: 520, height: "auto", minHeight: 0, maxWidth: "none", boxShadow: "inset 0 0 0 1px var(--neutral-border-light)" }}>
         <div className="cds-drawer-header">
           <h2 className="cds-modal-title" style={{ margin: 0 }}>Add Allocation</h2>
           <div className="cds-drawer-header-actions">
@@ -1031,13 +1031,13 @@ export function SpinnerAnatomy() {
           alignItems: "center",
           gap: "var(--core-space-4)",
           padding: "var(--core-space-8)",
-          boxShadow: "inset 0 0 0 1px var(--core-color-border-default)",
+          boxShadow: "inset 0 0 0 1px var(--neutral-border-light)",
           borderRadius: 12,
-          background: "var(--core-color-surface-default)",
+          background: "var(--neutral-surface-layer-01)",
         }}
       >
         <Spinner />
-        <span data-a="text" style={{ fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", color: "var(--core-color-text-secondary)" }}>Saving your changes…</span>
+        <span data-a="text" style={{ fontSize: "var(--typography-body-md-size)", lineHeight: "var(--typography-body-md-line-height)", color: "var(--neutral-text-subtle)" }}>Saving your changes…</span>
       </div>
     </MeasuredAnatomy>
   );

@@ -109,8 +109,8 @@ const VARIANTS: VariantConfig[] = [
       // reads as identical to default — neutral is the only legible signal.
       disabled: {
         bg: "transparent",
-        text: "var(--theme-semantics-disabled-text)",
-        border: "var(--theme-semantics-disabled-border)",
+        text: "var(--semantics-disabled-text)",
+        border: "var(--semantics-disabled-border)",
       },
     },
   },
@@ -139,7 +139,7 @@ const VARIANTS: VariantConfig[] = [
         text: "var(--brand-text-primary-on-surface)",
         extraStyles: FOCUS_RING,
       },
-      disabled: { bg: "transparent", text: "var(--theme-semantics-disabled-text)" },
+      disabled: { bg: "transparent", text: "var(--semantics-disabled-text)" },
     },
   },
 ];
@@ -278,7 +278,7 @@ export function ButtonMatrix() {
           boxShadow: "var(--core-elevation-2)",
         }}
       >
-        <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--theme-neutral-text-subtle)" }}>
+        <span style={{ fontSize: "var(--typography-font-size-xs)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--neutral-text-subtle)" }}>
           Size:
         </span>
         <div style={{ display: "inline-flex", background: "var(--site-bg)", borderRadius: "var(--core-radius-sm)", padding: "var(--core-space-1)", border: "1px solid var(--site-border)" }}>
@@ -289,7 +289,7 @@ export function ButtonMatrix() {
               onClick={() => setSize(s)}
               style={{
                 border: "none",
-                background: size === s ? "var(--theme-brand-background-primary-strong)" : "transparent",
+                background: size === s ? "var(--brand-background-primary-strong)" : "transparent",
                 color: size === s ? "var(--brand-text-primary-oncolor)" : "var(--site-text)",
                 borderRadius: "var(--core-radius-sm)",
                 padding: "4px 12px",
@@ -312,8 +312,8 @@ export function ButtonMatrix() {
             position: "fixed",
             bottom: 24,
             right: 24,
-            background: "var(--theme-semantics-success-strong-background)",
-            color: "var(--theme-neutral-text-on-color)",
+            background: "var(--semantics-success-background-strong)",
+            color: "var(--neutral-text-on-color)",
             padding: "var(--core-space-2) var(--core-space-5)",
             borderRadius: "var(--core-radius-sm)",
             fontSize: 12,
@@ -331,8 +331,8 @@ export function ButtonMatrix() {
         data-theme="core"
         data-mode={canvasBg}
         style={{
-          background: "var(--core-color-surface-default)",
-          color: "var(--core-color-text-primary)",
+          background: "var(--neutral-surface-layer-01)",
+          color: "var(--neutral-text-default)",
           borderRadius: 16,
           padding: "36px 32px",
           boxShadow: "var(--core-elevation-3)",

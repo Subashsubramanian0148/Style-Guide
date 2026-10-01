@@ -52,7 +52,7 @@ export default function Spacing() {
           <div className="site-panel" style={{ display: "flex", gap: 24 }}>
             {controls.map((c) => (
               <div key={c.label} style={{ textAlign: "center" }}>
-                <div style={{ height: c.h, width: 120, background: "var(--core-color-action-primary-bg, #6952E2)", borderRadius: "var(--core-radius-sm)", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontSize: "var(--typography-body-md-size)", fontWeight: 600 }}>
+                <div style={{ height: c.h, width: 120, background: "var(--brand-background-primary-strong, #6952E2)", borderRadius: "var(--core-radius-sm)", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontSize: "var(--typography-body-md-size)", fontWeight: 600 }}>
                   {c.label}
                 </div>
                 <div style={{ marginTop: 8, fontSize: 12, color: "var(--site-text-faint)", fontFamily: "var(--site-mono)" }}>height {c.h} · padding {c.pad} · text {c.font}</div>

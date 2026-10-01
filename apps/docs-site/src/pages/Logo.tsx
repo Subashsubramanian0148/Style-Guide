@@ -4,17 +4,17 @@ function InteractiveLogoPanel({ title, darkImg, lightImg, height }: { title: str
   const [mode, setMode] = useState<"light" | "dark">("light");
 
   return (
-    <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", border: "1px solid rgba(128,128,128,0.15)", background: "var(--core-color-surface-default)" }}>
+    <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", border: "1px solid rgba(128,128,128,0.15)", background: "var(--neutral-surface-layer-01)" }}>
       {/* Absolute Toggle Switch */}
       <div style={{ position: "absolute", top: 20, right: 24, display: "flex", alignItems: "center", gap: 12, zIndex: 10 }}>
-        <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: mode === "light" ? "var(--core-color-text-primary)" : "var(--core-color-text-tertiary)", transition: "color 0.3s" }}>Light</span>
+        <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: mode === "light" ? "var(--neutral-text-default)" : "var(--neutral-text-subtle)", transition: "color 0.3s" }}>Light</span>
         <button 
           onClick={() => setMode(mode === "light" ? "dark" : "light")}
           style={{
             width: 44,
             height: 24,
             borderRadius: 12,
-            background: mode === "light" ? "rgba(128,128,128,0.2)" : "var(--core-color-action-primary-bg)",
+            background: mode === "light" ? "rgba(128,128,128,0.2)" : "var(--brand-background-primary-strong)",
             border: "none",
             position: "relative",
             cursor: "pointer",
@@ -34,10 +34,10 @@ function InteractiveLogoPanel({ title, darkImg, lightImg, height }: { title: str
             boxShadow: "0 2px 4px rgba(0,0,0,0.15)"
           }} />
         </button>
-        <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: mode === "dark" ? "var(--core-color-text-primary)" : "var(--core-color-text-tertiary)", transition: "color 0.3s" }}>Dark</span>
+        <span style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: mode === "dark" ? "var(--neutral-text-default)" : "var(--neutral-text-subtle)", transition: "color 0.3s" }}>Dark</span>
       </div>
 
-      <div className="preview-surface" data-theme="core" data-mode={mode} style={{ background: "var(--core-color-surface-default)", minHeight: 240, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.3s" }}>
+      <div className="preview-surface" data-theme="core" data-mode={mode} style={{ background: "var(--neutral-surface-layer-01)", minHeight: 240, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.3s" }}>
         <img src={mode === "light" ? lightImg : darkImg} alt={`${title} variant`} style={{ height }} />
       </div>
     </div>
@@ -48,7 +48,7 @@ function LogoAnatomy() {
   const [orientation, setOrientation] = useState<"horizontal" | "vertical">("horizontal");
 
   return (
-    <div style={{ position: "relative", padding: "80px 40px 40px", background: "var(--core-color-surface-hover)", borderRadius: 14, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", border: "1px solid rgba(128,128,128,0.15)", minHeight: 380 }}>
+    <div style={{ position: "relative", padding: "80px 40px 40px", background: "var(--neutral-surface-layer-03)", borderRadius: 14, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", border: "1px solid rgba(128,128,128,0.15)", minHeight: 380 }}>
       {/* Orientation Toggle Switch */}
       <div style={{ position: "absolute", top: 20, right: 24, display: "flex", alignItems: "center", gap: 8, zIndex: 10 }}>
         <button
@@ -58,9 +58,9 @@ function LogoAnatomy() {
             padding: "var(--core-space-1) var(--core-space-3)",
             borderRadius: 8,
             border: "1px solid",
-            borderColor: orientation === "horizontal" ? "var(--theme-brand-background-primary-strong)" : "var(--site-border)",
-            background: orientation === "horizontal" ? "var(--theme-brand-background-primary-strong)" : "transparent",
-            color: orientation === "horizontal" ? "#FFFFFF" : "var(--core-color-text-secondary)",
+            borderColor: orientation === "horizontal" ? "var(--brand-background-primary-strong)" : "var(--site-border)",
+            background: orientation === "horizontal" ? "var(--brand-background-primary-strong)" : "transparent",
+            color: orientation === "horizontal" ? "#FFFFFF" : "var(--neutral-text-subtle)",
             fontSize: 12,
             fontWeight: 600,
             cursor: "pointer",
@@ -76,9 +76,9 @@ function LogoAnatomy() {
             padding: "var(--core-space-1) var(--core-space-3)",
             borderRadius: 8,
             border: "1px solid",
-            borderColor: orientation === "vertical" ? "var(--theme-brand-background-primary-strong)" : "var(--site-border)",
-            background: orientation === "vertical" ? "var(--theme-brand-background-primary-strong)" : "transparent",
-            color: orientation === "vertical" ? "#FFFFFF" : "var(--core-color-text-secondary)",
+            borderColor: orientation === "vertical" ? "var(--brand-background-primary-strong)" : "var(--site-border)",
+            background: orientation === "vertical" ? "var(--brand-background-primary-strong)" : "transparent",
+            color: orientation === "vertical" ? "#FFFFFF" : "var(--neutral-text-subtle)",
             fontSize: 12,
             fontWeight: 600,
             cursor: "pointer",
@@ -182,12 +182,12 @@ function LogoAnatomy() {
 
       {/* Guide Note Below (commented out as requested) */}
       {/*
-      <div style={{ marginTop: 24, textAlign: "center", maxWidth: 640, fontSize: 14, color: "var(--core-color-text-secondary)", lineHeight: 1.5 }}>
+      <div style={{ marginTop: 24, textAlign: "center", maxWidth: 640, fontSize: 14, color: "var(--neutral-text-subtle)", lineHeight: 1.5 }}>
         {orientation === "horizontal" ? (
           <span><strong>Horizontal Lockup:</strong> Standard 1-row layout with 4px vertical clearance and 8px horizontal clearance.</span>
         ) : (
           <div>
-            <div style={{ fontWeight: 600, color: "var(--core-color-text-primary)", marginBottom: 4 }}>
+            <div style={{ fontWeight: 600, color: "var(--neutral-text-default)", marginBottom: 4 }}>
               Vertical (Stacked) Lockup Spacing: 4px Internal Gap
             </div>
             <p style={{ margin: "0 0 8px 0" }}>
@@ -240,10 +240,10 @@ export default function LogoPage() {
   return (
     <div style={{ maxWidth: 1024, margin: "0 auto", padding: "20px" }}>
       <div style={{ textAlign: "center", marginBottom: 60, marginTop: 40 }}>
-        <h1 style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.06em", margin: "0 0 16px 0", color: "var(--core-color-text-primary)", lineHeight: 1.1 }}>
+        <h1 style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.06em", margin: "0 0 16px 0", color: "var(--neutral-text-default)", lineHeight: 1.1 }}>
           Logo
         </h1>
-        <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--core-color-text-tertiary)", fontSize: 18, lineHeight: 1.6, fontWeight: 400 }}>
+        <p style={{ maxWidth: 560, margin: "0 auto", color: "var(--neutral-text-subtle)", fontSize: 18, lineHeight: 1.6, fontWeight: 400 }}>
           CORE's own mark identifies the design system itself — never the product. A client theme supplies its own logo for use inside the actual application chrome.
         </p>
       </div>

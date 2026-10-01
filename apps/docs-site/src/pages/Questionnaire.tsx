@@ -51,8 +51,8 @@ export default function QuestionnairePage() {
 
       <h2 className="site-section-title" id="preview">Interactive preview</h2>
       <div className="site-panel site-panel--flush">
-        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--core-color-surface-default)", padding: 24 }}>
-          <div style={{ width: 360, padding: 20, border: "1px solid var(--core-color-border-subtle)", borderRadius: "var(--core-card-radius)", background: "var(--core-card-bg)" }}>
+        <div className="preview-surface" data-theme="core" data-mode="light" style={{ background: "var(--neutral-surface-layer-01)", padding: 24 }}>
+          <div style={{ width: 360, padding: 20, border: "1px solid var(--neutral-border-light)", borderRadius: "var(--core-card-radius)", background: "var(--neutral-surface-layer-02)" }}>
             <Questionnaire
               title="Risk tolerance"
               questions={RISK_QUESTIONS}

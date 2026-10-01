@@ -32,57 +32,57 @@
 /* ── Semantic tone utilities (token-driven) ──
    Edit apps/docs-site/public/Format to follow naming.scss → npm run palette:tokens */
 .cds-sem-success-soft {
-  background: var(--theme-semantics-success-light-background);
-  color: var(--theme-semantics-success-text);
-  border-color: var(--theme-semantics-success-border);
+  background: var(--semantics-success-background-light);
+  color: var(--semantics-success-text);
+  border-color: var(--semantics-success-border);
 }
 
 .cds-sem-success-solid {
-  background: var(--theme-semantics-success-strong-background);
-  color: var(--theme-neutral-text-on-color);
-  border-color: var(--theme-semantics-success-border);
+  background: var(--semantics-success-background-strong);
+  color: var(--neutral-text-on-color);
+  border-color: var(--semantics-success-border);
 }
 
 .cds-sem-warning-soft {
-  background: var(--theme-semantics-warning-light-background);
-  color: var(--theme-semantics-warning-text);
-  border-color: var(--theme-semantics-warning-border);
+  background: var(--semantics-warning-background-light);
+  color: var(--semantics-warning-text);
+  border-color: var(--semantics-warning-border);
 }
 
 .cds-sem-warning-solid {
-  background: var(--theme-semantics-warning-strong-background);
-  color: var(--theme-neutral-text-on-color);
-  border-color: var(--theme-semantics-warning-border);
+  background: var(--semantics-warning-background-strong);
+  color: var(--neutral-text-on-color);
+  border-color: var(--semantics-warning-border);
 }
 
 .cds-sem-critical-soft {
-  background: var(--theme-semantics-critical-light-background);
-  color: var(--theme-semantics-critical-text);
-  border-color: var(--theme-semantics-critical-border);
+  background: var(--semantics-critical-background-light);
+  color: var(--semantics-critical-text);
+  border-color: var(--semantics-critical-border);
 }
 
 .cds-sem-critical-solid {
-  background: var(--theme-semantics-critical-strong-background);
-  color: var(--theme-neutral-text-on-color);
-  border-color: var(--theme-semantics-critical-border);
+  background: var(--semantics-critical-background-strong);
+  color: var(--neutral-text-on-color);
+  border-color: var(--semantics-critical-border);
 }
 
 .cds-sem-info-soft {
-  background: var(--theme-semantics-highlight-light-background);
-  color: var(--theme-semantics-highlight-text);
-  border-color: var(--theme-semantics-highlight-border);
+  background: var(--semantics-highlight-background-light);
+  color: var(--semantics-highlight-text);
+  border-color: var(--semantics-highlight-border);
 }
 
 .cds-sem-info-solid {
-  background: var(--theme-semantics-highlight-strong-background);
-  color: var(--theme-neutral-text-on-color);
-  border-color: var(--theme-semantics-highlight-border);
+  background: var(--semantics-highlight-background-strong);
+  color: var(--neutral-text-on-color);
+  border-color: var(--semantics-highlight-border);
 }
 
 .cds-sem-disabled {
-  background: var(--theme-semantics-disabled-background);
+  background: var(--semantics-disabled-background);
   color: var(--semantics-disabled-text);
-  border-color: var(--theme-semantics-disabled-border);
+  border-color: var(--semantics-disabled-border);
 }
 
 [data-theme] {
@@ -224,7 +224,7 @@
 .cds-btn--secondary[aria-disabled="true"] {
   background: transparent;
   color: var(--semantics-disabled-text);
-  border-color: var(--theme-semantics-disabled-border);
+  border-color: var(--semantics-disabled-border);
   opacity: 1;
 }
 
@@ -330,9 +330,9 @@
 }
 
 .cds-btn--destructive {
-  background: var(--theme-semantics-critical-strong-background);
-  color: var(--theme-neutral-text-on-color);
-  border-color: var(--theme-semantics-critical-border);
+  background: var(--semantics-critical-background-strong);
+  color: var(--neutral-text-on-color);
+  border-color: var(--semantics-critical-border);
 }
 
 .cds-btn--destructive:hover:not(:disabled) {
@@ -347,16 +347,16 @@
 
 .cds-btn--destructive:disabled,
 .cds-btn--destructive[aria-disabled="true"] {
-  background: var(--theme-semantics-critical-disabled-strong-background);
-  color: var(--theme-semantics-critical-disabled-strong-text);
-  border-color: var(--theme-semantics-critical-disabled-border);
+  background: var(--semantics-critical-disabled-strong-background);
+  color: var(--semantics-critical-disabled-strong-text);
+  border-color: var(--semantics-critical-disabled-border);
   opacity: 1;
 }
 
 .cds-btn--success {
-  background: var(--theme-semantics-success-strong-background);
-  color: var(--theme-neutral-text-on-color);
-  border-color: var(--theme-semantics-success-border);
+  background: var(--semantics-success-background-strong);
+  color: var(--neutral-text-on-color);
+  border-color: var(--semantics-success-border);
 }
 
 .cds-btn--success:hover:not(:disabled) {
@@ -370,16 +370,16 @@
 
 .cds-btn--success:disabled,
 .cds-btn--success[aria-disabled="true"] {
-  background: var(--theme-semantics-success-disabled-strong-background);
-  color: var(--theme-semantics-success-disabled-strong-text);
-  border-color: var(--theme-semantics-success-disabled-border);
+  background: var(--semantics-success-disabled-strong-background);
+  color: var(--semantics-success-disabled-strong-text);
+  border-color: var(--semantics-success-disabled-border);
   opacity: 1;
 }
 
 .cds-btn--warning {
-  background: var(--theme-semantics-warning-strong-background);
-  color: var(--theme-neutral-text-on-color);
-  border-color: var(--theme-semantics-warning-border);
+  background: var(--semantics-warning-background-strong);
+  color: var(--neutral-text-on-color);
+  border-color: var(--semantics-warning-border);
 }
 
 .cds-btn--warning:hover:not(:disabled) {
@@ -393,16 +393,16 @@
 
 .cds-btn--warning:disabled,
 .cds-btn--warning[aria-disabled="true"] {
-  background: var(--theme-semantics-warning-disabled-strong-background);
-  color: var(--theme-semantics-warning-disabled-strong-text);
-  border-color: var(--theme-semantics-warning-disabled-border);
+  background: var(--semantics-warning-disabled-strong-background);
+  color: var(--semantics-warning-disabled-strong-text);
+  border-color: var(--semantics-warning-disabled-border);
   opacity: 1;
 }
 
 .cds-btn--info {
-  background: var(--theme-semantics-highlight-strong-background);
-  color: var(--theme-neutral-text-on-color);
-  border-color: var(--theme-semantics-highlight-border);
+  background: var(--semantics-highlight-background-strong);
+  color: var(--neutral-text-on-color);
+  border-color: var(--semantics-highlight-border);
 }
 
 .cds-btn--info:hover:not(:disabled) {
@@ -416,9 +416,9 @@
 
 .cds-btn--info:disabled,
 .cds-btn--info[aria-disabled="true"] {
-  background: var(--theme-semantics-highlight-disabled-strong-background);
-  color: var(--theme-semantics-highlight-disabled-strong-text);
-  border-color: var(--theme-semantics-highlight-disabled-border);
+  background: var(--semantics-highlight-disabled-strong-background);
+  color: var(--semantics-highlight-disabled-strong-text);
+  border-color: var(--semantics-highlight-disabled-border);
   opacity: 1;
 }
 
@@ -429,8 +429,8 @@
 }
 
 .cds-btn--neutral:hover:not(:disabled) {
-  background: var(--theme-neutral-border-subtle);
-  border-color: var(--theme-neutral-border-strong);
+  background: var(--neutral-border-subtle);
+  border-color: var(--neutral-border-strong);
 }
 
 .cds-btn--neutral:active:not(:disabled) {
@@ -441,7 +441,7 @@
 .cds-btn--neutral[aria-disabled="true"] {
   background: transparent;
   color: var(--semantics-disabled-text);
-  border-color: var(--theme-semantics-disabled-border);
+  border-color: var(--semantics-disabled-border);
   opacity: 1;
 }
 
@@ -609,7 +609,7 @@
      neutral gray is the only way this variant communicates "disabled". */
   background: transparent;
   color: var(--semantics-disabled-text);
-  border-color: var(--theme-semantics-disabled-border);
+  border-color: var(--semantics-disabled-border);
 }
 
 [data-mode="dark"] .cds-icon-btn--primary:not(:disabled):not([aria-disabled="true"]) {
@@ -645,15 +645,15 @@
 
 .cds-icon-btn--destructive {
   background: transparent;
-  color: var(--theme-semantics-critical-text);
+  color: var(--semantics-critical-text);
 }
 
 .cds-icon-btn--destructive:hover:not(:disabled) {
-  background: var(--theme-semantics-critical-light-background);
+  background: var(--semantics-critical-background-light);
 }
 
 .cds-icon-btn--destructive:active:not(:disabled) {
-  background: color-mix(in srgb, var(--theme-semantics-critical-strong-background) 16%, transparent);
+  background: color-mix(in srgb, var(--semantics-critical-background-strong) 16%, transparent);
 }
 
 .cds-icon-btn--destructive:disabled,
@@ -779,8 +779,8 @@
 }
 
 .cds-step--completed .cds-step-marker {
-  background: var(--theme-semantics-success-strong-background);
-  color: var(--theme-neutral-text-on-color);
+  background: var(--semantics-success-background-strong);
+  color: var(--neutral-text-on-color);
 }
 
 .cds-step--warning .cds-step-marker {
@@ -789,7 +789,7 @@
 }
 
 .cds-step--error .cds-step-marker {
-  background: var(--theme-semantics-critical-strong-background);
+  background: var(--semantics-critical-background-strong);
   color: var(--neutral-text-on-color);
 }
 
@@ -823,12 +823,12 @@
 }
 
 .cds-step--warning .cds-step-title {
-  color: var(--theme-semantics-warning-text);
+  color: var(--semantics-warning-text);
   font-weight: var(--typography-font-weight-bold);
 }
 
 .cds-step--error .cds-step-title {
-  color: var(--theme-semantics-critical-text);
+  color: var(--semantics-critical-text);
   font-weight: var(--typography-font-weight-bold);
 }
 
@@ -860,15 +860,15 @@
 }
 
 .cds-step--completed .cds-step-status {
-  color: var(--theme-semantics-success-text, var(--theme-semantics-success-strong-background));
+  color: var(--semantics-success-text, var(--semantics-success-background-strong));
 }
 
 .cds-step--warning .cds-step-status {
-  color: var(--theme-semantics-warning-text);
+  color: var(--semantics-warning-text);
 }
 
 .cds-step--error .cds-step-status {
-  color: var(--theme-semantics-critical-text);
+  color: var(--semantics-critical-text);
 }
 
 .cds-step-status-dot {
@@ -906,7 +906,7 @@
 }
 
 .cds-step--completed .cds-step-connector {
-  background: var(--theme-semantics-success-strong-background);
+  background: var(--semantics-success-background-strong);
 }
 
 .cds-step--warning .cds-step-connector {
@@ -914,7 +914,7 @@
 }
 
 .cds-step--error .cds-step-connector {
-  background: var(--theme-semantics-critical-border);
+  background: var(--semantics-critical-border);
 }
 
 /* Stepper: vertical orientation — e.g. a multi-step request flow's left-side nav.
@@ -989,7 +989,7 @@
 }
 
 .cds-stepper-mobile-segment--completed {
-  background: var(--theme-semantics-success-strong-background);
+  background: var(--semantics-success-background-strong);
 }
 
 .cds-stepper-mobile-segment--in-progress {
@@ -1001,7 +1001,7 @@
 }
 
 .cds-stepper-mobile-segment--error {
-  background: var(--theme-semantics-critical-strong-background);
+  background: var(--semantics-critical-background-strong);
 }
 
 .cds-stepper-mobile-count {
@@ -1029,15 +1029,15 @@
 }
 
 .cds-step--mobile.cds-step--completed {
-  border-color: var(--theme-semantics-success-border, var(--theme-semantics-success-strong-background));
+  border-color: var(--semantics-success-border, var(--semantics-success-background-strong));
 }
 
 .cds-step--mobile.cds-step--warning {
-  border-color: var(--theme-semantics-warning-border);
+  border-color: var(--semantics-warning-border);
 }
 
 .cds-step--mobile.cds-step--error {
-  border-color: var(--theme-semantics-critical-border);
+  border-color: var(--semantics-critical-border);
 }
 
 .cds-step--mobile .cds-step-label {
@@ -1071,7 +1071,7 @@
 .cds-error-text {
   font-size: var(--typography-font-size-xs);
   line-height: var(--typography-body-xs-relaxed-line-height);
-  color: var(--theme-semantics-critical-text);
+  color: var(--semantics-critical-text);
 }
 
 .cds-input {
@@ -1127,7 +1127,7 @@
    surrounding page's background. */
 .cds-input:hover:not(:disabled):not([aria-disabled="true"]),
 .force-hover .cds-input {
-  border-color: var(--theme-neutral-border-strong);
+  border-color: var(--neutral-border-strong);
   background: color-mix(in srgb, black 8%, var(--neutral-surface-layer-01));
 }
 
@@ -1139,13 +1139,13 @@
 }
 
 .cds-input[aria-invalid="true"] {
-  border-color: var(--theme-semantics-critical-border);
+  border-color: var(--semantics-critical-border);
 }
 
 .cds-input:disabled {
-  background: var(--theme-semantics-disabled-background);
+  background: var(--semantics-disabled-background);
   color: var(--semantics-disabled-text);
-  border-color: var(--theme-semantics-disabled-border);
+  border-color: var(--semantics-disabled-border);
   opacity: 1;
   cursor: not-allowed;
 }
@@ -1179,7 +1179,7 @@
 
 .cds-card--interactive:hover:not(:disabled) {
   box-shadow: var(--core-elevation-2);
-  border-color: var(--theme-neutral-border-strong);
+  border-color: var(--neutral-border-strong);
   background: var(--neutral-surface-layer-01);
 }
 
@@ -1200,10 +1200,10 @@
 .cds-card--interactive:disabled {
   cursor: not-allowed;
   opacity: 1;
-  background: var(--theme-semantics-disabled-background);
+  background: var(--semantics-disabled-background);
   color: var(--semantics-disabled-text);
   box-shadow: none;
-  border-color: var(--theme-semantics-disabled-border);
+  border-color: var(--semantics-disabled-border);
   transform: none;
   pointer-events: none;
 }
@@ -1303,7 +1303,7 @@
 
 .cds-quicklink[data-selected="true"] {
   --cds-stroke-color: var(--brand-border-primary-default);
-  background: var(--theme-brand-background-primary-subtle);
+  background: var(--brand-background-primary-subtle);
 }
 
 .cds-quicklink[data-selected="true"] .cds-quicklink-icon {
@@ -1318,13 +1318,13 @@
 
 .cds-quicklink:disabled {
   cursor: not-allowed;
-  background: var(--theme-semantics-disabled-background);
-  --cds-stroke-color: var(--theme-semantics-disabled-border);
+  background: var(--semantics-disabled-background);
+  --cds-stroke-color: var(--semantics-disabled-border);
   box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color);
 }
 
 .cds-quicklink:disabled .cds-quicklink-icon {
-  background: var(--theme-semantics-disabled-background);
+  background: var(--semantics-disabled-background);
   color: var(--semantics-disabled-text);
 }
 
@@ -1389,74 +1389,74 @@
 
 
 .cds-badge-style--soft.cds-badge--success {
-  background: var(--theme-semantics-success-light-background);
-  color: var(--theme-semantics-success-text);
-  --cds-stroke-color: var(--theme-semantics-success-text);
+  background: var(--semantics-success-background-light);
+  color: var(--semantics-success-text);
+  --cds-stroke-color: var(--semantics-success-text);
 }
 
 .cds-badge-style--outline.cds-badge--success {
   background: transparent;
-  color: var(--theme-semantics-success-text);
-  --cds-stroke-color: var(--theme-semantics-success-border);
+  color: var(--semantics-success-text);
+  --cds-stroke-color: var(--semantics-success-border);
 }
 
 .cds-badge-style--solid.cds-badge--success {
-  background: var(--theme-semantics-success-strong-background);
-  color: var(--theme-neutral-text-on-color);
+  background: var(--semantics-success-background-strong);
+  color: var(--neutral-text-on-color);
   --cds-stroke-color: transparent;
 }
 
 .cds-badge-style--soft.cds-badge--warning {
-  background: var(--theme-semantics-warning-light-background);
-  color: var(--theme-semantics-warning-text);
-  --cds-stroke-color: var(--theme-semantics-warning-text);
+  background: var(--semantics-warning-background-light);
+  color: var(--semantics-warning-text);
+  --cds-stroke-color: var(--semantics-warning-text);
 }
 
 .cds-badge-style--outline.cds-badge--warning {
   background: transparent;
-  color: var(--theme-semantics-warning-text);
-  --cds-stroke-color: var(--theme-semantics-warning-border);
+  color: var(--semantics-warning-text);
+  --cds-stroke-color: var(--semantics-warning-border);
 }
 
 .cds-badge-style--solid.cds-badge--warning {
-  background: var(--theme-semantics-warning-strong-background);
-  color: var(--theme-neutral-text-on-color);
+  background: var(--semantics-warning-background-strong);
+  color: var(--neutral-text-on-color);
   --cds-stroke-color: transparent;
 }
 
 .cds-badge-style--soft.cds-badge--danger {
-  background: var(--theme-semantics-critical-light-background);
-  color: var(--theme-semantics-critical-text);
-  --cds-stroke-color: var(--theme-semantics-critical-text);
+  background: var(--semantics-critical-background-light);
+  color: var(--semantics-critical-text);
+  --cds-stroke-color: var(--semantics-critical-text);
 }
 
 .cds-badge-style--outline.cds-badge--danger {
   background: transparent;
-  color: var(--theme-semantics-critical-text);
-  --cds-stroke-color: var(--theme-semantics-critical-border);
+  color: var(--semantics-critical-text);
+  --cds-stroke-color: var(--semantics-critical-border);
 }
 
 .cds-badge-style--solid.cds-badge--danger {
-  background: var(--theme-semantics-critical-strong-background);
-  color: var(--theme-neutral-text-on-color);
+  background: var(--semantics-critical-background-strong);
+  color: var(--neutral-text-on-color);
   --cds-stroke-color: transparent;
 }
 
 .cds-badge-style--soft.cds-badge--info {
-  background: var(--theme-semantics-highlight-light-background);
-  color: var(--theme-semantics-highlight-text);
-  --cds-stroke-color: var(--theme-semantics-highlight-text);
+  background: var(--semantics-highlight-background-light);
+  color: var(--semantics-highlight-text);
+  --cds-stroke-color: var(--semantics-highlight-text);
 }
 
 .cds-badge-style--outline.cds-badge--info {
   background: transparent;
-  color: var(--theme-semantics-highlight-text);
-  --cds-stroke-color: var(--theme-semantics-highlight-border);
+  color: var(--semantics-highlight-text);
+  --cds-stroke-color: var(--semantics-highlight-border);
 }
 
 .cds-badge-style--solid.cds-badge--info {
-  background: var(--theme-semantics-highlight-strong-background);
-  color: var(--theme-neutral-text-on-color);
+  background: var(--semantics-highlight-background-strong);
+  color: var(--neutral-text-on-color);
   --cds-stroke-color: transparent;
 }
 
@@ -1469,7 +1469,7 @@
 .cds-badge-style--outline.cds-badge--neutral {
   background: transparent;
   color: var(--neutral-text-default);
-  --cds-stroke-color: var(--theme-neutral-border-strong);
+  --cds-stroke-color: var(--neutral-border-strong);
 }
 
 .cds-badge-style--solid.cds-badge--neutral {
@@ -1504,38 +1504,38 @@
 .force-hover .cds-badge--neutral {
   background: color-mix(in srgb, var(--neutral-border-light) 22%, var(--neutral-surface-layer-03)) !important;
   color: var(--neutral-text-default) !important;
-  --cds-stroke-color: var(--theme-neutral-border-strong) !important;
+  --cds-stroke-color: var(--neutral-border-strong) !important;
 }
 
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--success,
 .cds-badge-state--hover.cds-badge--success,
 .force-hover .cds-badge--success {
-  background: color-mix(in srgb, var(--theme-semantics-success-strong-background) 14%, var(--neutral-surface-layer-01)) !important;
-  color: var(--theme-semantics-success-text) !important;
-  --cds-stroke-color: var(--theme-semantics-success-strong-background) !important;
+  background: color-mix(in srgb, var(--semantics-success-background-strong) 14%, var(--neutral-surface-layer-01)) !important;
+  color: var(--semantics-success-text) !important;
+  --cds-stroke-color: var(--semantics-success-background-strong) !important;
 }
 
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--warning,
 .cds-badge-state--hover.cds-badge--warning,
 .force-hover .cds-badge--warning {
-  background: color-mix(in srgb, var(--theme-semantics-warning-strong-background) 14%, var(--neutral-surface-layer-01)) !important;
-  color: var(--theme-semantics-warning-text) !important;
+  background: color-mix(in srgb, var(--semantics-warning-background-strong) 14%, var(--neutral-surface-layer-01)) !important;
+  color: var(--semantics-warning-text) !important;
   --cds-stroke-color: var(--semantics-warning-border) !important;
 }
 
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--danger,
 .cds-badge-state--hover.cds-badge--danger,
 .force-hover .cds-badge--danger {
-  background: color-mix(in srgb, var(--theme-semantics-critical-strong-background) 14%, var(--neutral-surface-layer-01)) !important;
-  color: var(--theme-semantics-critical-text) !important;
+  background: color-mix(in srgb, var(--semantics-critical-background-strong) 14%, var(--neutral-surface-layer-01)) !important;
+  color: var(--semantics-critical-text) !important;
   --cds-stroke-color: var(--semantics-critical-border) !important;
 }
 
 .cds-badge--interactive:hover:not(.cds-badge--disabled).cds-badge--info,
 .cds-badge-state--hover.cds-badge--info,
 .force-hover .cds-badge--info {
-  background: color-mix(in srgb, var(--theme-semantics-highlight-strong-background) 14%, var(--neutral-surface-layer-01)) !important;
-  color: var(--theme-semantics-highlight-text) !important;
+  background: color-mix(in srgb, var(--semantics-highlight-background-strong) 14%, var(--neutral-surface-layer-01)) !important;
+  color: var(--semantics-highlight-text) !important;
   --cds-stroke-color: var(--semantics-highlight-border) !important;
 }
 
@@ -1558,33 +1558,33 @@
 .cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--success,
 .cds-badge-state--active.cds-badge-style--soft.cds-badge--success,
 .force-active .cds-badge-style--soft.cds-badge--success {
-  background: var(--theme-semantics-success-strong-background) !important;
+  background: var(--semantics-success-background-strong) !important;
   color: var(--neutral-text-on-color) !important;
-  --cds-stroke-color: var(--theme-semantics-success-strong-background) !important;
+  --cds-stroke-color: var(--semantics-success-background-strong) !important;
 }
 
 .cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--warning,
 .cds-badge-state--active.cds-badge-style--soft.cds-badge--warning,
 .force-active .cds-badge-style--soft.cds-badge--warning {
-  background: var(--theme-semantics-warning-strong-background) !important;
-  color: var(--theme-neutral-text-on-color) !important;
-  --cds-stroke-color: var(--theme-semantics-warning-strong-background) !important;
+  background: var(--semantics-warning-background-strong) !important;
+  color: var(--neutral-text-on-color) !important;
+  --cds-stroke-color: var(--semantics-warning-background-strong) !important;
 }
 
 .cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--danger,
 .cds-badge-state--active.cds-badge-style--soft.cds-badge--danger,
 .force-active .cds-badge-style--soft.cds-badge--danger {
-  background: var(--theme-semantics-critical-strong-background) !important;
+  background: var(--semantics-critical-background-strong) !important;
   color: var(--neutral-text-on-color) !important;
-  --cds-stroke-color: var(--theme-semantics-critical-strong-background) !important;
+  --cds-stroke-color: var(--semantics-critical-background-strong) !important;
 }
 
 .cds-badge--interactive:active:not(.cds-badge--disabled).cds-badge--info,
 .cds-badge-state--active.cds-badge-style--soft.cds-badge--info,
 .force-active .cds-badge-style--soft.cds-badge--info {
-  background: var(--theme-semantics-highlight-strong-background) !important;
-  color: var(--theme-neutral-text-on-color) !important;
-  --cds-stroke-color: var(--theme-semantics-highlight-strong-background) !important;
+  background: var(--semantics-highlight-background-strong) !important;
+  color: var(--neutral-text-on-color) !important;
+  --cds-stroke-color: var(--semantics-highlight-background-strong) !important;
 }
 
 .cds-badge--interactive:focus-visible:not(.cds-badge--disabled),
@@ -1615,9 +1615,9 @@
    signal, matching Button/Icon Button's disabled convention. */
 .cds-badge-style--soft.cds-badge--disabled,
 .force-disabled .cds-badge-style--soft {
-  background: var(--theme-semantics-disabled-background) !important;
+  background: var(--semantics-disabled-background) !important;
   color: var(--semantics-disabled-text) !important;
-  --cds-stroke-color: var(--theme-semantics-disabled-border) !important;
+  --cds-stroke-color: var(--semantics-disabled-border) !important;
   opacity: 1 !important;
 }
 
@@ -1688,27 +1688,27 @@
    already proven >=4.5:1 against this same fill, so reusing it guarantees
    the border reads at least as strongly. */
 .cds-alert--success {
-  background: var(--theme-semantics-success-light-background);
-  color: var(--theme-semantics-success-text);
-  --cds-stroke-color: var(--theme-semantics-success-text);
+  background: var(--semantics-success-background-light);
+  color: var(--semantics-success-text);
+  --cds-stroke-color: var(--semantics-success-text);
 }
 
 .cds-alert--warning {
-  background: var(--theme-semantics-warning-light-background);
-  color: var(--theme-semantics-warning-text);
-  --cds-stroke-color: var(--theme-semantics-warning-text);
+  background: var(--semantics-warning-background-light);
+  color: var(--semantics-warning-text);
+  --cds-stroke-color: var(--semantics-warning-text);
 }
 
 .cds-alert--danger {
-  background: var(--theme-semantics-critical-light-background);
-  color: var(--theme-semantics-critical-text);
-  --cds-stroke-color: var(--theme-semantics-critical-text);
+  background: var(--semantics-critical-background-light);
+  color: var(--semantics-critical-text);
+  --cds-stroke-color: var(--semantics-critical-text);
 }
 
 .cds-alert--info {
-  background: var(--theme-semantics-highlight-light-background);
-  color: var(--theme-semantics-highlight-text);
-  --cds-stroke-color: var(--theme-semantics-highlight-text);
+  background: var(--semantics-highlight-background-light);
+  color: var(--semantics-highlight-text);
+  --cds-stroke-color: var(--semantics-highlight-text);
 }
 
 /* Dismiss button — full-opacity icon by default (the 0.6 opacity fade this
@@ -1765,7 +1765,7 @@
 
 /*
  * Off-track fill uses the mode-independent --theme-colors-neutral-500
- * primitive rather than the semantic --theme-neutral-border-strong token:
+ * primitive rather than the semantic --neutral-border-strong token:
  * that semantic token is *designed* to get lighter in dark mode (so thin
  * borders stay visible against a dark surface), which is exactly wrong for
  * a large fill area sitting behind an always-white thumb — it measured only
@@ -1889,7 +1889,7 @@
  *
  * Fill is --theme-colors-neutral-400 for BOTH OFF and ON — a deliberate
  * three-way tradeoff:
- *   - the pale --theme-semantics-disabled-background used elsewhere in this
+ *   - the pale --semantics-disabled-background used elsewhere in this
  *     library only works because those controls pair it with a real
  *     border-color; used alone on a borderless track it measured 1.16:1
  *     against the thumb (invisible);
@@ -1933,7 +1933,7 @@
 
 .cds-textarea:hover:not(:disabled),
 .force-hover .cds-textarea {
-  border-color: var(--theme-neutral-border-strong);
+  border-color: var(--neutral-border-strong);
   background: color-mix(in srgb, black 8%, var(--neutral-surface-layer-01));
 }
 
@@ -1945,13 +1945,13 @@
 }
 
 .cds-textarea[aria-invalid="true"] {
-  border-color: var(--theme-semantics-critical-border);
+  border-color: var(--semantics-critical-border);
 }
 
 .cds-textarea:disabled {
-  background: var(--theme-semantics-disabled-background);
+  background: var(--semantics-disabled-background);
   color: var(--semantics-disabled-text);
-  border-color: var(--theme-semantics-disabled-border);
+  border-color: var(--semantics-disabled-border);
   opacity: 1;
   cursor: not-allowed;
   resize: none;
@@ -2001,7 +2001,7 @@
 
 .cds-select:hover:not(:disabled):not([aria-disabled="true"]),
 .force-hover .cds-select {
-  border-color: var(--theme-neutral-border-strong);
+  border-color: var(--neutral-border-strong);
   background: color-mix(in srgb, black 8%, var(--neutral-surface-layer-01));
 }
 
@@ -2013,9 +2013,9 @@
 
 .cds-select[aria-disabled="true"],
 .cds-select:disabled {
-  background: var(--theme-semantics-disabled-background);
+  background: var(--semantics-disabled-background);
   color: var(--semantics-disabled-text);
-  border-color: var(--theme-semantics-disabled-border);
+  border-color: var(--semantics-disabled-border);
   opacity: 1;
   cursor: not-allowed;
 }
@@ -2066,7 +2066,7 @@
 /*
  * Highlight is a brand-blue tint (not the neutral grey wash used before) —
  * mixed from --brand-text-primary-default *into* --core-color-surface-overlay
- * rather than using the static --theme-brand-background-primary-subtle token:
+ * rather than using the static --brand-background-primary-subtle token:
  * that static token happened to have almost the same luminance as the
  * listbox's own overlay background in dark mode (#132A49 vs #2E2D38 — only
  * 1.06:1, functionally invisible) purely by coincidence of the two palettes,
@@ -2243,7 +2243,7 @@
 
 .cds-checkbox input:disabled + .cds-checkbox-box,
 .cds-radio input:disabled + .cds-radio-box {
-  background: var(--theme-semantics-disabled-background);
+  background: var(--semantics-disabled-background);
   border-color: var(--neutral-border-light);
   opacity: 1;
   cursor: not-allowed;
@@ -2322,7 +2322,7 @@
 .cds-required-mark {
   /* This is text, so it needs the text token — the strong-background token is
      tuned as a fill and only reached 3.1:1 on the dark canvas. */
-  color: var(--theme-semantics-critical-text);
+  color: var(--semantics-critical-text);
 }
 
 /* Field visual style: default / solid / flush (Input, Select, Textarea) */
@@ -2467,7 +2467,7 @@
 }
 
 .cds-table-wrap {
-  /* --theme-neutral-border-subtle resolves to the exact same value as
+  /* --neutral-border-subtle resolves to the exact same value as
      --neutral-border-light (both alias neutral-500) in
      this theme, so swapping the token name alone didn't make table
      borders any lighter. A faint mix of the surface's own text color
@@ -2559,14 +2559,14 @@
   font-weight: var(--typography-font-weight-semibold);
   letter-spacing: var(--typography-body-md-letter-spacing);
   border-bottom: 0;
-  box-shadow: inset 0 calc(-1 * var(--core-border-width-default)) 0 var(--cds-row-divider, var(--cds-table-border-color, var(--theme-neutral-border-subtle)));
+  box-shadow: inset 0 calc(-1 * var(--core-border-width-default)) 0 var(--cds-row-divider, var(--cds-table-border-color, var(--neutral-border-subtle)));
   white-space: nowrap;
 }
 
 .cds-table tbody td {
   padding: var(--core-space-3) var(--core-space-4);
   border-bottom: 0;
-  box-shadow: inset 0 calc(-1 * var(--core-border-width-default)) 0 var(--cds-row-divider, var(--cds-table-border-color, var(--theme-neutral-border-subtle)));
+  box-shadow: inset 0 calc(-1 * var(--core-border-width-default)) 0 var(--cds-row-divider, var(--cds-table-border-color, var(--neutral-border-subtle)));
   color: var(--neutral-text-default);
   font-size: var(--typography-body-md-size);
   line-height: var(--typography-body-md-line-height);
@@ -2595,15 +2595,15 @@
 /* Table Disabled State (Neutral Grey Palette) */
 .cds-table-wrap--disabled,
 .cds-table--disabled {
-  border-color: var(--theme-semantics-disabled-border) !important;
-  background: var(--theme-semantics-disabled-background) !important;
+  border-color: var(--semantics-disabled-border) !important;
+  background: var(--semantics-disabled-background) !important;
   cursor: not-allowed !important;
 }
 
 .cds-data-table--disabled .cds-input,
 .cds-data-table--disabled .cds-select {
-  border-color: var(--theme-semantics-disabled-border) !important;
-  background-color: var(--theme-semantics-disabled-background) !important;
+  border-color: var(--semantics-disabled-border) !important;
+  background-color: var(--semantics-disabled-background) !important;
   color: var(--neutral-text-disabled) !important;
   cursor: not-allowed !important;
 }
@@ -2616,14 +2616,14 @@
 }
 
 .cds-table-wrap--disabled .cds-table thead th {
-  background: var(--theme-semantics-disabled-background) !important;
+  background: var(--semantics-disabled-background) !important;
   color: var(--semantics-disabled-text) !important;
-  --cds-row-divider: var(--theme-semantics-disabled-border);
+  --cds-row-divider: var(--semantics-disabled-border);
 }
 
 .cds-table-wrap--disabled .cds-table tbody td {
   color: var(--semantics-disabled-text) !important;
-  --cds-row-divider: var(--theme-semantics-disabled-border);
+  --cds-row-divider: var(--semantics-disabled-border);
   cursor: not-allowed !important;
 }
 
@@ -2654,41 +2654,41 @@
 .cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--neutral,
 .cds-table--disabled .cds-badge-style--soft.cds-badge--neutral,
 .cds-data-table--disabled .cds-badge-style--soft.cds-badge--neutral {
-  background: var(--theme-semantics-disabled-background) !important;
+  background: var(--semantics-disabled-background) !important;
   color: var(--semantics-disabled-text) !important;
-  --cds-stroke-color: var(--theme-semantics-disabled-border) !important;
+  --cds-stroke-color: var(--semantics-disabled-border) !important;
 }
 
 .cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--success,
 .cds-table--disabled .cds-badge-style--soft.cds-badge--success,
 .cds-data-table--disabled .cds-badge-style--soft.cds-badge--success {
-  background: var(--theme-semantics-success-disabled-background) !important;
-  color: var(--theme-semantics-success-disabled-text) !important;
-  --cds-stroke-color: var(--theme-semantics-success-disabled-border) !important;
+  background: var(--semantics-success-disabled-background) !important;
+  color: var(--semantics-success-disabled-text) !important;
+  --cds-stroke-color: var(--semantics-success-disabled-border) !important;
 }
 
 .cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--warning,
 .cds-table--disabled .cds-badge-style--soft.cds-badge--warning,
 .cds-data-table--disabled .cds-badge-style--soft.cds-badge--warning {
-  background: var(--theme-semantics-warning-disabled-background) !important;
-  color: var(--theme-semantics-warning-disabled-text) !important;
-  --cds-stroke-color: var(--theme-semantics-warning-disabled-border) !important;
+  background: var(--semantics-warning-disabled-background) !important;
+  color: var(--semantics-warning-disabled-text) !important;
+  --cds-stroke-color: var(--semantics-warning-disabled-border) !important;
 }
 
 .cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--danger,
 .cds-table--disabled .cds-badge-style--soft.cds-badge--danger,
 .cds-data-table--disabled .cds-badge-style--soft.cds-badge--danger {
-  background: var(--theme-semantics-critical-disabled-background) !important;
-  color: var(--theme-semantics-critical-disabled-text) !important;
-  --cds-stroke-color: var(--theme-semantics-critical-disabled-border) !important;
+  background: var(--semantics-critical-disabled-background) !important;
+  color: var(--semantics-critical-disabled-text) !important;
+  --cds-stroke-color: var(--semantics-critical-disabled-border) !important;
 }
 
 .cds-table-wrap--disabled .cds-badge-style--soft.cds-badge--info,
 .cds-table--disabled .cds-badge-style--soft.cds-badge--info,
 .cds-data-table--disabled .cds-badge-style--soft.cds-badge--info {
-  background: var(--theme-semantics-highlight-disabled-background) !important;
-  color: var(--theme-semantics-highlight-disabled-text) !important;
-  --cds-stroke-color: var(--theme-semantics-highlight-disabled-border) !important;
+  background: var(--semantics-highlight-disabled-background) !important;
+  color: var(--semantics-highlight-disabled-text) !important;
+  --cds-stroke-color: var(--semantics-highlight-disabled-border) !important;
 }
 
 .cds-th-sortable--disabled {
@@ -2723,7 +2723,7 @@
 .cds-table--view-mode tbody td {
   color: var(--neutral-text-subtle);
   background: var(--neutral-surface-layer-01);
-  border-bottom-color: var(--theme-neutral-border-subtle);
+  border-bottom-color: var(--neutral-border-subtle);
 }
 
 .cds-table-wrap--view-mode .cds-table[data-zebra="true"] tbody tr:nth-child(even),
@@ -2840,7 +2840,7 @@
 }
 
 .cds-avatar-status--offline {
-  background: var(--theme-neutral-border-strong);
+  background: var(--neutral-border-strong);
 }
 
 .cds-avatar-group {
@@ -2951,7 +2951,7 @@
 
 .cds-tab:hover:not(:disabled):not([aria-selected="true"]) {
   color: var(--neutral-text-default);
-  --cds-tab-indicator: var(--theme-neutral-border-strong);
+  --cds-tab-indicator: var(--neutral-border-strong);
 }
 
 .cds-tab-count {
@@ -2991,7 +2991,7 @@
 }
 
 .cds-tab:disabled .cds-tab-count {
-  background: var(--theme-semantics-disabled-background);
+  background: var(--semantics-disabled-background);
   color: var(--cds-tab-disabled-text);
 }
 
@@ -3337,23 +3337,23 @@
    background + matching text color, ≥4.5:1 in both light and dark mode) so
    a "success" toast and a "success" alert share the same visual language. */
 .cds-toast--success .cds-toast__icon-badge {
-  background: var(--theme-semantics-success-light-background);
-  color: var(--theme-semantics-success-text);
+  background: var(--semantics-success-background-light);
+  color: var(--semantics-success-text);
 }
 
 .cds-toast--danger .cds-toast__icon-badge {
-  background: var(--theme-semantics-critical-light-background);
-  color: var(--theme-semantics-critical-text);
+  background: var(--semantics-critical-background-light);
+  color: var(--semantics-critical-text);
 }
 
 .cds-toast--warning .cds-toast__icon-badge {
-  background: var(--theme-semantics-warning-light-background);
-  color: var(--theme-semantics-warning-text);
+  background: var(--semantics-warning-background-light);
+  color: var(--semantics-warning-text);
 }
 
 .cds-toast--info .cds-toast__icon-badge {
-  background: var(--theme-semantics-highlight-light-background);
-  color: var(--theme-semantics-highlight-text);
+  background: var(--semantics-highlight-background-light);
+  color: var(--semantics-highlight-text);
 }
 
 /* ---------- Spinner ---------- */
@@ -3998,7 +3998,7 @@
 
 .cds-toggle:disabled[aria-pressed="true"],
 .cds-toggle[disabled][aria-pressed="true"] {
-  background: var(--theme-semantics-disabled-border);
+  background: var(--semantics-disabled-border);
   color: var(--neutral-text-subtle-light);
   border-color: var(--neutral-border-light);
 }
@@ -4182,7 +4182,7 @@
 }
 
 .cds-input-group:has(.cds-input:hover:not(:disabled)) .cds-input-group-addon {
-  border-color: var(--theme-neutral-border-strong);
+  border-color: var(--neutral-border-strong);
 }
 
 .cds-input-group .cds-input:focus,
@@ -4306,7 +4306,7 @@
 }
 
 .cds-incremental-selector:hover:not(:has(.cds-incremental-selector__btn:disabled)) {
-  border-color: var(--theme-neutral-border-strong);
+  border-color: var(--neutral-border-strong);
 }
 
 /* Wash covers the whole button — visible against any surface in either
@@ -4335,18 +4335,18 @@
 
 .cds-incremental-selector--disabled,
 .cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) {
-  background: var(--theme-semantics-disabled-background);
-  border-color: var(--theme-semantics-disabled-border);
+  background: var(--semantics-disabled-background);
+  border-color: var(--semantics-disabled-border);
 }
 
 .cds-incremental-selector--disabled .cds-incremental-selector__btn--decrease,
 .cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) .cds-incremental-selector__btn--decrease {
-  border-right-color: var(--theme-semantics-disabled-border);
+  border-right-color: var(--semantics-disabled-border);
 }
 
 .cds-incremental-selector--disabled .cds-incremental-selector__btn--increase,
 .cds-incremental-selector:has(.cds-incremental-selector__btn:disabled) .cds-incremental-selector__btn--increase {
-  border-left-color: var(--theme-semantics-disabled-border);
+  border-left-color: var(--semantics-disabled-border);
 }
 
 .cds-incremental-selector__btn:disabled {
@@ -4394,23 +4394,23 @@
 .cds-otp-digit[aria-invalid="true"],
 .cds-otp-digit--error,
 .cds-otp--error .cds-otp-digit {
-  border-color: var(--theme-semantics-critical-border) !important;
+  border-color: var(--semantics-critical-border) !important;
 }
 
 .cds-otp-digit[aria-invalid="true"]:focus-visible,
 .cds-otp-digit--error:focus-visible,
 .cds-otp--error .cds-otp-digit:focus-visible {
   outline: none;
-  border-color: var(--theme-semantics-critical-border) !important;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-semantics-critical-border) 25%, transparent) !important;
+  border-color: var(--semantics-critical-border) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semantics-critical-border) 25%, transparent) !important;
 }
 
 /* Disabled state */
 .cds-otp-digit:disabled,
 .cds-otp--disabled .cds-otp-digit {
-  background: var(--theme-semantics-disabled-background) !important;
+  background: var(--semantics-disabled-background) !important;
   color: var(--semantics-disabled-text) !important;
-  border-color: var(--theme-semantics-disabled-border) !important;
+  border-color: var(--semantics-disabled-border) !important;
   cursor: not-allowed !important;
   opacity: 1 !important;
 }
@@ -4448,7 +4448,7 @@
 }
 
 .cds-menu-item--danger {
-  color: var(--theme-semantics-critical-text);
+  color: var(--semantics-critical-text);
 }
 
 .cds-menu-separator {
@@ -4549,7 +4549,7 @@
   cursor: not-allowed;
   opacity: 1;
   --cds-slider-track-fill: var(--neutral-border-default);
-  --cds-slider-track-bg: var(--theme-semantics-disabled-background);
+  --cds-slider-track-bg: var(--semantics-disabled-background);
   --cds-slider-thumb-bg: var(--neutral-border-default);
   --cds-slider-thumb-ring: var(--neutral-border-default);
 }
@@ -4984,13 +4984,13 @@
 }
 
 .cds-table-positive {
-  color: var(--theme-semantics-success-text);
+  color: var(--semantics-success-text);
   font-weight: var(--typography-font-weight-semibold);
   font-variant-numeric: tabular-nums;
 }
 
 .cds-table-negative {
-  color: var(--theme-semantics-critical-text);
+  color: var(--semantics-critical-text);
   font-weight: var(--typography-font-weight-semibold);
   font-variant-numeric: tabular-nums;
 }
@@ -5008,7 +5008,7 @@
 .cds-table thead th[scope="colgroup"] {
   text-align: center;
   border-bottom: 0;
-  box-shadow: inset 0 calc(-1 * var(--core-border-width-default)) 0 var(--cds-row-divider, var(--cds-table-border-color, var(--theme-neutral-border-subtle)));
+  box-shadow: inset 0 calc(-1 * var(--core-border-width-default)) 0 var(--cds-row-divider, var(--cds-table-border-color, var(--neutral-border-subtle)));
 }
 
 /* Vertical rules between every column — for dense, multi-level-header
@@ -5016,7 +5016,7 @@
    tell apart at a glance. */
 .cds-table--divided th,
 .cds-table--divided td {
-  border-right: 1px solid var(--cds-table-border-color, var(--theme-neutral-border-subtle));
+  border-right: 1px solid var(--cds-table-border-color, var(--neutral-border-subtle));
 }
 
 /* Only tbody rows reliably have one cell per real column — a rowSpan
@@ -5036,7 +5036,7 @@
 
 /* ---------- Attachment ---------- */
 .cds-dropzone {
-  border: var(--core-border-width-thick) dashed var(--theme-neutral-border-strong);
+  border: var(--core-border-width-thick) dashed var(--neutral-border-strong);
   border-radius: var(--core-radius-sm);
   padding: var(--core-space-4);
   text-align: center;
@@ -5089,44 +5089,44 @@
    at the 3.00:1 edge. The text token is already proven >=4.5:1 against this
    same fill, so reusing it guarantees the border reads at least as well. */
 .cds-dropzone--success {
-  border-color: var(--theme-semantics-success-text) !important;
-  background: var(--theme-semantics-success-light-background) !important;
-  color: var(--theme-semantics-success-text) !important;
+  border-color: var(--semantics-success-text) !important;
+  background: var(--semantics-success-background-light) !important;
+  color: var(--semantics-success-text) !important;
 }
 .cds-dropzone--success .cds-dropzone-trigger {
-  color: var(--theme-semantics-success-text) !important;
+  color: var(--semantics-success-text) !important;
 }
 .cds-dropzone--success .cds-dropzone-hint {
-  color: var(--theme-semantics-success-text) !important;
+  color: var(--semantics-success-text) !important;
 }
 
 .cds-dropzone--error {
-  border-color: var(--theme-semantics-critical-text) !important;
-  background: var(--theme-semantics-critical-light-background) !important;
-  color: var(--theme-semantics-critical-text) !important;
+  border-color: var(--semantics-critical-text) !important;
+  background: var(--semantics-critical-background-light) !important;
+  color: var(--semantics-critical-text) !important;
 }
 .cds-dropzone--error .cds-dropzone-trigger {
-  color: var(--theme-semantics-critical-text) !important;
+  color: var(--semantics-critical-text) !important;
 }
 .cds-dropzone--error .cds-dropzone-hint {
-  color: var(--theme-semantics-critical-text) !important;
+  color: var(--semantics-critical-text) !important;
 }
 
 .cds-dropzone--warning {
-  border-color: var(--theme-semantics-warning-text) !important;
-  background: var(--theme-semantics-warning-light-background) !important;
-  color: var(--theme-semantics-warning-text) !important;
+  border-color: var(--semantics-warning-text) !important;
+  background: var(--semantics-warning-background-light) !important;
+  color: var(--semantics-warning-text) !important;
 }
 .cds-dropzone--warning .cds-dropzone-trigger {
-  color: var(--theme-semantics-warning-text) !important;
+  color: var(--semantics-warning-text) !important;
 }
 .cds-dropzone--warning .cds-dropzone-hint {
-  color: var(--theme-semantics-warning-text) !important;
+  color: var(--semantics-warning-text) !important;
 }
 
 .cds-dropzone--disabled {
-  background: var(--theme-semantics-disabled-background) !important;
-  border-color: var(--theme-semantics-disabled-border) !important;
+  background: var(--semantics-disabled-background) !important;
+  border-color: var(--semantics-disabled-border) !important;
   color: var(--semantics-disabled-text) !important;
   cursor: not-allowed !important;
   opacity: 1 !important;
@@ -5221,7 +5221,7 @@
 }
 
 .cds-attachment-remove:hover {
-  color: var(--theme-semantics-critical-text);
+  color: var(--semantics-critical-text);
   background: var(--neutral-surface-layer-02);
 }
 
@@ -5232,52 +5232,52 @@
 
 /* Attachment Item States */
 .cds-attachment--success {
-  --cds-stroke-color: var(--theme-semantics-success-border);
-  background: var(--theme-semantics-success-light-background);
+  --cds-stroke-color: var(--semantics-success-border);
+  background: var(--semantics-success-background-light);
 }
 .cds-attachment--success .cds-attachment-icon {
-  background: var(--theme-semantics-success-strong-background);
-  color: var(--theme-neutral-text-on-color);
+  background: var(--semantics-success-background-strong);
+  color: var(--neutral-text-on-color);
 }
 .cds-attachment--success .cds-attachment-status {
-  color: var(--theme-semantics-success-text);
+  color: var(--semantics-success-text);
   font-weight: var(--typography-font-weight-medium);
 }
 
 .cds-attachment--error {
-  --cds-stroke-color: var(--theme-semantics-critical-border);
-  background: var(--theme-semantics-critical-light-background);
+  --cds-stroke-color: var(--semantics-critical-border);
+  background: var(--semantics-critical-background-light);
 }
 .cds-attachment--error .cds-attachment-icon {
-  background: var(--theme-semantics-critical-strong-background);
-  color: var(--theme-neutral-text-on-color);
+  background: var(--semantics-critical-background-strong);
+  color: var(--neutral-text-on-color);
 }
 .cds-attachment--error .cds-attachment-status {
-  color: var(--theme-semantics-critical-text);
+  color: var(--semantics-critical-text);
   font-weight: var(--typography-font-weight-medium);
 }
 
 .cds-attachment--warning {
-  --cds-stroke-color: var(--theme-semantics-warning-border);
-  background: var(--theme-semantics-warning-light-background);
+  --cds-stroke-color: var(--semantics-warning-border);
+  background: var(--semantics-warning-background-light);
 }
 .cds-attachment--warning .cds-attachment-icon {
-  background: var(--theme-semantics-warning-strong-background);
-  color: var(--theme-neutral-text-on-color);
+  background: var(--semantics-warning-background-strong);
+  color: var(--neutral-text-on-color);
 }
 .cds-attachment--warning .cds-attachment-status {
-  color: var(--theme-semantics-warning-text);
+  color: var(--semantics-warning-text);
   font-weight: var(--typography-font-weight-medium);
 }
 
 .cds-attachment--disabled {
-  background: var(--theme-semantics-disabled-background) !important;
-  --cds-stroke-color: var(--theme-semantics-disabled-border) !important;
+  background: var(--semantics-disabled-background) !important;
+  --cds-stroke-color: var(--semantics-disabled-border) !important;
   color: var(--semantics-disabled-text) !important;
   cursor: not-allowed !important;
 }
 .cds-attachment--disabled .cds-attachment-icon {
-  background: var(--theme-semantics-disabled-background) !important;
+  background: var(--semantics-disabled-background) !important;
   color: var(--semantics-disabled-text) !important;
 }
 .cds-attachment--disabled .cds-attachment-name {
@@ -5562,7 +5562,7 @@
 }
 
 .cds-sidenav-item:disabled .cds-sidenav-icon {
-  background: var(--theme-semantics-disabled-background);
+  background: var(--semantics-disabled-background);
   color: var(--semantics-disabled-text);
 }
 
@@ -5646,7 +5646,7 @@
   height: 20px;
   padding: var(--core-space-0) var(--core-space-1);
   border-radius: var(--core-radius-sm);
-  border: 1px solid var(--theme-neutral-border-strong);
+  border: 1px solid var(--neutral-border-strong);
   border-bottom-width: var(--core-border-width-thick);
   background: var(--neutral-surface-layer-03);
   color: var(--neutral-text-subtle);
@@ -6454,8 +6454,8 @@
   padding: 0 var(--core-space-1);
   box-sizing: border-box;
   border-radius: var(--core-radius-full);
-  background: var(--theme-semantics-critical-strong-background);
-  color: var(--theme-neutral-text-on-color);
+  background: var(--semantics-critical-background-strong);
+  color: var(--neutral-text-on-color);
   font-size: var(--typography-font-size-xs);
   line-height: var(--core-size-icon-sm);
   font-weight: var(--typography-font-weight-bold);

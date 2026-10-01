@@ -107,7 +107,7 @@ export function tokenFor(el: HTMLElement, prop: Prop, computed: string): string 
 
 /** Palette tokens as named on the Color page (brand-text-primary-default,
  *  neutral-border-light, semantics-success-text, …). */
-const CANONICAL = /^((brand|secondary|tertiary)-(text|background|border)-primary-|neutral-(text|border|background)-|semantics-)/;
+const CANONICAL = /^((brand|secondary|tertiary)-(text|background|border)-primary-|neutral-(text|border|background)-|neutral-background$|neutral-surface-|semantics-)/;
 
 /** The value a custom property is declared with where `el` sits: the last
  *  matching rule on the element or its nearest ancestor. */

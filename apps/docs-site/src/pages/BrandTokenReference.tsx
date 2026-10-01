@@ -34,13 +34,13 @@ function CopyBtn({
         onCopied(value);
       }}
       style={{
-        border: "1px solid var(--theme-neutral-border-primary-default)",
-        background: "var(--theme-colors-neutral-100)",
+        border: "1px solid var(--neutral-border-light)",
+        background: "var(--neutral-surface-layer-03)",
         borderRadius: "var(--core-radius-sm)",
         padding: "4px 8px",
         fontSize: "var(--typography-font-size-xs)",
         fontWeight: 600,
-        color: "var(--theme-neutral-text-subtle)",
+        color: "var(--neutral-text-subtle)",
         cursor: "pointer",
       }}
       className="brand-token-copy-btn"
@@ -208,7 +208,7 @@ export function BrandTokenReference() {
         .brand-token-reference .brand-token-pill:hover { border-color: #C4C4CF; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
         .brand-token-reference .brand-token-copy-btn:hover,
         .brand-token-reference .brand-token-copy-btn:focus-visible {
-          color: var(--theme-primitive-color-primary-600);
+          color: var(--brand-text-primary-hover);
           border-color: var(--brand-border-primary-default);
           background: var(--brand-background-primary-light);
           outline: none;

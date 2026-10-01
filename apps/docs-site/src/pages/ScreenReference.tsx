@@ -264,7 +264,7 @@ function PortfolioScreen() {
                   ))}
                 </div>
                 <div className="sr-chart-wrap">
-                  <LineChartCard title="Asset class performance" data={PERF} xKey="month" height={260} series={[{ key: "total", label: "Total portfolio", color: "var(--neutral-text-default)" }, { key: "equity", label: "U.S. Equity", color: "var(--neutral-text-subtle)" }, { key: "money", label: "Money Market", color: "var(--brand-text-primary-default)" }, { key: "commodities", label: "Commodities", color: "var(--theme-semantics-critical-text)" }]} />
+                  <LineChartCard title="Asset class performance" data={PERF} xKey="month" height={260} series={[{ key: "total", label: "Total portfolio", color: "var(--neutral-text-default)" }, { key: "equity", label: "U.S. Equity", color: "var(--neutral-text-subtle)" }, { key: "money", label: "Money Market", color: "var(--brand-text-primary-default)" }, { key: "commodities", label: "Commodities", color: "var(--semantics-critical-text)" }]} />
                 </div>
                 <div data-spec="Legend" className="sr-legend">
                   {LEGEND.map(([label, on]) => <Checkbox key={label} label={label} defaultChecked={on} size="sm" />)}
@@ -465,11 +465,11 @@ export function ScreenFrame({ id, mode }: { id: string; mode: "light" | "dark" }
   const Screen = SCREEN_COMPONENTS[id];
   useLayoutEffect(() => {
     document.body.style.margin = "0";
-    document.body.style.background = "var(--core-color-bg-page)";
+    document.body.style.background = "var(--neutral-background)";
   }, []);
   if (!Screen) return null;
   return (
-    <div className="sr-portal sr-frame" data-theme="core" data-mode={mode} style={{ minHeight: "100vh", background: "var(--core-color-bg-page)" }}>
+    <div className="sr-portal sr-frame" data-theme="core" data-mode={mode} style={{ minHeight: "100vh", background: "var(--neutral-background)" }}>
       <Screen />
     </div>
   );
@@ -543,7 +543,7 @@ const MOBILE_NOTES: Record<string, string[]> = {
 function DarkCanvas({ children }: { children: React.ReactNode }) {
   const { mode } = usePreviewMode();
   return (
-    <div className="sr-portal" data-theme="core" data-mode={mode} style={{ width: WIDTH, background: "var(--core-color-bg-page)" }}>
+    <div className="sr-portal" data-theme="core" data-mode={mode} style={{ width: WIDTH, background: "var(--neutral-background)" }}>
       {children}
     </div>
   );
@@ -597,7 +597,7 @@ function TypeGuide({ usage }: { usage: Record<string, Record<string, string[]>> 
       <SectionHeading>Text styles — when to use each, and where the screens use it</SectionHeading>
       <SpecTableCard>
         <thead>
-          <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, #00000008)" }}>
+          <tr style={{ textAlign: "left", color: "var(--neutral-text-subtle)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--neutral-surface-layer-03, #00000008)" }}>
             <th style={{ padding: "var(--core-space-2) var(--core-space-4)" }}>Style</th>
             <th style={{ padding: "var(--core-space-2) var(--core-space-4)" }}>Use it for</th>
             {SCREENS.map((s) => (
@@ -611,16 +611,16 @@ function TypeGuide({ usage }: { usage: Record<string, Record<string, string[]>> 
           {keys.map((k) => {
             const d = TYPO[k]?.desktop;
             return (
-              <tr key={k} style={{ borderTop: "1px solid var(--core-color-border-subtle)", verticalAlign: "top" }}>
+              <tr key={k} style={{ borderTop: "1px solid var(--neutral-border-light)", verticalAlign: "top" }}>
                 <td style={{ padding: "var(--core-space-3) var(--core-space-4)", whiteSpace: "nowrap" }}>
                   <span style={{ display: "inline-block", padding: "1px 6px", borderRadius: 4, background: TYPE_GROUP_COLOR[typeGroup(k)], color: "#FFFFFF", fontSize: 11, fontWeight: 700 }}>{styleLabel(k)}</span>
-                  <div style={{ fontSize: 12, color: "var(--core-color-text-tertiary)", marginTop: "var(--core-space-1)" }}>{d ? `${d.size} / ${d.weight}` : ""}</div>
+                  <div style={{ fontSize: 12, color: "var(--neutral-text-subtle)", marginTop: "var(--core-space-1)" }}>{d ? `${d.size} / ${d.weight}` : ""}</div>
                 </td>
-                <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: 13, color: "var(--core-color-text-primary)", minWidth: 200 }}>{d ? usageFor(k, d).use : ""}</td>
+                <td style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: 13, color: "var(--neutral-text-default)", minWidth: 200 }}>{d ? usageFor(k, d).use : ""}</td>
                 {SCREENS.map((s) => {
                   const texts = usage[s.id]?.[k] ?? [];
                   return (
-                    <td key={s.id} style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: 12, color: texts.length ? "var(--core-color-text-secondary)" : "var(--core-color-text-tertiary)", minWidth: 140 }}>
+                    <td key={s.id} style={{ padding: "var(--core-space-3) var(--core-space-4)", fontSize: 12, color: texts.length ? "var(--neutral-text-subtle)" : "var(--neutral-text-subtle)", minWidth: 140 }}>
                       {texts.length ? texts.slice(0, 3).map((t, i) => <div key={i}>“{t.length > 36 ? `${t.slice(0, 36)}…` : t}”</div>) : "—"}
                       {texts.length > 3 && <div>+{texts.length - 3} more</div>}
                     </td>

@@ -142,7 +142,7 @@ function UsageTable({ title, rows, showSample = false }: { title: string; rows: 
       <SectionHeading>{title}</SectionHeading>
       <SpecTableCard>
         <thead>
-          <tr style={{ textAlign: "left", color: "var(--core-color-text-tertiary)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--core-color-surface-subtle, rgba(0,0,0,0.03))" }}>
+          <tr style={{ textAlign: "left", color: "var(--neutral-text-subtle)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", background: "var(--neutral-surface-layer-03, rgba(0,0,0,0.03))" }}>
             <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "26%" }}>Role / property</th>
             <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "22%" }}>Token</th>
             <th style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 700, width: "22%" }}>Value</th>
@@ -152,17 +152,17 @@ function UsageTable({ title, rows, showSample = false }: { title: string; rows: 
         </thead>
         <tbody>
           {rows.map((r, i) => (
-            <tr key={i} style={{ borderTop: "1px solid var(--core-color-border-subtle)" }}>
-              <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--core-color-text-primary)", whiteSpace: "nowrap", verticalAlign: "top" }}>{r.label}</td>
-              <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--core-color-text-tertiary)", whiteSpace: "nowrap", verticalAlign: "top" }}>{r.token}</td>
-              <td style={{ padding: "var(--core-space-2) var(--core-space-4)", color: "var(--core-color-text-secondary)", whiteSpace: "nowrap", verticalAlign: "top" }}>
+            <tr key={i} style={{ borderTop: "1px solid var(--neutral-border-light)" }}>
+              <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontWeight: 600, color: "var(--neutral-text-default)", whiteSpace: "nowrap", verticalAlign: "top" }}>{r.label}</td>
+              <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontFamily: "var(--typography-font-family-mono, monospace)", fontSize: 12, color: "var(--neutral-text-subtle)", whiteSpace: "nowrap", verticalAlign: "top" }}>{r.token}</td>
+              <td style={{ padding: "var(--core-space-2) var(--core-space-4)", color: "var(--neutral-text-subtle)", whiteSpace: "nowrap", verticalAlign: "top" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-                  {r.swatch && <span style={{ width: 14, height: 14, borderRadius: 3, background: r.swatch, border: "1px solid var(--core-color-border-subtle)", display: "inline-block", flexShrink: 0 }} />}
+                  {r.swatch && <span style={{ width: 14, height: 14, borderRadius: 3, background: r.swatch, border: "1px solid var(--neutral-border-light)", display: "inline-block", flexShrink: 0 }} />}
                   {r.swatch ? toHexColors(r.value) : r.value}
                 </span>
               </td>
               <td style={{ padding: "var(--core-space-2) var(--core-space-4)", verticalAlign: "top" }}>{r.count}</td>
-              {showSample && <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontSize: 12, color: "var(--core-color-text-tertiary)", verticalAlign: "top", maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.sample ?? "—"}</td>}
+              {showSample && <td style={{ padding: "var(--core-space-2) var(--core-space-4)", fontSize: 12, color: "var(--neutral-text-subtle)", verticalAlign: "top", maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.sample ?? "—"}</td>}
             </tr>
           ))}
         </tbody>

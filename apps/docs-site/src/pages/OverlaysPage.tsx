@@ -17,9 +17,9 @@ const TOOLTIP_CELL: React.CSSProperties = {
   alignItems: "center",
   gap: "var(--core-space-4)",
   padding: "var(--core-space-4)",
-  border: "1px solid var(--theme-neutral-border-primary-default)",
+  border: "1px solid var(--neutral-border-light)",
   borderRadius: "var(--core-radius-sm)",
-  background: "var(--core-color-surface-default)",
+  background: "var(--neutral-surface-layer-01)",
 };
 
 /* Fixed-height stage with the trigger dead-centre, so every placement's

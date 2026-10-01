@@ -27,15 +27,15 @@ export default function Themes() {
         {themes.map((t) => (
           <DocsSection key={t.id} anchorId={t.id} title={t.label}>
             <div className="site-panel site-panel--flush">
-              <div className="preview-surface" data-theme={t.id} data-mode="light" style={{ background: "var(--core-color-surface-default)" }}>
+              <div className="preview-surface" data-theme={t.id} data-mode="light" style={{ background: "var(--neutral-surface-layer-01)" }}>
                 {t.logo && <img src={t.logo} alt={`${t.label} logo`} style={{ height: 28, marginRight: 8 }} />}
                 <Button>Primary action</Button>
                 <Button variant="secondary">Secondary</Button>
                 <Badge tone="success">Active</Badge>
                 <Badge tone="info">Pending</Badge>
                 <Card style={{ minWidth: 200 }}>
-                  <div style={{ fontSize: "var(--typography-font-size-xs)", color: "var(--core-color-text-secondary)" }}>Balance</div>
-                  <div style={{ fontSize: 22, fontWeight: 700, color: "var(--core-color-text-primary)" }}>$84,213</div>
+                  <div style={{ fontSize: "var(--typography-font-size-xs)", color: "var(--neutral-text-subtle)" }}>Balance</div>
+                  <div style={{ fontSize: 22, fontWeight: 700, color: "var(--neutral-text-default)" }}>$84,213</div>
                 </Card>
                 <Field label="Search">{(p) => <Input {...p} placeholder="Type to search" style={{ width: 180 }} />}</Field>
               </div>

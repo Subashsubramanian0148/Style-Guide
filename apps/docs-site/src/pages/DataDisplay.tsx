@@ -79,7 +79,7 @@ const sectionLabelStyle: React.CSSProperties = {
   lineHeight: "var(--typography-label-line-height)",
   fontWeight: "var(--typography-label-weight)",
   letterSpacing: "var(--typography-label-letter-spacing)",
-  color: "var(--theme-neutral-text-subtle)",
+  color: "var(--neutral-text-subtle)",
   marginBottom: "var(--core-space-3, 12px)",
 };
 
@@ -88,7 +88,7 @@ const badgeMatrixHeaderStyle: React.CSSProperties = {
   lineHeight: "var(--typography-eyebrow-line-height)",
   fontWeight: "var(--typography-eyebrow-weight)",
   letterSpacing: "var(--typography-eyebrow-letter-spacing)",
-  color: "var(--theme-neutral-text-subtle)",
+  color: "var(--neutral-text-subtle)",
   textTransform: "uppercase",
 };
 
@@ -110,10 +110,10 @@ function BadgeMatrixDemo() {
           gap: "var(--core-space-1, 4px)",
           padding: "var(--core-space-1)",
           borderRadius: "var(--core-radius-sm)",
-          border: "1px solid var(--theme-neutral-border-primary-default)",
+          border: "1px solid var(--neutral-border-light)",
           // Was --theme-colors-neutral-50, a raw (non-mode-aware) primitive
           // that stayed light even in dark mode.
-          background: "var(--core-color-surface-sunken)",
+          background: "var(--neutral-surface-layer-03)",
         }}
       >
         {(["md", "sm"] as const).map((s) => (
@@ -123,8 +123,8 @@ function BadgeMatrixDemo() {
             onClick={() => setSize(s)}
             style={{
               border: "none",
-              background: size === s ? "var(--theme-brand-background-primary-strong)" : "transparent",
-              color: size === s ? "var(--theme-brand-text-primary-oncolor)" : "var(--theme-neutral-text-primary-default)",
+              background: size === s ? "var(--brand-background-primary-strong)" : "transparent",
+              color: size === s ? "var(--brand-text-primary-oncolor)" : "var(--neutral-text-default)",
               borderRadius: "var(--core-radius-sm)",
               padding: "var(--core-space-1) var(--core-space-3)",
               fontFamily: "var(--typography-font-family-sans)",
@@ -166,15 +166,15 @@ function AvatarSizeDemo() {
           <table className="cds-table" data-density="comfortable">
             <thead>
               <tr>
-                <th scope="col" style={{ width: 140, fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)" }}>Component</th>
-                <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)" }}>Small (sm) — 24px</th>
-                <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)" }}>Medium (md) — 32px</th>
-                <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--core-color-text-secondary)" }}>Large (lg) — 48px</th>
+                <th scope="col" style={{ width: 140, fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)" }}>Component</th>
+                <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)" }}>Small (sm) — 24px</th>
+                <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)" }}>Medium (md) — 32px</th>
+                <th scope="col" style={{ fontSize: "var(--typography-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--neutral-text-subtle)" }}>Large (lg) — 48px</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-primary)" }}>Single Avatar</td>
+                <td style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--neutral-text-default)" }}>Single Avatar</td>
                 <td>
                   <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
                     <Avatar name={AVATAR_JORDAN.name} src={AVATAR_JORDAN.src} size="sm" />
@@ -195,7 +195,7 @@ function AvatarSizeDemo() {
                 </td>
               </tr>
               <tr>
-                <td style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--core-color-text-primary)" }}>Avatar Group</td>
+                <td style={{ fontSize: "var(--typography-body-md-size)", fontWeight: 600, color: "var(--neutral-text-default)" }}>Avatar Group</td>
                 <td>
                   <AvatarGroup avatars={sampleAvatars} size="sm" max={3} />
                 </td>
@@ -243,7 +243,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
               panel, so all four stay visually comparable side by side. */}
           <div>
             <div style={{ ...sectionLabelStyle, marginBottom: 2 }}>Table variants</div>
-            <div style={{ fontSize: "var(--typography-body-sm-size, 13px)", color: "var(--theme-neutral-text-subtle)", marginBottom: "var(--core-space-3, 12px)" }}>
+            <div style={{ fontSize: "var(--typography-body-sm-size, 13px)", color: "var(--neutral-text-subtle)", marginBottom: "var(--core-space-3, 12px)" }}>
               Four table patterns for the most common data shapes — transaction history, investment options, benchmark comparisons, and actionable items.
             </div>
             <div className="site-panel site-panel--flush site-panel--demo">
@@ -253,7 +253,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
               <Preview showModeToggle>
                 <div style={{ display: "flex", flexDirection: "column", gap: 32, width: "100%" }}>
                   <div>
-                    <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>
+                    <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>
                       Standard Data Table
                     </div>
                     <DataTable
@@ -269,7 +269,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
                   </div>
 
                   <div>
-                    <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>
+                    <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>
                       Investment Table
                     </div>
                     <div style={{ width: "100%", minWidth: 0 }}>
@@ -312,7 +312,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
                       Reuses the same .cds-table classes so it stays visually
                       identical. */}
                   <div>
-                    <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>
+                    <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>
                       Benchmark / Comparison Table
                     </div>
                     <TableScrollWrap className="cds-table-wrap">
@@ -360,7 +360,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
                   </div>
 
                   <div>
-                    <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--theme-neutral-text-subtle)", marginBottom: 12 }}>
+                    <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>
                       Action / Loan Table
                     </div>
                     <Table
@@ -386,7 +386,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
           {/* ---------- Column Content Types legend ---------- */}
           <div>
             <div style={{ ...sectionLabelStyle, marginBottom: 2 }}>Column Content Types</div>
-            <div style={{ fontSize: "var(--typography-body-sm-size, 13px)", color: "var(--theme-neutral-text-subtle)", marginBottom: "var(--core-space-3, 12px)" }}>
+            <div style={{ fontSize: "var(--typography-body-sm-size, 13px)", color: "var(--neutral-text-subtle)", marginBottom: "var(--core-space-3, 12px)" }}>
               Common column content patterns used in tables.
             </div>
             <div className="site-panel site-panel--flush site-panel--demo">
@@ -474,7 +474,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
                 </div>
               </div>
 
-              <div style={{ boxShadow: "inset 0 var(--core-border-width-default) 0 var(--theme-neutral-border-primary-default)", paddingTop: "var(--core-space-6)" }}>
+              <div style={{ boxShadow: "inset 0 var(--core-border-width-default) 0 var(--neutral-border-light)", paddingTop: "var(--core-space-6)" }}>
                 <div style={sectionLabelStyle}>Interactive states</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "var(--core-space-4)" }}>
                   <div style={QUICKLINK_CELL_STYLE}>
@@ -521,7 +521,7 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
   const cardStateStyles = (
     <style>{`
       .force-hover .cds-quicklink:not(:disabled) {
-        --cds-stroke-color: var(--theme-colors-neutral-300);
+        --cds-stroke-color: var(--neutral-border-default);
         box-shadow: inset 0 0 0 var(--core-border-width-default) var(--cds-stroke-color), var(--core-elevation-2) !important;
       }
       .force-hover .cds-quicklink:not(:disabled) .cds-quicklink-arrow {
@@ -548,8 +548,8 @@ export default function DataDisplay({ embedded = false }: { embedded?: boolean }
     <div style={{ maxWidth: 1024, margin: "0 auto", padding: "20px" }}>
       {cardStateStyles}
       <div style={{ textAlign: "center", marginBottom: 60, marginTop: 40 }}>
-        <h1 style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.06em", margin: "0 0 16px 0", color: "var(--core-color-text-primary)", lineHeight: 1.1 }}>Data Display</h1>
-        <p style={{ maxWidth: 580, margin: "0 auto", color: "var(--core-color-text-tertiary)", fontSize: "var(--core-font-size-lg, 20px)", lineHeight: 1.6, fontWeight: 400 }}>
+        <h1 style={{ fontSize: 72, fontWeight: 700, letterSpacing: "-0.06em", margin: "0 0 16px 0", color: "var(--neutral-text-default)", lineHeight: 1.1 }}>Data Display</h1>
+        <p style={{ maxWidth: 580, margin: "0 auto", color: "var(--neutral-text-subtle)", fontSize: "var(--core-font-size-lg, 20px)", lineHeight: 1.6, fontWeight: 400 }}>
           Quick links, Badges, Tables, Avatars, and Progress meters designed for metrics and data summaries.
         </p>
       </div>
