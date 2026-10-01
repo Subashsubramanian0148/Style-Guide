@@ -7,6 +7,7 @@
 .sr-portal {
   --sr-rail-height: calc(calc(var(--core-space-1) * 250) - var(--core-layout-header-height)); /* 1000px viewport − 56px header, as the portal renders at 1440 × 1000 */
   --sr-step-marker: var(--core-stepper-marker-size);
+  --sr-mobile-nav-h: calc(var(--core-space-1) * 17); /* MobileNav bar: 68px */
   --sr-link-offset: calc(var(--core-border-width-thick) + var(--core-border-width-default));
   font-family:var(--typography-font-family-sans);
   color:var(--neutral-text-default);
@@ -269,7 +270,11 @@
   .sr-doc-results .cds-btn { width:100%; }
 }
 @media (max-width: 640px) {
-  .sr-portal .cds-app-body { display:block; min-height:0; padding-bottom:var(--core-space-20); }
+  .sr-portal .cds-app-body { display:block; min-height:0; }
+  /* The bottom nav stays pinned to the phone screen instead of scrolling with
+     the page; the footer keeps a gap the height of the bar so it stays visible. */
+  .sr-frame .sr-mobile-nav .cds-mobile-nav { position:fixed; }
+  .sr-frame .cds-app-footer { margin-bottom:var(--sr-mobile-nav-h); }
   .sr-portal .cds-app-shell-sidebar { display:none; }
   .sr-mobile-nav { display:block; }
   .sr-portal .cds-app-main { width:100%; }

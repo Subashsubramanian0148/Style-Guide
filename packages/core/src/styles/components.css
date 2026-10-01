@@ -6176,6 +6176,8 @@
 .cds-visually-hidden {
   position: absolute;
   width: 1px;
+  /* Tables ignore width: 1px under auto layout and push the page sideways. */
+  table-layout: fixed;
   height: 1px;
   padding: 0;
   margin: var(--core-space-0);

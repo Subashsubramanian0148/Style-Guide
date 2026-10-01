@@ -64,3 +64,41 @@
   .sr-portal .rg-shell > .rg-work { order: 1; }
   .sr-portal .rg-shell > .rg-live { order: 2; }
 }
+
+/* Chart palette: series 1–4 and 11 aren't defined anywhere as tokens (the
+   portal itself falls back to hard-coded hex in lib/chartPalette.js), so the
+   donut slices and legend dots for them rendered empty. Map them to the CORE
+   tokens with the portal's exact colours; 1–4 follow light/dark mode. */
+.sr-portal {
+  --chart-1: var(--brand-text-primary-default);
+  --chart-2: var(--semantics-success-text);
+  --chart-3: var(--semantics-warning-text);
+  --chart-4: var(--semantics-critical-text);
+  --chart-11: var(--core-color-accent-amber-300);
+}
+
+/* Dark mode: the shared palette currently resolves these tokens to their
+   light-mode values in dark mode (brand text #1F4F8D on near-black, disabled
+   backgrounds #F7F7F9). Restore the portal's dark values from the palette's
+   own primitives so text keeps its contrast. */
+.sr-portal[data-mode="dark"] {
+  --brand-text-primary-default: var(--theme-primitive-color-primary-300);
+  --brand-text-primary-hover: var(--theme-primitive-color-primary-200);
+  --brand-text-primaryhover: var(--theme-primitive-color-primary-200);
+  --brand-text-primary-active: var(--theme-primitive-color-primary-100);
+  --brand-text-primary-on-surface: var(--theme-colors-neutral-0);
+  --brand-text-primary-oncolor: var(--theme-colors-neutral-0);
+  --brand-background-primary-strong: var(--theme-primitive-color-primary-400);
+  --brand-background-primary-hover: var(--theme-primitive-color-primary-500);
+  --brand-background-primary-active: var(--theme-primitive-color-primary-600);
+  --brand-background-primary-disabled: var(--theme-primitive-color-primary-800);
+  --brand-background-primary-disabled-light: var(--theme-colors-neutral-800);
+  --brand-border-primary-default: var(--theme-primitive-color-primary-300);
+  --brand-border-primary-hover: var(--theme-primitive-color-primary-200);
+  --brand-border-primary-disabled: var(--theme-primitive-color-primary-700);
+  --neutral-border-light: var(--theme-colors-neutral-500);
+  --neutral-border-subtle: var(--theme-colors-neutral-500);
+  --neutral-border-strong: var(--theme-colors-neutral-400);
+  --semantics-disabled-background: var(--theme-colors-neutral-800);
+  --semantics-disabled-text: var(--theme-colors-neutral-400);
+}
