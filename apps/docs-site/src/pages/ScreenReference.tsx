@@ -20,6 +20,7 @@ import { ScreenTypeMap, readTypedText, styleLabel, typeOrder, typeGroup, TYPE_GR
 import { usageFor } from "./typographyUsage";
 import "./screen-reference.css";
 import "./screen-ref/portal.css";
+import "./screen-ref/grid-align.css";
 import { NAV, T, PortalShell, Note } from "./screen-ref/shared";
 import { AccountSummaryScreen } from "./screen-ref/AccountSummaryScreen";
 import { EnrollmentLayout, EnrollmentInvestmentsScreen, EnrollmentSummaryScreen } from "./screen-ref/EnrollmentScreens";

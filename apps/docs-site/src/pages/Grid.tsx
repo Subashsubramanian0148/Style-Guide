@@ -28,57 +28,57 @@ const GRIDS: GridDef[] = [
   {
     id: "dashboard-layout", name: "Dashboard layout", cls: ".dash-layout",
     screens: [["Dashboard", "dashboard"]],
-    columns: "7fr 3fr", gap: "--core-space-5 · 20px", gapPx: 20,
-    desktop: [{ label: "Main · 7fr", px: 882 }, { label: "Side · 3fr", px: 378 }],
+    columns: "repeat(12, minmax(0, 1fr)) · main span 8 · side span 4", gap: "--core-space-5 · 20px", gapPx: 20,
+    desktop: [{ label: "Main · 8 columns", px: 847 }, { label: "Side · 4 columns", px: 413 }],
     below: "≤ 980px: one column. The side column (Retirement readiness, Enrich) moves below the main column.",
   },
   {
     id: "plan-cards", name: "Plan cards", cls: ".plans-grid",
     screens: [["Dashboard", "dashboard"]],
-    columns: "repeat(2, minmax(0, 1fr))", gap: "--core-space-4 · 16px", gapPx: 16,
-    desktop: [{ label: "1fr", px: 433 }, { label: "1fr", px: 433 }],
+    columns: "repeat(2, minmax(0, 1fr)) · 4 columns each", gap: "--core-space-5 · 20px (column) · --core-space-4 · 16px (row)", gapPx: 20,
+    desktop: [{ label: "4 columns", px: 413 }, { label: "4 columns", px: 413 }],
     below: "≤ 980px: one column.",
   },
   {
     id: "quick-links", name: "Quick links", cls: ".quick-grid",
     screens: [["Dashboard", "dashboard"]],
-    columns: "repeat(4, minmax(0, 1fr))", gap: "--core-space-3 · 12px", gapPx: 12,
-    desktop: [1, 2, 3, 4].map(() => ({ label: "1fr", px: 211.5 })),
+    columns: "repeat(4, minmax(0, 1fr)) · 2 columns each", gap: "--core-space-5 · 20px (column) · --core-space-3 · 12px (row)", gapPx: 20,
+    desktop: [1, 2, 3, 4].map(() => ({ label: "2 columns", px: 197 })),
     below: "≤ 980px: one column.",
   },
   {
     id: "readiness-layout", name: "Retirement readiness layout", cls: ".rg-shell",
     screens: [["Retirement readiness", "retirement-readiness"]],
-    columns: "minmax(0, 7fr) minmax(0, 3fr)", gap: "--core-space-6 · 24px", gapPx: 24,
-    desktop: [{ label: "Inputs · 7fr", px: 879 }, { label: "Live result · 3fr", px: 377 }],
+    columns: "repeat(12, minmax(0, 1fr)) · inputs span 8 · live result span 4", gap: "--core-space-5 · 20px (column) · --core-space-6 · 24px (row)", gapPx: 20,
+    desktop: [{ label: "Inputs · 8 columns", px: 847 }, { label: "Live result · 4 columns", px: 413 }],
     below: "≤ 980px: one column. The order becomes inputs first, then the live result card, which stops being sticky.",
   },
   {
     id: "readiness-inputs", name: "Readiness input panels", cls: ".rg-work",
     screens: [["Retirement readiness", "retirement-readiness"]],
-    columns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "--core-space-4 · 16px", gapPx: 16,
-    desktop: [{ label: "Retirement target", px: 432 }, { label: "Deferrals", px: 432 }],
+    columns: "minmax(0, 1fr) minmax(0, 1fr) · 4 columns each", gap: "--core-space-5 · 20px (column) · --core-space-4 · 16px (row)", gapPx: 20,
+    desktop: [{ label: "Retirement target · 4 columns", px: 413 }, { label: "Deferrals · 4 columns", px: 413 }],
     below: "≤ 980px: one column.",
   },
   {
     id: "side-nav-layout", name: "Side nav + panel", cls: ".pr-shell",
     screens: [["Plan details", "plan-details"], ["Beneficiaries", "beneficiaries"], ["Add beneficiary", "bene-basic"]],
-    columns: `${unit(60)} minmax(0, 1fr)`, gap: "--core-space-5 · 20px", gapPx: 20,
-    desktop: [{ label: "Nav / steps · 240px", px: 240 }, { label: "Panel · 1fr", px: 1020 }],
+    columns: "repeat(12, minmax(0, 1fr)) · nav span 3 · panel span 9", gap: "--core-space-5 · 20px", gapPx: 20,
+    desktop: [{ label: "Nav / steps · 3 columns", px: 305 }, { label: "Panel · 9 columns", px: 955 }],
     below: "≤ 980px: one column. The section nav (or steps card) sits above the panel.",
   },
   {
     id: "account-summary-layout", name: "Plan list + balances", cls: ".as-shell",
     screens: [["Account summary", "account-summary"]],
-    columns: `minmax(${unit(65)}, ${unit(75)}) minmax(0, 1fr)`, gap: "--core-space-5 · 20px", gapPx: 20,
-    desktop: [{ label: "Plans · 260–300px", px: 300 }, { label: "Balance panel · 1fr", px: 960 }],
+    columns: "repeat(12, minmax(0, 1fr)) · plans span 3 · balances span 9", gap: "--core-space-5 · 20px", gapPx: 20,
+    desktop: [{ label: "Plans · 3 columns", px: 305 }, { label: "Balance panel · 9 columns", px: 955 }],
     below: "≤ 980px: one column.",
   },
   {
     id: "portfolio-overview", name: "Portfolio overview", cls: ".overview-row",
     screens: [["Investment portfolio", "portfolio"]],
-    columns: `minmax(${unit(60)}, ${unit(70)}) minmax(0, 1fr)`, gap: "--core-space-4 · 16px", gapPx: 16,
-    desktop: [{ label: "Summary · 240–280px", px: 280 }, { label: "Chart · 1fr", px: 984 }],
+    columns: "repeat(12, minmax(0, 1fr)) · summary span 3 · chart span 9", gap: "--core-space-5 · 20px (column) · --core-space-4 · 16px (row)", gapPx: 20,
+    desktop: [{ label: "Summary · 3 columns", px: 305 }, { label: "Chart · 9 columns", px: 955 }],
     below: "≤ 980px: one column. The summary card sits above the chart.",
   },
   {
@@ -160,11 +160,11 @@ const OVERLAYS: Overlay[] = [
   {
     id: "dashboard", title: "Dashboard", screens: [["Dashboard", "dashboard"]],
     desktop: { ...D, bottom: 1686, footerY: 1638, activeNav: 0,
-      main: { label: "Main · 7fr · 882px", region: [128, 148, 882, 1442],
-        cells: [[128, 148, 882, 257], [128, 473, 433, 372], [577, 473, 433, 372], [128, 861, 433, 250], [577, 861, 433, 250],
-          [128, 1179, 212, 72], [352, 1179, 212, 72], [575, 1179, 212, 72], [799, 1179, 212, 72], [128, 1319, 882, 271]] },
-      side: { label: "Side · 3fr · 378px", region: [1030, 148, 378, 483], rows: [[1030, 148, 378, 291], [1030, 455, 378, 176]] },
-      note: "7fr · 3fr with a 20px gap. Plan cards sit on 2 columns (16px gap), quick links on 4 columns (12px gap)." },
+      main: { label: "Main · 8 columns · 847px", region: [128, 148, 847, 1442],
+        cells: [[128, 148, 847, 257], [128, 473, 413, 372], [561, 473, 413, 372], [128, 861, 413, 250], [561, 861, 413, 250],
+          [128, 1179, 197, 72], [345, 1179, 197, 72], [561, 1179, 197, 72], [778, 1179, 197, 72], [128, 1319, 847, 271]] },
+      side: { label: "Side · 4 columns · 413px", region: [995, 148, 413, 467], rows: [[995, 148, 413, 275], [995, 439, 413, 176]] },
+      note: "Main spans 8 columns and the side column 4, with 20px gutters. Inside the main area, the plan cards span 4 columns each and the quick links 2 columns each." },
     tablet: { ...T, bottom: 2717, footerY: 2669, activeNav: 0,
       main: { label: "Main · full width · 640px", region: [112, 144, 640, 1998],
         cells: stack(112, 640, [[144, 257], [469, 320], [805, 178], [999, 198], [1213, 198], [1479, 72], [1563, 72], [1647, 72], [1731, 72], [1871, 271]]) },
@@ -179,11 +179,11 @@ const OVERLAYS: Overlay[] = [
   {
     id: "readiness", title: "Retirement readiness", screens: [["Retirement readiness", "retirement-readiness"]],
     desktop: { ...D, bottom: 1048, footerY: 1000, activeNav: 0,
-      main: { label: "Inputs · 7fr · 879px", region: [128, 180, 879, 596],
-        cells: [[145, 233, 398, 79], [145, 320, 398, 66], [145, 394, 398, 111], [145, 513, 398, 111], [145, 632, 398, 127],
-          [593, 197, 320, 64], [593, 373, 398, 90], [593, 479, 398, 90], [593, 585, 398, 78]] },
-      side: { label: "Live result · 3fr · 377px", region: [1031, 180, 377, 582], rows: [[1052, 205, 335, 277], [1052, 498, 335, 181], [1052, 695, 335, 46]] },
-      note: "7fr · 3fr with a 24px gap. The inputs split into two equal panels (16px gap); target cards stack with an 8px gap." },
+      main: { label: "Inputs · 8 columns · 847px", region: [128, 180, 847, 673],
+        cells: [[145, 233, 379, 111], [145, 352, 379, 111], [145, 471, 379, 111], [145, 590, 379, 111], [145, 709, 379, 127],
+          [578, 197, 320, 64], [578, 373, 379, 90], [578, 479, 379, 90], [578, 585, 379, 98]] },
+      side: { label: "Live result · 4 columns · 413px", region: [995, 180, 413, 582], rows: [[1016, 205, 371, 277], [1016, 498, 371, 181], [1016, 695, 371, 46]] },
+      note: "Inputs span 8 columns (two panels of 4) and the live result 4, with 20px gutters. Target cards stack with an 8px gap inside each panel's padding." },
     tablet: { ...T, bottom: 2095, footerY: 2047, activeNav: 0,
       main: { label: "Inputs · full width · 640px", region: [112, 176, 640, 1133],
         cells: [...stack(129, 606, [[229, 111], [348, 111], [467, 111], [586, 111], [705, 111]]), [129, 866, 320, 64], ...stack(129, 606, [[1018, 74], [1108, 74], [1198, 78]])] },
@@ -198,9 +198,9 @@ const OVERLAYS: Overlay[] = [
   {
     id: "side-nav", title: "Side nav + panel", screens: [["Beneficiaries", "beneficiaries"], ["Plan details", "plan-details"], ["Add beneficiary", "bene-basic"]],
     desktop: { ...D, bottom: 1048, footerY: 1000, activeNav: 3,
-      side: { label: "Nav · 240px", region: [128, 176, 240, 338], rows: stack(141, 214, [[189, 56], [249, 56], [309, 64], [377, 64], [445, 56]]) },
-      main: { label: "Panel · 1fr (max 760px)", region: [388, 176, 760, 315], cells: stack(409, 718, [[197, 40], [253, 46], [299, 57], [356, 57], [413, 57]]) },
-      note: "240px · 1fr with a 20px gap. Nav items stack with a 4px gap inside 12px padding; the panel stops at 760px." },
+      side: { label: "Nav · 3 columns · 305px", region: [128, 176, 305, 322], rows: stack(141, 279, [[189, 56], [249, 56], [309, 56], [369, 56], [429, 56]]) },
+      main: { label: "Panel · 9 columns · 955px", region: [453, 176, 955, 315], cells: stack(474, 913, [[197, 40], [254, 45], [299, 57], [356, 57], [413, 57]]) },
+      note: "Nav spans 3 columns and the panel 9, with a 20px gutter. Nav items stack with a 4px gap inside 12px padding." },
     tablet: { ...T, bottom: 1072, footerY: 1024, activeNav: 3,
       side: { label: "Nav · above · wraps", region: [112, 172, 640, 142], rows: [[125, 185, 190, 56], [319, 185, 165, 56], [488, 185, 251, 56], [125, 245, 323, 56], [452, 245, 287, 56]] },
       main: { label: "Panel · full width · 640px", region: [112, 334, 640, 315], cells: stack(133, 598, [[355, 40], [411, 46], [457, 57], [514, 57], [571, 57]]) },
@@ -353,9 +353,10 @@ export default function Grid() {
             {OVERLAYS.map((o) => <LayoutOverlay key={o.id} o={o} />)}
           </div>
           <p className="grid-intro grid-intro--after">
-            The portal sizes its layouts with <code>fr</code> units and fixed widths rather than column spans, so a module can
-            land part-way across a column (for example, the 240px nav covers about 2.4 columns). The overlay shows where each one
-            actually lands; use <code>Grid</code> / <code>GridCol</code> spans when you need modules to snap to columns.
+            On desktop every Screen reference layout snaps to whole columns of CORE's 12-column <code>Grid</code>: 8 + 4 for the
+            Dashboard and Retirement readiness, and 3 + 9 for side-nav, Account summary and Portfolio layouts. Nested card grids use the
+            same 20px gutter, so cards land on column edges too. Panel padding (16–20px) insets the content inside a module, which is
+            expected. On tablet and mobile every layout is one full-width column.
           </p>
         </DocsSection>
 

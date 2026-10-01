@@ -1,0 +1,66 @@
+/* Screen reference layouts snapped to the CORE 12-column grid.
+   Desktop content is 1280px at 1440: 12 columns of 88px with 20px gutters
+   (--core-space-5). Every top-level module spans whole columns, and the
+   grids nested inside them use the same 20px gutter so their cards land on
+   column edges too. Only the column gaps change; row gaps stay as they were,
+   so the stacked tablet and mobile layouts are unchanged.
+   Loaded after portal.css so these rules win over the portal's own layout. */
+
+.sr-portal .sr-dash-layout,
+.sr-portal .rg-shell,
+.sr-portal .pr-shell,
+.sr-portal .as-shell,
+.sr-portal .sr-overview-row {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--core-space-5);
+}
+
+/* Dashboard: main 8 columns · side 4 columns */
+.sr-portal .sr-dash-main { grid-column: span 8; }
+.sr-portal .sr-dash-side { grid-column: span 4; }
+/* Plan cards 2 × 4 columns · quick links 4 × 2 columns (inside the 8-column main) */
+.sr-portal .sr-plans-grid,
+.sr-portal .sr-quick-grid { column-gap: var(--core-space-5); }
+
+/* Retirement readiness: inputs 8 columns (two panels × 4) · live result 4 columns */
+.sr-portal .rg-shell > .rg-work { grid-column: 1 / span 8; grid-row: 1; }
+.sr-portal .rg-shell > .rg-live { grid-column: 9 / span 4; grid-row: 1; }
+.sr-portal .rg-work { column-gap: var(--core-space-5); }
+
+/* Side nav + panel (Plan details, Profile, Add beneficiary): nav 3 columns · panel 9 columns */
+.sr-portal .pr-shell > .pr-nav,
+.sr-portal .pr-shell > .pr-steps { grid-column: span 3; }
+.sr-portal .pr-shell > .pr-main { grid-column: span 9; max-width: none; }
+
+/* Account summary: plan list 3 columns · balance panel 9 columns */
+.sr-portal .as-shell > .as-plans { grid-column: span 3; }
+.sr-portal .as-shell > .as-main { grid-column: span 9; }
+
+/* Investment portfolio: summary 3 columns · chart 9 columns */
+.sr-portal .sr-overview-row > :first-child { grid-column: span 3; }
+.sr-portal .sr-overview-row > :last-child { grid-column: span 9; }
+
+/* ≤ 980px: every layout is one full-width column again (tablet and mobile). */
+@media (max-width: 980px) {
+  .sr-portal .sr-dash-layout,
+  .sr-portal .rg-shell,
+  .sr-portal .pr-shell,
+  .sr-portal .as-shell,
+  .sr-portal .sr-overview-row,
+  .sr-portal .sr-plans-grid,
+  .sr-portal .sr-quick-grid,
+  .sr-portal .rg-work { grid-template-columns: minmax(0, 1fr); }
+  .sr-portal .sr-dash-main,
+  .sr-portal .sr-dash-side,
+  .sr-portal .rg-shell > .rg-work,
+  .sr-portal .rg-shell > .rg-live,
+  .sr-portal .pr-shell > .pr-nav,
+  .sr-portal .pr-shell > .pr-steps,
+  .sr-portal .pr-shell > .pr-main,
+  .sr-portal .as-shell > .as-plans,
+  .sr-portal .as-shell > .as-main,
+  .sr-portal .sr-overview-row > :first-child,
+  .sr-portal .sr-overview-row > :last-child { grid-column: 1 / -1; grid-row: auto; }
+  .sr-portal .rg-shell > .rg-work { order: 1; }
+  .sr-portal .rg-shell > .rg-live { order: 2; }
+}
