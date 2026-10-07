@@ -238,7 +238,6 @@ function LayoutInner() {
   }, [location.pathname]);
 
   const scrollHash = useScrollSpy(location.pathname, spyHashes, location.hash);
-  const onPageNav = pageSections[location.pathname] ?? [];
 
   // Keep the active sidebar link in view as the section changes — both on a
   // click (location.hash) and while scrolling the content (scrollHash).
@@ -297,23 +296,6 @@ function LayoutInner() {
             ))}
           </div>
         ))}
-        {onPageNav.length > 0 && (
-          <div className="site-nav-group">
-            <div className="site-nav-title">On this page</div>
-            {onPageNav.map((s) => (
-              <Link
-                key={s.hash}
-                to={{ pathname: location.pathname, hash: s.hash.replace(/^#/, "") }}
-                className={
-                  "site-nav-link site-nav-link--sub" +
-                  ((scrollHash || location.hash) === s.hash ? " active" : "")
-                }
-              >
-                {s.label}
-              </Link>
-            ))}
-          </div>
-        )}
       </aside>
       <main
         id="main-content"

@@ -106,15 +106,11 @@ a { color: inherit; }
 .site-nav-link:hover { background: var(--site-bg-hover); color: var(--site-text); }
 .site-nav-link.active {
   background: var(--brand-background-primary-light);
-  /* Was the raw --theme-primitive-color-primary-500 primitive, which is
-     the same hardcoded hex in both modes. The background above IS
-     mode-aware (a pale tint in light, a near-black navy in dark), so in
-     dark mode that fixed medium-blue text sat on an almost-black bg at
-     ~2:1 contrast — illegible (WCAG 1.4.3 needs 4.5:1). The semantic
-     --brand-text-primary-default token resolves to a much lighter blue
-     in dark mode specifically for this reason. */
-  color: var(--brand-text-primary-default);
-  border-color: var(--brand-border-primary-default);
+  /* brand-text-primary-active is Brand 700 in light and Brand 200 in dark,
+     so the selected item stays readable on the tinted background in both
+     modes (the default brand text is Brand 500 in both, ~2:1 on dark). */
+  color: var(--brand-text-primary-active);
+  border-color: var(--brand-border-primary-hover);
   font-weight: 600;
 }
 .site-nav-subgroup { margin-bottom: 10px; }

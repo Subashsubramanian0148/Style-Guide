@@ -388,18 +388,18 @@ function EnrollmentScreen() {
 export interface ScreenDef { id: string; title: string; group: string; Component: () => JSX.Element }
 export const SCREEN_LIST: ScreenDef[] = [
   { id: "dashboard", title: "Dashboard", group: "Dashboard", Component: DashboardScreen },
-  { id: "account-summary", title: "Account summary", group: "Account summary", Component: AccountSummaryScreen },
-  { id: "plan-details", title: "View plan details", group: "View plan details", Component: PlanDetailsScreen },
   { id: "portfolio", title: "My portfolio", group: "Investment portfolio", Component: PortfolioScreen },
   { id: "portfolio-plan", title: "Plan investments", group: "Investment portfolio", Component: PlanInvestmentsScreen },
   { id: "documents", title: "Documents", group: "Documents", Component: DocumentsScreen },
+  { id: "account-summary", title: "Account summary", group: "Account summary", Component: AccountSummaryScreen },
+  { id: "plan-details", title: "View plan details", group: "Plan details", Component: PlanDetailsScreen },
   { id: "enrollment", title: "Step 1 — Deferral rate", group: "Enrollment flow", Component: EnrollmentScreen },
   { id: "enroll-investments", title: "Step 2 — Investment election", group: "Enrollment flow", Component: EnrollmentInvestmentsScreen },
   { id: "enroll-summary", title: "Step 3 — Summary", group: "Enrollment flow", Component: EnrollmentSummaryScreen },
-  { id: "beneficiaries", title: "Beneficiary details", group: "Profile & beneficiary", Component: BeneficiaryListScreen },
-  { id: "bene-basic", title: "Add beneficiary — Basic details", group: "Profile & beneficiary", Component: AddBeneficiaryBasicScreen },
-  { id: "bene-contact", title: "Add beneficiary — Contact details", group: "Profile & beneficiary", Component: AddBeneficiaryContactScreen },
-  { id: "bene-bank", title: "Add beneficiary — Bank details", group: "Profile & beneficiary", Component: AddBeneficiaryBankScreen },
+  { id: "beneficiaries", title: "Beneficiary details", group: "Beneficiaries", Component: BeneficiaryListScreen },
+  { id: "bene-basic", title: "Add beneficiary — Basic details", group: "Beneficiaries", Component: AddBeneficiaryBasicScreen },
+  { id: "bene-contact", title: "Add beneficiary — Contact details", group: "Beneficiaries", Component: AddBeneficiaryContactScreen },
+  { id: "bene-bank", title: "Add beneficiary — Bank details", group: "Beneficiaries", Component: AddBeneficiaryBankScreen },
   { id: "retirement-readiness", title: "Retirement readiness", group: "Retirement readiness", Component: RetirementReadinessScreen },
 ];
 export const SCREEN_COMPONENTS: Record<string, () => JSX.Element> = Object.fromEntries(SCREEN_LIST.map((s) => [s.id, s.Component]));
@@ -434,9 +434,13 @@ function MobilePreview({ id, title, notes }: { id: string; title: string; notes:
         inset
         demo={
           <div className="sr-mobile-ref">
-            <div className="sr-phone">
-              <iframe key={src} title={`${id} — mobile`} src={src} width={MOBILE_WIDTH} height={844} loading="lazy" />
-            </div>
+            {STATIC_SCREENS.has(id) ? (
+              <StaticPhone key={src} src={src} label={`${title} — mobile screen reference`} />
+            ) : (
+              <div className="sr-phone">
+                <iframe key={src} title={`${id} — mobile`} src={src} width={MOBILE_WIDTH} height={844} loading="lazy" />
+              </div>
+            )}
             <div className="sr-mobile-notes">
               <SectionHeading>What changes below 640 px</SectionHeading>
               <ul>{notes.map((n) => <li key={n}>{n}</li>)}</ul>
@@ -508,6 +512,96 @@ const MOBILE_NOTES: Record<string, string[]> = {
   ],
 };
 
+/** Screens shown as a picture rather than a live page: no scrolling and no
+ *  clicks. Desktop is scaled down to fit the panel; mobile shows the whole
+ *  page at phone width. */
+const STATIC_SCREENS = new Set(SCREEN_LIST.map((s) => s.id));
+/** Dark-mode screenshots; screens without one fall back to the light picture. */
+const SCREEN_IMAGES_DARK: Record<string, string> = { dashboard: "/screen-reference/dashboard-desktop-dark.png", portfolio: "/screen-reference/portfolio-desktop-dark.png", "portfolio-plan": "/screen-reference/portfolio-plan-desktop-dark.png", documents: "/screen-reference/documents-desktop-dark.png", "account-summary": "/screen-reference/account-summary-desktop-dark.png", "bene-basic": "/screen-reference/bene-basic-desktop-dark.png", "bene-contact": "/screen-reference/bene-contact-desktop-dark.png", "bene-bank": "/screen-reference/bene-bank-desktop-dark.png", "retirement-readiness": "/screen-reference/retirement-readiness-desktop-dark.png" };
+/** Screens whose desktop picture is a supplied screenshot of the real portal. */
+const SCREEN_IMAGES: Record<string, string> = { dashboard: "/screen-reference/dashboard-desktop.png", portfolio: "/screen-reference/portfolio-desktop.png", "portfolio-plan": "/screen-reference/portfolio-plan-desktop.png", documents: "/screen-reference/documents-desktop.png", "account-summary": "/screen-reference/account-summary-desktop.png", "bene-basic": "/screen-reference/bene-basic-desktop.png", "bene-contact": "/screen-reference/bene-contact-desktop.png", "bene-bank": "/screen-reference/bene-bank-desktop.png", "retirement-readiness": "/screen-reference/retirement-readiness-desktop.png" };
+
+function StaticShot({ width, label, maxScale = 1, children }: { width: number; label: string; maxScale?: number; children: React.ReactNode }) {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [height, setHeight] = useState(0);
+  useLayoutEffect(() => {
+    const box = boxRef.current, inner = innerRef.current;
+    if (!box || !inner) return;
+    inner.setAttribute("inert", "");
+    const measure = () => {
+      const s = Math.min(maxScale, box.clientWidth / width);
+      setScale(s);
+      setHeight(inner.scrollHeight * s);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(box);
+    ro.observe(inner);
+    return () => ro.disconnect();
+  }, [width, maxScale]);
+  return (
+    <div ref={boxRef} role="img" aria-label={label} className="sr-static" style={{ height, maxWidth: width * maxScale, margin: "0 auto" }}>
+      <div ref={innerRef} aria-hidden="true" className="sr-static__inner" style={{ width, transform: `scale(${scale})` }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/** Phone picture: the frame grows to the page's full height instead of
+ *  scrolling, and ignores pointer input. */
+const PHONE_SCALE = 0.5;
+const PHONE_H = 844;
+/** Each phone moves down one screen, minus the 80px MobileNav, so no content is skipped. */
+const SLICE_STEP = PHONE_H - 80;
+const MAX_SLICES = 4;
+
+/** One phone screen: a 390 × 844 viewport scrolled to `offset`, not interactive. */
+function PhoneSlice({ src, offset, label, caption, onMeasure }: { src: string; offset: number; label: string; caption: string; onMeasure?: (h: number) => void }) {
+  const ref = useRef<HTMLIFrameElement>(null);
+  const apply = () => {
+    const win = ref.current?.contentWindow;
+    const doc = ref.current?.contentDocument;
+    if (!win || !doc) return;
+    onMeasure?.(doc.documentElement.scrollHeight);
+    const max = doc.documentElement.scrollHeight - PHONE_H;
+    win.scrollTo(0, Math.max(0, Math.min(offset, max)));
+  };
+  useLayoutEffect(apply, [offset]);
+  const onLoad = () => {
+    apply();
+    [300, 1000, 2500].forEach((ms) => window.setTimeout(apply, ms));
+  };
+  return (
+    <figure className="sr-slice">
+      <div style={{ width: (MOBILE_WIDTH + 16) * PHONE_SCALE, height: (PHONE_H + 16) * PHONE_SCALE }}>
+        <div className="sr-phone sr-phone--static" style={{ transform: `scale(${PHONE_SCALE})`, transformOrigin: "top left" }}>
+          <iframe ref={ref} title={label} src={src} width={MOBILE_WIDTH} height={PHONE_H} scrolling="no" tabIndex={-1} aria-hidden="true" onLoad={onLoad} />
+        </div>
+      </div>
+      <figcaption>{caption}</figcaption>
+    </figure>
+  );
+}
+
+/** Mobile picture as a row of phone screens — the page as the user scrolls
+ *  through it — instead of one very tall phone. */
+function StaticPhone({ src, label }: { src: string; label: string }) {
+  const [pageH, setPageH] = useState(PHONE_H);
+  const count = Math.min(MAX_SLICES, Math.max(1, Math.ceil((pageH - PHONE_H) / SLICE_STEP) + 1));
+  const offsets = Array.from({ length: count }, (_, i) => (i === count - 1 && count > 1 ? pageH : i * SLICE_STEP));
+  const captions = offsets.map((_, i) => (i === 0 ? "1 · Top of page" : i === count - 1 ? `${i + 1} · End of page` : `${i + 1} · Scrolled`));
+  return (
+    <div className="sr-slices" role="img" aria-label={`${label}, shown as ${count} phone screen${count > 1 ? "s" : ""}`}>
+      {offsets.map((o, i) => (
+        <PhoneSlice key={i} src={src} offset={o} label={`${label} ${i + 1}`} caption={captions[i]} onMeasure={i === 0 ? (h) => setPageH((p) => (p === h ? p : h)) : undefined} />
+      ))}
+    </div>
+  );
+}
+
 /* ---------------- Section ---------------- */
 
 function DarkCanvas({ children }: { children: React.ReactNode }) {
@@ -521,18 +615,41 @@ function DarkCanvas({ children }: { children: React.ReactNode }) {
 
 function ScreenBlock({ id, title, screen, onScan }: { id: string; title: string; screen: React.ReactNode; onScan: (id: string, typed: Record<string, string[]>) => void }) {
   const demoRef = useRef<HTMLDivElement>(null);
+  const [view, setView] = useState<"desktop" | "mobile">("desktop");
+  const { mode } = usePreviewMode();
+  const shot = (mode === "dark" && SCREEN_IMAGES_DARK[id]) || SCREEN_IMAGES[id];
   useLayoutEffect(() => {
     if (demoRef.current) onScan(id, readTypedText(demoRef.current));
   });
   return (
     <div id={`screen-ref-${id}`} style={{ display: "flex", flexDirection: "column", gap: "var(--core-space-4)" }}>
-      <h3 style={{ margin: 0, fontSize: "var(--typography-heading-h4-size)" }}>{title}</h3>
-      <div className="site-panel site-panel--flush site-panel--demo">
+      <div className="sr-block-head">
+        <h3 style={{ margin: 0, fontSize: "var(--typography-heading-h4-size)" }}>{title}</h3>
+        <div className="sr-view-toggle" role="group" aria-label={`${title} — screen size`}>
+          {(["desktop", "mobile"] as const).map((v) => (
+            <button key={v} type="button" aria-pressed={view === v} onClick={() => setView(v)}>
+              <Icon name={v === "desktop" ? "fa-solid fa-desktop" : "fa-solid fa-mobile-screen"} size="sm" />
+              {v === "desktop" ? "Desktop · 1440" : "Mobile · 390"}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="site-panel site-panel--flush site-panel--demo" hidden={view !== "desktop"}>
         <AnatomySection
         inset
           demo={
             <Preview showModeToggle>
-              <div ref={demoRef} style={{ overflowX: "auto" }}><DarkCanvas>{screen}</DarkCanvas></div>
+              {SCREEN_IMAGES[id] ? (
+                <div style={{ width: "100%" }}>
+                  <img className="sr-shot" src={shot} alt={`${title} — desktop screen reference (${mode} mode)`} />
+                  {/* Live render kept off-screen so the text-style guide can still read it */}
+                  <div ref={demoRef} className="sr-offscreen" aria-hidden="true"><DarkCanvas>{screen}</DarkCanvas></div>
+                </div>
+              ) : STATIC_SCREENS.has(id) ? (
+                <div ref={demoRef} style={{ flex: "1 1 auto", width: "100%", minWidth: 0 }}><StaticShot width={WIDTH} maxScale={0.5} label={`${title} — desktop screen reference`}><DarkCanvas>{screen}</DarkCanvas></StaticShot></div>
+              ) : (
+                <div ref={demoRef} style={{ overflowX: "auto" }}><DarkCanvas>{screen}</DarkCanvas></div>
+              )}
             </Preview>
           }
           anatomy={
@@ -543,8 +660,7 @@ function ScreenBlock({ id, title, screen, onScan }: { id: string; title: string;
           }
         />
       </div>
-      <h4 style={{ margin: "var(--core-space-4) 0 0", fontSize: "var(--typography-heading-h5-size)" }}>{title} — mobile (390 px)</h4>
-      <MobilePreview id={id} title={title} notes={[...(MOBILE_NOTES[id] ?? []), ...MOBILE_NOTES.common]} />
+      {view === "mobile" && <MobilePreview id={id} title={title} notes={[...(MOBILE_NOTES[id] ?? []), ...MOBILE_NOTES.common]} />}
     </div>
   );
 }
