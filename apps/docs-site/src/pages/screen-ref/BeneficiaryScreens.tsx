@@ -1,4 +1,5 @@
 import React from "react";
+import { Stepper } from "../../../../../packages/core/src/components/Navigation";
 import { Button } from "../../../../../packages/core/src/components/Button";
 import { Select } from "../../../../../packages/core/src/components/FormControls";
 import { Icon } from "../../../../../packages/core/src/components/Primitives";
@@ -137,6 +138,7 @@ function AddBeneficiaryLayout({ step, children }: { step: number; children: Reac
               );
             })}
           </ol>
+          <div className="sr-steps-mobile pr-steps-mobile"><Stepper orientation="mobile" currentIndex={step} steps={STEPS.map((x) => ({ label: x.title }))} /></div>
           <div className="pr-main">
             <section data-spec="Step panel" className="panel pr-panel">
               <T as="h3" t="h5">{STEPS[step].title}</T>

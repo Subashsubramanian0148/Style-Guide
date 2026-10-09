@@ -22,7 +22,8 @@ export function EnrollmentLayout({ step, children }: { step: number; children: R
             <a className="sr-link" href="#">‹ Back</a>
             <T as="h1" t="h2" className="sr-steps-title">Plan enrollment</T>
             <div className="sr-divider" />
-            <Stepper orientation="vertical" currentIndex={step} steps={STEPS} />
+            <div className="sr-steps-full"><Stepper orientation="vertical" currentIndex={step} steps={STEPS} /></div>
+            <div className="sr-steps-mobile"><Stepper orientation="mobile" currentIndex={step} steps={STEPS} /></div>
           </aside>
           <div data-spec="Enrollment main" className="sr-enroll-main">
             <div data-spec="Detail header" className="sr-detail-head">

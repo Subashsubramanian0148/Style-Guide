@@ -7283,6 +7283,24 @@
   {
    "variant": "Base",
    "state": "Default",
+   "part": "fill",
+   "property": "stroke",
+   "token": "semantics-success-background-strong",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "label",
+   "property": "color",
+   "token": "neutral-text-default",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
    "part": "marker",
    "property": "background",
    "token": "neutral-surface-layer-02",
@@ -7310,7 +7328,7 @@
   {
    "variant": "Base",
    "state": "Default",
-   "part": "mobile-count",
+   "part": "mobile-next",
    "property": "color",
    "token": "neutral-text-subtle",
    "mode": "both",
@@ -7319,18 +7337,9 @@
   {
    "variant": "Base",
    "state": "Default",
-   "part": "mobile-segment",
-   "property": "background",
-   "token": "neutral-text-default",
-   "mode": "both",
-   "mix": true
-  },
-  {
-   "variant": "Base",
-   "state": "Default",
-   "part": "mobile-step-label",
+   "part": "mobile-title",
    "property": "color",
-   "token": "neutral-text-subtle",
+   "token": "neutral-text-default",
    "mode": "both",
    "mix": false
   },
@@ -7372,6 +7381,15 @@
   },
   {
    "variant": "Base",
+   "state": "Default",
+   "part": "track",
+   "property": "stroke",
+   "token": "neutral-border-light",
+   "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
    "state": "Error",
    "part": "connector",
    "property": "background",
@@ -7394,15 +7412,6 @@
    "part": "marker",
    "property": "color",
    "token": "neutral-text-on-color",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "Base",
-   "state": "Error",
-   "part": "mobile-segment",
-   "property": "background",
-   "token": "semantics-critical-background-strong",
    "mode": "both",
    "mix": false
   },
@@ -7448,15 +7457,6 @@
    "part": "marker",
    "property": "color",
    "token": "neutral-text-on-color",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "completed",
-   "state": "Default",
-   "part": "mobile-segment",
-   "property": "background",
-   "token": "semantics-success-background-strong",
    "mode": "both",
    "mix": false
   },
@@ -7544,24 +7544,6 @@
   {
    "variant": "in-progress",
    "state": "Default",
-   "part": "mobile-segment",
-   "property": "background",
-   "token": "brand-text-primary-default",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "in-progress",
-   "state": "Default",
-   "part": "mobile-segment",
-   "property": "background",
-   "token": "brand-background-primary-strong",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "in-progress",
-   "state": "Default",
    "part": "status",
    "property": "color",
    "token": "brand-text-primary-default",
@@ -7578,65 +7560,20 @@
    "mix": false
   },
   {
-   "variant": "mobile",
+   "variant": "mobile-error",
    "state": "Default",
-   "part": "container",
-   "property": "background",
-   "token": "neutral-surface-layer-02",
+   "part": "fill",
+   "property": "stroke",
+   "token": "semantics-critical-background-strong",
    "mode": "both",
    "mix": false
   },
   {
-   "variant": "mobile",
+   "variant": "mobile-warning",
    "state": "Default",
-   "part": "container",
-   "property": "border",
-   "token": "neutral-border-light",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "mobile",
-   "state": "Error",
-   "part": "container",
-   "property": "border-color",
-   "token": "semantics-critical-border",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "mobile / completed",
-   "state": "Default",
-   "part": "container",
-   "property": "border-color",
-   "token": "semantics-success-border",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "mobile / completed",
-   "state": "Default",
-   "part": "container",
-   "property": "border-color",
-   "token": "semantics-success-background-strong",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "mobile / in-progress",
-   "state": "Default",
-   "part": "container",
-   "property": "border-color",
-   "token": "brand-border-primary-default",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "mobile / warning",
-   "state": "Default",
-   "part": "container",
-   "property": "border-color",
-   "token": "semantics-warning-border",
+   "part": "fill",
+   "property": "stroke",
+   "token": "semantics-warning-background-strong",
    "mode": "both",
    "mix": false
   },
@@ -7664,15 +7601,6 @@
    "part": "marker",
    "property": "color",
    "token": "neutral-text-on-color",
-   "mode": "both",
-   "mix": false
-  },
-  {
-   "variant": "warning",
-   "state": "Default",
-   "part": "mobile-segment",
-   "property": "background",
-   "token": "semantics-warning-background-strong",
    "mode": "both",
    "mix": false
   },

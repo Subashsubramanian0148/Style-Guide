@@ -234,50 +234,35 @@ export function Stepper({ steps, currentIndex, orientation = "horizontal" }: { s
   const vertical = orientation === "vertical";
 
   if (orientation === "mobile") {
-    const resolvedStates = steps.map((step, i) => resolveStepState(step, i, currentIndex));
+    // Compact phone header: a progress ring ("2 of 4"), the current step's
+    // title, and what comes next — the whole flow in one glanceable row.
+    const total = steps.length;
     const current = steps[currentIndex];
-    const currentState = resolvedStates[currentIndex] ?? "default";
-
+    const next = steps[currentIndex + 1];
+    const currentState = resolveStepState(current ?? { label: "" }, currentIndex, currentIndex);
+    const r = 26;
+    const circ = 2 * Math.PI * r;
+    const done = total ? (currentIndex + 1) / total : 0;
     return (
-      <div className="cds-stepper cds-stepper--mobile" aria-label="Progress">
-        <div className="cds-stepper-mobile-track" role="list">
-          {resolvedStates.map((state, i) => (
-            <div
-              key={`${steps[i].label}-${i}`}
-              role="listitem"
-              className="cds-stepper-mobile-step"
-              aria-current={i === currentIndex ? "step" : undefined}
-              aria-label={`Step ${i + 1}, ${steps[i].label}: ${state.replace("-", " ")}`}
-            >
-              <span className={`cds-stepper-mobile-segment cds-stepper-mobile-segment--${state}`} aria-hidden="true" />
-              <span className="cds-stepper-mobile-step-label" aria-hidden="true">
-                {i + 1}
-              </span>
-            </div>
-          ))}
+      <div className={`cds-stepper cds-stepper--mobile cds-stepper--mobile-${currentState}`} aria-label="Progress">
+        <div
+          className="cds-stepper-ring"
+          role="progressbar"
+          aria-valuemin={1}
+          aria-valuemax={total}
+          aria-valuenow={currentIndex + 1}
+          aria-valuetext={`Step ${currentIndex + 1} of ${total}`}
+        >
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle className="cds-stepper-ring__track" cx="32" cy="32" r={r} />
+            <circle className="cds-stepper-ring__fill" cx="32" cy="32" r={r} strokeDasharray={circ} strokeDashoffset={circ * (1 - done)} />
+          </svg>
+          <span className="cds-stepper-ring__label">{currentIndex + 1} of {total}</span>
         </div>
         {current && (
-          <div className="cds-stepper-mobile-count">
-            Step {currentIndex + 1} of {steps.length}
-          </div>
-        )}
-        {current && (
-          <div className={`cds-step cds-step--mobile cds-step--${currentState}`} aria-current="step">
-            <span className="cds-step-marker" aria-hidden="true">
-              {stepMarkerContent(currentState, currentIndex)}
-            </span>
-            <span className="cds-step-label">
-              <span className="cds-step-title">{current.label}</span>
-              {current.description && <span className="cds-step-desc">{current.description}</span>}
-              <span className="cds-step-status">
-                {currentState === "in-progress" ? (
-                  <span className="cds-step-status-spinner" aria-hidden="true" />
-                ) : (
-                  <span className="cds-step-status-dot" aria-hidden="true" />
-                )}
-                {current.status ?? defaultStepStatus(currentState)}
-              </span>
-            </span>
+          <div className="cds-stepper-mobile-text" aria-current="step">
+            <span className="cds-stepper-mobile-title">{current.label}</span>
+            <span className="cds-stepper-mobile-next">{next ? `Next: ${next.label}` : "Last step"}</span>
           </div>
         )}
       </div>

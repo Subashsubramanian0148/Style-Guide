@@ -22,10 +22,9 @@ type Overlay = { id: string; title: string; screens: Array<[string, string]>; de
 
 /** App chrome measured on the live portal. */
 const HEADER_H = 56, RAIL_W = 96, MOBILE_NAV_H = 80;
-const RAIL_ITEMS: Array<[number, number]> = [[72, 64], [144, 80], [232, 64], [304, 64], [376, 80]];
-const D = { vw: 1440, footerH: 48, rail: true, mobileNav: false, contentX: 128, contentW: 1280, cols: 12, gutter: 16, colsLabel: "12 columns · 92px (fluid) · 16px gutter" };
-const T = { vw: 768, footerH: 48, rail: true, mobileNav: false, contentX: 120, contentW: 624, cols: 8, gutter: 16, colsLabel: "8 columns · 64px · 16px gutter" };
-const M = { vw: 384, footerH: 72, rail: false, mobileNav: true, contentX: 16, contentW: 352, cols: 4, gutter: 16, colsLabel: "4 columns · 76px (fluid) · 16px gutter" };
+const D = { vw: 1440, footerH: 48, rail: true, mobileNav: false, contentX: 128, contentW: 1280, cols: 12, gutter: 16, colsLabel: "12 columns, 16px gaps" };
+const T = { vw: 768, footerH: 48, rail: true, mobileNav: false, contentX: 120, contentW: 624, cols: 8, gutter: 16, colsLabel: "8 columns, 16px gaps" };
+const M = { vw: 384, footerH: 72, rail: false, mobileNav: true, contentX: 16, contentW: 352, cols: 4, gutter: 16, colsLabel: "4 columns, 16px gaps" };
 
 const stack = (x: number, w: number, ys: Array<[number, number]>): Box[] => ys.map(([y, h]) => [x, y, w, h]);
 
@@ -33,28 +32,39 @@ const OVERLAYS: Overlay[] = [
   {
     id: "dashboard", title: "Dashboard", screens: [["Dashboard", "dashboard"]],
     desktop: { ...D, bottom: 904, footerY: 856, activeNav: 0,
-      main: { label: "Main · 8 columns · 848px", region: [128, 80, 848, 728],
+      main: { label: "Main area: 848px wide (8 of 12 columns)", region: [128, 80, 848, 728],
         cells: [[128, 80, 848, 256], [128, 352, 416, 368], [560, 352, 416, 368],
           [128, 736, 200, 72], [344, 736, 200, 72], [560, 736, 200, 72], [776, 736, 200, 72]] },
-      side: { label: "Side · 4 columns · 416px", region: [992, 80, 416, 464], rows: [[992, 80, 416, 272], [992, 368, 416, 176]] },
-      note: "32px page margins and 16px gutters; columns flex to fill the 1280px content area. Main spans 8 columns and the side column 4. The two plan cards span 4 columns each (416px) and the quick links 2 columns each (200px)." },
+      side: { label: "Side area: 416px wide (4 of 12 columns)", region: [992, 80, 416, 464], rows: [[992, 80, 416, 272], [992, 368, 416, 176]] },
+      note: "" },
     tablet: { ...T, bottom: 904, footerY: 856, activeNav: 0,
-      main: { label: "Main · full width · 624px", region: [120, 80, 624, 544],
+      main: { label: "Main area: full width, 624px", region: [120, 80, 624, 544],
         cells: [[120, 80, 624, 200], [120, 296, 304, 240], [440, 296, 304, 240],
           [120, 552, 144, 72], [280, 552, 144, 72], [440, 552, 144, 72], [600, 552, 144, 72]] },
-      side: { label: "Side · moves below · 624px", region: [120, 640, 624, 176], rows: [[120, 640, 304, 176], [440, 640, 304, 176]] },
-      note: "≤ 976px: 8 columns beside the 96px rail, with 24px page margins and 16px gutters. Plan cards span 4 columns each (304px), quick links 2 each (144px), and the side cards move below the main area." },
+      side: { label: "Side area: below the main area", region: [120, 640, 624, 176], rows: [[120, 640, 304, 176], [440, 640, 304, 176]] },
+      note: "Up to 976px wide." },
     mobile: { ...M, bottom: 656, footerY: 584, activeNav: -1,
-      main: { label: "Main · full width · 352px", region: [16, 80, 352, 472],
+      main: { label: "Main area: full width, 352px", region: [16, 80, 352, 472],
         cells: [[16, 80, 352, 176], [16, 272, 168, 200], [200, 272, 168, 200], [16, 488, 168, 64], [200, 488, 168, 64]] },
-      note: "≤ 640px: no rail; the bottom MobileNav (80px) takes over. 16px page margins and 16px gutters; plan cards and quick links span 2 of the 4 columns each (168px), and the side column is left out. The footer (72px) sits at the end of the page above the MobileNav: 16px padding, copyright and links stacked with an 8px gap (16 + 16 + 8 + 16 + 16)." },
+      note: "Up to 640px wide. The bottom MobileNav replaces the sidebar rail." },
   },
 ];
 
-/** How many grid columns a width covers. */
-function spanOf(f: Frame, w: number) {
-  const col = (f.contentW - f.gutter * (f.cols - 1)) / f.cols;
-  return Math.min(f.cols, Math.round(((w + f.gutter) / (col + f.gutter)) * 10) / 10);
+/** A measured gap: tick marks at both ends and a labelled pill above. */
+function Dim({ x1, x2, y, label, vw }: { x1: number; x2: number; y: number; label: string; vw: number }) {
+  const fs = vw >= 1440 ? 20 : vw >= 768 ? 14 : 10;
+  const w = label.length * fs * 0.62 + fs;
+  const mid = (x1 + x2) / 2;
+  const px = Math.min(Math.max(mid - w / 2, 2), vw - w - 2);
+  return (
+    <g className="go-dim">
+      <line x1={x1} x2={x2} y1={y} y2={y} />
+      <line x1={x1} x2={x1} y1={y - 5} y2={y + 5} />
+      <line x1={x2} x2={x2} y1={y - 5} y2={y + 5} />
+      <rect x={px} y={y + 8} width={w} height={fs + 8} rx={4} />
+      <text x={px + w / 2} y={y + 12 + fs / 2} style={{ fontSize: fs }}>{label}</text>
+    </g>
+  );
 }
 
 function FrameSvg({ f, title }: { f: Frame; title: string }) {
@@ -80,14 +90,11 @@ function FrameSvg({ f, title }: { f: Frame; title: string }) {
       {f.side?.rows.map(([x, y, w, h], i) => <rect key={i} className="go-row" x={x} y={y} width={w} height={h} />)}
 
       <rect className="go-chrome" x={0} y={0} width={f.vw} height={HEADER_H} />
-      <rect className="go-chrome-item" x={24} y={16} width={f.vw < 500 ? 128 : 176} height={24} />
-      <rect className="go-chrome-item" x={f.vw - 144} y={16} width={120} height={24} />
       <text className={sm} x={f.vw / 2} y={HEADER_H / 2}>Header · 56px</text>
 
       {f.rail && (
         <>
           <rect className="go-chrome" x={0} y={HEADER_H} width={RAIL_W} height={f.bottom - HEADER_H} />
-          {RAIL_ITEMS.map(([y, h], i) => <rect key={y} className={i === f.activeNav ? "go-chrome-item go-chrome-item--on" : "go-chrome-item"} x={0} y={y} width={RAIL_W - 1} height={h} />)}
           <text className="go-text" x={RAIL_W / 2} y={480} transform={`rotate(-90 ${RAIL_W / 2} 480)`}>Sidebar rail · 96px</text>
         </>
       )}
@@ -95,9 +102,6 @@ function FrameSvg({ f, title }: { f: Frame; title: string }) {
       <rect className="go-chrome" x={left} y={f.footerY} width={f.vw - left} height={f.footerH} />
       {f.mobileNav ? (
         <>
-          {/* Phone footer: copyright and links stack, 16px padding, 8px gap */}
-          <rect className="go-chrome-item" x={16} y={f.footerY + 16} width={208} height={16} />
-          <rect className="go-chrome-item" x={16} y={f.footerY + 40} width={144} height={16} />
           <text className={sm} x={f.vw - 16} y={f.footerY + f.footerH / 2} style={{ textAnchor: "end" }}>Footer · {f.footerH}px</text>
         </>
       ) : (
@@ -107,12 +111,21 @@ function FrameSvg({ f, title }: { f: Frame; title: string }) {
       {f.mobileNav && (
         <>
           <rect className="go-chrome" x={0} y={f.bottom} width={f.vw} height={MOBILE_NAV_H} />
-          {[0, 1, 2].map((i) => <rect key={i} className={i === 1 ? "go-chrome-item go-chrome-item--on" : "go-chrome-item"} x={i * (f.vw / 3) + 24} y={f.bottom + 8} width={f.vw / 3 - 48} height={MOBILE_NAV_H - 16} />)}
           <text className={sm} x={f.vw / 2} y={f.bottom + MOBILE_NAV_H / 2}>MobileNav · {MOBILE_NAV_H}px</text>
         </>
       )}
-      <text className="go-text go-text--pad" x={(left + f.contentX) / 2} y={HEADER_H + 12}>{f.contentX - left}</text>
-      <text className="go-text go-text--pad" x={(f.contentX + f.contentW + f.vw) / 2} y={HEADER_H + 12}>{f.vw - f.contentX - f.contentW}</text>
+      {/* Size markers in the free band above the footer: page margins and one gutter */}
+      {(() => {
+        const y = f.footerY - (f.vw >= 1440 ? 40 : f.vw >= 768 ? 34 : 26);
+        const g = f.contentX + (f.cols / 2) * col + (f.cols / 2 - 1) * f.gutter;
+        return (
+          <>
+            <Dim x1={left} x2={f.contentX} y={y} label={`Margin ${f.contentX - left}`} vw={f.vw} />
+            <Dim x1={f.contentX + f.contentW} x2={f.vw} y={y} label={`Margin ${f.vw - f.contentX - f.contentW}`} vw={f.vw} />
+            <Dim x1={g} x2={g + f.gutter} y={y} label={`Gutter ${f.gutter}`} vw={f.vw} />
+          </>
+        );
+      })()}
     </svg>
   );
 }
@@ -124,10 +137,10 @@ function FramePanel({ f, title }: { f: Frame; title: string }) {
       <div className="grid-overlay__cap">
         <ul className="grid-overlay__keys">
           <li><i className="go-key go-key--col" />{f.colsLabel}</li>
-          <li><i className="go-key go-key--main" />{f.main.label} · spans ≈ {spanOf(f, f.main.region[2])} of {f.cols}</li>
-          {f.side && <li><i className="go-key go-key--side" />{f.side.label} · spans ≈ {spanOf(f, f.side.region[2])} of {f.cols}</li>}
+          <li><i className="go-key go-key--main" />{f.main.label}</li>
+          {f.side && <li><i className="go-key go-key--side" />{f.side.label}</li>}
         </ul>
-        <p className="grid-overlay__note">{f.note}</p>
+        {f.note && <p className="grid-overlay__note">{f.note}</p>}
       </div>
     </div>
   );
@@ -166,32 +179,44 @@ function ScreenLinks({ screens }: { screens: Array<[string, string]> }) {
   );
 }
 
+/** Legend and sizes per breakpoint: [legend key, element, desktop, tablet, mobile]. */
+const SPEC_ROWS: Array<[string, string, string, string, string]> = [
+  ["chrome", "Header", "56px", "56px", "56px"],
+  ["chrome", "Sidebar rail", "96px", "96px", "—"],
+  ["chrome", "MobileNav", "—", "—", "80px"],
+  ["chrome", "Footer", "48px", "48px", "72px"],
+  ["margin", "Page margin", "32px", "24px", "16px"],
+  ["col", "Columns", "12", "8", "4"],
+  ["col", "Gutter", "16px", "16px", "16px"],
+  ["line", "Rhythm", "8px", "8px", "8px"],
+  ["main", "Main area", "8 columns", "Full width", "Full width"],
+  ["side", "Side column", "4 columns", "Below main", "Hidden"],
+];
+
 export default function Grid() {
   return (
     <div>
       <DocsSectionList>
         <DocsSection anchorId="layout-grid" title="Layout grid">
           <p className="grid-intro">
-            Each screen drawn with its app chrome (header, sidebar rail or MobileNav, footer) on CORE's column grid at three widths. Following the common responsive-grid convention (as in Material Design): 12 columns on desktop, 8 on tablet and 4 on mobile, with margins and gutters on the 8px scale and columns that flex to fill the space. Desktop (1440) uses 32px margins (<code>--core-space-8</code>), tablet (768) 24px (<code>--core-space-6</code>) and mobile (384) 16px (<code>--core-space-4</code>); gutters are 16px everywhere. The thin lines mark the 8px rhythm (<code>--core-space-2</code>).
-            Green is the side column, broken into its stacked rows; purple is the main area, broken into its cards. Every box is drawn to scale on the 8px grid.
+            12 columns on desktop, 8 on tablet, 4 on mobile. Margins and gutters follow the 8px scale; columns flex to fill the space.
           </p>
-          <ul className="grid-overlay__legend">
-            <li><i className="go-key go-key--chrome" />Header 56px · sidebar rail 96px · footer 48px (72px on mobile) · MobileNav 80px</li>
-            <li><i className="go-key go-key--margin" />Page margin 32px desktop · 24px tablet · 16px mobile</li>
-            <li><i className="go-key go-key--col" />Columns · 12 desktop · 8 tablet · 4 mobile</li>
-            <li><i className="go-key go-key--line" />8px rhythm</li>
-            <li><i className="go-key go-key--side" />Side column · rows</li>
-            <li><i className="go-key go-key--main" />Main area · cards</li>
-          </ul>
+          <div className="grid-table-card grid-spec">
+            <table className="grid-table">
+              <thead><tr><th>Element</th><th>Desktop · 1440</th><th>Tablet · 768</th><th>Mobile · 384</th></tr></thead>
+              <tbody>
+                {SPEC_ROWS.map(([key, label, d, t, m]) => (
+                  <tr key={label}>
+                    <td><span className="grid-spec__name"><i className={`go-key go-key--${key}`} />{label}</span></td>
+                    <td>{d}</td><td>{t}</td><td>{m}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="grid-list">
             {OVERLAYS.map((o) => <LayoutOverlay key={o.id} o={o} />)}
           </div>
-          <p className="grid-intro grid-intro--after">
-            On desktop every Screen reference layout snaps to whole columns of CORE's 12-column <code>Grid</code>: 8 + 4 for the
-            Dashboard, and 3 + 9 for Account summary and Portfolio layouts. Nested card grids use the
-            same 16px gutter, so cards land on column edges too. Panel padding (16–24px) insets the content inside a module, which is
-            expected. On tablet (8 columns) the side column moves below the main area; the mobile (4 columns) reference shows the main area only.
-          </p>
         </DocsSection>
 
       </DocsSectionList>

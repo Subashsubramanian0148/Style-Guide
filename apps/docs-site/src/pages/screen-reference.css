@@ -281,7 +281,7 @@
   .sr-portal .cds-app-header { padding:0 var(--core-space-4); }
   .sr-portal .cds-app-header .cds-app-header-icon-btn { display:grid; }
   .sr-portal .cds-app-footer { margin-left:0; width:100%; padding:var(--core-space-3) var(--core-space-4); }
-  .sr-portal .cds-app-footer-inner { flex-direction:column; align-items:flex-start; gap:var(--core-space-1); }
+  .sr-portal .cds-app-footer-inner { flex-direction:row; flex-wrap:nowrap; align-items:center; justify-content:space-between; gap:var(--core-space-4); }
   .sr-page-body { padding:var(--core-space-4) var(--core-space-4) var(--core-space-8); }
   .sr-hi-bar .sr-h1 { font-size:var(--typography-font-size-xl); }
   .sr-legend { grid-template-columns:1fr; }
@@ -345,3 +345,21 @@
 /* Supplied screenshot used as the desktop picture */
 .sr-shot { display: block; width: 100%; max-width: calc(var(--core-space-1) * 180); height: auto; margin: 0 auto; border: var(--core-border-width-default) solid var(--neutral-border-default); border-radius: var(--core-radius-sm); }
 .sr-offscreen { position: absolute; left: -99999px; top: 0; pointer-events: none; }
+
+/* Phone widths: multi-step flows use the compact mobile Stepper
+   (progress ring · current step · next step) instead of the step list. */
+.sr-steps-mobile { display: none; }
+@media (max-width: 640px) {
+  .sr-steps-full, .sr-portal .pr-shell > .pr-steps { display: none; }
+  .sr-steps-mobile { display: block; }
+  .sr-portal .pr-steps-mobile { padding: var(--core-space-4); background: var(--neutral-surface-layer-01); border: var(--core-border-width-default) solid var(--neutral-border-light); border-radius: var(--core-radius-sm); }
+  /* Sticky: the stepper stays pinned to the top while the form scrolls */
+  .sr-portal .cds-app-shell { overflow: clip; } /* hidden would stop sticky from working */
+  /* Header stays at the top on phones (like the bottom MobileNav); the stepper pins just below it */
+  .sr-portal .cds-app-header { position: sticky; top: 0; z-index: 3; }
+  .sr-portal .sr-steps, .sr-portal .pr-steps-mobile { position: sticky; top: var(--core-layout-header-height); z-index: 2; }
+  .sr-portal .sr-steps { background: var(--neutral-surface-layer-01); }
+  .sr-portal .pr-steps-mobile { box-shadow: var(--core-elevation-1); }
+}
+/* Visually hidden, still read by screen readers */
+.sr-portal .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

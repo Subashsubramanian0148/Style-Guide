@@ -79,3 +79,14 @@
 .grid-overlay__canvas { display: flex; justify-content: center; padding: var(--core-space-4); background: var(--neutral-surface-layer-03); border-top: var(--core-border-width-default) solid var(--neutral-border-light); }
 .grid-overlay__canvas svg { display: block; width: 100%; height: auto; background: var(--neutral-surface-layer-01); box-shadow: var(--core-elevation-1); }
 .go-text--sm { font-size: var(--core-font-size-sm); }
+
+/* Legend + per-breakpoint sizes */
+.grid-spec { margin-bottom: var(--core-space-6); }
+.grid-spec .grid-table td:not(:first-child), .grid-spec .grid-table th:not(:first-child) { text-align: center; white-space: nowrap; }
+.grid-spec__name { display: inline-flex; align-items: center; gap: var(--core-space-2); }
+.grid-spec .grid-table td { vertical-align: middle; }
+
+/* Margin / gutter size markers */
+.go-dim line { stroke: var(--semantics-warning-text); stroke-width: 2; }
+.go-dim rect { fill: var(--semantics-warning-background-light); stroke: var(--semantics-warning-text); stroke-width: 1; }
+.go-dim text { fill: var(--semantics-warning-text); font-weight: var(--typography-font-weight-bold); text-anchor: middle; dominant-baseline: central; }

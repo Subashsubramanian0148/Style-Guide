@@ -947,102 +947,83 @@
   margin: 0;
 }
 
-/* Stepper: mobile orientation — a compact segmented progress bar standing
-   in for every step (so the whole flow is still visible at a glance on a
-   narrow screen) plus a single focused card for just the current step.
-   Not a shrunk horizontal stepper (no room for N inline labels on a phone)
-   and not the full vertical list (that's a lot of scrolling to reach step
-   6 of 8) — the pattern most mobile OS/app wizards actually use. */
+/* Stepper: mobile orientation — a compact header row: a progress ring
+   with "2 of 4", the current step's title, and the next step underneath.
+   Shows where the user is in the flow without listing every step. */
 .cds-stepper--mobile {
   display: flex;
-  flex-direction: column;
-  gap: var(--core-space-3);
+  align-items: center;
+  gap: var(--core-space-4);
   width: 100%;
 }
 
-.cds-stepper-mobile-track {
-  display: flex;
-  gap: var(--core-space-2);
+.cds-stepper-ring {
+  position: relative;
+  flex: none;
+  width: var(--core-space-16, 64px);
+  height: var(--core-space-16, 64px);
 }
 
-.cds-stepper-mobile-step {
-  flex: 1;
+.cds-stepper-ring svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.cds-stepper-ring circle {
+  fill: none;
+  stroke-width: 6;
+}
+
+.cds-stepper-ring__track {
+  stroke: var(--neutral-border-light);
+}
+
+.cds-stepper-ring__fill {
+  stroke: var(--semantics-success-background-strong);
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--core-motion-duration-base) ease;
+}
+
+.cds-stepper--mobile-warning .cds-stepper-ring__fill { stroke: var(--semantics-warning-background-strong); }
+.cds-stepper--mobile-error .cds-stepper-ring__fill { stroke: var(--semantics-critical-background-strong); }
+
+.cds-stepper-ring__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--typography-font-size-xs);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--neutral-text-default);
+  white-space: nowrap;
+}
+
+.cds-stepper-mobile-text {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--core-space-1);
   min-width: 0;
 }
 
-.cds-stepper-mobile-segment {
-  width: 100%;
-  height: 4px;
-  border-radius: var(--core-radius-full);
-  background: color-mix(in srgb, var(--neutral-text-default) 20%, transparent);
+.cds-stepper-mobile-title {
+  font-size: var(--typography-heading-h5-size, 18px);
+  line-height: var(--typography-heading-h5-line-height, 24px);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--neutral-text-default);
 }
 
-.cds-stepper-mobile-step-label {
-  font-size: var(--typography-font-size-xs);
-  font-weight: var(--typography-font-weight-semibold);
-  color: var(--neutral-text-subtle);
-  line-height: 1;
-}
-
-.cds-stepper-mobile-segment--completed {
-  background: var(--semantics-success-background-strong);
-}
-
-.cds-stepper-mobile-segment--in-progress {
-  background: var(--brand-text-primary-default, var(--brand-background-primary-strong));
-}
-
-.cds-stepper-mobile-segment--warning {
-  background: var(--semantics-warning-background-strong);
-}
-
-.cds-stepper-mobile-segment--error {
-  background: var(--semantics-critical-background-strong);
-}
-
-.cds-stepper-mobile-count {
-  font-family: var(--typography-font-family-sans);
-  font-size: var(--typography-body-xs-size);
-  line-height: var(--typography-body-xs-line-height);
-  font-weight: var(--typography-font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0;
+.cds-stepper-mobile-next {
+  font-size: var(--typography-body-sm-size);
+  line-height: var(--typography-body-sm-line-height);
   color: var(--neutral-text-subtle);
 }
 
-.cds-step--mobile {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--core-space-3);
-  padding: var(--core-space-4);
-  border-radius: var(--core-radius-sm);
-  background: var(--neutral-surface-layer-02);
-  border: 1px solid var(--neutral-border-light);
-}
 
-.cds-step--mobile.cds-step--in-progress {
-  border-color: var(--brand-border-primary-default);
-}
 
-.cds-step--mobile.cds-step--completed {
-  border-color: var(--semantics-success-border, var(--semantics-success-background-strong));
-}
 
-.cds-step--mobile.cds-step--warning {
-  border-color: var(--semantics-warning-border);
-}
-
-.cds-step--mobile.cds-step--error {
-  border-color: var(--semantics-critical-border);
-}
-
-.cds-step--mobile .cds-step-label {
-  margin-left: 0;
-}
 
 .cds-field {
   display: flex;
