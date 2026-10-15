@@ -3645,11 +3645,15 @@
   border: 0;
   border-radius: var(--core-radius-sm);
   overflow: hidden;
-  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light), var(--core-elevation-1);
+  /* An inset shadow paints under the opaque panel, so the open panel hid the
+     side and bottom stroke. An inside outline draws above the children. */
+  outline: var(--core-border-width-default) solid var(--neutral-border-light);
+  outline-offset: calc(var(--core-border-width-default) * -1);
+  box-shadow: var(--core-elevation-1);
 }
 
 .cds-accordion--separated .cds-accordion-item+.cds-accordion-item {
-  box-shadow: inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light), var(--core-elevation-1);
+  box-shadow: var(--core-elevation-1);
 }
 
 /* Flush variant — no outer border/radius */
