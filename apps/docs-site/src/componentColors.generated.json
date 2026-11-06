@@ -130,7 +130,7 @@
    "variant": "separated",
    "state": "Default",
    "part": "item",
-   "property": "box-shadow",
+   "property": "outline",
    "token": "neutral-border-light",
    "mode": "both",
    "mix": false
@@ -3160,7 +3160,7 @@
    "state": "Default",
    "part": "container",
    "property": "border-color",
-   "token": "brand-border-primary-default",
+   "token": "brand-background-primary-strong",
    "mode": "both",
    "mix": false
   },
@@ -3874,9 +3874,36 @@
    "variant": "Base",
    "state": "Default",
    "part": "box",
+   "property": "background",
+   "token": "brand-background-primary-light",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "box",
    "property": "border",
    "token": "neutral-text-subtle-light",
    "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "box",
+   "property": "fill",
+   "token": "brand-background-primary-light",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "box",
+   "property": "stroke",
+   "token": "brand-background-primary-light",
+   "mode": "dark",
    "mix": false
   },
   {
@@ -3919,9 +3946,27 @@
    "variant": "Base",
    "state": "Hover + Selected",
    "part": "box",
+   "property": "background",
+   "token": "brand-border-primary-hover",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover + Selected",
+   "part": "box",
    "property": "border-color",
    "token": "brand-background-primary-hover",
    "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Hover + Selected",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-border-primary-hover",
+   "mode": "dark",
    "mix": false
   },
   {
@@ -3955,9 +4000,27 @@
    "variant": "Base",
    "state": "Active + Selected",
    "part": "box",
+   "property": "background",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Active + Selected",
+   "part": "box",
    "property": "border-color",
    "token": "brand-background-primary-strong",
    "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Active + Selected",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
    "mix": false
   },
   {
@@ -4000,9 +4063,27 @@
    "variant": "Base",
    "state": "Selected",
    "part": "box",
+   "property": "background",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "box",
    "property": "border-color",
    "token": "brand-background-primary-strong",
    "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
    "mix": false
   },
   {
@@ -4117,9 +4198,27 @@
    "variant": "indeterminate",
    "state": "Indeterminate",
    "part": "box",
+   "property": "background",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
    "property": "border-color",
    "token": "brand-background-primary-strong",
    "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "indeterminate",
+   "state": "Indeterminate",
+   "part": "box",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
    "mix": false
   },
   {
@@ -6095,6 +6194,15 @@
   {
    "variant": "Base",
    "state": "Default",
+   "part": "bar",
+   "property": "background",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
    "part": "container",
    "property": "--cds-stroke-color",
    "token": "neutral-border-light",
@@ -6613,9 +6721,27 @@
    "variant": "checked",
    "state": "Default",
    "part": "option-checkbox",
+   "property": "background",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "checked",
+   "state": "Default",
+   "part": "option-checkbox",
    "property": "border-color",
    "token": "brand-background-primary-strong",
    "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "checked",
+   "state": "Default",
+   "part": "option-checkbox",
+   "property": "border-color",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
    "mix": false
   }
  ],
@@ -7145,6 +7271,15 @@
    "variant": "Base",
    "state": "Default",
    "part": "container",
+   "property": "--cds-slider-thumb-bg",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
    "property": "--cds-slider-thumb-border",
    "token": "neutral-text-on-color",
    "mode": "both",
@@ -7163,6 +7298,15 @@
    "variant": "Base",
    "state": "Default",
    "part": "container",
+   "property": "--cds-slider-thumb-ring",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
    "property": "--cds-slider-track-bg",
    "token": "neutral-surface-layer-03",
    "mode": "both",
@@ -7175,6 +7319,15 @@
    "property": "--cds-slider-track-fill",
    "token": "brand-background-primary-strong",
    "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Default",
+   "part": "container",
+   "property": "--cds-slider-track-fill",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
    "mix": false
   },
   {
@@ -7671,12 +7824,30 @@
   },
   {
    "variant": "Base",
+   "state": "Hover + Selected",
+   "part": "track",
+   "property": "background",
+   "token": "brand-border-primary-hover",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
    "state": "Active + Selected",
    "part": "track",
    "property": "background",
    "token": "brand-background-primary-strong",
    "mode": "both",
    "mix": true
+  },
+  {
+   "variant": "Base",
+   "state": "Active + Selected",
+   "part": "track",
+   "property": "background",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
+   "mix": false
   },
   {
    "variant": "Base",
@@ -7703,6 +7874,24 @@
    "property": "background",
    "token": "brand-background-primary-strong",
    "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "track",
+   "property": "background",
+   "token": "brand-background-primary-light",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "track",
+   "property": "background",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
    "mix": false
   },
   {
@@ -8262,6 +8451,15 @@
    "variant": "Base",
    "state": "Selected",
    "part": "container",
+   "property": "--cds-tab-indicator",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
+   "mix": false
+  },
+  {
+   "variant": "Base",
+   "state": "Selected",
+   "part": "container",
    "property": "color",
    "token": "brand-text-primary-default",
    "mode": "both",
@@ -8355,6 +8553,15 @@
    "property": "--cds-tab-indicator",
    "token": "brand-background-primary-strong",
    "mode": "both",
+   "mix": false
+  },
+  {
+   "variant": "vertical",
+   "state": "Selected",
+   "part": "container",
+   "property": "--cds-tab-indicator",
+   "token": "brand-border-primary-default",
+   "mode": "dark",
    "mix": false
   },
   {

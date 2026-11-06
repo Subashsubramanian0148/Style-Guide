@@ -2162,6 +2162,7 @@ interface EditorialColorGroup {
   eyebrow: string;
   title: string;
   category: "primary" | "secondary" | "tertiary" | "neutral" | "disabled" | "critical" | "warning" | "success" | "info";
+  note?: string;
   pillars: Array<{
     subgroup: string;
     tokens: FigmaTokenItem[];
@@ -2235,6 +2236,7 @@ function BaseColorsRedesignedSection() {
       eyebrow: "Colors",
       title: "Secondary Colors",
       category: "secondary",
+      note: "Fill only. In light mode this hue is too light for text or borders on white (under 3:1). Use it as a background with its On color text; use neutral or brand tokens for text and borders.",
       pillars: secondaryPillars,
     },
     {
@@ -2242,6 +2244,7 @@ function BaseColorsRedesignedSection() {
       eyebrow: "Colors",
       title: "Tertiary Colors",
       category: "tertiary",
+      note: "Fill only. In light mode this hue is too light for text or borders on white (under 3:1). Use it as a background with its On color text; use neutral or brand tokens for text and borders.",
       pillars: tertiaryPillars,
     },
     {
@@ -2444,6 +2447,23 @@ function BaseColorsRedesignedSection() {
                 >
                   {group.title}
                 </h3>
+                {group.note && (
+                  <p
+                    style={{
+                      margin: 0,
+                      maxWidth: 340,
+                      padding: "var(--core-space-3) var(--core-space-4)",
+                      borderRadius: 8,
+                      background: "var(--semantics-warning-background-light)",
+                      border: "1px solid var(--semantics-warning-border)",
+                      color: "var(--neutral-text-default)",
+                      fontSize: "var(--typography-font-size-sm)",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {group.note}
+                  </p>
+                )}
 
               </div>
 

@@ -167,7 +167,7 @@
 .cds-btn--primary {
   background: var(--brand-background-primary-strong);
   color: var(--brand-text-primary-oncolor);
-  border-color: var(--brand-border-primary-default);
+  border-color: var(--brand-background-primary-strong);
 }
 
 .cds-btn--primary:hover:not(:disabled) {
@@ -6448,4 +6448,63 @@
   font-weight: var(--typography-font-weight-bold);
   text-align: center;
   box-shadow: 0 0 0 var(--core-border-width-thick) var(--neutral-surface-layer-01);
+}
+
+/* Dark mode — selected markers.
+   The brand fill (primary-500) is only 2.06:1 on the dark surface, under the
+   3:1 floor for UI state. Markers that sit straight on the surface use the
+   brand border token instead (primary-300), with dark ink on top. Filled
+   buttons keep the brand fill, where white text still passes. */
+[data-mode="dark"] .cds-tab[aria-selected="true"],
+[data-mode="dark"] .cds-tab--vertical[aria-selected="true"] {
+  --cds-tab-indicator: var(--brand-border-primary-default);
+}
+
+[data-mode="dark"] .cds-checkbox input:checked + .cds-checkbox-box,
+[data-mode="dark"] .cds-radio input:checked + .cds-radio-box,
+[data-mode="dark"] .cds-checkbox-box--indeterminate,
+[data-mode="dark"] .cds-select-option-checkbox--checked {
+  background: var(--brand-border-primary-default);
+  border-color: var(--brand-border-primary-default);
+}
+
+[data-mode="dark"] .cds-checkbox:hover input:not(:disabled):checked + .cds-checkbox-box,
+[data-mode="dark"] .cds-radio:hover input:not(:disabled):checked + .cds-radio-box {
+  background: var(--brand-border-primary-hover);
+  border-color: var(--brand-border-primary-hover);
+}
+
+[data-mode="dark"] .cds-checkbox:active input:not(:disabled):checked + .cds-checkbox-box,
+[data-mode="dark"] .cds-radio:active input:not(:disabled):checked + .cds-radio-box {
+  background: var(--brand-border-primary-default);
+  border-color: var(--brand-border-primary-default);
+}
+
+[data-mode="dark"] .cds-checkbox-box svg path {
+  stroke: var(--brand-background-primary-light);
+}
+
+[data-mode="dark"] .cds-checkbox-box svg rect {
+  fill: var(--brand-background-primary-light);
+}
+
+[data-mode="dark"] .cds-radio-box .dot,
+[data-mode="dark"] .cds-switch input:checked + .cds-switch-track::after {
+  background: var(--brand-background-primary-light);
+}
+
+[data-mode="dark"] .cds-switch input:checked + .cds-switch-track,
+[data-mode="dark"] .cds-switch:active input:not(:disabled):checked + .cds-switch-track,
+[data-mode="dark"] .cds-progress-bar {
+  background: var(--brand-border-primary-default);
+}
+
+[data-mode="dark"] .cds-switch:hover input:not(:disabled):checked + .cds-switch-track {
+  background: var(--brand-border-primary-hover);
+}
+
+[data-mode="dark"] .cds-slider {
+  --cds-slider-track-fill: var(--brand-border-primary-default);
+  --cds-slider-thumb-bg: var(--brand-border-primary-default);
+  --cds-slider-thumb-ring: var(--brand-border-primary-default);
 }

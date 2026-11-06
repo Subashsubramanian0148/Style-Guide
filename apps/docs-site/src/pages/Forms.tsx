@@ -1019,6 +1019,14 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
           background: var(--brand-background-primary-hover) !important;
           border-color: var(--brand-background-primary-hover) !important;
         }
+        [data-mode="dark"] .force-hover .cds-checkbox input:checked:not(:disabled) + .cds-checkbox-box,
+        [data-mode="dark"] .force-hover .cds-radio input:checked:not(:disabled) + .cds-radio-box {
+          background: var(--brand-border-primary-hover) !important;
+          border-color: var(--brand-border-primary-hover) !important;
+        }
+        [data-mode="dark"] .force-hover .cds-switch input:checked:not(:disabled) + .cds-switch-track {
+          background: var(--brand-border-primary-hover) !important;
+        }
 
         .force-hover .cds-input,
         .force-hover .cds-combobox .cds-input,
@@ -1102,6 +1110,11 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
         .force-active .cds-radio input:checked:not(:disabled) + .cds-radio-box {
           background: var(--brand-background-primary-strong) !important;
           border-color: var(--brand-background-primary-strong) !important;
+        }
+        [data-mode="dark"] .force-active .cds-checkbox input:checked:not(:disabled) + .cds-checkbox-box,
+        [data-mode="dark"] .force-active .cds-radio input:checked:not(:disabled) + .cds-radio-box {
+          background: var(--brand-border-primary-default) !important;
+          border-color: var(--brand-border-primary-default) !important;
         }
         .force-error .cds-input[aria-invalid="true"] {
           border-color: var(--semantics-critical-border) !important;

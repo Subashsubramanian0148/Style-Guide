@@ -54,25 +54,28 @@ $accent-text-primary-light: (
 );
 
 $accent-text-primary-dark: (
-  // Dark-mode values follow the Figma base-color spec (Color page).
-  default: 500,
-  hover: 400,
-  active: 200,
-  disabled: 300,
+  // Dark mode needs the light end of the ramp: 500 measured 2.06:1 and 400
+  // 3.67:1 on the dark surface. 300 / 200 / 100 all pass 4.5:1.
+  default: 300,
+  hover: 200,
+  active: 100,
+  // Disabled was primary-300 in both modes; dark mode recedes to a muted neutral.
+  disabled: neutral(400),
 );
 
 $accent-text-oncolor: (
   light: (
     brand: neutral(white),
-    secondary: neutral(white),
-    tertiary: neutral(white),
+    // Sky and amber are light hues: white on their 500 fill is only ~2:1.
+    secondary: neutral(950),
+    tertiary: neutral(950),
   ),
   dark: (
     // primary-50 (#F5F7FA) on the lighter dark fill reaches only 4.29:1.
     // Pure white reaches 4.60:1 and passes WCAG AA.
     brand: prim(primary, 50),
-    secondary: neutral(white),
-    tertiary: neutral(white),
+    secondary: neutral(950),
+    tertiary: neutral(950),
   ),
 );
 
@@ -94,8 +97,9 @@ $accent-background-primary-dark: (
   active: 500,
   light: 900,
   subtle: 800,
-  disabled-light: neutral(100),
-  disabled-strong: 200,
+  // Was neutral 100 / primary-200 — the light-mode values, glaring on dark.
+  disabled-light: neutral(800),
+  disabled-strong: neutral(700),
 );
 
 $accent-border-primary-light: (
@@ -106,10 +110,10 @@ $accent-border-primary-light: (
 );
 
 $accent-border-primary-dark: (
-  // Dark-mode values follow the Figma base-color spec (Color page).
-  default: 500,
-  hover: 300,
-  disabled: 200,
+  // 500 measured 2.06:1 on the dark surface; 300 clears the 3:1 UI floor.
+  default: 300,
+  hover: 200,
+  disabled: neutral(600),
 );
 
 // ── Per-role overrides ───────────────────────────────────────────────────────
@@ -123,12 +127,18 @@ $accent-overrides: (
   // hover/active (400 / 300) where brand uses 600 / 500.
   secondary: (
     dark: (
-      background: (strong: 500, hover: 400, active: 300, light: 900, subtle: 800, disabled-light: neutral(100), disabled-strong: 200),
+      background: (strong: 500, hover: 400, active: 300, light: 900, subtle: 800, disabled-light: neutral(800), disabled-strong: neutral(700)),
+      // These hues already pass on the dark surface at 500; only brand moved to 300.
+      text: (default: 500, hover: 400, active: 200, disabled: neutral(400)),
+      border: (default: 500, hover: 300, disabled: neutral(600)),
     ),
   ),
   tertiary: (
     dark: (
-      background: (strong: 500, hover: 400, active: 300, light: 900, subtle: 800, disabled-light: neutral(100), disabled-strong: 200),
+      background: (strong: 500, hover: 400, active: 300, light: 900, subtle: 800, disabled-light: neutral(800), disabled-strong: neutral(700)),
+      // These hues already pass on the dark surface at 500; only brand moved to 300.
+      text: (default: 500, hover: 400, active: 200, disabled: neutral(400)),
+      border: (default: 500, hover: 300, disabled: neutral(600)),
     ),
   ),
 );
@@ -183,7 +193,8 @@ $accent-overrides: (
 $neutral-text-light: (
   default: 900,
   subtle: 600,
-  subtle-light: 500,
+  // 500 measured 4.34:1 on white, under 4.5:1 for text; 600 gives 6.57:1.
+  subtle-light: 600,
   on-color: white,
   // Disabled labels (tabs, nav items): one step lighter than resting text,
   // which already uses 600 — the shared disabled text step.
@@ -213,8 +224,10 @@ $neutral-border-dark: (
   // Dark-mode values follow the Figma base-color spec (Color page).
   subtle: 800,
   light: 700,
-  default: 600,
-  strong: 600,
+  // Slider track, quick-link arrow: 600 measured 2.57:1 on the dark surface; 500 passes 3:1.
+  default: 500,
+  // Form-field outlines: 600 measured 2.57:1 on the dark surface; 500 passes 3:1.
+  strong: 500,
   inverse: 900,
   background-strong: 700,
 );
@@ -354,10 +367,11 @@ $semantics-disabled-neutral-light: (
 );
 
 $semantics-disabled-neutral-dark: (
-  // Dark-mode values follow the Figma base-color spec (Color page).
-  background: 50,
+  // Was 50 / 700 / 600 — identical to light mode, so disabled fields showed a
+  // near-white box on the dark canvas. Restored to the dark steps.
+  background: 800,
   border: 700,
-  text: 600,
+  text: 400,
 );
 
 // background and text were 50 / 700 — the enabled light-background and text
