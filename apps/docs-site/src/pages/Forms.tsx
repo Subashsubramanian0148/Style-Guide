@@ -331,10 +331,18 @@ export default function Forms({ embedded = false }: { embedded?: boolean }) {
               anatomy={<CalendarAnatomy />}
               demo={<>
             <Preview showModeToggle>
-              <div style={{ display: "flex", gap: 40, flexWrap: "wrap" }}>
+              <div className="calendar-demo-row">
                 <div>
-                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Calendar (Active)</div>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Day view</div>
                   <Calendar selected={dob} onSelect={setDob} onClear={() => setDob(undefined)} maxDate={new Date()} />
+                </div>
+                <div>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Month view</div>
+                  <Calendar initialView="month" selected={dob} onSelect={setDob} onClear={() => setDob(undefined)} maxDate={new Date()} />
+                </div>
+                <div>
+                  <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Year view</div>
+                  <Calendar initialView="year" selected={dob} onSelect={setDob} onClear={() => setDob(undefined)} maxDate={new Date()} />
                 </div>
                 <div>
                   <div style={{ fontSize: "var(--typography-label-size)", lineHeight: "var(--typography-label-line-height)", fontWeight: "var(--typography-label-weight)", letterSpacing: "var(--typography-label-letter-spacing)", color: "var(--neutral-text-subtle)", marginBottom: 12 }}>Calendar (Disabled)</div>

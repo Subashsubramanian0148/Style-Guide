@@ -5,6 +5,9 @@ import { CalendarIcon } from "./Primitives";
 import { Popover } from "./Overlays";
 
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+export type CalendarView = "day" | "month" | "year";
 
 function daysInMonth(year: number, month: number) { return new Date(year, month + 1, 0).getDate(); }
 function startWeekday(year: number, month: number) { return new Date(year, month, 1).getDay(); }
@@ -18,9 +21,11 @@ export interface CalendarProps {
   minDate?: Date;
   maxDate?: Date;
   disabled?: boolean;
+  /** Which view opens first: days (default), months or years. */
+  initialView?: CalendarView;
 }
 
-export function Calendar({ selected, onSelect, onClear, minDate, maxDate, disabled }: CalendarProps) {
+export function Calendar({ selected, onSelect, onClear, minDate, maxDate, disabled, initialView = "day" }: CalendarProps) {
   const [cursor, setCursor] = useState(selected ?? new Date());
   // Roving tabindex (WAI-ARIA APG grid pattern: https://www.w3.org/WAI/ARIA/apg/patterns/grid/)
   // — exactly one day is a Tab stop at a time; Arrow/Home/End/PageUp/PageDown
@@ -29,6 +34,9 @@ export function Calendar({ selected, onSelect, onClear, minDate, maxDate, disabl
   // week was 17+ consecutive Tab presses, and date-by-date navigation
   // (trivial with a mouse) had no keyboard equivalent whatsoever.
   const [focused, setFocused] = useState(selected ?? new Date());
+  // Clicking the title zooms out: days → months → a 12-year block.
+  // Picking a month or year zooms back in.
+  const [view, setView] = useState<CalendarView>(initialView);
   const shouldFocusRef = useRef(false);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -42,11 +50,22 @@ export function Calendar({ selected, onSelect, onClear, minDate, maxDate, disabl
   while (cells.length % 7 !== 0) cells.push({ date: new Date(year, month, total + (cells.length % 7)), outside: true });
 
   const monthLabel = cursor.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+  const decadeStart = year - (year % 10);
+  const today = new Date();
+  const title = view === "day" ? monthLabel : view === "month" ? String(year) : `${decadeStart} - ${decadeStart + 9}`;
+
+  const step = (dir: -1 | 1) => {
+    if (view === "day") setCursor(new Date(year, month + dir, 1));
+    else if (view === "month") setCursor(new Date(year + dir, month, 1));
+    else setCursor(new Date(year + dir * 10, month, 1));
+  };
+  const navLabel = view === "day" ? "month" : view === "month" ? "year" : "decade";
 
   const goToToday = () => {
     const today = new Date();
     setCursor(new Date(today.getFullYear(), today.getMonth(), 1));
     setFocused(today);
+    setView("day");
     shouldFocusRef.current = true;
     onSelect(today);
   };
@@ -112,14 +131,53 @@ export function Calendar({ selected, onSelect, onClear, minDate, maxDate, disabl
   return (
     <div className={`cds-calendar ${disabled ? "cds-calendar--disabled" : ""}`} role="group" aria-label="Calendar">
       <div className="cds-calendar-header">
-        <button type="button" className="cds-calendar-nav" disabled={disabled} onClick={() => setCursor(new Date(year, month - 1, 1))} aria-label="Previous month">‹</button>
+        <button type="button" className="cds-calendar-nav" disabled={disabled} onClick={() => step(-1)} aria-label={`Previous ${navLabel}`}>‹</button>
         {/* aria-live: Prev/Next (and PageUp/PageDown on a day cell) change
             the visible month with nothing else on screen announcing it —
             without this a screen reader user gets no feedback that
             anything happened. */}
-        <span className="cds-calendar-title" aria-live="polite">{monthLabel}</span>
-        <button type="button" className="cds-calendar-nav" disabled={disabled} onClick={() => setCursor(new Date(year, month + 1, 1))} aria-label="Next month">›</button>
+        <button
+          type="button"
+          className="cds-calendar-title"
+          aria-live="polite"
+          disabled={disabled || view === "year"}
+          onClick={() => setView(view === "day" ? "month" : "year")}
+        >
+          {title}
+        </button>
+        <button type="button" className="cds-calendar-nav" disabled={disabled} onClick={() => step(1)} aria-label={`Next ${navLabel}`}>›</button>
       </div>
+      {view === "month" && (
+        <div className="cds-calendar-picker">
+          {MONTHS.map((m, i) => (
+            <button
+              key={m}
+              type="button"
+              className={`cds-calendar-cell ${today.getFullYear() === year && today.getMonth() === i ? "cds-calendar-cell--today" : ""}`}
+              aria-pressed={(selected && selected.getFullYear() === year && selected.getMonth() === i) || undefined}
+              onClick={() => { setCursor(new Date(year, i, 1)); setView("day"); }}
+            >
+              {m}
+            </button>
+          ))}
+        </div>
+      )}
+      {view === "year" && (
+        <div className="cds-calendar-picker">
+          {Array.from({ length: 12 }, (_, i) => decadeStart - 1 + i).map((y, i) => (
+            <button
+              key={y}
+              type="button"
+              className={`cds-calendar-cell ${i === 0 || i === 11 ? "cds-calendar-day--outside" : ""} ${today.getFullYear() === y ? "cds-calendar-cell--today" : ""}`}
+              aria-pressed={(selected && selected.getFullYear() === y) || undefined}
+              onClick={() => { setCursor(new Date(y, month, 1)); setView("month"); }}
+            >
+              {y}
+            </button>
+          ))}
+        </div>
+      )}
+      {view === "day" && (
       <div className="cds-calendar-grid" ref={gridRef}>
         {WEEKDAYS.map((w, i) => <div className="cds-calendar-weekday" key={i}>{w}</div>)}
         {cells.map(({ date, outside }, i) => {
@@ -131,7 +189,7 @@ export function Calendar({ selected, onSelect, onClear, minDate, maxDate, disabl
               key={i}
               type="button"
               data-date={date.toDateString()}
-              className={`cds-calendar-day ${outside ? "cds-calendar-day--outside" : ""}`}
+              className={`cds-calendar-day ${outside ? "cds-calendar-day--outside" : ""} ${sameDay(date, today) ? "cds-calendar-day--today" : ""}`}
               aria-pressed={isSelected || undefined}
               tabIndex={isFocusTarget ? 0 : -1}
               disabled={!!isDateDisabled}
@@ -143,6 +201,7 @@ export function Calendar({ selected, onSelect, onClear, minDate, maxDate, disabl
           );
         })}
       </div>
+      )}
       <div className="cds-calendar-footer">
         <Button type="button" variant="tertiary" size="sm" disabled={disabled || !onClear} onClick={onClear}>
           Clear
@@ -163,7 +222,12 @@ export interface DatePickerProps {
   id?: string;
 }
 
-export function DatePicker({ value, onChange, placeholder = "Select date", disabled, id }: DatePickerProps) {
+export function DatePicker({ value: valueProp, onChange, placeholder = "Select date", disabled, id }: DatePickerProps) {
+  // Uncontrolled fallback: without onChange the picker keeps its own value,
+  // so a picked date still shows in the field.
+  const [inner, setInner] = useState(valueProp);
+  const value = onChange ? valueProp : inner;
+  const change = (d: Date | undefined) => { setInner(d); onChange?.(d); };
   const trigger = (
     <InputWithIcon
       id={id}
@@ -183,8 +247,8 @@ export function DatePicker({ value, onChange, placeholder = "Select date", disab
       <Popover trigger={trigger}>
         <Calendar
           selected={value}
-          onSelect={(d) => onChange?.(d)}
-          onClear={onChange ? () => onChange(undefined) : undefined}
+          onSelect={(d) => change(d)}
+          onClear={() => change(undefined)}
         />
       </Popover>
     </div>

@@ -4788,10 +4788,24 @@
 }
 
 .cds-calendar-title {
+  padding: var(--core-space-1) var(--core-space-2);
+  border: none;
+  border-radius: var(--core-radius-sm);
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
   font-size: var(--typography-body-lg-size);
   line-height: var(--typography-body-lg-line-height);
   font-weight: var(--typography-font-weight-semibold);
   color: var(--neutral-text-default);
+}
+
+.cds-calendar-title:hover:not(:disabled) {
+  background: var(--neutral-surface-layer-02);
+}
+
+.cds-calendar-title:disabled {
+  cursor: default;
 }
 
 .cds-calendar-nav {
@@ -4870,6 +4884,53 @@
 .cds-calendar--disabled .cds-calendar-day[aria-pressed="true"] {
   background: var(--brand-background-primary-disabled);
   color: var(--brand-text-primary-disabled);
+}
+
+/* Today: outlined ring, so it stays distinct from the filled selected day. */
+.cds-calendar-day--today:not([aria-pressed="true"]),
+.cds-calendar-cell--today:not([aria-pressed="true"]) {
+  box-shadow: inset 0 0 0 1px var(--brand-border-primary-default);
+  color: var(--brand-text-primary-default);
+  font-weight: var(--typography-font-weight-semibold);
+}
+
+.cds-calendar--disabled .cds-calendar-day--today:not([aria-pressed="true"]) {
+  box-shadow: inset 0 0 0 1px var(--semantics-disabled-border);
+  color: var(--semantics-disabled-text);
+}
+
+/* Month and year views: 3 columns x 4 rows. */
+.cds-calendar-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--core-space-2);
+  padding: var(--core-space-2) var(--core-space-0);
+}
+
+.cds-calendar-cell {
+  height: 32px;
+  border: none;
+  border-radius: var(--core-radius-sm);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--typography-body-md-size);
+  color: var(--neutral-text-default);
+  cursor: pointer;
+}
+
+.cds-calendar-cell:hover:not([aria-pressed="true"]) {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.cds-calendar-cell[aria-pressed="true"] {
+  background: var(--brand-background-primary-strong);
+  color: var(--brand-text-primary-oncolor);
+  font-weight: var(--typography-font-weight-semibold);
+}
+
+.cds-calendar-cell:focus-visible {
+  outline: var(--core-focusRing-width) solid var(--cds-focus-color);
+  outline-offset: 1px;
 }
 
 .cds-calendar-footer {

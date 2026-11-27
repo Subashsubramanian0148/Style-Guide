@@ -228,6 +228,10 @@ const STATES: Record<string, Variant[]> = {
     st("Active", "calendar", <Calendar selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} />, ".cds-calendar", false),
     st("Disabled", "calendar", <Calendar disabled selected={new Date(2026, 8, 15)} onSelect={() => {}} />, ".cds-calendar", false),
     st("Day — selected", "day cell", <Calendar selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} />, ".cds-calendar-day[aria-pressed='true']", false),
+    st("Month view", "calendar", <Calendar initialView="month" selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} />, ".cds-calendar", false),
+    st("Month — selected", "month cell", <Calendar initialView="month" selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} />, ".cds-calendar-cell[aria-pressed='true']", false),
+    st("Year view", "calendar", <Calendar initialView="year" selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} />, ".cds-calendar", false),
+    st("Year — selected", "year cell", <Calendar initialView="year" selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} />, ".cds-calendar-cell[aria-pressed='true']", false),
   ],
   "data-table": [
     st("Row — comfortable", "density comfortable", <Table columns={[{ key: "a", header: "Date" }]} rows={[{ id: 1, a: "Mar 14, 2026" }]} />, "tbody tr"),
