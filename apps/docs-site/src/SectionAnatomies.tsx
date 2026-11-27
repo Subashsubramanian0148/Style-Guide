@@ -1243,8 +1243,12 @@ export function LineChartAnatomy() {
 
 /* ---------- Calendar ---------- */
 
+/** Anatomy diagrams are static pictures: no clicks, no focus. */
+const STATIC = { inert: "", style: { pointerEvents: "none" as const } } as React.HTMLAttributes<HTMLDivElement>;
+
 export function CalendarAnatomy() {
   return (
+    <>
     <MeasuredAnatomy
       heading="Structure — header, day grid & footer"
       width={280}
@@ -1264,7 +1268,7 @@ export function CalendarAnatomy() {
         { node: "Calendar", cls: ".cds-calendar", direction: "Vertical", alignment: "Top left", spacing: "—", sel: ".cds-calendar" },
         { node: "Header", cls: ".cds-calendar-header", direction: "Horizontal", alignment: "Middle, space between", spacing: "Padding 12 / 4", sel: ".cds-calendar-header" },
         { node: "Nav button", cls: ".cds-calendar-nav", direction: "Horizontal", alignment: "Middle center", spacing: "Padding 0 / 4", sel: ".cds-calendar-nav" },
-        { node: "Month title", cls: ".cds-calendar-title", direction: "—", alignment: "Middle center", spacing: "—", sel: ".cds-calendar-title" },
+        { node: "Title button", cls: ".cds-calendar-title", direction: "—", alignment: "Middle center", spacing: "Padding 4 / 8", sel: ".cds-calendar-title" },
         { node: "Day grid", cls: ".cds-calendar-grid", direction: "Grid 7 columns", alignment: "Top left", spacing: "Gap 4", sel: ".cds-calendar-grid" },
         { node: "Weekday", cls: ".cds-calendar-weekday", direction: "—", alignment: "Middle center", spacing: "Padding 4 / 0", sel: ".cds-calendar-weekday" },
         { node: "Day", cls: ".cds-calendar-day", direction: "—", alignment: "Middle center", spacing: "Padding 0 / 4", sel: ".cds-calendar-day" },
@@ -1280,10 +1284,45 @@ export function CalendarAnatomy() {
         pass("Nav button", "28 × 28", q.size(".cds-calendar-nav")),
         pass("Width", "280px", `${q.el(".cds-calendar").offsetWidth}px`),
       ]}
-      note="Selected, today and disabled days change only color and weight; the grid stays the same."
+      note="Selected and disabled days change only color and weight; today adds a 1px outline. Click the title to switch to the month view."
     >
-      <Calendar selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} />
+      <div {...STATIC}><Calendar selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} /></div>
     </MeasuredAnatomy>
+    {(["month", "year"] as const).map((view) => (
+      <MeasuredAnatomy
+        key={view}
+        heading={view === "month" ? "Month view — 3 × 4 month grid" : "Year view — 3 × 4 year grid"}
+        width={280}
+        maxScale={1.75}
+        marks={[
+          { kind: "padding", sel: ".cds-calendar-header" },
+          { kind: "padding", sel: ".cds-calendar-title" },
+          { kind: "gap", a: ".cds-calendar-cell:nth-child(1)", b: ".cds-calendar-cell:nth-child(2)", axis: "x" },
+          { kind: "gap", a: ".cds-calendar-cell:nth-child(1)", b: ".cds-calendar-cell:nth-child(4)", axis: "y" },
+          { kind: "size", sel: ".cds-calendar-cell:nth-child(1)", name: view === "month" ? "Month cell" : "Year cell" },
+          { kind: "gap", a: ".cds-calendar-picker", b: ".cds-calendar-footer", axis: "y" },
+          { kind: "outline", sel: ".cds-calendar-picker" },
+        ]}
+        layers={[
+          { node: "Title button", cls: ".cds-calendar-title", direction: "—", alignment: "Middle center", spacing: "Padding 4 / 8", sel: ".cds-calendar-title" },
+          { node: view === "month" ? "Month grid" : "Year grid", cls: ".cds-calendar-picker", direction: "Grid 3 columns", alignment: "Top left", spacing: "Gap 8 · Padding 8 / 0", sel: ".cds-calendar-picker" },
+          { node: view === "month" ? "Month" : "Year", cls: ".cds-calendar-cell", direction: "—", alignment: "Middle center", spacing: "32px high", sel: ".cds-calendar-cell" },
+        ]}
+        specs={(q) => [
+          pass("Grid gap", "core-space-2", `${q.px(".cds-calendar-picker", "row-gap")}px`),
+          pass("Grid padding", "core-space-2 / core-space-0", `${q.px(".cds-calendar-picker", "padding-top")}px ${q.px(".cds-calendar-picker", "padding-left")}px`),
+          pass("Cell height", "32px", `${q.el(".cds-calendar-cell").offsetHeight}px`),
+          pass("Cell radius", "core-radius-sm", `${q.px(".cds-calendar-cell", "border-top-left-radius")}px`),
+          pass("Width", "280px", `${q.el(".cds-calendar").offsetWidth}px`),
+        ]}
+        note={view === "month"
+          ? "Picking a month returns to the day view. Click the title again for the year view."
+          : "Shows a 10-year block plus one year either side (muted). Picking a year opens its months."}
+      >
+        <div {...STATIC}><Calendar initialView={view} selected={new Date(2026, 8, 15)} onSelect={() => {}} onClear={() => {}} /></div>
+      </MeasuredAnatomy>
+    ))}
+    </>
   );
 }
 
